@@ -19,7 +19,7 @@ services:
       - SPRING_DATA_REDIS_PASSWORD=${REDIS_PASSWORD}
     restart: always
     networks:
-      - app-networks
+      - app-network
 
 networks:
   app-networks:
