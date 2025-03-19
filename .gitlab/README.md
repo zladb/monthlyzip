@@ -14,7 +14,7 @@
  
 3. 작업 후 커밋 <br>
 `git add .` <br>
-`git commit -m "feat: 기능 구현"` <br>
+`git commit -m "init: MR 템플릿 생성성"` <br>
 
 4. 원격에 푸시 <br>
 `git push origin init/S12P21D109-81` <br>
