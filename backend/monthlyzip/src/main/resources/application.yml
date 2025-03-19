@@ -5,9 +5,9 @@ spring:
     active: secret
   devtools:
     restart:
-      enabled: true  # ?? ?? ?? ? ???
+      enabled: true
     livereload:
-      enabled: true  # ????? ?? ? ????
+      enabled: true
 
   jpa:
     generate-ddl: true
