@@ -3,6 +3,8 @@ spring:
     name: monthlyzip
   profiles:
     active: secret
+    group:
+      prod: secret
   devtools:
     restart:
       enabled: true
