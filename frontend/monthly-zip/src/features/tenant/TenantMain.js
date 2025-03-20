@@ -65,7 +65,7 @@ const TenantMain = () => {
             {next_payment.payment_overdue > 0 && (
               <div className="payment-info-card">
                 <h2>미납 현황</h2>
-                <p className="overdue">{next_payment.payment_overdue}회 미납</p>
+                <p className="overdue">{next_payment.payment_overdue}회</p>
               </div>
             )}
           </div>
