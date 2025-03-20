@@ -38,4 +38,15 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> fail(ApiResponseStatus status) {
         return new ApiResponse<>(false, status.getCode(), status.getMessage(), null);
     }
+
+    // ✅ `toString()` 오버라이드 (로그 출력 개선)
+    @Override
+    public String toString() {
+        return "ApiResponse{" +
+                "success=" + success +
+                ", code=" + code +
+                ", message='" + message + '\'' +
+                (result != null ? ", result=" + result : "") +
+                '}';
+    }
 }
