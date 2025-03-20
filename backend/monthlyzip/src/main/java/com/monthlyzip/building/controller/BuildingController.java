@@ -6,7 +6,6 @@ import com.monthlyzip.building.model.dto.response.BuildingDetailResponseDto;
 import com.monthlyzip.building.model.dto.response.BuildingResponseDto;
 import com.monthlyzip.building.service.BuildingService;
 import com.monthlyzip.global.common.model.dto.ApiResponse;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,7 @@ public class BuildingController {
     @GetMapping("/{building_id}")
     public ApiResponse<BuildingDetailResponseDto> getBuildingById(
             @PathVariable("building_id") Long buildingId) {
-        log.debug("건물 상세 조회 요청 - ID: {}", buildingId);
+        log.debug("건물 상세 조회 요청");
         return ApiResponse.success(buildingService.getBuildingById(buildingId));
     }
 
@@ -32,7 +31,7 @@ public class BuildingController {
     @GetMapping
     public ApiResponse<List<BuildingResponseDto>> getBuildings(
             @RequestParam(value = "ownerId", required = false) Long ownerId) {
-        log.debug("건물 목록 조회 요청 - ownerId: {}", ownerId);
+        log.debug("건물 목록 조회 요청");
         return ApiResponse.success(buildingService.getBuildings(ownerId));
     }
 
@@ -41,7 +40,7 @@ public class BuildingController {
     public ApiResponse<BuildingResponseDto> createBuilding(
             @RequestBody @Valid BuildingRequestDto requestDto
     ){
-        log.debug("건물 생성 요청 - 데이터: {}", requestDto);
+        log.debug("건물 생성 요청");
         return ApiResponse.success(buildingService.createBuilding(requestDto));
     }
 
@@ -50,14 +49,14 @@ public class BuildingController {
     public ApiResponse<BuildingResponseDto> updateBuilding(
             @PathVariable("building_id") Long buildingId,
             @RequestBody BuildingUpdateRequestDto requestDto) {
-        log.debug("건물 업데이트 요청 - 데이터: {}", requestDto);
+        log.debug("건물 업데이트 요청");
         return ApiResponse.success(buildingService.updateBuilding(buildingId, requestDto));
     }
 
     // ✅ 건물 삭제
     @DeleteMapping("/{building_id}")
     public ApiResponse<Void> deleteBuilding(@PathVariable("building_id") Long buildingId) {
-        log.info("건물 삭제 요청 - ID: {}", buildingId);
+        log.info("건물 삭제 요청");
         buildingService.deleteBuilding(buildingId);
         return ApiResponse.success();  // ✅ 204 No Content 응답
     }

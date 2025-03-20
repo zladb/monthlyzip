@@ -6,7 +6,6 @@ import com.monthlyzip.building.model.dto.response.BuildingDetailResponseDto;
 import com.monthlyzip.building.model.dto.response.BuildingResponseDto;
 import com.monthlyzip.building.model.entity.Building;
 import com.monthlyzip.building.repository.BuildingRepository;
-import com.monthlyzip.global.common.model.dto.ApiResponse;
 import com.monthlyzip.member.model.entity.Member;
 import com.monthlyzip.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
@@ -34,7 +33,7 @@ public class BuildingService {
         List<Building> buildings;
 
         if (ownerId != null) {
-            log.info("특정 소유자의 건물 조회 - ownerId: {}", ownerId);
+            log.info("특정 소유자의 건물 조회");
 
             boolean ownerExists = memberRepository.existsById(ownerId);
             if (!ownerExists) {
@@ -68,7 +67,7 @@ public class BuildingService {
 
     @Transactional
     public BuildingResponseDto updateBuilding(Long buildingId, BuildingUpdateRequestDto requestDto) {
-        log.info("건물 정보 수정 실행 - ID: {}", buildingId);
+        log.info("건물 정보 수정 실행");
 
         // ✅ 1. 건물 엔티티 조회
         Building building = buildingRepository.findById(buildingId)
@@ -88,10 +87,10 @@ public class BuildingService {
 
         // ✅ 3. 변경된 경우에만 save() 호출하여 updatedAt 자동 갱신 보장
         if (isUpdated) {
-            buildingRepository.save(building);  // ✅ 반드시 save() 호출하여 @UpdateTimestamp 적용 보장
-            log.info("건물 정보 수정 완료 - ID: {}", buildingId);
+//            buildingRepository.save(building);  // ✅ 반드시 save() 호출하여 @UpdateTimestamp 적용 보장
+            log.info("건물 정보 수정 완료");
         } else {
-            log.info("변경 사항이 없어 업데이트하지 않음 - ID: {}", buildingId);
+            log.info("변경 사항이 없어 업데이트하지 않음");
         }
 
         // ✅ 4. 업데이트된 엔티티를 DTO로 변환하여 응답 반환
@@ -100,13 +99,13 @@ public class BuildingService {
 
     @Transactional
     public void deleteBuilding(Long buildingId) {
-        log.info("건물 삭제 - ID: {}", buildingId);
+        log.info("건물 삭제");
 
         if (!buildingRepository.existsById(buildingId)) {
             throw new IllegalArgumentException("해당 건물이 존재하지 않습니다. ID: " + buildingId);
         }
 
         buildingRepository.deleteById(buildingId);
-        log.info("건물 삭제 완료 - ID: {}", buildingId);
+        log.info("건물 삭제 완료");
     }
 }
