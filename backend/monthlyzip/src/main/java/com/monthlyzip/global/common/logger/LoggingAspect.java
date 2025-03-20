@@ -152,25 +152,39 @@ public class LoggingAspect {
     }
 
     /**
-     * ✅ API URL 자동 추출
+     * ✅ API URL 자동 추출 (클래스 + 메서드 조합, 대괄호 유지)
      */
     private String getApiPath(Method method) {
+        Class<?> declaringClass = method.getDeclaringClass();
+
+        // ✅ 클래스 레벨의 @RequestMapping 경로 가져오기
+        String classPath = "";
+        if (declaringClass.isAnnotationPresent(RequestMapping.class)) {
+            RequestMapping classMapping = declaringClass.getAnnotation(RequestMapping.class);
+            if (classMapping.value().length > 0) {
+                classPath = Arrays.toString(classMapping.value()); // 대괄호 유지
+            }
+        }
+
+        // ✅ 메서드 레벨의 경로 가져오기
+        String methodPath = "";
         if (method.isAnnotationPresent(GetMapping.class)) {
-            return Arrays.toString(method.getAnnotation(GetMapping.class).value());
+            methodPath = Arrays.toString(method.getAnnotation(GetMapping.class).value());
+        } else if (method.isAnnotationPresent(PostMapping.class)) {
+            methodPath = Arrays.toString(method.getAnnotation(PostMapping.class).value());
+        } else if (method.isAnnotationPresent(PatchMapping.class)) {
+            methodPath = Arrays.toString(method.getAnnotation(PatchMapping.class).value());
+        } else if (method.isAnnotationPresent(DeleteMapping.class)) {
+            methodPath = Arrays.toString(method.getAnnotation(DeleteMapping.class).value());
+        } else if (method.isAnnotationPresent(RequestMapping.class)) {
+            methodPath = Arrays.toString(method.getAnnotation(RequestMapping.class).value());
         }
-        if (method.isAnnotationPresent(PostMapping.class)) {
-            return Arrays.toString(method.getAnnotation(PostMapping.class).value());
+
+        // ✅ 클래스 레벨과 메서드 레벨 조합 (대괄호 유지)
+        if (!classPath.isEmpty() && !methodPath.isEmpty()) {
+            return classPath.substring(0, classPath.length() - 1) + methodPath.substring(1); // 두 개 조합
         }
-        if (method.isAnnotationPresent(PatchMapping.class)) {
-            return Arrays.toString(method.getAnnotation(PatchMapping.class).value());
-        }
-        if (method.isAnnotationPresent(DeleteMapping.class)) {
-            return Arrays.toString(method.getAnnotation(DeleteMapping.class).value());
-        }
-        if (method.isAnnotationPresent(RequestMapping.class)) {
-            return Arrays.toString(method.getAnnotation(RequestMapping.class).value());
-        }
-        return "API";
+        return !classPath.isEmpty() ? classPath : methodPath; // 하나만 존재하면 그대로 반환
     }
 
     /**
