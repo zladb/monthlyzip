@@ -31,6 +31,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.springframework.boot:spring-boot-starter-validation' // 유효성검사
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1' // p6spy, db 쿼리 ? 대신 실제 값 표시
 
 	// DB
 	runtimeOnly 'com.mysql:mysql-connector-j'
