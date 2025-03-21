@@ -6,7 +6,7 @@ services:
       args:
         PROFILE: prod  # 빌드시 ARG PROFILE에 전달할 값
     image: monthlyzip-app
-    container_name: monthlyzip-app
+    container_name: mo`nthlyzip-app
     ports:
       - "8081:8081"
     environment:
@@ -19,8 +19,7 @@ services:
       - SPRING_DATA_REDIS_PASSWORD=${REDIS_PASSWORD}
     restart: always
     networks:
-      - app-networks
-
+      - app-network
 networks:
-  app-networks:
+  app-network:
     external: true
