@@ -3,11 +3,13 @@ spring:
     name: monthlyzip
   profiles:
     active: secret
+    group:
+      prod: secret
   devtools:
     restart:
-      enabled: true  # ?? ?? ?? ? ???
+      enabled: true
     livereload:
-      enabled: true  # ????? ?? ? ????
+      enabled: true
 
   jpa:
     generate-ddl: true
@@ -17,3 +19,6 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+
+server:
+  port: 8081
