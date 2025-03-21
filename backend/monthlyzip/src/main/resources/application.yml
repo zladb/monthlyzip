@@ -1,15 +1,15 @@
 spring:
+  config:
+    import: application-secret.yml  # 🔹 application-secret.yml 파일 import
   application:
     name: monthlyzip
   profiles:
     active: secret
-    group:
-      prod: secret
   devtools:
     restart:
-      enabled: true
+      enabled: true  # ?? ?? ?? ? ???
     livereload:
-      enabled: true
+      enabled: true  # ????? ?? ? ????
 
   jpa:
     generate-ddl: true
@@ -18,7 +18,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    show-sql: true
+    show-sql: false
 
-server:
-  port: 8081
+logging:
+  level:
+    p6spy: info   # ✅ 마지막 실행된 SQL만 출력
+    org.hibernate.SQL: info  # Hibernate 기본 SQL 로그 줄이기
+    root: INFO
+    com.monthlyzip: DEBUG  # ✅ 프로젝트 패키지에 대해 DEBUG 레벨 적용
