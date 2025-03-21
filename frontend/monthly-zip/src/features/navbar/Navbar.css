@@ -1,0 +1,41 @@
+/* Navbar.css */
+.navbar {
+  position: fixed;             /* 항상 상단에 고정 */
+  top: 0;
+  left: 0;
+  width: 100%;                 /* 전체 페이지 너비 차지 */
+  background-color: white;    /* 배경을 흰색으로 설정 */
+  color: black;               /* 글자 색을 검은색으로 설정 */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;              /* 다른 요소 위에 보이도록 설정 */
+  box-sizing: border-box;     /* 패딩 포함하여 너비 계산 */
+}
+
+.navbar .logo h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: black;               /* 로고 텍스트 색을 검은색으로 설정 */
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links li {
+  margin: 0;
+}
+
+.navbar-links a {
+  color: black;               /* 링크 색을 검은색으로 설정 */
+  text-decoration: none;      /* 밑줄 제거 */
+}
+
+body {
+  padding-top: 70px;           /* Navbar 높이에 맞춰 페이지 아래로 밀어주기 */
+}

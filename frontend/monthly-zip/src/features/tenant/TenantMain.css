@@ -1,0 +1,147 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+  }
+  
+  .tenant-main-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 사용자 정보 */
+  .tenant-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .profile-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .tenant-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+/* 카드 형식에 대한 기본 스타일 */
+.payment-info-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .payment-info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* 카드 내 제목 스타일 */
+  .payment-info-card h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* 각 카드의 내용 스타일 */
+  .payment-info-card p {
+    font-size: 16px;
+    margin: 5px 0;
+    color: #666;
+  }
+  
+  /* 문의하기 버튼 스타일 */
+  .payment-info-card button {
+    padding: 8px 15px;
+    font-size: 16px;
+    background-color: #4CAF50;  /* 초록색 버튼 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .payment-info-card button:hover {
+    background-color: #45a049;
+  }
+  
+  /* 미납 현황 강조 스타일 */
+  .payment-info-card .overdue {
+    color: red;
+    font-weight: bold;
+  }
+  
+  /* 카드 컨테이너 스타일 (세 개의 카드 정렬) */
+  .payment-info-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  
+
+  /* 문의 내역 */
+  .inquiry-list {
+    padding: 15px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+  }
+  
+  .inquiry-list h2 {
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    color: #2563eb;
+  }
+  
+  /* 문의 아이템 */
+  .inquiry-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+  }
+  
+  .inquiry-item h3 {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+  }
+  
+  .inquiry-item p {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .inquiry-item.read {
+    background-color: #e5e7eb;
+  }
+  
+  .inquiry-item.unread {
+    background-color: #dbeafe;
+  }
+  
+  /* 호버 효과 */
+  .inquiry-item:hover {
+    background-color: #cbd5e1;
+  }
+  
