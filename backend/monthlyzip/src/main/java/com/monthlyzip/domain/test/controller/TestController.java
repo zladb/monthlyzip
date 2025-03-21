@@ -22,4 +22,9 @@ public class TestController {
         List<Test> dummyData = testService.getDummyData();
         return ResponseEntity.ok(new BaseResponse<>(dummyData));
     }
+
+    @GetMapping("/infra")
+    public String getInfraTest() {
+        return "api 추가 후 빌드, 이 값 리턴시 성공";
+    }
 }
