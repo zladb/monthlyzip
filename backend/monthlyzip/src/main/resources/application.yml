@@ -20,6 +20,9 @@ spring:
         format_sql: true
     show-sql: false
 
+server:
+  prot: 8081
+
 logging:
   level:
     p6spy: info   # ✅ 마지막 실행된 SQL만 출력
