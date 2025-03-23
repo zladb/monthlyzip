@@ -6,7 +6,7 @@ services:
       args:
         PROFILE: prod  # 빌드시 ARG PROFILE에 전달할 값
     image: monthlyzip-app
-    container_name: mo`nthlyzip-app
+    container_name: monthlyzip-app
     ports:
       - "8081:8081"
     environment:
