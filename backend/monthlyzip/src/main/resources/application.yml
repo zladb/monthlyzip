@@ -21,7 +21,7 @@ spring:
     show-sql: false
 
 server:
-  prot: 8081
+  port: 8081
 
 logging:
   level:
