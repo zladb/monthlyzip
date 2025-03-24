@@ -16,7 +16,7 @@ docker:
   mysql:
     root-password: ${MYSQL_ROOT_PASSWORD}  # Jenkins에서 환경 변수로 주입
     database: monthlyzip
-    username: ${MYSQL_USERNAME}  # Jenkins에서 환경 변수로 주입
+    username: ${MYSQL_USER}  # Jenkins에서 환경 변수로 주입
     password: ${MYSQL_PASSWORD}  # Jenkins에서 환경 변수로 주입
   redis:
     host: redis
