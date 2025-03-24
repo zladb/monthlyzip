@@ -1,40 +1,39 @@
 package com.monthlyzip.domain.auth.model.dto;
 
-import com.monthlyzip.domain.auth.entity.UserEntity;
+import com.monthlyzip.domain.auth.entity.MemberEntity;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-    private final UserEntity userEntity;
+    private final MemberEntity member;
 
+    public CustomUserDetails (MemberEntity member) {
+        this.member = member;
+    }
+
+    // 권한 관련 설정할 수 있는 method
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        Collection<GrantedAuthority> collection = new ArrayList<>();
-
-        collection.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return userEntity.getRole();
-            }
-        });
-
-        return collection;
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
     public String getPassword() {
-        return userEntity.getPassword();
+        return member.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userEntity.getUsername();
+        return member.getEmail();
     }
 
     @Override

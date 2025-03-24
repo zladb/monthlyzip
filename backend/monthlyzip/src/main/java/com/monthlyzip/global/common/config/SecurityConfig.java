@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -54,7 +55,8 @@ public class SecurityConfig {
         // URL 접근 권한 설정
         http
             .authorizeHttpRequests((auth) -> auth
-                .requestMatchers("/api/login", "/", "/api/join", "/login").permitAll()  // 누구나 접근 가능한 경로
+                .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/signup").permitAll()
+                .requestMatchers("/", "/api/join", "/login").permitAll()  // 누구나 접근 가능한 경로
                 .requestMatchers("/api/admin").hasRole("ADMIN")           // ADMIN 역할만 접근 가능
                 .anyRequest().authenticated());                                     // 그 외 모든 요청은 인증 필요
 

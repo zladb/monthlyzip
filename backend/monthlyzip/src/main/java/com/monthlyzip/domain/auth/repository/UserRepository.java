@@ -1,11 +1,13 @@
 package com.monthlyzip.domain.auth.repository;
 
-import com.monthlyzip.domain.auth.entity.UserEntity;
+import com.monthlyzip.domain.auth.entity.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+import java.util.Optional;
 
-    Boolean existsByUsername(String username);
+public interface UserRepository extends JpaRepository<MemberEntity, Long> {
 
-    UserEntity findByUsername(String username);
+    Boolean existsByEmail(String email);
+
+    Optional<MemberEntity> findByEmail(String email);
 }
