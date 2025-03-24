@@ -19,18 +19,18 @@ public class JWTUtil {
         this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), SIG.HS256.key().build().getAlgorithm());
     }
 
-    // JWT 토큰에서 사용자 이름 추출
-    public String getUsername(String token) {
+    // JWT 토큰에서 memberId 추출
+    public Long getMemberId(String token) {
         return Jwts.parser().verifyWith(secretKey).build()
-            .parseSignedClaims(token).getPayload()  // 토큰 파싱 및 검증
-            .get("username", String.class);     // username 클레임 값 반환
+                .parseSignedClaims(token).getPayload()
+                .get("memberId", Long.class);
     }
 
-    // JWT 토큰에서 사용자 역할(권한) 추출
-    public String getRole(String token) {
+    // JWT 토큰에서 userType 추출
+    public String getUserType(String token) {
         return Jwts.parser().verifyWith(secretKey).build()
-            .parseSignedClaims(token).getPayload()
-            .get("role", String.class);  // role 클레임 값 반환
+                .parseSignedClaims(token).getPayload()
+                .get("userType", String.class);
     }
 
     // JWT 토큰 만료 여부 확인
@@ -41,16 +41,13 @@ public class JWTUtil {
     }
 
     // JWT 토큰 생성
-    public String createJwt(String username, String role, Long expiredMs) {
-        Date issuedAt = new Date(System.currentTimeMillis());
-        Date expiration = new Date(System.currentTimeMillis() + expiredMs);
-
-        System.out.println("Token issued at: " + issuedAt);
-        System.out.println("Token expires at: " + expiration);
+    public String createJwt(Long memberId, String role, String userType, Long expiredMs) {
+        System.out.println("Token Created !!!");
 
         return Jwts.builder()
-            .claim("username", username)  // 사용자 이름 정보 저장
+            .claim("memberId", memberId)  // 사용자 ID 정보 저장
             .claim("role", role)  // 사용자 권한 정보 저장
+            .claim("userType", userType)
             .issuedAt(new Date(System.currentTimeMillis()))  // 토큰 발행 시간
             .expiration(new Date(System.currentTimeMillis() + expiredMs))  // 토큰 만료 시간 설정
             .signWith(secretKey)  // 비밀키로 서명
