@@ -1,6 +1,6 @@
-package com.monthlyzip.building.repository;
+package com.monthlyzip.domain.building.repository;
 
-import com.monthlyzip.building.model.entity.Building;
+import com.monthlyzip.domain.building.model.entity.Building;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

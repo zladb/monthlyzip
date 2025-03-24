@@ -9,5 +9,4 @@ public class MonthlyzipApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MonthlyzipApplication.class, args);
 	}
-
 }

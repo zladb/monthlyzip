@@ -1,15 +1,13 @@
 spring:
   config:
-    import: application-secret.yml  # 🔹 application-secret.yml 파일 import
+    import: application-secret.yml
   application:
     name: monthlyzip
   profiles:
-    active: secret
-  devtools:
-    restart:
-      enabled: true  # ?? ?? ?? ? ???
-    livereload:
-      enabled: true  # ????? ?? ? ????
+    active: local  # 로컬 환경
+    group:
+      local: local, secret
+      prod: prod, secret
 
   jpa:
     generate-ddl: true
@@ -19,9 +17,6 @@ spring:
       hibernate:
         format_sql: true
     show-sql: false
-
-server:
-  port: 8081
 
 logging:
   level:

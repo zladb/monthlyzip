@@ -1,4 +1,4 @@
-package com.monthlyzip.building.model.entity;
+package com.monthlyzip.domain.building.model.entity;
 
 import com.monthlyzip.member.model.entity.Member;
 import jakarta.persistence.*;
