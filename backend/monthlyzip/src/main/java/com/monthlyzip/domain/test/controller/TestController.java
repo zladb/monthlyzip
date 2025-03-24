@@ -15,7 +15,7 @@ public class TestController {
 
     @GetMapping
     public String getDummyData() {
-        return "1번 api 호출 테스트 성공 !!";
+        return "1번 api 호출 테스트 성공 !! merge request Test";
     }
 
     @GetMapping("/infra")
