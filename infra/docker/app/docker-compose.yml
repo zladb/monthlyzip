@@ -1,0 +1,25 @@
+services:
+  app:
+    build:
+      context: ../../../backend/monthlyzip
+      dockerfile: Dockerfile
+      args:
+        PROFILE: prod  # 빌드시 ARG PROFILE에 전달할 값
+    image: monthlyzip-app
+    container_name: monthlyzip-app
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=secret
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=${MYSQL_USER}
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
+      - SPRING_DATA_REDIS_HOST=${REDIS_HOST}
+      - SPRING_DATA_REDIS_PORT=${REDIS_PORT}
+      - SPRING_DATA_REDIS_PASSWORD=${REDIS_PASSWORD}
+    restart: always
+    networks:
+      - app-network
+networks:
+  app-network:
+    external: true
