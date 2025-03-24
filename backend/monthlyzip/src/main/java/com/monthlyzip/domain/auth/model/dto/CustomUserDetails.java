@@ -1,12 +1,8 @@
 package com.monthlyzip.domain.auth.model.dto;
 
 import com.monthlyzip.domain.auth.entity.MemberEntity;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +21,8 @@ public class CustomUserDetails implements UserDetails {
 
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
+
+    public MemberEntity getMember() { return this.member; }
 
     @Override
     public String getPassword() {

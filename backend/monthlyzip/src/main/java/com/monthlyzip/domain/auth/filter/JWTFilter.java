@@ -2,6 +2,7 @@ package com.monthlyzip.domain.auth.filter;
 
 import com.monthlyzip.domain.auth.entity.MemberEntity;
 import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.model.enums.MemberType;
 import com.monthlyzip.global.common.utils.JWTUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -55,14 +56,17 @@ public class JWTFilter extends OncePerRequestFilter {
         }
 
         //토큰에서 username 획득, admin 추가시 여기서 role도 획득
-        String email = jwtUtil.getUsername(token);
+        Long memberId = jwtUtil.getMemberId(token);
+        String userType = jwtUtil.getUserType(token);
 
-        System.out.println("JWTFilter");
+        System.out.println("In Process : JWTFilter");
 
         //userEntity를 생성하여 값 set
         MemberEntity member = new MemberEntity();
-        member.setEmail(email);
+        member.setMemberId(memberId);
+        member.setMemberType(MemberType.valueOf(userType));
         member.setPassword("temppassword");
+
 
         //UserDetails에 회원 정보 객체 담기
         CustomUserDetails customUserDetails = new CustomUserDetails(member);

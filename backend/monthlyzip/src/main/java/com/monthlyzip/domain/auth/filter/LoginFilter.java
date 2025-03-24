@@ -1,6 +1,7 @@
 package com.monthlyzip.domain.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.monthlyzip.domain.auth.entity.MemberEntity;
 import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
 import com.monthlyzip.global.common.utils.JWTUtil;
 import jakarta.servlet.FilterChain;
@@ -36,6 +37,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
+        // Json 형식 requestMap으로 받기
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> requestMap = null;
         try {
@@ -44,14 +46,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
             throw new RuntimeException(e);
         }
 
+        //클라이언트 요청에서 id(email), password 추출
         String email = requestMap.get("email");
         String password = requestMap.get("password");
-        //클라이언트 요청에서 username, password 추출
-//        String email = obtainUsername(request);
-//        String password = obtainPassword(request);
 
-        System.out.println(email);
-        System.out.println(password);
+        System.out.println("Login 요청!! : email : " + email + " password : " + password);
 
         //스프링 시큐리티에서 username과 password를 검증하기 위해서는 token에 담아야 함/
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, password, null);
@@ -64,27 +63,22 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        MemberEntity member = customUserDetails.getMember();
 
-        String username = customUserDetails.getUsername();
-
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
-//        GrantedAuthority auth = iterator.next();
-
-//        String role = auth.getAuthority();
+        Long memberId = member.getMemberId();
+        String userType = member.getMemberType().name();
         String role = "ROLE_USER";
 
-        // String token = jwtUtil.createJwt(username, role, 60*60*1000L);
-        String token = jwtUtil.createJwt(username, role, 60*60*10*1000L);
+        String token = jwtUtil.createJwt(memberId, role, userType, 60*60*10*1000L);
 
         response.addHeader("Authorization", "Bearer " + token);
-        System.out.println("success !!!");
+        System.out.println("로그인 성공, 토큰 정상 발급 !");
     }
 
     //로그인 실패시 401응답
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
         response.setStatus(401);
-        System.out.println("fail !!!");
+        System.out.println("로그인 실패, 토큰 발급 실패 !");
     }
 }
