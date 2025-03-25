@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/monthlyzip
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:p6spy:mysql://localhost:3306/monthlyzip
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 
 deploy:
   env: local
