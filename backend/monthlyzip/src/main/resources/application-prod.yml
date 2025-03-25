@@ -8,33 +8,3 @@ server:
 
 app:
   baseUrl: https://j12d109.p.ssafy.io/
-
-# 아래 설정 유지
-#spring:
-#  datasource:
-#    url: jdbc:p6spy:mysql://mysql:3306/monthlyzip
-#    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-#
-#  data:
-#    redis:
-#      host: redis
-#      port: 6379
-#      password: ${REDIS_PASSWORD}  # Jenkins에서 환경 변수로 주입
-#
-#server:
-#  port: 8081
-#
-#docker:
-#  mysql:
-#    root-password: ${MYSQL_ROOT_PASSWORD}  # Jenkins에서 환경 변수로 주입
-#    database: monthlyzip
-#    username: ${MYSQL_USER}  # Jenkins에서 환경 변수로 주입
-#    password: ${MYSQL_PASSWORD}  # Jenkins에서 환경 변수로 주입
-#  redis:
-#    host: redis
-#    port: 6379
-#    password: ${REDIS_PASSWORD}  # Jenkins에서 환경 변수로 주입
-
-# 필요없을 듯?
-#app:
-#  baseUrl: https://j12d109.p.ssafy.io/
