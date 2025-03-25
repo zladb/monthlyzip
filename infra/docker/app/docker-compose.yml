@@ -11,12 +11,8 @@ services:
       - "8081:8081"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - SPRING_DATASOURCE_URL=jdbc:p6spy:mysql://mysql:3306/${MYSQL_DATABASE}
-      - SPRING_DATASOURCE_USERNAME=${MYSQL_USER}
-      - SPRING_DATASOURCE_PASSWORD=${MYSQL_PASSWORD}
-      - SPRING_DATA_REDIS_HOST=${REDIS_HOST}
-      - SPRING_DATA_REDIS_PORT=${REDIS_PORT}
-      - SPRING_DATA_REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - ./application-secret.yml:/app/application-secret.yml
     restart: always
     networks:
       - app-network
