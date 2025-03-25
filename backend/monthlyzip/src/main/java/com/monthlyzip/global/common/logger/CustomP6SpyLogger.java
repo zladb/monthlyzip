@@ -4,6 +4,8 @@ import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CustomP6SpyLogger implements MessageFormattingStrategy {
 
@@ -33,14 +35,48 @@ public class CustomP6SpyLogger implements MessageFormattingStrategy {
      * ✅ SQL을 보기 좋게 정리하는 메서드
      */
     private String formatSQL(String sql) {
-        return sql.replaceAll("\\s+", " ") // 연속된 공백을 하나로 변경
-                .replaceAll("(?i)select", "\n🔹 SELECT")
-                .replaceAll("(?i)from", "\n  🔹 FROM")
-                .replaceAll("(?i)where", "\n  🔹 WHERE")
-                .replaceAll("(?i)insert into", "\n🔹 INSERT INTO")
-                .replaceAll("(?i)values", "\n  🔹 VALUES")
-                .replaceAll("(?i)update", "\n🔹 UPDATE")
-                .replaceAll("(?i)set", "\n  🔹 SET")
-                .replaceAll("(?i)delete from", "\n🔹 DELETE FROM");
+        // 줄바꿈 제거
+        sql = sql.replaceAll("[\\n\\r]", " ");
+
+        // 공백 정리
+        sql = sql.replaceAll("\\s+", " ");
+
+        // ✅ SET 절 포맷팅
+        Pattern setPattern = Pattern.compile("(?i)(set )(.*?)( where|$)");
+        Matcher setMatcher = setPattern.matcher(sql);
+        StringBuffer setBuffer = new StringBuffer();
+        while (setMatcher.find()) {
+            String setClause = setMatcher.group(2).trim();
+            String formattedSet = "\n      " + setClause.replaceAll(",", ",\n      ");
+            setMatcher.appendReplacement(setBuffer, setMatcher.group(1) + formattedSet + setMatcher.group(3));
+        }
+        setMatcher.appendTail(setBuffer);
+        sql = setBuffer.toString();
+
+        // ✅ SELECT 절 포맷팅
+        Pattern selectPattern = Pattern.compile("(?i)(select )(.*?)( from )");
+        Matcher selectMatcher = selectPattern.matcher(sql);
+        StringBuffer selectBuffer = new StringBuffer();
+        while (selectMatcher.find()) {
+            String columnList = selectMatcher.group(2).trim();
+            String formattedColumns = "\n      " + columnList.replaceAll(",", ",\n      ");
+            selectMatcher.appendReplacement(selectBuffer, selectMatcher.group(1) + formattedColumns + selectMatcher.group(3));
+        }
+        selectMatcher.appendTail(selectBuffer);
+        sql = selectBuffer.toString();
+
+        // ✅ 키워드 정렬
+        sql = sql
+                .replaceAll("(?i)\\bselect\\b", "\n🔹 SELECT")
+                .replaceAll("(?i)\\bfrom\\b", "\n  🔹 FROM")
+                .replaceAll("(?i)\\bwhere\\b", "\n  🔹 WHERE")
+                .replaceAll("(?i)\\binsert into\\b", "\n🔹 INSERT INTO")
+                .replaceAll("(?i)\\bvalues\\b", "\n  🔹 VALUES")
+                .replaceAll("(?i)\\bupdate\\b", "\n🔹 UPDATE")
+                .replaceAll("(?i)\\bdelete from\\b", "\n🔹 DELETE FROM");
+
+        return sql;
     }
+
+
 }
