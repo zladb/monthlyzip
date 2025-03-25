@@ -6,6 +6,8 @@ import com.monthlyzip.domain.building.model.dto.response.BuildingDetailResponseD
 import com.monthlyzip.domain.building.model.dto.response.BuildingResponseDto;
 import com.monthlyzip.domain.building.model.entity.Building;
 import com.monthlyzip.domain.building.repository.BuildingRepository;
+import com.monthlyzip.global.common.exception.exception.BusinessException;
+import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
 import com.monthlyzip.member.model.entity.Member;
 import com.monthlyzip.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
@@ -20,12 +22,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class BuildingService {
+
     private final BuildingRepository buildingRepository;
     private final MemberRepository memberRepository;
+
     public BuildingDetailResponseDto getBuildingById(Long buildingId) {
         Building building = buildingRepository.findById(buildingId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 Building이 존재하지 않습니다. ID: "+ buildingId));
-
+                .orElseThrow(() -> new BusinessException(ApiResponseStatus.BUILDING_NOT_FOUND));
         return BuildingDetailResponseDto.of(building);
     }
 
@@ -37,7 +40,7 @@ public class BuildingService {
 
             boolean ownerExists = memberRepository.existsById(ownerId);
             if (!ownerExists) {
-                throw new IllegalArgumentException("해당 owner가 존재하지 않습니다. ID: " + ownerId);
+                throw new BusinessException(ApiResponseStatus.OWNER_NOT_FOUND);
             }
 
             buildings = buildingRepository.findByOwnerId(ownerId);
@@ -53,7 +56,7 @@ public class BuildingService {
 
     public BuildingResponseDto createBuilding(BuildingRequestDto requestDto) {
         Member owner = memberRepository.findById(requestDto.getOwnerId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 owner가 존재하지 않습니다. ID: " + requestDto.getOwnerId()));
+                .orElseThrow(() -> new BusinessException(ApiResponseStatus.OWNER_NOT_FOUND));
 
         Building building = Building.builder()
                 .owner(owner)
@@ -69,31 +72,27 @@ public class BuildingService {
     public BuildingResponseDto updateBuilding(Long buildingId, BuildingUpdateRequestDto requestDto) {
         log.info("건물 정보 수정 실행");
 
-        // ✅ 1. 건물 엔티티 조회
         Building building = buildingRepository.findById(buildingId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 건물이 존재하지 않습니다. ID: " + buildingId));
+                .orElseThrow(() -> new BusinessException(ApiResponseStatus.BUILDING_NOT_FOUND));
 
         boolean isUpdated = false;
 
-        // ✅ 2. 값이 변경된 경우에만 업데이트
         if (requestDto.getAddress() != null) {
             building.setAddress(requestDto.getAddress());
             isUpdated = true;
         }
+
         if (requestDto.getBuildingName() != null) {
             building.setBuildingName(requestDto.getBuildingName());
             isUpdated = true;
         }
 
-        // ✅ 3. 변경된 경우에만 save() 호출하여 updatedAt 자동 갱신 보장
         if (isUpdated) {
-//            buildingRepository.save(building);  // ✅ 반드시 save() 호출하여 @UpdateTimestamp 적용 보장
             log.info("건물 정보 수정 완료");
         } else {
             log.info("변경 사항이 없어 업데이트하지 않음");
         }
 
-        // ✅ 4. 업데이트된 엔티티를 DTO로 변환하여 응답 반환
         return BuildingResponseDto.of(building);
     }
 
@@ -102,7 +101,7 @@ public class BuildingService {
         log.info("건물 삭제");
 
         if (!buildingRepository.existsById(buildingId)) {
-            throw new IllegalArgumentException("해당 건물이 존재하지 않습니다. ID: " + buildingId);
+            throw new BusinessException(ApiResponseStatus.BUILDING_NOT_FOUND);
         }
 
         buildingRepository.deleteById(buildingId);
