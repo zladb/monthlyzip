@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +25,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 //@RequiredArgsConstructor
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
+
+    @Value("${spring.jwt.access-token-validity}")
+    private long accessTokenValidity;
+    @Value("${spring.jwt.refresh-token-validity}")
+    private long refreshTokenValidity;
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
@@ -69,9 +75,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String userType = member.getMemberType().name();
         String role = "ROLE_USER";
 
-        String token = jwtUtil.createJwt(memberId, role, userType, 60*60*10*1000L);
+        String accessToken = jwtUtil.createAccessToken(memberId, role, userType, accessTokenValidity);
+//        String refreshToken = jwtUtil.createRefreshToken(memberId, refreshTokenValidity);
 
-        response.addHeader("Authorization", "Bearer " + token);
+        response.addHeader("Authorization", "Bearer " + accessToken);
         System.out.println("로그인 성공, 토큰 정상 발급 !");
     }
 

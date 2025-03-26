@@ -41,7 +41,7 @@ public class JWTUtil {
     }
 
     // JWT 토큰 생성
-    public String createJwt(Long memberId, String role, String userType, Long expiredMs) {
+    public String createAccessToken(Long memberId, String role, String userType, Long expiredMs) {
         System.out.println("Token Created !!!");
 
         return Jwts.builder()
@@ -53,4 +53,13 @@ public class JWTUtil {
             .signWith(secretKey)  // 비밀키로 서명
             .compact();  // 최종 JWT 문자열 생성
     }
+
+//    public String createRefreshToken(Long memberId, Long expireMs) {
+//        return Jwts.builder()
+//                .claim("memberId", memberId)
+//                .issuedAt(new Date())
+//                .expiration(new Date(System.currentTimeMillis() + expireMs))
+//                .signWith(secretKey)
+//                .compact();
+//    }
 }
