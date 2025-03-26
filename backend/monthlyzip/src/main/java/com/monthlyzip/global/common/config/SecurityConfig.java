@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.beans.factory.annotation.Value;
 
 @Configuration      // 스프링 설정 클래스
 @EnableWebSecurity  // 스프링 시큐리티 활성화
@@ -29,6 +30,10 @@ public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
+    @Value("${spring.jwt.access-token-validity}")
+    private long accessTokenValidity;
+    @Value("${spring.jwt.refresh-token-validity}")
+    private long refreshTokenValidity;
 
     //AuthenticationManager Bean 등록
     @Bean
@@ -47,30 +52,30 @@ public class SecurityConfig {
 
         // 보안 설정 비활성화 (개발 환경용)
         http
-            .cors((cors) -> cors.disable())           // CORS 제한 해제 - 모든 도메인 요청 허용
-            .csrf((auth) -> auth.disable())            // CSRF 보호 비활성화 - REST API에서 주로 사용
-            .formLogin((auth) -> auth.disable())  // 기본 로그인 페이지 사용 안함
-            .httpBasic((auth) -> auth.disable());  // HTTP Basic 인증 비활성화
+            // .cors((cors) -> cors.disable())          // CORS 제한 해제 - 모든 도메인 요청 허용
+            .csrf((auth) -> auth.disable())             // CSRF 보호 비활성화 - REST API에서 주로 사용
+            .formLogin((auth) -> auth.disable())        // 기본 로그인 페이지 사용 안함
+            .httpBasic((auth) -> auth.disable());       // HTTP Basic 인증 비활성화
 
         // URL 접근 권한 설정
         http
             .authorizeHttpRequests((auth) -> auth
                 .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/signup").permitAll()
-                .requestMatchers("/", "/api/join", "/login").permitAll()  // 누구나 접근 가능한 경로
-                .requestMatchers("/api/admin").hasRole("ADMIN")           // ADMIN 역할만 접근 가능
-                .anyRequest().authenticated());                                     // 그 외 모든 요청은 인증 필요
+                .requestMatchers("/api/**").permitAll()
+                .anyRequest().authenticated());                             // 그 외 모든 요청은 인증 필요
 
         http
             .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
 
         //AuthenticationManager()와 JWTUtil 인수 전달
         http
-            .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
+            .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, accessTokenValidity, refreshTokenValidity), UsernamePasswordAuthenticationFilter.class);
 
         // JWT 사용을 위한 세션 관리 설정
         http
             .sessionManagement((session) -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));  // 세션 상태 유지 안함 (JWT 사용 시 필수)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));   // 세션 상태 유지 안함 (JWT 사용 시 필수)
+
 
         return http.build();
     }
@@ -78,9 +83,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOriginPattern("*");
-        config.setAllowedOrigins(
-            Arrays.asList("http://localhost:3000", "http://localhost:8080")); // 프론트엔드 주소
+
+        config.addAllowedOriginPattern("http://localhost:*");
+        config.addAllowedOriginPattern("http://127.0.0.1:*");
+        // config.addAllowedOriginPattern("https://your-frontend-domain.com");
+
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setAllowCredentials(true);
@@ -89,4 +96,5 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return source;
     }
+
 }

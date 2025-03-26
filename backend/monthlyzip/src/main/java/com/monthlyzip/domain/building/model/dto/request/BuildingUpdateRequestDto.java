@@ -1,4 +1,4 @@
-package com.monthlyzip.building.model.dto.request;
+package com.monthlyzip.domain.building.model.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
