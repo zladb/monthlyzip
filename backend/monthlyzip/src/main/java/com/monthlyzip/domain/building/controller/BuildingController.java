@@ -1,10 +1,10 @@
-package com.monthlyzip.building.controller;
+package com.monthlyzip.domain.building.controller;
 
-import com.monthlyzip.building.model.dto.request.BuildingRequestDto;
-import com.monthlyzip.building.model.dto.request.BuildingUpdateRequestDto;
-import com.monthlyzip.building.model.dto.response.BuildingDetailResponseDto;
-import com.monthlyzip.building.model.dto.response.BuildingResponseDto;
-import com.monthlyzip.building.service.BuildingService;
+import com.monthlyzip.domain.building.model.dto.request.BuildingRequestDto;
+import com.monthlyzip.domain.building.model.dto.request.BuildingUpdateRequestDto;
+import com.monthlyzip.domain.building.model.dto.response.BuildingDetailResponseDto;
+import com.monthlyzip.domain.building.model.dto.response.BuildingResponseDto;
+import com.monthlyzip.domain.building.service.BuildingService;
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

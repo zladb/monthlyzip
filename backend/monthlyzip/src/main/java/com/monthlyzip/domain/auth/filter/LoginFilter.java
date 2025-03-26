@@ -26,17 +26,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 //@RequiredArgsConstructor
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
-    @Value("${spring.jwt.access-token-validity}")
-    private long accessTokenValidity;
-    @Value("${spring.jwt.refresh-token-validity}")
-    private long refreshTokenValidity;
-
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
+    private final long accessTokenValidity;
+    private final long refreshTokenValidity;
     // 생성자에서 /api/login을 처리하도록 설정
-    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, long accessTokenValidity, long refreshTokenValidity) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.accessTokenValidity = accessTokenValidity;
+        this.refreshTokenValidity = refreshTokenValidity;
+
         setFilterProcessesUrl("/api/auth/login"); // 필터가 처리할 로그인 URL 지정
     }
 
