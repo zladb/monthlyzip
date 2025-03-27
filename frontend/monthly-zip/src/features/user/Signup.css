@@ -55,6 +55,7 @@
     background: none;
     border: none;
     cursor: pointer;
+    font-size: 120%;
   }
   
   .tab-button.active {
@@ -83,16 +84,26 @@
     font-size: 1rem;
   }
   
-  .link-container {
-    text-align: center;
-    margin-top: 1rem;
-  }
-  
-  .link-text {
-    font-weight: 500;
-    color: #333;
-    text-decoration: none;
-  }
+.link-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link-text {
+  color: black; /* 기본 텍스트 색상 검은색 */
+  font-weight: normal; /* 기본 글씨 굵기 */
+}
+
+.login-link {
+  color: #ff7a00; /* 로그인 링크 색상 */
+  font-weight: bold; /* 로그인 링크 글씨 굵게 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+.login-link:hover {
+  text-decoration: underline; /* 마우스 오버 시 밑줄 추가 (선택 사항) */
+}
   
   /* 반응형 디자인 */
   @media (min-width: 768px) {

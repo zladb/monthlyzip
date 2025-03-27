@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Signup.css';
 
 const Signup = () => {
-  const [userType, setUserType] = useState('individual'); // 'individual' 또는 'company'
+  const [userType, setUserType] = useState('individual'); 
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,12 +57,15 @@ const Signup = () => {
             </button>
           </form>
           <div className="link-container">
-            <Link to="/login" className="link-text">
-              이미 계정이 있으신가요? 로그인
-            </Link>
-          </div>
-        </div>
-      </div>
+            <span className="link-text">
+              이미 계정이 있으신가요?{' '}
+              <Link to="/login" className="login-link">
+                LOGIN
+              </Link>
+            </span>
+          </div> 
+        </div> 
+      </div> 
       
       <div className="orange-section">
         <div className="logo-text">
