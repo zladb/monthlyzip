@@ -14,6 +14,9 @@ public enum ApiResponseStatus {
     NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "대상을 찾을 수 없습니다."),
 
     // ✅ 비즈니스 예외
+    // member
+    MEMBER_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 사용자가 존재하지 않습니다."),
+
     // building
     BUILDING_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 건물이 존재하지 않습니다."),
     OWNER_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 소유자가 존재하지 않습니다."),
@@ -29,8 +32,13 @@ public enum ApiResponseStatus {
     CONTRACT_ALREADY_CONNECTED(false, HttpStatus.CONFLICT, 409, "이미 연결된 계약입니다."),
     CONTRACT_ACCESS_DENIED(false, HttpStatus.FORBIDDEN, 403, "해당 계약에 접근할 수 없습니다."),
 
-    //
-    PAYMENT_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 납부 내역을 찾을 수 없습니다.")
+    // payment
+    PAYMENT_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 납부 내역을 찾을 수 없습니다."),
+
+    // notice
+    NOTICE_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 공지사항이 존재하지 않습니다."),
+    NOTICE_ACCESS_DENIED(false, HttpStatus.FORBIDDEN, 403, "공지사항에 접근할 권한이 없습니다."),
+    NOTICE_INVALID_REQUEST(false, HttpStatus.BAD_REQUEST, 400, "공지사항 요청 값이 유효하지 않습니다."),
     ;
 
     private final boolean isSuccess;
