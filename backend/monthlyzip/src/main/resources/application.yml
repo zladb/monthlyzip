@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: monthlyzip
+  profiles:
+    active: secret
+  devtools:
+    restart:
+      enabled: true  # ?? ?? ?? ? ???
+    livereload:
+      enabled: true  # ????? ?? ? ????
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
