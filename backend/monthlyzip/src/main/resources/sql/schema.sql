@@ -35,11 +35,11 @@ CREATE TABLE room (
     FOREIGN KEY (property_id) REFERENCES building(building_id) ON DELETE CASCADE
 );
 
-CREATE TABLE rental_contract (
+CREATE TABLE contract (
     contract_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     room_id BIGINT NOT NULL,
     landlord_id BIGINT NOT NULL,
-    tenant_id BIGINT NOT NULL,
+    tenant_id BIGINT,
     start_date TIMESTAMP NOT NULL,
     end_date TIMESTAMP NOT NULL,
     monthly_rent BIGINT NOT NULL,
@@ -132,10 +132,10 @@ CREATE INDEX idx_user_type ON member(user_type);
 CREATE INDEX idx_owner ON building(owner_id);
 CREATE INDEX idx_property ON room(property_id);
 CREATE INDEX idx_occupied ON room(is_occupied);
-CREATE INDEX idx_room ON rental_contract(room_id);
-CREATE INDEX idx_landlord ON rental_contract(landlord_id);
-CREATE INDEX idx_tenant ON rental_contract(tenant_id);
-CREATE INDEX idx_dates ON rental_contract(start_date, end_date);
+CREATE INDEX idx_room ON contract(room_id);
+CREATE INDEX idx_landlord ON contract(landlord_id);
+CREATE INDEX idx_tenant ON contract(tenant_id);
+CREATE INDEX idx_dates ON contract(start_date, end_date);
 CREATE INDEX idx_contract ON payment(contract_id);
 CREATE INDEX idx_status ON payment(payment_status);
 CREATE INDEX idx_due_date ON payment(due_date);
