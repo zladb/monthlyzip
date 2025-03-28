@@ -5,8 +5,8 @@ import Login from './features/user/login/Login';
 import Signup from './features/user/signup/Signup';
 import TenantMgmt from './features/tenantMgmt/TenantMgmt';
 import TenantMgmtDetail from './features/tenantMgmt/TenantMgmtDetail';
-import AdminMyProfile from './features/myProfile/admin/AdminMyProfile';
-import MyProfile from './features/myProfile/user/MyProfile';
+// import AdminMyProfile from './features/myProfile/admin/AdminMyProfile';
+// import MyProfile from './features/myProfile/user/MyProfile';
 import PaymentList from './features/tenant/payment/PaymentList';
 import PaymentDetail from './features/tenant/payment/PaymentDetail';
 import LandlordMypage from './features/myPage/admin/LandlordMypage';
@@ -22,8 +22,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/TenantMgmt" element={<TenantMgmt />} />
         <Route path="/TenantMgmtDetail" element={<TenantMgmtDetail />} />
-        <Route path="/AdminMyProfile" element={<AdminMyProfile />} />
-        <Route path="/MyProfile" element={<MyProfile />} />
+        {/* <Route path="/AdminMyProfile" element={<AdminMyProfile />} /> */}
+        {/* <Route path="/MyProfile" element={<MyProfile />} /> */}
         <Route path="/payment-list" element={<PaymentList />} /> 
         <Route path="/payment-detail" element={<PaymentDetail />} />
         <Route path="/tenantMgmt" element={<TenantMgmt />} />  
