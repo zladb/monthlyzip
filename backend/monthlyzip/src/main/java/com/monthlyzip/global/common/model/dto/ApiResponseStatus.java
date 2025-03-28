@@ -14,8 +14,14 @@ public enum ApiResponseStatus {
     NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "대상을 찾을 수 없습니다."),
 
     // ✅ 비즈니스 예외
+
     // member
+    EMAIL_DUPLICATE(false, HttpStatus.CONFLICT, 400, "중복된 이메일입니다."),
+    PASSWORD_INVALID(false, HttpStatus.BAD_REQUEST, 400, "비밀번호는 영문, 숫자, 특수문자를 포함한 8자 이상이어야 합니다."),
+    PASSWORD_MISMATCH(false, HttpStatus.BAD_REQUEST, 400, "비밀번호가 일치하지 않습니다."),
+    LOGIN_ERROR(false, HttpStatus.BAD_REQUEST, 500, "로그인 과정 중 서버 오류가 생겼습니다."),
     MEMBER_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 사용자가 존재하지 않습니다."),
+    TOKEN_EXPIRED(false, HttpStatus.UNAUTHORIZED, 401, "로그인 세션이 만료되었습니다. 다시 로그인해주세요."),
 
     // building
     BUILDING_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 건물이 존재하지 않습니다."),
