@@ -9,6 +9,8 @@ import AdminMyProfile from './features/myProfile/admin/AdminMyProfile';
 import MyProfile from './features/myProfile/user/MyProfile';
 import PaymentList from './features/tenant/payment/PaymentList';
 import PaymentDetail from './features/tenant/payment/PaymentDetail';
+import LandlordMypage from './features/myPage/admin/LandlordMypage';
+import TenantMypage from './features/myPage/user/TenantMypage';
 
 
 function App() {
@@ -24,6 +26,12 @@ function App() {
         <Route path="/MyProfile" element={<MyProfile />} />
         <Route path="/payment-list" element={<PaymentList />} /> 
         <Route path="/payment-detail" element={<PaymentDetail />} />
+        <Route path="/tenantMgmt" element={<TenantMgmt />} />  
+        <Route path="/tenantMgmtDetail" element={<TenantMgmtDetail />} />
+        <Route path="/landlordMypage" element={<LandlordMypage />} />
+        <Route path="/tenantMypage" element={<TenantMypage />} />
+       
+
       </Routes>
     </Router>
   );

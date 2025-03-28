@@ -34,6 +34,18 @@ function Signup() {
     // 여기서 DB에 데이터를 저장하는 코드가 필요
     navigate('/login'); 
   };
+  
+  const [showPassword1, setShowPassword1] = useState(false); 
+  const [showPassword2, setShowPassword2] = useState(false); 
+
+  // 비밀번호 보이기/숨기기 토글 함수
+  const togglePasswordVisibility1 = () => {
+    setShowPassword1((prev) => !prev); // 'setShowPassword1' 사용
+  };
+
+  const togglePasswordVisibility2 = () => {
+    setShowPassword2((prev) => !prev);
+  };
 
   return (
     <form className={styles.div} onSubmit={handleSubmit}>
@@ -41,11 +53,11 @@ function Signup() {
         src="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/ec3637c49e111e793c356889858c828968d2bbb9?placeholderIfAbsent=true"
         className={styles.img}
         alt="Logo"
-        onClick={handleRedirect} // 이미지 클릭 시 login 페이지로 이동
+        onClick={handleRedirect} 
       />
       <h1 className={styles.signup}>SIGNUP</h1>
 
-      {/* Email Field */}
+      {/* 이메일 */}
       <label className={styles.div2}>이메일 * </label>
       <input
         type="email"
@@ -53,41 +65,55 @@ function Signup() {
         className={styles.abcgmailcom}
       />
 
-      {/* Password Field */}
-      <label className={styles.div3}>비밀번호 * </label>
+      {/* 비밀번호 */}
+      <label className={styles.div3}>비밀번호 *</label>
       <div className={styles.div4}>
         <input
-          type="password"
+          type={showPassword1 ? "text" : "password"} // 상태에 따라 변경
           placeholder="영문, 숫자 조합 8~16자"
           className={styles.css816}
         />
         <img
-          src="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/8a3df590d957665a027395978a418cf820c137b4?placeholderIfAbsent=true"
+          src={
+            showPassword1
+              ? "https://cdn.builder.io/api/v1/image/assets/TEMP/b453452f4563ac178e576b99a93d99178e3a67c8"
+              : "https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/8a3df590d957665a027395978a418cf820c137b4?placeholderIfAbsent=true"
+          }
           className={styles.img2}
           alt="Toggle password visibility"
+          onClick={togglePasswordVisibility1} // 개별 토글 함수 사용
+          style={{ cursor: "pointer" }}
         />
       </div>
 
-      {/* Password Confirmation Field */}
-      <label className={styles.div5}>비밀번호 확인 * </label>
+      {/* 비밀번호 확인 */}
+      <label className={styles.div5}>비밀번호 확인 *</label>
       <div className={styles.div6}>
         <input
-          type="password"
+          type={showPassword2 ? "text" : "password"} // 상태에 따라 변경
           placeholder="비밀번호를 한번 더 입력 해주세요."
           className={styles.div7}
         />
         <img
-          src="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/8a3df590d957665a027395978a418cf820c137b4?placeholderIfAbsent=true"
+          src={
+            showPassword2
+              ? "https://cdn.builder.io/api/v1/image/assets/TEMP/b453452f4563ac178e576b99a93d99178e3a67c8"
+              : "https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/8a3df590d957665a027395978a418cf820c137b4?placeholderIfAbsent=true"
+          }
           className={styles.img3}
           alt="Toggle password visibility"
+          onClick={togglePasswordVisibility2} // 개별 토글 함수 사용
+          style={{ cursor: "pointer" }}
         />
       </div>
 
-      {/* Name Field */}
+
+
+      {/* 이름*/}
       <label className={styles.div8}>이름 * </label>
       <input type="text" placeholder="예) 홍길동" className={styles.div9} />
 
-      {/* Phone Number Field */}
+      {/* 전화번호 */}
       <label className={styles.div10}>휴대폰 번호 * </label>
       <input
         type="tel"
@@ -95,7 +121,7 @@ function Signup() {
         className={styles.css01012343482}
       />
 
-      {/* User Type Selection */}
+      {/* role 선택 */}
       <label className={styles.div11}>필수 선택 * </label>
       <div className={styles.div12}>
         <div className={styles.div13}>
@@ -118,7 +144,7 @@ function Signup() {
         </div>
       </div>
 
-      {/* Terms and Agreements */}
+      {/* 돟의 */}
       <div className={styles.div17}>
         <input
           type="checkbox"
@@ -215,6 +241,7 @@ function Signup() {
           </span>
         </label>
       </div>
+
 
       {/* Signup Button */}
       <button type="submit" className={styles.signup2}>
