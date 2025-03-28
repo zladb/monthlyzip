@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import styles from "./MyProfile.module.css";
+import styles from "./TenantMypage.module.css";
 
 
-const MyProfile = () => {
+const TenantMypage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
@@ -247,4 +247,4 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
+export default TenantMypage;
