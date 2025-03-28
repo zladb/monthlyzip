@@ -33,6 +33,13 @@ public class JWTUtil {
                 .get("userType", String.class);
     }
 
+    // JWT 토큰에서 만료시간(Expiration) 반환 (Date 타입)
+    public Date getExpiration(String token) {
+        return Jwts.parser().verifyWith(secretKey).build()
+                .parseSignedClaims(token).getPayload()
+                .getExpiration();
+    }
+
     // JWT 토큰 만료 여부 확인
     public Boolean isExpired(String token) {
         return Jwts.parser().verifyWith(secretKey).build()
@@ -54,12 +61,12 @@ public class JWTUtil {
             .compact();  // 최종 JWT 문자열 생성
     }
 
-//    public String createRefreshToken(Long memberId, Long expireMs) {
-//        return Jwts.builder()
-//                .claim("memberId", memberId)
-//                .issuedAt(new Date())
-//                .expiration(new Date(System.currentTimeMillis() + expireMs))
-//                .signWith(secretKey)
-//                .compact();
-//    }
+    public String createRefreshToken(Long memberId, Long expireMs) {
+        return Jwts.builder()
+                .claim("memberId", memberId)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + expireMs))
+                .signWith(secretKey)
+                .compact();
+    }
 }
