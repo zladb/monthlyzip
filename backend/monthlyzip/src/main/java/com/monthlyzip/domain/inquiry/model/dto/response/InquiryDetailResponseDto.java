@@ -19,7 +19,7 @@ public class InquiryDetailResponseDto {
     private Long memberId;
     private String memberName;
     private Long contractId;
-    private String roomAddress;
+    // private String roomAddress;
     private String inquiryType;
     private String title;
     private String content;
@@ -33,7 +33,7 @@ public class InquiryDetailResponseDto {
             .memberId(inquiry.getMember().getId())
             .memberName(inquiry.getMember().getName())
             .contractId(inquiry.getContract().getId())
-            .roomAddress(inquiry.getContract().getRoom().getDetailAddress())
+            // .roomAddress(inquiry.getContract().getRoom().getDetailAddress())
             .inquiryType(inquiry.getInquiryType())
             .title(inquiry.getTitle())
             .content(inquiry.getContent())
