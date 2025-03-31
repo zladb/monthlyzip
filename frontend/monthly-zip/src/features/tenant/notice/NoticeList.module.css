@@ -1,0 +1,76 @@
+.container {
+    background-color: #fff9ed;
+    width: 100%;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 69px;
+    font-family:
+      Inter,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    overflow: hidden;
+  }
+  
+  .contentWrapper {
+    flex-direction: column;
+    align-items: center;
+    padding-left: 33px;
+    padding-right: 33px;
+    display: flex;
+  }
+  
+  .pageTitle {
+    color: #000;
+    align-self: start;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  
+  .noticeBoard {
+    background-color: #fff;
+    width: 90%;
+    border: 2px solid #ffffff8c;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    padding: 27px 22px;
+    display: flex;
+    box-shadow: 0 1px 10px #ababab80;
+  }
+  
+  .noticeItem {
+    flex-direction: column;
+    align-items: start;
+    padding-left: 7px;
+    padding-right: 53px;
+    display: flex;
+  }
+  
+  .noticeTitle {
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 2;
+  }
+  
+  .noticeDate {
+    color: #b0b0b0;
+    margin-top: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 20px;
+  }
+  
+  .divider {
+    border: 1px solid #f1f1f1;
+    flex-shrink: 0;
+    height: 1px;
+    margin-top: 10px;
+  }
+  
+  
