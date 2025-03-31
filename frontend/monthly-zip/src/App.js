@@ -19,11 +19,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/tenant/payment-list" element={<PaymentList />} /> 
-        <Route path="/tenant/payment-detail" element={<PaymentDetail />} />
-        <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  {/* 임차인 목록 */}
-        <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} /> {/* 임차인 관리 상세 페이지 */}
-        <Route path="/landlord/mypage" element={<LandlordMypage />} />  {/* 임대인 마이 페이지 */}
-        <Route path="/tenant/mypage" element={<TenantMypage />} />  {/* 임차인 마이 페이지 */}
+        <Route path="/tenant/payment-detail/:year/:month" element={<PaymentDetail />} />
+        <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
+        <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
+        <Route path="/landlord/mypage" element={<LandlordMypage />} />
+        <Route path="/tenant/mypage" element={<TenantMypage />} />
        
 
       </Routes>
