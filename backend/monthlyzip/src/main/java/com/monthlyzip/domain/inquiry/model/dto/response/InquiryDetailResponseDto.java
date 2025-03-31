@@ -1,6 +1,8 @@
 package com.monthlyzip.domain.inquiry.model.dto.response;
 
 import com.monthlyzip.domain.inquiry.model.entity.Inquiry;
+import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
+import com.monthlyzip.domain.inquiry.model.type.InquiryType;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,22 +18,22 @@ import lombok.Setter;
 
 public class InquiryDetailResponseDto {
     private Long inquiryId;
-    private Long memberId;
-    private String memberName;
+    // private Long memberId;
+    // private String memberName;
     private Long contractId;
     // private String roomAddress;
-    private String inquiryType;
+    private InquiryType inquiryType;
     private String title;
     private String content;
-    private String status;
+    private InquiryStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public static InquiryDetailResponseDto from(Inquiry inquiry) {
         return InquiryDetailResponseDto.builder()
             .inquiryId(inquiry.getId())
-            .memberId(inquiry.getMember().getId())
-            .memberName(inquiry.getMember().getName())
+            // .memberId(inquiry.getMember().getId())
+            // .memberName(inquiry.getMember().getName())
             .contractId(inquiry.getContract().getId())
             // .roomAddress(inquiry.getContract().getRoom().getDetailAddress())
             .inquiryType(inquiry.getInquiryType())

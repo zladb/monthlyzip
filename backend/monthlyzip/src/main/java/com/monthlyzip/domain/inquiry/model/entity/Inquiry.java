@@ -1,9 +1,13 @@
 package com.monthlyzip.domain.inquiry.model.entity;
 
 import com.monthlyzip.domain.contract.model.entity.Contract;
+import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
+import com.monthlyzip.domain.inquiry.model.type.InquiryType;
 import com.monthlyzip.member.model.entity.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,8 +44,9 @@ public class Inquiry {
     @JoinColumn(name = "contract_id", nullable = false)
     private Contract contract;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String inquiryType;
+    private InquiryType inquiryType;  // 문의 유형: 수리요청, 납부관리, 계약관리, 생활민원, 기타
 
     @Column(nullable = false)
     private String title;
@@ -49,8 +54,9 @@ public class Inquiry {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private InquiryStatus status;  // 문의 상태: 접수, 처리중, 처리완료
 
     @Column
     private LocalDateTime createdAt;
