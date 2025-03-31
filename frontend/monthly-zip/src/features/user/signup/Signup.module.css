@@ -33,12 +33,14 @@
     font-size: 28px;
     font-weight: 700;
   }
+
+    /* 이메일 */
+
   .div2 {
     text-align: center;
     margin-top: 41px;
     font-size: 16px;
   }
-  /* 이메일 */
 
   .abcgmailcom {
     color: #000;
@@ -51,13 +53,15 @@
     padding: 18px 8px;
     font-weight: 400;
 
+
+  /* 비밀번호*/  
+
   }
   .div3 {
     margin-top: 17px;
     font-size: 16px;
   }
 
-  /* 비밀 번호 */
 
   .div4 {
     color: #000;
