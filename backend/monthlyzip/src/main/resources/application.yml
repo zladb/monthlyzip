@@ -11,12 +11,15 @@ spring:
 
   jpa:
     generate-ddl: true
-    hibernate:
-      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
     show-sql: false
+
+  data:
+    redis:
+      repositories:
+        enabled: true
 
 logging:
   level:
@@ -24,3 +27,6 @@ logging:
     org.hibernate.SQL: info  # Hibernate 기본 SQL 로그 줄이기
     root: INFO
     com.monthlyzip: DEBUG  # ✅ 프로젝트 패키지에 대해 DEBUG 레벨 적용
+  charset:
+    console: UTF-8
+    file: UTF-8
