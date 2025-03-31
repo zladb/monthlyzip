@@ -229,6 +229,6 @@ const TenantMypage = () => {
     </>
   );
 };
-//  ,지라 테스트중인데 왜 안돼???
+// 지라 되라라
 
 export default TenantMypage;
