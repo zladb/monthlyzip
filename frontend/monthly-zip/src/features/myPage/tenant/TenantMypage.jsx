@@ -229,5 +229,6 @@ const TenantMypage = () => {
     </>
   );
 };
+// 지라 테스트트
 
 export default TenantMypage;
