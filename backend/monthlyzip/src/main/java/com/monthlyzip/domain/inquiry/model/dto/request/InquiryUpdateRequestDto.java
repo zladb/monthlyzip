@@ -1,5 +1,6 @@
 package com.monthlyzip.domain.inquiry.model.dto.request;
 
+import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class InquiryUpdateRequestDto {
-    private String status;
+    private InquiryStatus status;
     private String title;
     private String content;
 }
