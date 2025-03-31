@@ -1,8 +1,8 @@
 .container {
     background-color: #fff;
     width: 100%;
-    max-width: 375px;
-    min-height: 100vh;
+    min-height: 700px;   /* 일단 700px로 잡았음 */
+    max-width: 480px;
     margin: 0 auto;
   }
   @media (width<=991px) {
@@ -98,4 +98,23 @@
     line-height: 28px;
     margin: 0;
   }
-  
+    
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 14px;
+    margin-top: 40px;
+  }
+
+  .actionButton {
+    background-color: #fcbe32;
+    border-radius: 16px;
+    width: 100%;
+    height: 38px;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 700;
+    box-shadow: 0 0 10px #008dfd26;
+    cursor: pointer;
+    border: none;
+  }
