@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 
 public class InquiryResponseDto {
     private Long inquiryId;
-    private Long memberId;
-    private String memberName;
+    // private Long memberId;
+    // private String memberName;
     private Long contractId;
-    private String roomAddress;
+    // private String roomAddress;
     private String inquiryType;
     private String title;
     private String status;
@@ -28,10 +28,10 @@ public class InquiryResponseDto {
     public static InquiryResponseDto from(Inquiry inquiry) {
         return InquiryResponseDto.builder()
             .inquiryId(inquiry.getId())
-            .memberId(inquiry.getMember().getId())
-            .memberName(inquiry.getMember().getName())
+            // .memberId(inquiry.getMember().getId())
+            //.memberName(inquiry.getMember().getName())
             .contractId(inquiry.getContract().getId())
-            .roomAddress(inquiry.getContract().getRoom().getDetailAddress())
+            // .roomAddress(inquiry.getContract().getRoom().getDetailAddress())
             .inquiryType(inquiry.getInquiryType())
             .title(inquiry.getTitle())
             .status(inquiry.getStatus())
