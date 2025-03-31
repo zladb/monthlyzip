@@ -19,7 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/tenant/payment-list" element={<PaymentList />} /> 
-        <Route path="/tenant/payment-detail" element={<PaymentDetail />} />
+        <Route path="/tenant/payment-detail/:year/:month" element={<PaymentDetail />} />
         <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
         <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
         <Route path="/landlord/mypage" element={<LandlordMypage />} />
