@@ -173,14 +173,6 @@ const LandlordMypage = () => {
                 placeholder="영문, 숫자 조합 8~16자"
                 className={styles.formInput}
               />
-              {/* <button
-                type="button"
-                className={styles.eyeIconButton}
-                onClick={togglePasswordVisibility}
-                aria-label={passwordVisible ? "Hide password" : "Show password"}
-              >
-                <EyeIcon />
-              </button> */}
             </div>
           </div>
 
@@ -195,16 +187,6 @@ const LandlordMypage = () => {
                 placeholder="비밀번호를 한번 더 입력 해주세요."
                 className={styles.formInput}
               />
-              {/* <button
-                type="button"
-                className={styles.eyeIconButton}
-                onClick={toggleConfirmPasswordVisibility}
-                aria-label={
-                  confirmPasswordVisible ? "Hide password" : "Show password"
-                }
-              >
-                <EyeIcon />
-              </button> */}
             </div>
           </div>
 
