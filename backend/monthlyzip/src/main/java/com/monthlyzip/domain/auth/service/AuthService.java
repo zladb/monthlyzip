@@ -35,6 +35,7 @@ public class AuthService {
 
         // accessToken 블랙리스트 등록
         long remainingMillis = jwtUtil.getExpiration(accessToken).getTime() - System.currentTimeMillis();
+        if (remainingMillis < 1000) remainingMillis = 1000;
         tokenService.blacklistAccessToken(accessToken, remainingMillis);
     }
 
