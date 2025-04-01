@@ -12,6 +12,8 @@ public enum ApiResponseStatus {
     UNAUTHORIZED(false, HttpStatus.UNAUTHORIZED, 401, "인증이 필요합니다."),
     FORBIDDEN(false, HttpStatus.FORBIDDEN, 403, "권한이 없습니다."),
     NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "대상을 찾을 수 없습니다."),
+    INVALID_JSON(false, HttpStatus.BAD_REQUEST, 400, "요청 본문(JSON)이 올바른 형식이 아닙니다."),
+
 
     // ✅ 비즈니스 예외
 
@@ -45,6 +47,10 @@ public enum ApiResponseStatus {
     NOTICE_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 공지사항이 존재하지 않습니다."),
     NOTICE_ACCESS_DENIED(false, HttpStatus.FORBIDDEN, 403, "공지사항에 접근할 권한이 없습니다."),
     NOTICE_INVALID_REQUEST(false, HttpStatus.BAD_REQUEST, 400, "공지사항 요청 값이 유효하지 않습니다."),
+
+    // inquiry
+    INQUIRY_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 문의가 존재하지 않습니다."),
+    INQUIRY_INVALID_REQUEST(false, HttpStatus.BAD_REQUEST, 400, "유효하지 않는 문의 유형 입니다.")
     ;
 
     private final boolean isSuccess;

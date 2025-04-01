@@ -1,0 +1,108 @@
+---- monthlyzip_schema.sql
+---- Monthly집 프로젝트 테이블 생성 스크립트 (간략화 버전)
+--
+--CREATE DATABASE IF NOT EXISTS monthlyzip;
+--USE monthlyzip;
+--
+---- 회원 테이블
+--CREATE TABLE `member` (
+--  `member_id` bigint NOT NULL AUTO_INCREMENT,
+--  `created_at` datetime(6) DEFAULT NULL,
+--  `updated_at` datetime(6) DEFAULT NULL,
+--  `phone_number` varchar(20) NOT NULL,
+--  `name` varchar(50) NOT NULL,
+--  `email` varchar(150) NOT NULL,
+--  `password` varchar(255) NOT NULL,
+--  `user_type` enum('임대인','임차인') NOT NULL,
+--  PRIMARY KEY (`member_id`)
+--);
+--
+---- 건물 테이블
+--CREATE TABLE `building` (
+--  `building_id` bigint NOT NULL AUTO_INCREMENT,
+--  `created_at` datetime(6) DEFAULT NULL,
+--  `owner_id` bigint NOT NULL,
+--  `updated_at` datetime(6) DEFAULT NULL,
+--  `building_name` varchar(100) DEFAULT NULL,
+--  `address` varchar(255) NOT NULL,
+--  PRIMARY KEY (`building_id`),
+--  FOREIGN KEY (`owner_id`) REFERENCES `member` (`member_id`)
+--);
+--
+---- 방 테이블
+--CREATE TABLE `room` (
+--  `room_id` bigint NOT NULL AUTO_INCREMENT,
+--  `is_occupied` bit(1) NOT NULL,
+--  `area` bigint DEFAULT NULL,
+--  `created_at` datetime(6) DEFAULT NULL,
+--  `property_id` bigint NOT NULL,
+--  `updated_at` datetime(6) DEFAULT NULL,
+--  `detail_address` varchar(20) NOT NULL,
+--  PRIMARY KEY (`room_id`),
+--  FOREIGN KEY (`property_id`) REFERENCES `building` (`building_id`)
+--);
+--
+---- 계약 테이블
+--CREATE TABLE `contract` (
+--  `contract_id` bigint NOT NULL AUTO_INCREMENT,
+--  `is_active_landlord` bit(1) DEFAULT NULL,
+--  `is_active_tenant` bit(1) DEFAULT NULL,
+--  `payment_day` int NOT NULL,
+--  `created_at` datetime(6) DEFAULT NULL,
+--  `deposit` bigint NOT NULL,
+--  `end_date` datetime(6) NOT NULL,
+--  `landlord_id` bigint NOT NULL,
+--  `monthly_rent` bigint NOT NULL,
+--  `room_id` bigint NOT NULL,
+--  `start_date` datetime(6) NOT NULL,
+--  `tenant_id` bigint DEFAULT NULL,
+--  `updated_at` datetime(6) DEFAULT NULL,
+--  `bank_account` varchar(255) DEFAULT NULL,
+--  PRIMARY KEY (`contract_id`),
+--  FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`)
+--);
+--
+---- 납부 테이블
+--CREATE TABLE `payment` (
+--  `payment_id` bigint NOT NULL AUTO_INCREMENT,
+--  `payment_proof` bit(1) DEFAULT NULL,
+--  `amount` bigint NOT NULL,
+--  `contract_id` bigint NOT NULL,
+--  `created_at` datetime(6) DEFAULT NULL,
+--  `due_date` datetime(6) NOT NULL,
+--  `payment_date` datetime(6) NOT NULL,
+--  `updated_at` datetime(6) DEFAULT NULL,
+--  `payment_status` enum('납부완료','미납','확인중') NOT NULL,
+--  PRIMARY KEY (`payment_id`),
+--  FOREIGN KEY (`contract_id`) REFERENCES `contract` (`contract_id`)
+--);
+--
+---- 공지사항 테이블
+--CREATE TABLE `notice` (
+--  `notice_id` bigint NOT NULL AUTO_INCREMENT,
+--  `building_id` bigint NOT NULL,
+--  `created_at` datetime(6) DEFAULT NULL,
+--  `landlord_id` bigint NOT NULL,
+--  `updated_at` datetime(6) DEFAULT NULL,
+--  `title` varchar(255) NOT NULL,
+--  `content` text NOT NULL,
+--  PRIMARY KEY (`notice_id`),
+--  FOREIGN KEY (`building_id`) REFERENCES `building` (`building_id`),
+--  FOREIGN KEY (`landlord_id`) REFERENCES `member` (`member_id`)
+--);
+--
+---- 문의 테이블
+--CREATE TABLE `inquiry` (
+--  `inquiry_id` bigint NOT NULL AUTO_INCREMENT,
+--  `member_id` bigint NOT NULL,
+--  `contract_id` bigint NOT NULL,
+--  `created_at` datetime(6) DEFAULT NULL,
+--  `updated_at` datetime(6) DEFAULT NULL,
+--  `inquiry_type` varchar(50) NOT NULL,
+--  `title` varchar(255) NOT NULL,
+--  `content` text NOT NULL,
+--  `status` varchar(50) DEFAULT '접수',
+--  PRIMARY KEY (`inquiry_id`),
+--  FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`),
+--  FOREIGN KEY (`contract_id`) REFERENCES `contract` (`contract_id`)
+--);
