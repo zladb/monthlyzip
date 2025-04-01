@@ -15,6 +15,5 @@ public class LandlordInquiryDto {
     private String title;
     private String roomInfo;
     private String createdAt;
-    private Boolean isNew;
     private String status;
 }
