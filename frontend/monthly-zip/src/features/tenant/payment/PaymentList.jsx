@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import styles from "./PaymentList.module.css";
 import PaymentCard from "./PaymentCard";
