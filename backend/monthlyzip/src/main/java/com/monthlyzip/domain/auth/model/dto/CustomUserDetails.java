@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.auth.model.dto;
 
-import com.monthlyzip.domain.member.entity.MemberEntity;
+import com.monthlyzip.domain.member.entity.Member;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,9 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final MemberEntity member;
+    private final Member member;
 
-    public CustomUserDetails (MemberEntity member) {
+    public CustomUserDetails (Member member) {
         this.member = member;
     }
 
@@ -22,7 +22,7 @@ public class CustomUserDetails implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
-    public MemberEntity getMember() { return this.member; }
+    public Member getMember() { return this.member; }
 
     @Override
     public String getPassword() {

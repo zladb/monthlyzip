@@ -50,7 +50,11 @@ public enum ApiResponseStatus {
 
     // inquiry
     INQUIRY_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 문의가 존재하지 않습니다."),
-    INQUIRY_INVALID_REQUEST(false, HttpStatus.BAD_REQUEST, 400, "유효하지 않는 문의 유형 입니다.")
+    INQUIRY_INVALID_REQUEST(false, HttpStatus.BAD_REQUEST, 400, "유효하지 않는 문의 유형 입니다."),
+
+    // file
+    FILE_SAVE_FAILED(false, HttpStatus.INTERNAL_SERVER_ERROR, 5001,"파일 저장에 실패했습니다."),
+    FILE_DELETE_FAILED(false, HttpStatus.INTERNAL_SERVER_ERROR, 5002,"파일 삭제에 실패했습니다.")
     ;
 
     private final boolean isSuccess;

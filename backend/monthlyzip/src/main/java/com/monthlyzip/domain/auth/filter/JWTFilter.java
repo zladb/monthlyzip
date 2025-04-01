@@ -1,7 +1,7 @@
 package com.monthlyzip.domain.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.monthlyzip.domain.member.entity.MemberEntity;
+import com.monthlyzip.domain.member.entity.Member;
 import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
 import com.monthlyzip.domain.member.enums.MemberType;
 import com.monthlyzip.domain.auth.service.TokenService;
@@ -67,7 +67,7 @@ public class JWTFilter extends OncePerRequestFilter {
         String userType = jwtUtil.getUserType(accessToken);
 
         //userEntity를 생성하여 값 set
-        MemberEntity member = new MemberEntity();
+        Member member = new Member();
         member.setMemberId(memberId);
         member.setMemberType(MemberType.valueOf(userType));
         member.setPassword("temppassword");

@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.auth.service;
 
-import com.monthlyzip.domain.member.entity.MemberEntity;
+import com.monthlyzip.domain.member.entity.Member;
 import com.monthlyzip.domain.auth.model.dto.JoinDto;
 import com.monthlyzip.domain.member.enums.MemberType;
 import com.monthlyzip.domain.member.repository.MemberRepository;
@@ -44,7 +44,7 @@ public class JoinService {
         // ******* ******* *******
 
         // 데이터 저장 부분
-        MemberEntity data = new MemberEntity();
+        Member data = new Member();
         data.setEmail(email);
         data.setPassword(bCryptPasswordEncoder.encode(password));
         data.setName(name);

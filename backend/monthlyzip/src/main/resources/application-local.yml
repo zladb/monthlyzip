@@ -15,6 +15,5 @@ spring:
 server:
   port: 8080
 
-# 필요없을 듯?
 app:
   baseUrl: http://localhost:8080
