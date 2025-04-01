@@ -1,0 +1,160 @@
+.container {
+    background-color: #fff;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 68px;
+    font-family:
+      Poppins,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    overflow: hidden;
+    min-height: 700px;
+  }
+  
+  .header {
+    color: #343434;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+  }
+  
+  .title {
+    color: #000;
+    align-self: start;
+    align-items: stretch;
+    gap: 10px;
+    font-family:
+      Inter,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    display: flex;
+    margin: 0;
+  }
+  
+  .titleIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    flex-shrink: 0;
+    width: 28px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  .titleText {
+    flex-basis: auto;
+  }
+
+  .instructions {
+    margin-top: 46px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Ensures the text inside is also centered */
+  }
+
+  .instructionSecondary {
+    margin-top: 10px;
+    line-height: 1;
+  }
+  
+  .agreementSection {
+    background-color: #f0f0f0;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 32px;
+    padding-top: 42px;
+    display: flex;
+  }
+  
+  .agreementHeader {
+    color: #343434;
+    background-color: #fff;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 20px;
+    width: 100%;
+    max-width: 333px;
+    padding: 16px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    display: flex;
+  }
+  
+  .agreementTitleWrapper {
+    align-items: stretch;
+    gap: 9px;
+    display: flex;
+  }
+  .documentIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    flex-shrink: 0;
+    width: 28px;
+  }
+  .agreementTitle {
+    flex-basis: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .expandIcon {
+    aspect-ratio: 1.07;
+    object-fit: contain;
+    object-position: center;
+    flex-shrink: 0;
+    width: 16px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  .agreementInfo {
+    color: #767676;
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+  .customCheckbox {
+    font-size: 20px;
+    margin-right: 5px;
+  }
+  
+  .confirmButton {
+    color: #979797;
+    white-space: nowrap;
+    background-color: #d8d8d8;
+    align-self: stretch;
+    width: 100%;
+    margin-top: 353px;
+    padding: 23px 70px;
+    font-family:
+      Montserrat,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+  }
+  
