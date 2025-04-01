@@ -1,0 +1,295 @@
+.container {
+    background-color: #fff9ed;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 69px;
+    font-family:
+      Inter,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    overflow: hidden;
+    min-height: 1200px;
+  }
+  .contentWrapper {
+    flex-direction: column;
+    align-items: stretch;
+    justify-self: center;
+    width: 90%;
+    padding-left: 34px;
+    padding-right: 34px;
+    font-size: 14px;
+    display: flex;
+  }
+  .contractTitle {
+    color: #000;
+    align-self: start;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .addressCard {
+    color: #878787;
+    background-color: #fff;
+    border: 2px solid #ffffff8c;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 47px;
+    padding: 9px 62px 16px 17px;
+    font-weight: 400;
+    display: flex;
+    box-shadow: 0 1px 10px #ababab80;
+  }
+  .addressLabel {
+    color: #000;
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+  }
+  .addressDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px;
+    border-radius: 8px;
+    align-items: stretch;
+  }
+  .buildingName,
+  .streetAddress,
+  .unitNumber {
+    letter-spacing: 0.28px;
+    line-height: 1.6; /* 기본 줄 간격 조정 */
+    margin: 2px 0; /* 위아래 간격 추가 */
+    font-size: 18px;
+  }
+
+  .partiesCard {
+    white-space: nowrap;
+    letter-spacing: 0.28px;
+    background-color: #fff;
+    border: 2px solid #ffffff8c;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 11px;
+    padding: 16px 62px 16px 17px;
+    display: flex;
+    box-shadow: 0 1px 10px #ababab80;
+  }
+  .partyRow {
+    align-items: center;
+    gap: 15px;
+    display: flex;
+  }
+  .partyLabel {
+    color: #000;
+    font-weight: 600;
+    font-size: 20px;
+  }
+  .partyName {
+    color: #878787;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  .tenantRow {
+    align-items: center;
+    gap: 15px;
+    margin-top: 5px;
+    display: flex;
+  }
+  .infoCard {
+    background-color: #fff;
+    border: 2px solid #ffffff8c;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 11px;
+    padding: 11px 62px 11px 12px;
+    display: flex;
+    box-shadow: 0 1px 10px #ababab80;
+  }
+  .infoLabel {
+    color: #000;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1;
+  }
+  .periodInfo {
+    color: #878787;
+    letter-spacing: 0.28px;
+    text-align: center;
+    margin-top: 13px;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  .accountCard {
+    background-color: #fff;
+    border: 2px solid #ffffff8c;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 19px;
+    padding: 10px 62px 10px 12px;
+    display: flex;
+    box-shadow: 0 1px 10px #ababab80;
+  }
+  .accountInfo {
+    color: #878787;
+    letter-spacing: 0.28px;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  .paymentCard {
+    color: #000;
+    white-space: nowrap;
+    background-color: #fff;
+    border: 2px solid #ffffff8c;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 19px;
+    padding: 12px 62px 12px 12px;
+    font-weight: 600;
+    display: flex;
+    box-shadow: 0 1px 10px #ababab80;
+  }
+  .depositLabel {
+    line-height: 1;
+    font-size: 20px;
+  }
+  .depositAmount {
+    color: #878787;
+    letter-spacing: 0.28px;
+    text-align: center;
+    margin-top: 12px;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  .rentLabel {
+    letter-spacing: 0.28px;
+    text-align: center;
+    margin-top: 11px;
+    font-size: 20px;
+  }
+  .rentAmount {
+    color: #878787;
+    letter-spacing: 0.28px;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  .dateCard {
+    background-color: #fff;
+    border: 2px solid #ffffff8c;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 11px;
+    padding: 6px 62px 17px 12px;
+    display: flex;
+    box-shadow: 0 1px 10px #ababab80;
+  }
+  .dateInfo {
+    color: #878787;
+    letter-spacing: 0.28px;
+    text-align: center;
+    margin-top: 11px;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  .terminationButton {
+    color: #fff;
+    letter-spacing: 0.32px;
+    background-color: #ff3b30;
+    border-radius: 10px;
+    margin-top: 47px;
+    padding: 12px 70px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .terminatedButton {
+    color: #ff3b30;
+    letter-spacing: 0.32px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-top: 47px;
+    padding: 12px 70px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+    border: 1px solid #ff3b30;
+  }
+
+  /* 해지 요청하기 모달 */
+  .modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .modalButtonContainer {
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    display: flex;
+  }
+  
+  .modalCancelButton {
+    color: #ff3b30;
+    cursor: pointer;
+    border: 1.5px solid #ff3b30;
+    border-radius: 12px;
+    height: 40px;
+    padding: 12px 16px;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 600;
+    width: 100%;
+    background-color: transparent;
+    text-align: center;
+  }
+
+  .modalTerminateButton {
+    color: #fff;
+    cursor: pointer;
+    background-color: #ff3b30;
+    border-radius: 12px;
+    height: 40px;
+    padding: 12px 16px;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 600;
+    width: 100%;
+    border: none;
+    text-align: center;
+  }
+  
