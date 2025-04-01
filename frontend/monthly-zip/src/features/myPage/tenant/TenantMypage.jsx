@@ -229,6 +229,6 @@ const TenantMypage = () => {
     </>
   );
 };
-// 지라 되라라
+
 
 export default TenantMypage;
