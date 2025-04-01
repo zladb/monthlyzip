@@ -10,6 +10,7 @@ import PaymentDetail from './features/tenant/payment/PaymentDetail';
 import LandlordMypage from './features/myPage/landlord/LandlordMypage';
 import TenantMypage from './features/myPage/tenant/TenantMypage';
 import PaymentMain from './features/tenant/payment/PaymentMain';
+import NoticeList from './features/tenant/notice/NoticeList';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
         <Route path="/landlord/mypage" element={<LandlordMypage />} />
         <Route path="/tenant/mypage" element={<TenantMypage />} />
+        <Route path="/tenant/notice-list" element={<NoticeList />} />
        
 
       </Routes>

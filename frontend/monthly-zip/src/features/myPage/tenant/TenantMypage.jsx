@@ -187,7 +187,7 @@ const TenantMypage = () => {
                 placeholder="비밀번호를 한번 더 입력 해주세요."
                 className={styles.formInput}
               />
-{/* 주석 지워버림림 */}
+
             </div>
           </div>
 
@@ -229,5 +229,6 @@ const TenantMypage = () => {
     </>
   );
 };
+// 지라 되라라
 
 export default TenantMypage;
