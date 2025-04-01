@@ -1,9 +1,9 @@
 package com.monthlyzip.domain.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.monthlyzip.domain.auth.entity.MemberEntity;
+import com.monthlyzip.domain.member.entity.MemberEntity;
 import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
-import com.monthlyzip.domain.auth.model.enums.MemberType;
+import com.monthlyzip.domain.member.enums.MemberType;
 import com.monthlyzip.domain.auth.service.TokenService;
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;

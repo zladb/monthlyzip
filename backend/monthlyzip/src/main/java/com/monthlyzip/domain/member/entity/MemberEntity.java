@@ -1,12 +1,11 @@
-package com.monthlyzip.domain.auth.entity;
+package com.monthlyzip.domain.member.entity;
 
-import com.monthlyzip.domain.auth.model.enums.MemberType;
+import com.monthlyzip.domain.member.enums.MemberType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.usertype.UserType;
 
 import java.time.LocalDateTime;
 
