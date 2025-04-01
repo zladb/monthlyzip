@@ -19,7 +19,7 @@ public class DashboardController {
 
     private final DashboardService dashboardService;
 
-    @GetMapping("/main")
+    @GetMapping
     public ApiResponse<DashboardResponseDto> getMainDashboard(
         @AuthenticationPrincipal CustomUserDetails userDetails) {
 
@@ -27,7 +27,7 @@ public class DashboardController {
         // Long memberId = userDetails.getMember().getMemberId();
 
         // 테스트를 위한 임시 사용자 ID
-        Long memberId = 2L; // 임대인 ID (필요에 따라 2L로 변경하여 임차인 테스트)
+        Long memberId = 1L; // 임대인 ID (필요에 따라 2L로 변경하여 임차인 테스트)
 
         log.info("대시보드 메인 페이지 요청: 사용자 ID {}", memberId);
         return ApiResponse.success(dashboardService.getMainDashboard(memberId));

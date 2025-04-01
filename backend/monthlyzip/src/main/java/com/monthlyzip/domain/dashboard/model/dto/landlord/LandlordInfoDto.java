@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LandlordInfoDto {
     private String name;
-    // private String profileImageUrl;
 }
