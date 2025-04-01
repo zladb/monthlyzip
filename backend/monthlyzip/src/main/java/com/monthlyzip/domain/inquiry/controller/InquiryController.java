@@ -6,6 +6,7 @@ import com.monthlyzip.domain.inquiry.model.dto.request.InquiryUpdateRequestDto;
 import com.monthlyzip.domain.inquiry.model.dto.response.InquiryCreateResponseDto;
 import com.monthlyzip.domain.inquiry.model.dto.response.InquiryDetailResponseDto;
 import com.monthlyzip.domain.inquiry.model.dto.response.InquiryResponseDto;
+import com.monthlyzip.domain.inquiry.model.type.InquiryType;
 import com.monthlyzip.domain.inquiry.service.InquiryService;
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import jakarta.validation.Valid;
@@ -51,7 +52,7 @@ public class InquiryController {
     public ApiResponse<List<InquiryResponseDto>> getInquiries(
         @AuthenticationPrincipal CustomUserDetails userDetails,
         @RequestParam(required = false) String status,
-        @RequestParam(required = false) String inquiryType) {
+        @RequestParam(required = false) InquiryType inquiryType) {
         // 테스트용 memberId 임의 설정
         // Long memberId = userDetails.getMember().getMemberId();
         log.info("문의 전체 목록 조회 !! ");
@@ -65,7 +66,7 @@ public class InquiryController {
 
     // 문의 상세 조회
     @GetMapping("/{inquiryId}")
-    public ApiResponse<InquiryDetailResponseDto> getInquiryById(
+    public ApiResponse<InquiryDetailResponseDto> getInquiryDetail(
         @AuthenticationPrincipal CustomUserDetails userDetails,
         @PathVariable Long inquiryId) {
         // 테스트용 memberId 임의 설정
@@ -73,7 +74,7 @@ public class InquiryController {
         Long memberId = 1L; // 임대인 ID로 가정
 
         log.debug("문의 상세 조회 요청");
-        return ApiResponse.success(inquiryService.getInquiryById(memberId, inquiryId));
+        return ApiResponse.success(inquiryService.getInquiryDetail(memberId, inquiryId));
     }
 
     // 문의 상태 수정
