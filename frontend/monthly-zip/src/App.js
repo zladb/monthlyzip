@@ -11,6 +11,7 @@ import LandlordMypage from './features/myPage/landlord/LandlordMypage';
 import TenantMypage from './features/myPage/tenant/TenantMypage';
 import PaymentMain from './features/tenant/payment/PaymentMain';
 import NoticeList from './features/tenant/notice/NoticeList';
+import ContractInformation from './features/tenant/contract/ContractInformation';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/landlord/mypage" element={<LandlordMypage />} />
         <Route path="/tenant/mypage" element={<TenantMypage />} />
         <Route path="/tenant/notice-list" element={<NoticeList />} />
+        <Route path="/tenant/contract" element={<ContractInformation />} />
        
 
       </Routes>
