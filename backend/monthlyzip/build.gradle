@@ -70,6 +70,9 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.security:spring-security-messaging' // 버전은 필요에 맞게 수정
+
+	// websocket
+	implementation("org.springframework.boot:spring-boot-starter-websocket")
 }
 
 tasks.named('test') {
