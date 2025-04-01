@@ -12,6 +12,8 @@ import TenantMypage from './features/myPage/tenant/TenantMypage';
 import PaymentMain from './features/tenant/payment/PaymentMain';
 import NoticeList from './features/tenant/notice/NoticeList';
 import ContractInformation from './features/tenant/contract/ContractInformation';
+import AutoPaymentAgreement from './features/tenant/payment/auto/AutoPaymentAgreement';
+import AutoPayment from './features/tenant/payment/auto/AutoPayment';
 
 
 function App() {
@@ -24,14 +26,16 @@ function App() {
         <Route path="/tenant/payment-list" element={<PaymentList />} /> 
         <Route path="/tenant/payment-detail/:year/:month" element={<PaymentDetail />} />
         <Route path="/tenant/payment-main" element={<PaymentMain />} />
-        
+        <Route path="/tenant/auto-payment" element={<AutoPayment />} />
+        <Route path="/tenant/auto-payment-agreement" element={<AutoPaymentAgreement />} /> 
+
         <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
         <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
         <Route path="/landlord/mypage" element={<LandlordMypage />} />
         <Route path="/tenant/mypage" element={<TenantMypage />} />
         <Route path="/tenant/notice-list" element={<NoticeList />} />
         <Route path="/tenant/contract" element={<ContractInformation />} />
-       
+
 
       </Routes>
     </Router>
