@@ -158,6 +158,9 @@
     padding: 19px 8px;
     font-weight: 400;
   }
+
+  /* 필수 선택 */
+
   .div11 {
     margin-top: 17px;
     font-size: 16px;
@@ -180,7 +183,7 @@
     gap: 11px;
     display: flex;
   }
-  .div14 {
+  /* .div14 {
     background-color: #fff;
     border: 1px solid #dadada;
     border-radius: 2px;
@@ -190,18 +193,15 @@
     display: flex;
     appearance: none;
     cursor: pointer;
-  }
-  .div14:checked {
-    background-color: #fe6a00;
-    border-color: #fe6a00;
-  }
+  } */
+
   .div15 {
     flex: 1;
     align-items: stretch;
     gap: 11px;
     display: flex;
   }
-  .div16 {
+  /* .div16 {
     background-color: #fff;
     border: 1px solid #dadada;
     border-radius: 2px;
@@ -211,11 +211,44 @@
     display: flex;
     appearance: none;
     cursor: pointer;
+  } */
+
+  .div14,
+  .div16 {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    border-radius: 50%;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    appearance: none;
+    cursor: pointer;
+    position: relative;
   }
+  
+  /* 체크된 상태 */
+  .div14:checked,
   .div16:checked {
     background-color: #fe6a00;
     border-color: #fe6a00;
   }
+  
+  /* 체크된 상태에서 내부 점 표시 */
+  .div14:checked::before,
+  .div16:checked::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* 동의 */
   .div17 {
     align-items: stretch;
     gap: 14px;
@@ -223,6 +256,7 @@
     font-size: 18px;
     display: flex;
   }
+
   .div18 {
     background-color: #fff;
     border: 1px solid #dadada;
@@ -230,13 +264,26 @@
     flex-shrink: 0;
     width: 20px;
     height: 20px;
-    display: flex;
-    appearance: none;
+    appearance: none; 
     cursor: pointer;
+    position: relative;
+    display: inline-block; 
   }
+  
   .div18:checked {
-    background-color: #fe6a00;
+    background-color: white;
     border-color: #fe6a00;
+  }
+  
+  .div18:checked::after {
+    content: "✓";
+    font-size: 18px;
+    color: #fe6a00;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   .div19 {
     flex-basis: auto;
@@ -254,13 +301,24 @@
     flex-shrink: 0;
     width: 20px;
     height: 20px;
-    display: flex;
-    appearance: none;
+    appearance: none; 
     cursor: pointer;
+    position: relative;
+    display: inline-block; 
   }
   .div21:checked {
-    background-color: #fe6a00;
+    background-color: white;
     border-color: #fe6a00;
+  }
+  .div21:checked::after {
+    content: "✓";
+    font-size: 18px;
+    color: #fe6a00;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   .div22 {
     flex-basis: auto;
@@ -280,14 +338,26 @@
     flex-shrink: 0;
     width: 20px;
     height: 20px;
-    display: flex;
-    appearance: none;
+    appearance: none; 
     cursor: pointer;
+    position: relative;
+    display: inline-block; 
   }
   .div24:checked {
-    background-color: #fe6a00;
+    background-color: white;
     border-color: #fe6a00;
   }
+  .div24:checked::after {
+    content: "✓";
+    font-size: 18px;
+    color: #fe6a00;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   .div25 {
     flex-basis: auto;
     margin-top: auto;
@@ -306,14 +376,27 @@
     flex-shrink: 0;
     width: 20px;
     height: 20px;
-    display: flex;
-    appearance: none;
+    appearance: none; 
     cursor: pointer;
+    position: relative;
+    display: inline-block; 
   }
   .div27:checked {
-    background-color: #fe6a00;
+    background-color: white;
     border-color: #fe6a00;
   }
+  .div27:checked::after {
+    content: "✓";
+    font-size: 18px;
+    color: #fe6a00;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+
   .div28 {
     flex-basis: auto;
     margin-top: auto;
@@ -332,14 +415,26 @@
     flex-shrink: 0;
     width: 20px;
     height: 20px;
-    display: flex;
-    appearance: none;
+    appearance: none; 
     cursor: pointer;
+    position: relative;
+    display: inline-block; 
   }
   .div30:checked {
-    background-color: #fe6a00;
+    background-color: white;
     border-color: #fe6a00;
   }
+  .div30:checked::after {
+    content: "✓";
+    font-size: 18px;
+    color: #fe6a00;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
   .div31 {
     flex-basis: auto;
     margin-top: auto;
