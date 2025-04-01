@@ -16,6 +16,7 @@ public class NotificationSocketService {
 
     public void sendNotification(Long userId, Notification notification) {
         NotificationSocketDto dto = NotificationSocketDto.of(notification);
+        log.debug(userId.toString(), dto);
         messagingTemplate.convertAndSend("/topic/notify/" + userId, dto);
     }
 }

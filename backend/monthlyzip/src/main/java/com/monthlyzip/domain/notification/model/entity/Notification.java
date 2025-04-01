@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Notification {
 
     @Id
@@ -25,7 +26,7 @@ public class Notification {
     private Member receiver;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar(50)")
     private NotificationType type;
 
     @Column(nullable = false)

@@ -1,6 +1,7 @@
 package com.monthlyzip.domain.notification.controller;
 
 import com.monthlyzip.domain.notification.model.dto.NotificationResponseDto;
+import com.monthlyzip.domain.notification.model.dto.request.NotificationRequestDto;
 import com.monthlyzip.domain.notification.service.NotificationService;
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import jakarta.validation.constraints.NotNull;
@@ -43,8 +44,11 @@ public class NotificationController {
 
     // 🧪 테스트용 알림 전송 (receiverId 하드코딩 or 입력값)
     @PostMapping("/test")
-    public ApiResponse<Void> sendTest(@RequestParam("receiverId") Long receiverId) {
-        notificationService.sendTestNotification(receiverId);
+    public ApiResponse<Void> sendTest(
+            @RequestParam("receiverId") Long receiverId,
+            @RequestBody NotificationRequestDto request
+    ) {
+        notificationService.sendCustomNotification(receiverId, request);
         return ApiResponse.success();
     }
 }

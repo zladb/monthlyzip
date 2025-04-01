@@ -3,6 +3,7 @@ package com.monthlyzip.domain.notification.service;
 import com.monthlyzip.domain.contract.model.entity.Contract;
 import com.monthlyzip.domain.contract.repository.ContractRepository;
 import com.monthlyzip.domain.notification.model.dto.NotificationResponseDto;
+import com.monthlyzip.domain.notification.model.dto.request.NotificationRequestDto;
 import com.monthlyzip.domain.notification.model.entity.Notification;
 import com.monthlyzip.domain.notification.model.type.NotificationType;
 import com.monthlyzip.domain.notification.repository.NotificationRepository;
@@ -75,20 +76,27 @@ public class NotificationService {
         notificationRepository.deleteById(id);
     }
 
-    public void sendTestNotification(Long receiverId) {
+    public void sendCustomNotification(Long receiverId, NotificationRequestDto request) {
         Member member = memberRepository.findById(receiverId)
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
 
+        // ✅ 메시지가 없으면 기본 메시지 사용
+        String message = (request.getMessage() == null || request.getMessage().isBlank())
+                ? request.getType().getDefaultMessage()
+                : request.getMessage();
+
         Notification notification = Notification.builder()
                 .receiver(member)
-                .type(NotificationType.NEW_NOTICE)
-                .message("📢 테스트 알림입니다.")
-                .redirectUrl("/notices")
+                .type(request.getType())
+                .message(message)
+                .redirectUrl(null)
                 .isRead(false)
                 .build();
 
         notificationRepository.save(notification);
         socketService.sendNotification(member.getId(), notification);
     }
+
+
 
 }
