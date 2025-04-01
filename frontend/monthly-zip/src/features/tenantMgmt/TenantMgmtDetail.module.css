@@ -52,7 +52,7 @@
   flex-direction: column;
   align-items: start;
   margin-top: 26px;
-  padding: 12px 64px 26px 20px;
+  padding: 12px 143px 26px 20px;
   font-family:
     Poppins,
     -apple-system,
@@ -94,7 +94,7 @@
   flex-direction: column;
   align-items: start;
   margin-top: 26px;
-  padding: 12px 64px 26px 20px;
+  padding: 12px 162px 26px 20px;
   font-family:
     Poppins,
     -apple-system,
@@ -137,7 +137,7 @@
   align-items: stretch;
   gap: 40px 64px;
   margin-top: 11px;
-  padding: 17px 15px;
+  padding: 12px 82px 26px 20px;
   font-size: 14px;
   font-weight: 400;
   display: flex;
@@ -310,7 +310,7 @@
   width: 320px;
   max-width: 100%;
   margin-top: 10px;
-  padding: 18px 9px 63px 21px;
+  padding: 18px 33px 63px 21px;
   font-size: 14px;
   font-weight: 400;
   display: flex;

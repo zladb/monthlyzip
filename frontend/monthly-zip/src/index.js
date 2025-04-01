@@ -1,9 +1,15 @@
 import React from 'react';
+import axios from 'axios';
+
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+
+axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.withCredentials = true;
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
