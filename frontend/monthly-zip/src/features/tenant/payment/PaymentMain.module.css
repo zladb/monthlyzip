@@ -1,0 +1,284 @@
+.container {
+  background-color: #fff9ed;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 68px;
+  overflow: hidden;
+  min-height: 1000px;   /* 일단 700px로 잡았음 */
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-self: center;
+  width: 90%;
+  font-family:
+    Poppins,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  display: flex;
+}
+
+.pageTitle {
+  color: #000;
+  align-self: start;
+  margin-left: 15px;
+  margin-bottom: 2px;
+  font-family:
+    Inter,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.userHeader {
+  color: #000;
+  text-align: center;
+  align-self: start;
+  align-items: stretch;
+  gap: 6px;
+  margin-top: 18px;
+  margin-left: 19px;
+  display: flex;
+}
+
+.userName {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.userDescription {
+  flex-basis: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.paymentOptions {
+  color: #4e4e4e;
+  text-align: center;
+  letter-spacing: -0.18px;
+  align-items: stretch;
+  gap: 9px;
+  margin-top: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+}
+
+.card {
+  background-color: #fff;
+  border: 2px solid #ffffff8c;
+  border-radius: 10px;
+  flex-direction: column;
+  flex: 1;
+  align-items: stretch;
+  padding: 35px 25px;
+  display: flex;
+  box-shadow: 0 1px 10px #ababab80;
+}
+
+.extraPadding {
+  padding: 35px 32px;
+}
+
+.cardIcon {
+  aspect-ratio: 0.99;
+  object-fit: contain;
+  object-position: center;
+  align-self: center;
+  width: 65px;
+}
+
+.cardTitle {
+  margin-top: 11px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.autoPaymentContainer {
+  background-color: #fff;
+  border: 2px solid #ffffff8c;
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 22px;
+  padding: 11px 25px;
+  display: flex;
+  box-shadow: 0 1px 10px #ababab80;
+}
+
+.autoPaymentTitle {
+  color: #343434;
+  align-self: start;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 2;
+  margin-top: 5px;
+  margin: 2px;
+}
+
+.autoPaymentInfo {
+  color: #5f6368;
+  align-items: stretch;
+  gap: 2px;
+  margin-top: 2px;
+  font-size: 10px;
+  font-weight: 275;
+  line-height: 1.6;
+  display: flex;
+}
+
+.historyContainer {
+  color: #343434;
+  background-color: #fff;
+  border: 2px solid #ffffff8c;
+  border-radius: 10px;
+  align-items: start;
+  gap: 40px 89px;
+  margin-top: 26px;
+  padding: 25px 24px 30px;
+  display: flex;
+  box-shadow: 0 1px 10px #ababab80;
+  flex-direction: column;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px; /* 항목 간 간격 */
+}
+
+.paymentItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* 날짜와 금액을 양 끝에 정렬 */
+  align-items: center; /* 날짜와 금액을 같은 높이로 맞춤 */
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd; /* 구분선 추가 */
+}
+.historyMonth,
+.historyAmount {
+  margin: 0;
+  line-height: 2;
+}
+.historyTitle {
+  color: #80848c;
+  letter-spacing: 0.32px;
+  align-self: stretch;
+  font-family:
+    Inter,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+}
+
+/* 제목과 더보기 버튼을 가로로 배치 */
+.headerWrapper {
+  display: flex;
+  justify-content: space-between; /* 좌우 정렬 */
+  align-items: center;
+  width: 100%;
+}
+.viewMoreWrapper {
+  margin-top: 10px; /* 리스트와 버튼 사이 여백 */
+  align-self: center; /* 버튼을 가운데 정렬 */
+}
+
+.viewMoreButton {
+  color: #000;
+  letter-spacing: 0.22px;
+  align-items: center;
+  gap: 9px;
+  font-family:
+    Inter,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 11px;
+  display: flex;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.viewMoreIcon {
+  aspect-ratio: 0.91;
+  object-fit: contain;
+  object-position: center;
+  flex-shrink: 0;
+  width: 10px;
+}
+
+.toggleContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.toggleLabel {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.toggleButton {
+  position: relative;
+  width: 50px;
+  height: 24px;
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggleButton.active {
+  background-color: #FCBE32;
+}
+
+.toggleSlider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.toggleButton.active .toggleSlider {
+  transform: translateX(26px);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.registrationInfo {
+  margin-top: 12px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  font-size: 14px;
+}

@@ -9,6 +9,7 @@ import PaymentList from './features/tenant/payment/PaymentList';
 import PaymentDetail from './features/tenant/payment/PaymentDetail';
 import LandlordMypage from './features/myPage/landlord/LandlordMypage';
 import TenantMypage from './features/myPage/tenant/TenantMypage';
+import PaymentMain from './features/tenant/payment/PaymentMain';
 import NoticeList from './features/tenant/notice/NoticeList';
 
 
@@ -21,6 +22,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/tenant/payment-list" element={<PaymentList />} /> 
         <Route path="/tenant/payment-detail/:year/:month" element={<PaymentDetail />} />
+        <Route path="/tenant/payment-main" element={<PaymentMain />} />
+        
         <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
         <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
         <Route path="/landlord/mypage" element={<LandlordMypage />} />
