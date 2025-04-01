@@ -11,9 +11,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     // 클라이언트가 WebSocket 연결을 시도할 endpoint 지정
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws")         // ex: /ws로 연결
-                .setAllowedOrigins("*")     // 배포 시에는 도메인 제한 권장
-                .withSockJS();              // SockJS fallback
+        // 순수 WebSocket 클라이언트용 (ex. Postman, WebSocket King)
+        registry.addEndpoint("/ws")
+                .setAllowedOriginPatterns("*");
+
+        // 브라우저 SockJS 클라이언트용
+        registry.addEndpoint("/ws")
+                .setAllowedOriginPatterns("*")
+                .withSockJS();
     }
 
     // 메시지 브로커 설정
