@@ -1,7 +1,7 @@
 package com.monthlyzip.domain.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.monthlyzip.domain.member.entity.MemberEntity;
+import com.monthlyzip.domain.member.entity.Member;
 import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
 import com.monthlyzip.domain.auth.model.dto.LoginDto;
 import com.monthlyzip.domain.auth.service.TokenService;
@@ -71,7 +71,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-        MemberEntity member = customUserDetails.getMember();
+        Member member = customUserDetails.getMember();
 
         Long memberId = member.getMemberId();
         String userType = member.getMemberType().name();
