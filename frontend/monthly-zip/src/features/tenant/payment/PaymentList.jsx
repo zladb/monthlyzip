@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./PaymentList.module.css";
 import PaymentCard from "./PaymentCard";
 
@@ -53,6 +54,8 @@ const PaymentList = () => {
 
   // 미납 내역만 필터링
   const unpaidData = paymentData.filter(payment => payment.status === "미납");
+  
+  const navigate = useNavigate();
 
   return (
     <section className={styles.container}>
@@ -61,6 +64,7 @@ const PaymentList = () => {
           src="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/3c6666561bc2cc8fbdaeee68de9dd7517f2bcfc7?placeholderIfAbsent=true"
           className={styles.headerIcon}
           alt=""
+          onClick = {() => navigate("/tenant/payment-main")} 
         />
         <h2 className={styles.headerTitle}>월세 납부 내역</h2>
       </header>

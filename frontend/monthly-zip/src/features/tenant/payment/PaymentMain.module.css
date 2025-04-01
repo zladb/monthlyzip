@@ -5,8 +5,7 @@
   margin-right: auto;
   padding-top: 68px;
   overflow: hidden;
-  min-height: 700px;   /* 일단 700px로 잡았음 */
-  height: auto; /* 내용에 따라 크기 조절 */
+  min-height: 1000px;   /* 일단 700px로 잡았음 */
 }
 
 .contentWrapper {
@@ -28,6 +27,7 @@
   color: #000;
   align-self: start;
   margin-left: 15px;
+  margin-bottom: 2px;
   font-family:
     Inter,
     -apple-system,
@@ -222,3 +222,63 @@
   width: 10px;
 }
 
+.toggleContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.toggleLabel {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.toggleButton {
+  position: relative;
+  width: 50px;
+  height: 24px;
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggleButton.active {
+  background-color: #FCBE32;
+}
+
+.toggleSlider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.toggleButton.active .toggleSlider {
+  transform: translateX(26px);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.registrationInfo {
+  margin-top: 12px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  font-size: 14px;
+}
