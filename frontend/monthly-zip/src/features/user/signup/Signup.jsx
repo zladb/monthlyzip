@@ -19,8 +19,8 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
-  const [phone_number, setPhone_number] = useState("");
-  const [userType, setUserType] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [memberType, setMemberType] = useState("");
 
   // "모두 동의" 체크박스를 클릭하면 나머지 체크박스들이 자동으로 선택되도록 처리
   const handleAgreeAllChange = (event) => {
@@ -38,41 +38,88 @@ function Signup() {
   };
 
   // Sign up 버튼
-  const handleSubmit = (event) => {
-    event.preventDefault();
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     const formattedMemberType = memberType === "임대인" || memberType === "임차인" ? memberType : "";
 
-    // 입력값을 서버로 보냄
-    axios
-    .post("http://localhost:8080/api/auth/signup", {
-      email,
-      password,
-      confirmPassword,
-      name,
-      phone_number,
-      userType,
+//     // 입력값을 서버로 보냄
+//     axios
+//       .post("/api/auth/signup", {
+//         email,
+//         password,
+//         confirmPassword,
+//         name,
+//         phoneNumber,
+//         memberType: formattedMemberType,  // 서버에서 기대하는 값 그대로 전송
+//       }, {
+//         headers: {
+//           'Content-Type': 'application/json', // 올바른 헤더 설정
+//         }
+//       })
+      
+      
+//       .then((response) => {
+//         console.log("회원가입 성공:", response.data);
+//         navigate("/login");
+//       })
+//       .catch((error) => {
+//         console.error("회원가입 실패:", error);
+//         if (error.response) {
+//           console.error("서버 응답:", error.response.data);
+//           console.error("서버 상태 코드:", error.response.status);
+//         } else if (error.request) {
+//           console.error("요청이 서버로 전송되었지만 응답을 받지 못함");
+//         } else {
+//           console.error("요청 설정에서 오류 발생:", error.message);
+//         }
+//         alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+//       });
+// };
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+
+  // 🔹 영어 -> 한글 변환을 위한 매핑 객체
+  const memberTypeMapping = {
+    landlord: "임대인",
+    tenant: "임차인"
+  };
+
+  const requestData = {
+    email,
+    password,
+    confirmPassword,
+    name,
+    phoneNumber,
+    memberType: memberTypeMapping[memberType] || memberType // 변환된 한글 값 적용
+  };
+
+  console.log("보내는 데이터:", JSON.stringify(requestData, null, 2));
+
+  axios
+    .post("/api/auth/signup", requestData, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
     .then((response) => {
       console.log("회원가입 성공:", response.data);
-      navigate("/login"); // 회원가입 성공 시 로그인 페이지로 리디렉션
+      navigate("/login");
     })
     .catch((error) => {
-      console.error("회원가입 실패:", error);  // 에러 객체 출력
+      console.error("회원가입 실패:", error);
       if (error.response) {
-        // 서버에서 응답을 받은 경우
         console.error("서버 응답:", error.response.data);
         console.error("서버 상태 코드:", error.response.status);
       } else if (error.request) {
-        // 요청이 서버로 보내졌지만 응답을 받지 못한 경우
         console.error("요청이 서버로 전송되었지만 응답을 받지 못함");
       } else {
-        // 요청을 만들 때 오류가 발생한 경우
         console.error("요청 설정에서 오류 발생:", error.message);
       }
       alert("회원가입에 실패했습니다. 다시 시도해주세요.");
     });
 };
 
-  
   const [showPassword1, setShowPassword1] = useState(false); 
   const [showPassword2, setShowPassword2] = useState(false); 
 
@@ -159,8 +206,8 @@ function Signup() {
         type="tel"
         placeholder="예) 010-1234-3482"
         className={styles.css01012343482}
-        value={phone_number}
-        onChange={(e) => setPhone_number(e.target.value)} // 전화번호 상태 관리
+        value={phoneNumber}
+        onChange={(e) => setPhoneNumber(e.target.value)} // 전화번호 상태 관리
       />
 
       {/* role 선택 */}
@@ -171,10 +218,10 @@ function Signup() {
           <input
             type="radio"
             id="landlord"
-            name="userType"
+            name="memberType"
             className={styles.div14}
             value="landlord"
-            onChange={(e) => setUserType(e.target.value)} // userType 상태 관리
+            onChange={(e) => setMemberType(e.target.value)} 
           />
         </div>
         <div className={styles.div15}>
@@ -182,10 +229,10 @@ function Signup() {
           <input
             type="radio"
             id="tenant"
-            name="userType"
+            name="memberType"
             className={styles.div16}
             value="tenant"
-            onChange={(e) => setUserType(e.target.value)} // userType 상태 관리
+            onChange={(e) => setMemberType(e.target.value)} 
           />
         </div>
       </div>
