@@ -16,12 +16,11 @@ import com.monthlyzip.domain.member.enums.MemberType;
 import com.monthlyzip.domain.member.repository.MemberRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
-import com.monthlyzip.global.common.utils.FileUtil;
-import com.monthlyzip.member.repository.MemberRepository;
-import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import com.monthlyzip.global.common.utils.FileUtil;
+import java.util.ArrayList;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
