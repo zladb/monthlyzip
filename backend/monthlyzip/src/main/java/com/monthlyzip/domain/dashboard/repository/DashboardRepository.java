@@ -60,13 +60,16 @@ public interface DashboardRepository extends JpaRepository<Member, Long> {
     // 임차인 대시보드 데이터 조회
     @Query(value = """
         SELECT
-            CASE
-                WHEN EXISTS (SELECT 1 FROM payment WHERE contract_id = c.contract_id AND payment_status = '확인중')
-                THEN (SELECT DATE(due_date) FROM payment WHERE contract_id = c.contract_id AND payment_status = '확인중' ORDER BY due_date ASC LIMIT 1)
-                ELSE DATE(DATE_ADD(CURDATE(), INTERVAL 1 MONTH))
-            END AS dueDate,
-            c.monthly_rent AS monthlyRent,
-            (SELECT COUNT(*) FROM payment WHERE contract_id = c.contract_id AND payment_status = '미납') AS paymentOverdue
+            COALESCE(
+                (CASE
+                    WHEN EXISTS (SELECT 1 FROM payment WHERE contract_id = c.contract_id AND payment_status = '확인중')
+                    THEN (SELECT DATE(due_date) FROM payment WHERE contract_id = c.contract_id AND payment_status = '확인중' ORDER BY due_date ASC LIMIT 1)
+                    ELSE DATE(DATE_ADD(CURDATE(), INTERVAL 1 MONTH))
+                END),
+                DATE(DATE_ADD(CURDATE(), INTERVAL 1 MONTH))
+            ) AS dueDate,
+            COALESCE(c.monthly_rent, 0) AS monthlyRent,
+            COALESCE((SELECT COUNT(*) FROM payment WHERE contract_id = c.contract_id AND payment_status = '미납'), 0) AS paymentOverdue
         FROM contract c
         WHERE c.tenant_id = :tenantId
         LIMIT 1
