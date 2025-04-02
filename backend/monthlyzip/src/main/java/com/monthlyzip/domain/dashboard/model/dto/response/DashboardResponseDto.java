@@ -5,8 +5,8 @@ import com.monthlyzip.domain.dashboard.model.dto.landlord.LandlordInfoDto;
 import com.monthlyzip.domain.dashboard.model.dto.landlord.LandlordInquiryDto;
 import com.monthlyzip.domain.dashboard.model.dto.landlord.MonthlySummaryDto;
 import com.monthlyzip.domain.dashboard.model.dto.tenant.NextPaymentDto;
+import com.monthlyzip.domain.dashboard.model.dto.tenant.NoticeDto;
 import com.monthlyzip.domain.dashboard.model.dto.tenant.TenantInfoDto;
-import com.monthlyzip.domain.dashboard.model.dto.tenant.TenantInquiryDto;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,33 +30,5 @@ public class DashboardResponseDto {
     // 임차인 전용 필드
     private TenantInfoDto tenantInfo;
     private NextPaymentDto nextPayment;
-    private List<TenantInquiryDto> inquiries;
-
-//    // 팩토리 메소드 - 임대인용
-//    public static DashboardResponseDto forLandlord(
-//        LandlordInfoDto landlordInfo,
-//        MonthlySummaryDto monthlySummary,
-//        List<LandlordInquiryDto> recentInquiries) {
-//
-//        return DashboardResponseDto.builder()
-//            .memberType(MemberType.임대인)
-//            .landlordInfo(landlordInfo)
-//            .monthlySummary(monthlySummary)
-//            .recentInquiries(recentInquiries)
-//            .build();
-//    }
-//
-//    // 팩토리 메소드 - 임차인용
-//    public static DashboardResponseDto forTenant(
-//        TenantInfoDto tenantInfo,
-//        NextPaymentDto nextPayment,
-//        List<TenantInquiryDto> inquiries) {
-//
-//        return DashboardResponseDto.builder()
-//            .memberType(MemberType.임차인)
-//            .tenantInfo(tenantInfo)
-//            .nextPayment(nextPayment)
-//            .inquiries(inquiries)
-//            .build();
-//    }
+    private List<NoticeDto> notices; // inquiries 대신 notices로 변경
 }
