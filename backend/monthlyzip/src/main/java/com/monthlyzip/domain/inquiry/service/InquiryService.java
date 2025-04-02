@@ -9,6 +9,7 @@ import com.monthlyzip.domain.inquiry.model.dto.response.InquiryDetailResponseDto
 import com.monthlyzip.domain.inquiry.model.dto.response.InquiryResponseDto;
 import com.monthlyzip.domain.inquiry.model.entity.Inquiry;
 import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
+import com.monthlyzip.domain.inquiry.model.type.InquiryType;
 import com.monthlyzip.domain.inquiry.repository.InquiryRepository;
 import com.monthlyzip.domain.member.entity.Member;
 import com.monthlyzip.domain.member.enums.MemberType;
@@ -68,7 +69,7 @@ public class InquiryService {
     }
 
     @Transactional(readOnly = true)
-    public List<InquiryResponseDto> getInquiries(Long memberId, String status, String inquiryType) {
+    public List<InquiryResponseDto> getInquiries(Long memberId, String status, InquiryType inquiryType) {
         log.info("문의 전체 목록 조회 !! ");
         // 1. 회원 존재 여부 확인
         Member member = memberRepository.findById(memberId)
@@ -79,7 +80,7 @@ public class InquiryService {
         // 2. 사용자 유형에 따라 다른 목록 반환
         if (member.getMemberType() == MemberType.임대인) {
             // 임대인은 자신의 건물에 대한 모든 문의를 볼 수 있음
-            if (status != null && !status.isEmpty() && inquiryType != null && !inquiryType.isEmpty()) {
+            if (status != null && !status.isEmpty() && inquiryType != null) {
                 // 상태와 유형 모두로 필터링
                 inquiries = inquiryRepository.findByContractLandlordIdAndStatus(
                         memberId, InquiryStatus.valueOf(status))
@@ -90,7 +91,7 @@ public class InquiryService {
                 // 상태로만 필터링
                 inquiries = inquiryRepository.findByContractLandlordIdAndStatus(
                     memberId, InquiryStatus.valueOf(status));
-            } else if (inquiryType != null && !inquiryType.isEmpty()) {
+            } else if (inquiryType != null) {
                 // 유형으로만 필터링
                 inquiries = inquiryRepository.findByContractLandlordIdAndInquiryType(
                     memberId, inquiryType);
@@ -100,7 +101,7 @@ public class InquiryService {
             }
         } else {
             // 임차인은 자신이 작성한 문의만 볼 수 있음
-            if (status != null && !status.isEmpty() && inquiryType != null && !inquiryType.isEmpty()) {
+            if (status != null && !status.isEmpty() && inquiryType != null) {
                 // 상태와 유형 모두로 필터링
                 inquiries = inquiryRepository.findByMemberIdAndStatus(
                         memberId, InquiryStatus.valueOf(status))
@@ -111,7 +112,7 @@ public class InquiryService {
                 // 상태로만 필터링
                 inquiries = inquiryRepository.findByMemberIdAndStatus(
                     memberId, InquiryStatus.valueOf(status));
-            } else if (inquiryType != null && !inquiryType.isEmpty()) {
+            } else if (inquiryType != null) {
                 // 유형으로만 필터링
                 inquiries = inquiryRepository.findByMemberIdAndInquiryType(
                     memberId, inquiryType);
@@ -128,7 +129,7 @@ public class InquiryService {
     }
 
     @Transactional(readOnly = true)
-    public InquiryDetailResponseDto getInquiryById(Long memberId, Long inquiryId) {
+    public InquiryDetailResponseDto getInquiryDetail(Long memberId, Long inquiryId) {
         // 1. 문의 존재 여부 확인
         Inquiry inquiry = inquiryRepository.findById(inquiryId)
             .orElseThrow(() -> new BusinessException(ApiResponseStatus.INQUIRY_NOT_FOUND));

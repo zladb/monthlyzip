@@ -65,6 +65,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/signup",
                         "/api/auth/reissue", "/api/auth/logout").permitAll()
                 .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/ws/**").permitAll() // ✅ 이 줄 추가!!
                 .anyRequest().authenticated());                             // 그 외 모든 요청은 인증 필요
 
         // JWT 임시 주석 처리
@@ -89,6 +90,7 @@ public class SecurityConfig {
 
         config.addAllowedOriginPattern("http://localhost:*");
         config.addAllowedOriginPattern("http://127.0.0.1:*");
+//        config.addAllowedOriginPattern("*"); // 웹소켓 테스트할때 사용
         // config.addAllowedOriginPattern("https://frontend-domain.com");
 
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
