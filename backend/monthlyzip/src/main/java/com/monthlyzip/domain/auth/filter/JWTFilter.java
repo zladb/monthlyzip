@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+@Slf4j
 @RequiredArgsConstructor
 public class JWTFilter extends OncePerRequestFilter {
 
@@ -38,15 +40,15 @@ public class JWTFilter extends OncePerRequestFilter {
         //Authorization 헤더 검증
         if (authorization == null || !authorization.startsWith("Bearer ")) {
             // 토큰 없다고만 하고 다음으로 넘어감
-            System.out.println("accessToken null");
-            filterChain.doFilter(request, response);
-            return;
-//          여기서 null 이면 허용된 url 제외하면 정상 요청이 아니기때문에 다 반환하려면 써야함
-//            writeErrorResponse(response, ApiResponseStatus.UNAUTHORIZED);
+            log.info("accessToken 없음");
+//            filterChain.doFilter(request, response);
 //            return;
+//          여기서 null 이면 허용된 url 제외하면 정상 요청이 아니기때문에 다 반환하려면 써야함
+            writeErrorResponse(response, ApiResponseStatus.UNAUTHORIZED);
+            return;
         }
 
-        System.out.println("authorization now");
+        log.info("accessToken 인증 시작");
         //Bearer 부분 제거 후 순수 토큰만 획득
         String accessToken = authorization.split(" ")[1];
 
@@ -79,7 +81,7 @@ public class JWTFilter extends OncePerRequestFilter {
         Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
-        System.out.println("로그인 성공 !!!");
+        log.info("로그인 성공");
         filterChain.doFilter(request, response);
     }
 
