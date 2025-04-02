@@ -1,15 +1,13 @@
 package com.monthlyzip.domain.dashboard.service;
 
 import com.monthlyzip.domain.auth.model.enums.MemberType;
-import com.monthlyzip.domain.dashboard.model.dto.landlord.LandlordDashboardData;
 import com.monthlyzip.domain.dashboard.model.dto.landlord.LandlordInfoDto;
 import com.monthlyzip.domain.dashboard.model.dto.landlord.LandlordInquiryDto;
 import com.monthlyzip.domain.dashboard.model.dto.landlord.MonthlySummaryDto;
 import com.monthlyzip.domain.dashboard.model.dto.response.DashboardResponseDto;
 import com.monthlyzip.domain.dashboard.model.dto.tenant.NextPaymentDto;
-import com.monthlyzip.domain.dashboard.model.dto.tenant.TenantDashboardData;
+import com.monthlyzip.domain.dashboard.model.dto.tenant.NoticeDto;
 import com.monthlyzip.domain.dashboard.model.dto.tenant.TenantInfoDto;
-import com.monthlyzip.domain.dashboard.model.dto.tenant.TenantInquiryDto;
 import com.monthlyzip.domain.dashboard.repository.DashboardRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
@@ -68,22 +66,12 @@ public class DashboardService {
         List<LandlordInquiryDto> recentInquiries = new ArrayList<>();
 
         for (Map<String, Object> data : inquiryData) {
-            // Boolean 값 변환 처리
-            Object isNewObj = data.get("isNew");
-            Boolean isNew = false;
-            if (isNewObj instanceof Number) {
-                isNew = ((Number) isNewObj).intValue() > 0;
-            } else if (isNewObj instanceof Boolean) {
-                isNew = (Boolean) isNewObj;
-            }
-
             LandlordInquiryDto inquiry = LandlordInquiryDto.builder()
                 .inquiryId(((Number) data.get("inquiryId")).longValue())
                 .type((String) data.get("type"))
                 .title((String) data.get("title"))
                 .roomInfo((String) data.get("roomInfo"))
                 .createdAt((String) data.get("createdAt"))
-                .isNew(isNew)
                 .status((String) data.get("status"))
                 .build();
             recentInquiries.add(inquiry);
@@ -113,29 +101,17 @@ public class DashboardService {
             .paymentOverdue(((Number) dashboardData.get("paymentOverdue")).longValue())
             .build();
 
-        // 3. 문의 목록
-        List<Map<String, Object>> inquiryData = dashboardRepository.findInquiriesByTenantId(tenant.getId());
-        List<TenantInquiryDto> inquiries = new ArrayList<>();
+        // 3. 공지사항 목록 (문의 목록 대신)
+        List<Map<String, Object>> noticeData = dashboardRepository.findRecentNoticesByTenantId(tenant.getId());
+        List<NoticeDto> notices = new ArrayList<>();
 
-        for (Map<String, Object> data : inquiryData) {
-
-            // Boolean 값 변환 처리
-            Object isReadObj = data.get("isNew");
-            Boolean isRead = false;
-            if (isReadObj instanceof Number) {
-                isRead = ((Number) isReadObj).intValue() > 0;
-            } else if (isReadObj instanceof Boolean) {
-                isRead = (Boolean) isReadObj;
-            }
-
-            TenantInquiryDto inquiry = TenantInquiryDto.builder()
-                .id(((Number) data.get("id")).longValue())
-                .inquiryType((String) data.get("inquiryType"))
+        for (Map<String, Object> data : noticeData) {
+            NoticeDto notice = NoticeDto.builder()
+                .noticeId(((Number) data.get("notice_id")).longValue())
                 .title((String) data.get("title"))
-                .createdAt((String) data.get("createdAt"))
-                .isRead(isRead)
+                .createdAt((String) data.get("created_at"))
                 .build();
-            inquiries.add(inquiry);
+            notices.add(notice);
         }
 
         // 4. 최종 응답 생성
@@ -143,7 +119,7 @@ public class DashboardService {
             .memberType(MemberType.임차인)
             .tenantInfo(tenantInfo)
             .nextPayment(nextPayment)
-            .inquiries(inquiries)
+            .notices(notices)
             .build();
     }
 
