@@ -1,8 +1,9 @@
 ## 기능 개발 흐름 예시
 
 **프론트는 dev-fe, 백은 dev-be에서 브랜치 생성할 것!** <br>
-0. 작업 중인 내용이 있다면 임시 저장 <br>
-`git stash` <br>
+<br>
+작업 중인 내용이 있다면 임시 저장 <br>
+(`git stash`) <br>
 
 1. dev-fe 최신화 <br>
 `git checkout dev-fe` <br>
@@ -14,7 +15,7 @@
  
 3. 작업 후 커밋 <br>
 `git add .` <br>
-`git commit -m "init: MR 템플릿 생성성"` <br>
+`git commit -m "init: MR 템플릿 생성"` <br>
 
 4. 원격에 푸시 <br>
 `git push origin init/S12P21D109-81` <br>
