@@ -22,6 +22,16 @@ function Signup() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [memberType, setMemberType] = useState("");
 
+  // 에러 상태 관리
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    name: "",
+    phoneNumber: "",
+    memberType: "",
+  });
+
   // "모두 동의" 체크박스를 클릭하면 나머지 체크박스들이 자동으로 선택되도록 처리
   const handleAgreeAllChange = (event) => {
     const isChecked = event.target.checked;
@@ -37,9 +47,63 @@ function Signup() {
     navigate('/login'); 
   };
 
+// 유효성 검사 함수
+const validateForm = () => {
+  let isValid = true;
+  const newErrors = {};
+
+  if (!email) {
+    newErrors.email = "이메일을 작성해주세요.";
+    isValid = false;
+  }
+
+  if (!password) {
+    newErrors.password = "비밀번호를 작성해주세요.";
+    isValid = false;
+  }
+
+  if (password !== confirmPassword) {
+    newErrors.confirmPassword = "비밀번호 확인이 일치하지 않습니다.";
+    isValid = false;
+  }
+
+  if (!name) {
+    newErrors.name = "이름을 작성해주세요.";
+    isValid = false;
+  }
+
+  if (!phoneNumber) {
+    newErrors.phoneNumber = "휴대폰 번호를 작성해주세요.";
+    isValid = false;
+  }
+
+  if (!memberType) {
+    newErrors.memberType = "필수 선택 항목을 선택해주세요.";
+    isValid = false;
+  }
+
+  setErrors(newErrors);
+
+  // 에러가 있는 첫 번째 필드로 포커스 이동
+  if (!isValid) {
+    const firstErrorField = Object.keys(newErrors)[0];
+    const errorField = document.getElementById(firstErrorField);
+    if (errorField) {
+      errorField.focus(); // 첫 번째 에러 필드에 포커스 이동
+    }
+  }
+
+  return isValid;
+};
+  
+
 //서버 요청(백엔드로)
 const handleSubmit = (event) => {
   event.preventDefault();
+
+  //유효성 검사사
+  const isValid = validateForm();
+  if (!isValid) return; // 유효성 검사 실패 시 가입 처리 안 함
 
   // 🔹 영어 -> 한글 변환을 위한 매핑 객체
   const memberTypeMapping = {
@@ -110,19 +174,22 @@ const handleSubmit = (event) => {
       <label className={styles.div2}>이메일 * </label>
       <input
         type="email"
+        id="email"
         placeholder="예) abc@gmail.com"
-        className={styles.abcgmailcom}
+        className={`${styles.abcgmailcom} ${errors.email ? styles.error : ""}`}
         value={email}
         onChange={(e) => setEmail(e.target.value)} // 이메일 상태 관리
       />
+        {errors.email && <p className={styles.errorMessage}>{errors.email}</p>}
 
       {/* 비밀번호 */}
       <label className={styles.div3}>비밀번호 *</label>
       <div className={styles.div4}>
         <input
           type={showPassword1 ? "text" : "password"} // 상태에 따라 변경
+          id="password"
           placeholder="영문, 숫자 조합 8~16자"
-          className={styles.css816}
+          className={`${styles.css816} ${errors.password ? styles.error : ""}`}
           value={password}
           onChange={(e) => setPassword(e.target.value)} // 비밀번호 상태 관리
         />
@@ -134,14 +201,16 @@ const handleSubmit = (event) => {
           style={{ cursor: "pointer" }}
         />
       </div>
+      {errors.password && <p className={styles.errorMessage}>{errors.password}</p>}
 
       {/* 비밀번호 확인 */}
       <label className={styles.div5}>비밀번호 확인 *</label>
       <div className={styles.div6}>
         <input
           type={showPassword2 ? "text" : "password"} // 상태에 따라 변경
+          id="confirmPassword"
           placeholder="비밀번호를 한번 더 입력 해주세요."
-          className={styles.div7}
+          className={`${styles.div7} ${errors.confirmPassword ? styles.error : ""}`}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)} // 비밀번호 확인 상태 관리
         />
@@ -153,26 +222,31 @@ const handleSubmit = (event) => {
           style={{ cursor: "pointer" }}
         />
       </div>
+      {errors.confirmPassword && <p className={styles.errorMessage}>{errors.confirmPassword}</p>}
 
       {/* 이름*/}
       <label className={styles.div8}>이름 * </label>
       <input
         type="text"
+        id="name"
         placeholder="예) 홍길동"
-        className={styles.div9}
+        className={`${styles.div9} ${errors.name ? styles.error : ""}`}
         value={name}
         onChange={(e) => setName(e.target.value)} // 이름 상태 관리
       />
+      {errors.name && <p className={styles.errorMessage}>{errors.name}</p>}
 
       {/* 전화번호 */}
       <label className={styles.div10}>휴대폰 번호 * </label>
       <input
         type="tel"
+        id="phoneNumber"
         placeholder="예) 010-1234-3482"
-        className={styles.css01012343482}
+        className={`${styles.css01012343482} ${errors.phoneNumber ? styles.error : ""}`}
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)} // 전화번호 상태 관리
       />
+      {errors.phoneNumber && <p className={styles.errorMessage}>{errors.phoneNumber}</p>}
 
       {/* role 선택 */}
       <label className={styles.div11}>필수 선택 * </label>
@@ -198,6 +272,7 @@ const handleSubmit = (event) => {
             value="tenant"
             onChange={(e) => setMemberType(e.target.value)} 
           />
+          {errors.memberType && <p className={styles.errorMessage}>{errors.memberType}</p>}
         </div>
       </div>
 
