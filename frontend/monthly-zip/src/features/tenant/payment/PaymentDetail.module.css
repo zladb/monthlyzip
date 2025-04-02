@@ -5,16 +5,6 @@
     max-width: 480px;
     margin: 0 auto;
   }
-  @media (width<=991px) {
-    .container {
-      max-width: 991px;
-    }
-  }
-  @media (width<=640px) {
-    .container {
-      max-width: 640px;
-    }
-  }
   .header {
     align-items: center;
     gap: 10px;

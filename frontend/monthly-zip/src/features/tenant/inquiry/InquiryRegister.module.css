@@ -1,0 +1,167 @@
+.container {
+    background-color: #fff;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 68px;
+    overflow: hidden;
+    justify-content: center;
+    min-height: 700px;
+  }
+  
+  .contentWrapper {
+    color: #000;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+    font-weight: 500;
+    display: flex;
+  }
+  
+  .header {
+    align-items: stretch;
+    gap: 10px;
+    font-size: 28px;
+    font-weight: 700;
+    display: flex;
+  }
+  
+  .icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    flex-shrink: 0;
+    width: 28px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .title {
+    flex-basis: auto;
+  }
+  .categorySection {
+    padding-left: 15px;
+ }
+  .categoryNav,
+  .secondaryCategoryNav {
+    color: #767676;
+    text-align: center;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 63px;
+    font-weight: 600;
+    display: flex;
+    width: 100%;
+  }
+  
+  .categoryButtonWrapper {
+    flex: 1;
+  }
+  
+  .categoryButton {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    padding: 15px 23px;
+    width: 140px;
+    font-size: 16px;
+  }
+  
+  .inputLabel {
+    text-align: center;
+    margin-top: 39px;
+    font-size: 20px;
+    margin-left: 20px;
+  }
+  
+  .inputField {
+    background-color: #fff;
+    border: 1px solid #979797ba;
+    flex-shrink: 0;
+    width: 90%;
+    height: 42px;
+    margin-top: 14px;
+    margin-left: 15px;
+    display: flex;
+  }
+  
+  .textareaField {
+    background-color: #fff;
+    border: 1px solid #979797ba;
+    flex-shrink: 0;
+    width: 90%;
+    height: 178px;
+    margin-top: 10px;
+    margin-left: 15px;
+    display: flex;
+  }
+  
+  .uploadLabel {
+    text-align: center;
+    margin-top: 16px;
+    margin-left: 17px;
+    font-size: 20px;
+  }
+  
+  .uploadArea {
+    color: #000;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #dadadad4;
+    margin-top: 14px;
+    margin-left: 15px;
+    padding: 29px 39px 59px;
+    font-size: 36px;
+    font-weight: 70;
+    border: none;
+  }
+  
+  .footer {
+    white-space: nowrap;
+    align-items: stretch;
+    width: 100%;
+    font-family: Montserrat, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    display: flex;
+  }
+  
+  .cancelButton {
+    white-space: nowrap;
+    color: #fff;
+    background-color: #d8d8d8;
+    text-align: center;
+    width: 100%;
+    margin-top: 117px;
+    padding: 23px 70px;
+    font-family:
+      Montserrat,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .submitButton {
+    white-space: nowrap;
+    text-align: center;
+    background-color: #fcbe32;
+    width: 100%;
+    margin-top: 117px;
+    padding: 23px 70px;
+    font-family:
+      Montserrat,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
+  
