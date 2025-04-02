@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./InquiryList.module.css";
-// import registerIcon from 
+import registerIcon from "/src/assets/icon/"
 
 function InquiryHeader({ title }) {
   return (
