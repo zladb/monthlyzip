@@ -37,45 +37,7 @@ function Signup() {
     navigate('/login'); 
   };
 
-  // Sign up 버튼
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const formattedMemberType = memberType === "임대인" || memberType === "임차인" ? memberType : "";
-
-//     // 입력값을 서버로 보냄
-//     axios
-//       .post("/api/auth/signup", {
-//         email,
-//         password,
-//         confirmPassword,
-//         name,
-//         phoneNumber,
-//         memberType: formattedMemberType,  // 서버에서 기대하는 값 그대로 전송
-//       }, {
-//         headers: {
-//           'Content-Type': 'application/json', // 올바른 헤더 설정
-//         }
-//       })
-      
-      
-//       .then((response) => {
-//         console.log("회원가입 성공:", response.data);
-//         navigate("/login");
-//       })
-//       .catch((error) => {
-//         console.error("회원가입 실패:", error);
-//         if (error.response) {
-//           console.error("서버 응답:", error.response.data);
-//           console.error("서버 상태 코드:", error.response.status);
-//         } else if (error.request) {
-//           console.error("요청이 서버로 전송되었지만 응답을 받지 못함");
-//         } else {
-//           console.error("요청 설정에서 오류 발생:", error.message);
-//         }
-//         alert("회원가입에 실패했습니다. 다시 시도해주세요.");
-//       });
-// };
-
+//서버 요청(백엔드로로)
 const handleSubmit = (event) => {
   event.preventDefault();
 
@@ -119,6 +81,8 @@ const handleSubmit = (event) => {
       alert("회원가입에 실패했습니다. 다시 시도해주세요.");
     });
 };
+
+//비밀번호
 
   const [showPassword1, setShowPassword1] = useState(false); 
   const [showPassword2, setShowPassword2] = useState(false); 
