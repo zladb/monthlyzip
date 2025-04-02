@@ -1,7 +1,7 @@
 package com.monthlyzip.domain.auth.service;
 
-import com.monthlyzip.domain.member.entity.Member;
 import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.member.entity.Member;
 import com.monthlyzip.domain.member.repository.MemberRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

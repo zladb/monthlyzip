@@ -6,10 +6,10 @@ import com.monthlyzip.domain.building.model.dto.response.BuildingDetailResponseD
 import com.monthlyzip.domain.building.model.dto.response.BuildingResponseDto;
 import com.monthlyzip.domain.building.model.entity.Building;
 import com.monthlyzip.domain.building.repository.BuildingRepository;
+import com.monthlyzip.domain.member.entity.Member;
+import com.monthlyzip.domain.member.repository.MemberRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
-import com.monthlyzip.member.model.entity.Member;
-import com.monthlyzip.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

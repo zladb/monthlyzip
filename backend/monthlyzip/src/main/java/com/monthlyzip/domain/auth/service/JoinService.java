@@ -1,7 +1,7 @@
 package com.monthlyzip.domain.auth.service;
 
-import com.monthlyzip.domain.member.entity.Member;
 import com.monthlyzip.domain.auth.model.dto.JoinDto;
+import com.monthlyzip.domain.member.entity.Member;
 import com.monthlyzip.domain.member.enums.MemberType;
 import com.monthlyzip.domain.member.repository.MemberRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;

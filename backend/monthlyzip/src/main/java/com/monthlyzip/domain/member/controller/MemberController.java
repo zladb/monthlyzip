@@ -24,7 +24,7 @@ public class MemberController {
     public ApiResponse<MemberResponse> getMemberInfo(
         @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        Long memberId = userDetails.getMember().getMemberId();
+        Long memberId = userDetails.getMember().getId();
         return ApiResponse.success(memberService.getMemberInfo(memberId));
     }
 
@@ -34,7 +34,7 @@ public class MemberController {
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestBody UpdatePasswordRequest request) {
 
-        memberService.updatePassword(userDetails.getMember().getMemberId(), request.getPassword(), request.getConfirmPassword());
+        memberService.updatePassword(userDetails.getMember().getId(), request.getPassword(), request.getConfirmPassword());
         log.info("비밀번호 변경 완료");
         return ApiResponse.success();
     }
@@ -45,7 +45,7 @@ public class MemberController {
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestParam("image") MultipartFile image) {
 
-        memberService.updateProfileImage(userDetails.getMember().getMemberId(), image);
+        memberService.updateProfileImage(userDetails.getMember().getId(), image);
         log.info("이미지 업데이트 완료");
         return ApiResponse.success();
     }
@@ -55,7 +55,7 @@ public class MemberController {
     public ApiResponse<Void> deleteMember(
         @AuthenticationPrincipal CustomUserDetails userDetails,
         @RequestHeader("Authorization") String authorizationHeader) {
-        Long memberId = userDetails.getMember().getMemberId();
+        Long memberId = userDetails.getMember().getId();
         String accessToken = authorizationHeader.replace("Bearer ", "");
 
         memberService.deleteMember(memberId, accessToken);

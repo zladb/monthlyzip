@@ -1,15 +1,14 @@
 package com.monthlyzip.domain.inquiry.model.dto.response;
 
-import com.monthlyzip.domain.contract.model.entity.Contract;
 import com.monthlyzip.domain.inquiry.model.entity.Inquiry;
 import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
 import com.monthlyzip.domain.inquiry.model.type.InquiryType;
-import com.monthlyzip.member.model.entity.Member;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
