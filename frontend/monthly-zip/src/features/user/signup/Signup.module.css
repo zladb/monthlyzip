@@ -458,3 +458,9 @@
   .signup2:hover {
     background-color: #e05f00;
   }
+
+  .errorMessage {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
