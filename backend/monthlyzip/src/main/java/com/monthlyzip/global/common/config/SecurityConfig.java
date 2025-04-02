@@ -73,7 +73,7 @@ public class SecurityConfig {
          http
              .addFilterBefore(new JWTFilter(jwtUtil, tokenService), LoginFilter.class);
 
-        // AuthenticationManager()와 JWTUtil 인수 전달
+        //AuthenticationManager()와 JWTUtil 인수 전달
          http
             .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, accessTokenValidity, refreshTokenValidity, tokenService), UsernamePasswordAuthenticationFilter.class);
 
