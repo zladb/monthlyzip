@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.payment.model.dto.response;
 
-import com.monthlyzip.domain.payment.model.entity.PaymentEntity;
+import com.monthlyzip.domain.payment.model.entity.Payment;
 import com.monthlyzip.domain.payment.model.enums.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +25,7 @@ public class PaymentResponseDto {
     private LocalDateTime updatedAt;
 
     // 정적 팩토리 메서드
-    public static PaymentResponseDto from(PaymentEntity entity) {
+    public static PaymentResponseDto from(Payment entity) {
         return PaymentResponseDto.builder()
                 .paymentId(entity.getId())
                 .contractId(entity.getContract().getId())

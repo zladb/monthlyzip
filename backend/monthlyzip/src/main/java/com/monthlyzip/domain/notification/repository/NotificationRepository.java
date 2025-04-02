@@ -1,7 +1,7 @@
 package com.monthlyzip.domain.notification.repository;
 
 import com.monthlyzip.domain.notification.model.entity.Notification;
-import com.monthlyzip.member.model.entity.Member;
+import com.monthlyzip.domain.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
