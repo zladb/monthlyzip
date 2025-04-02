@@ -5,7 +5,7 @@ import com.monthlyzip.domain.contract.repository.ContractRepository;
 import com.monthlyzip.domain.payment.model.dto.request.PaymentCreateRequestDto;
 import com.monthlyzip.domain.payment.model.dto.response.PaymentCreateResponseDto;
 import com.monthlyzip.domain.payment.model.dto.response.PaymentResponseDto;
-import com.monthlyzip.domain.payment.model.entity.PaymentEntity;
+import com.monthlyzip.domain.payment.model.entity.Payment;
 import com.monthlyzip.domain.payment.repository.PaymentRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
@@ -34,7 +34,7 @@ public class PaymentService {
         }
 
         // 3. 납부 정보 생성
-        PaymentEntity payment = PaymentEntity.builder()
+        Payment payment = Payment.builder()
                 .contract(contract)
                 .paymentDate(dto.getPaymentDate())
                 .dueDate(dto.getDueDate())
@@ -44,13 +44,13 @@ public class PaymentService {
                 .build();
 
         // 4. 저장
-        PaymentEntity saved = paymentRepository.save(payment);
+        Payment saved = paymentRepository.save(payment);
 
         // 5. ID 반환
         return new PaymentCreateResponseDto(saved.getId());
     }
     public List<PaymentResponseDto> getPayments(Long memberId) {
-        List<PaymentEntity> payments = paymentRepository.findAll();
+        List<Payment> payments = paymentRepository.findAll();
 
         // 임차인 id 일때 납부내역 조회
         return payments.stream()
@@ -60,7 +60,7 @@ public class PaymentService {
     }
 
     public PaymentResponseDto getPaymentById(Long memberId, Long paymentId) {
-        PaymentEntity payment = paymentRepository.findById(paymentId)
+        Payment payment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.PAYMENT_NOT_FOUND));
 
         // 계약 주인(memberId)이 맞는지 검증
