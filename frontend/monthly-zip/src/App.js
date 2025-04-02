@@ -15,6 +15,8 @@ import ContractInformation from './features/tenant/contract/ContractInformation'
 import AutoPaymentAgreement from './features/tenant/payment/auto/AutoPaymentAgreement';
 import AutoPayment from './features/tenant/payment/auto/AutoPayment';
 import NoticeDetail from './features/tenant/notice/NoticeDetail';
+import InquiryRegister from './features/tenant/inquiry/InquiryRegister';
+import InquiryList from './features/tenant/inquiry/InquiryList';
 
 
 function App() {
@@ -33,7 +35,11 @@ function App() {
         <Route path="/tenant/notice-list" element={<NoticeList />} />
         {/* <Route path="/tenant/notice-detail/:noticeId" element={<NoticeDetail />} /> */}
         <Route path="/tenant/notice-detail" element={<NoticeDetail />} />
+        <Route path="/tenant/inquiry-register" element={<InquiryRegister />} />
+        <Route path="/tenant/inquiry-list" element={<InquiryList />} />
         
+
+
         <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
         <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
         <Route path="/landlord/mypage" element={<LandlordMypage />} />
