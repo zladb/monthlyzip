@@ -8,7 +8,7 @@ import TenantMgmt from './features/landlord/tenantMgmt/TenantMgmt';
 import TenantMgmtDetail from './features/landlord/tenantMgmt/TenantMgmtDetail';
 import PaymentList from './features/tenant/payment/PaymentList';
 import PaymentDetail from './features/tenant/payment/PaymentDetail';
-import LandlordMypage from './features/landlord/myPage/LandlordMypage';
+import Mypage from './features/user/myPage/Mypage';
 import TenantMypage from './features/myPage/tenant/TenantMypage';
 import PaymentMain from './features/tenant/payment/PaymentMain';
 import NoticeList from './features/tenant/notice/NoticeList';
@@ -39,7 +39,7 @@ function App() {
         <Route path="/landlord/notice" element={<div>공지사항 메인 페이지</div>} />
         <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
         <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
-        <Route path="/landlord/mypage" element={<LandlordMypage />} />
+        <Route path="/mypage" element={<Mypage />} />
 
         {/* 임차인 라우트 */}
         <Route path="/tenant/payment-list" element={<PaymentList />} /> 
@@ -51,10 +51,7 @@ function App() {
         <Route path="/tenant/notice-list" element={<NoticeList />} />
         {/* <Route path="/tenant/notice-detail/:noticeId" element={<NoticeDetail />} /> */}
         <Route path="/tenant/notice-detail" element={<NoticeDetail />} />
-        <Route path="/tenant/payment-list" element={<PaymentList />} /> 
-        <Route path="/tenant/payment-detail/:year/:month" element={<PaymentDetail />} />
-        <Route path="/tenant/mypage" element={<TenantMypage />} />
-
+        
 
       </Routes>
     </Router>

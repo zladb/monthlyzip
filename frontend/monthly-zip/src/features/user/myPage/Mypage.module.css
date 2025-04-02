@@ -34,15 +34,52 @@
 }
 
 .profileSection {
-  display: flex;
-  flex-direction: column;
+  background-color: #fff;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 48px;
+  width: 100%;
+  height: 23vh;
+  display: flex;
 }
+
+
+.imageWrapper {
+  width: 150px;  
+  height: 150px; 
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  background-color: #f0f0f0;
+}
+
+@media (width<=991px) {
+  .profileIconWrapper {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (width<=640px) {
+  .profileIconWrapper {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+
 
 .userType {
   color: #767676;
   font-size: 16px;
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 (필요 시) */
+  width: 100%; /* 부모 요소 기준으로 가운데 정렬 */
+  text-align: center; /* 텍스트 자체 중앙 정렬 */
 }
 
 .profileImageContainer {
@@ -95,7 +132,7 @@
   border-radius: 5px;
   width: 100%;
   height: 50px;
-  padding: 0 16px;
+  padding: 0 0px;
   font-size: 14px;
 }
 
