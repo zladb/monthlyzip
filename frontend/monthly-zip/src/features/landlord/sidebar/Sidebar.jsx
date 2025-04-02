@@ -3,10 +3,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import Logo from "../../../assets/icons/monthlyZip.png";
-import notificationIcon from "../../../assets/icons/notification.svg";
+import alarmIcon from "../../../assets/icons/notification.svg";
 import profileIcon from "../../../assets/icons/mypage.svg";
 import logoutIcon from "../../../assets/icons/logout.svg";
-import deleteAccountIcon from "../../../assets/icons/quit.svg";
+import withdrawIcon from "../../../assets/icons/quit.svg";
 
 // SidebarHeader component for the top section with logo
 const SidebarHeader = () => {
@@ -39,32 +39,31 @@ const SidebarNavigation = ({ navigate, onClose }) => {
 
   const menuItems = [
     {
+      icon: alarmIcon,
       label: '알림 발송 설정',
       onClick: () => {
         navigate('/landlord/alarm-setting');
         onClose();
-      },
-      img: notificationIcon
+      }
     },
     {
+      icon: profileIcon,
       label: '마이페이지',
       onClick: () => {
         navigate('/landlord/mypage');
         onClose();
-      },
-      img: profileIcon
+      }
     },
     {
+      icon: logoutIcon,
       label: '로그아웃',
-      onClick: handleLogout,
-      img: logoutIcon,
-      className: 'warning'
+      onClick: handleLogout
     },
     {
+      icon: withdrawIcon,
       label: '회원 탈퇴',
       onClick: handleWithdraw,
-      img: deleteAccountIcon,
-      className: 'danger'
+      className: styles.withdraw
     }
   ];
 
@@ -73,11 +72,14 @@ const SidebarNavigation = ({ navigate, onClose }) => {
       {menuItems.map((item, index) => (
         <button
           key={index}
-          className={`${styles.menuItem} ${item.className ? styles[item.className] : ''}`}
-          onClick={item.onClick}
+          className={`${styles.menuItem} ${item.className || ''}`}
+          onClick={() => {
+            item.onClick();
+            onClose();
+          }}
         >
-          <img src={item.img} alt={item.label} className={styles.menuIcon} />
-          {item.label}
+          <img src={item.icon} alt={item.label} className={styles.menuIcon} />
+          <span className={styles.menuLabel}>{item.label}</span>
         </button>
       ))}
     </nav>
