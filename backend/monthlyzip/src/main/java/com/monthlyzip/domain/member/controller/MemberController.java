@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private MemberService memberService;
+    private final MemberService memberService;
 
     // 회원정보 조회
     @GetMapping("/me")
@@ -25,6 +25,7 @@ public class MemberController {
         @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
         Long memberId = userDetails.getMember().getId();
+        log.info("회원 정보 조회");
         return ApiResponse.success(memberService.getMemberInfo(memberId));
     }
 
