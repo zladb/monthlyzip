@@ -1,12 +1,11 @@
-package com.monthlyzip.domain.auth.entity;
+package com.monthlyzip.domain.member.entity;
 
-import com.monthlyzip.domain.auth.model.enums.MemberType;
+import com.monthlyzip.domain.member.enums.MemberType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.usertype.UserType;
 
 import java.time.LocalDateTime;
 
@@ -14,12 +13,12 @@ import java.time.LocalDateTime;
 @Table(name = "member")  // 기존 테이블과 매칭
 @Getter
 @Setter
-public class MemberEntity {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // AUTO_INCREMENT 적용
     @Column(name = "member_id")
-    private Long memberId;
+    private Long id;
 
     @Column(name = "email", nullable = false, unique = true, length = 150)
     private String email;
@@ -32,6 +31,9 @@ public class MemberEntity {
 
     @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber;
+
+    @Column(name = "profile_image_url", length = 100)
+    private String profileImageUrl;
 
     @Enumerated(EnumType.STRING)  // ENUM을 String(VARCHAR)으로 저장
     @Column(name = "user_type", nullable = false)
