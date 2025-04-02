@@ -1,4 +1,4 @@
-package com.monthlyzip.domain.auth.model.enums;
+package com.monthlyzip.domain.member.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

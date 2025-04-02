@@ -10,11 +10,10 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
 server:
   port: 8080
 
-# 필요없을 듯?
 app:
   baseUrl: http://localhost:8080

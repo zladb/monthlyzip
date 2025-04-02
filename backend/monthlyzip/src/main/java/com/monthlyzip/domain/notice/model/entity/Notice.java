@@ -1,9 +1,12 @@
 package com.monthlyzip.domain.notice.model.entity;
 
 import com.monthlyzip.domain.building.model.entity.Building;
-import com.monthlyzip.member.model.entity.Member;
+import com.monthlyzip.domain.member.entity.Member;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

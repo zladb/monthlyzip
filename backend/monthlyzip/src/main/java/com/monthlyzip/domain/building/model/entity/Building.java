@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.building.model.entity;
 
-import com.monthlyzip.member.model.entity.Member;
+import com.monthlyzip.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

@@ -1,9 +1,9 @@
 package com.monthlyzip.domain.auth.service;
 
-import com.monthlyzip.domain.auth.entity.MemberEntity;
 import com.monthlyzip.domain.auth.model.dto.JoinDto;
-import com.monthlyzip.domain.auth.model.enums.MemberType;
-import com.monthlyzip.domain.auth.repository.UserRepository;
+import com.monthlyzip.domain.member.entity.Member;
+import com.monthlyzip.domain.member.enums.MemberType;
+import com.monthlyzip.domain.member.repository.MemberRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor  // 생성자 주입 받기
 public class JoinService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void joinProcess(JoinDto joinDto) {
@@ -28,7 +28,7 @@ public class JoinService {
 
         // ******* ******* ******* 유효성 검사
         // 이메일 중복 검사
-        if (userRepository.existsByEmail(email)) {
+        if (memberRepository.existsByEmail(email)) {
             throw new BusinessException(ApiResponseStatus.EMAIL_DUPLICATE);
         }
 
@@ -44,7 +44,7 @@ public class JoinService {
         // ******* ******* *******
 
         // 데이터 저장 부분
-        MemberEntity data = new MemberEntity();
+        Member data = new Member();
         data.setEmail(email);
         data.setPassword(bCryptPasswordEncoder.encode(password));
         data.setName(name);
@@ -53,6 +53,6 @@ public class JoinService {
 
         System.out.println("JoinService : " + "회원가입 성공 : email = " + email + ", name = " + name);
 
-        userRepository.save(data);
+        memberRepository.save(data);
     }
 }
