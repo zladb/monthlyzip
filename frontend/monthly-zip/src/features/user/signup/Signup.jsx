@@ -37,7 +37,7 @@ function Signup() {
     navigate('/login'); 
   };
 
-//서버 요청(백엔드로로)
+//서버 요청(백엔드로)
 const handleSubmit = (event) => {
   event.preventDefault();
 
