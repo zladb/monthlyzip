@@ -34,10 +34,10 @@ function App() {
         {/* <Route path="/tenant/notice-detail/:noticeId" element={<NoticeDetail />} /> */}
         <Route path="/tenant/notice-detail" element={<NoticeDetail />} />
         
-        <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
-        <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
-        <Route path="/landlord/mypage" element={<LandlordMypage />} />
-        <Route path="/tenant/mypage" element={<TenantMypage />} />
+        <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  {/* 임차인 관리  MyPage*/}
+        <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />  {/* 임차인 관리 상세세 MyPage*/}
+        <Route path="/landlord/mypage" element={<LandlordMypage />} />    {/* 임대인 MyPage*/}
+        <Route path="/tenant/mypage" element={<TenantMypage />} />        {/* 임차인인 MyPage*/}
 
 
       </Routes>
