@@ -1,5 +1,6 @@
 package com.monthlyzip.global.common.utils;
 
+import com.monthlyzip.global.common.exception.exception.FileStorageException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
 import java.nio.file.StandardCopyOption;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
+
 
 @Component
 public class FileUtil {

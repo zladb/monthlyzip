@@ -1,12 +1,14 @@
 package com.monthlyzip.domain.room.model.entity;
 
 import com.monthlyzip.domain.building.model.entity.Building;
+import com.monthlyzip.domain.contract.model.entity.Contract;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,6 +39,9 @@ public class Room {
 
     @Column(name = "is_occupied", nullable = false)
     private Boolean isOccupied = false;
+
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
+    private List<Contract> contracts;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

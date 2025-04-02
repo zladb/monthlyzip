@@ -6,10 +6,10 @@ import com.monthlyzip.domain.building.model.dto.response.BuildingDetailResponseD
 import com.monthlyzip.domain.building.model.dto.response.BuildingResponseDto;
 import com.monthlyzip.domain.building.model.entity.Building;
 import com.monthlyzip.domain.building.repository.BuildingRepository;
+import com.monthlyzip.domain.member.entity.Member;
+import com.monthlyzip.domain.member.repository.MemberRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
-import com.monthlyzip.member.model.entity.Member;
-import com.monthlyzip.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,27 +35,22 @@ public class BuildingService {
     public List<BuildingResponseDto> getBuildings(Long ownerId) {
         List<Building> buildings;
 
-        if (ownerId != null) {
-            log.info("특정 소유자의 건물 조회");
+        log.info("특정 소유자의 건물 조회");
 
-            boolean ownerExists = memberRepository.existsById(ownerId);
-            if (!ownerExists) {
-                throw new BusinessException(ApiResponseStatus.OWNER_NOT_FOUND);
-            }
-
-            buildings = buildingRepository.findByOwnerId(ownerId);
-        } else {
-            log.info("전체 건물 조회 요청");
-            buildings = buildingRepository.findAll();
+        boolean ownerExists = memberRepository.existsById(ownerId);
+        if (!ownerExists) {
+            throw new BusinessException(ApiResponseStatus.OWNER_NOT_FOUND);
         }
+
+        buildings = buildingRepository.findByOwnerId(ownerId);
 
         return buildings.stream()
                 .map(BuildingResponseDto::of)
                 .collect(Collectors.toList());
     }
 
-    public BuildingResponseDto createBuilding(BuildingRequestDto requestDto) {
-        Member owner = memberRepository.findById(requestDto.getOwnerId())
+    public BuildingResponseDto createBuilding(Long ownerId, BuildingRequestDto requestDto) {
+        Member owner = memberRepository.findById(ownerId)
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.OWNER_NOT_FOUND));
 
         Building building = Building.builder()
@@ -69,11 +64,15 @@ public class BuildingService {
     }
 
     @Transactional
-    public BuildingResponseDto updateBuilding(Long buildingId, BuildingUpdateRequestDto requestDto) {
+    public BuildingResponseDto updateBuilding(Long buildingId, Long ownerId, BuildingUpdateRequestDto requestDto) {
         log.info("건물 정보 수정 실행");
 
         Building building = buildingRepository.findById(buildingId)
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.BUILDING_NOT_FOUND));
+
+        if (!building.getOwner().getId().equals(ownerId)) {
+            throw new BusinessException(ApiResponseStatus.UNAUTHORIZED); // 권한 없음 에러 처리
+        }
 
         boolean isUpdated = false;
 
@@ -97,14 +96,17 @@ public class BuildingService {
     }
 
     @Transactional
-    public void deleteBuilding(Long buildingId) {
+    public void deleteBuilding(Long buildingId, Long ownerId) {
         log.info("건물 삭제");
 
-        if (!buildingRepository.existsById(buildingId)) {
-            throw new BusinessException(ApiResponseStatus.BUILDING_NOT_FOUND);
+        Building building = buildingRepository.findById(buildingId)
+                .orElseThrow(() -> new BusinessException(ApiResponseStatus.BUILDING_NOT_FOUND));
+
+        if (!building.getOwner().getId().equals(ownerId)) {
+            throw new BusinessException(ApiResponseStatus.UNAUTHORIZED); // 권한 없음 에러 처리
         }
 
-        buildingRepository.deleteById(buildingId);
+        buildingRepository.delete(building);
         log.info("건물 삭제 완료");
     }
 }

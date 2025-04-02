@@ -10,7 +10,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
   servlet:
     multipart:
@@ -24,7 +24,6 @@ spring:
 server:
   port: 8080
 
-# 필요없을 듯?
 app:
   baseUrl: http://localhost:8080
   imageDir: ./uploads/images/  # 실제 이미지 저장 경로로 설정

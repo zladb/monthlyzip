@@ -3,17 +3,12 @@ package com.monthlyzip.domain.inquiry.model.entity;
 import com.monthlyzip.domain.contract.model.entity.Contract;
 import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
 import com.monthlyzip.domain.inquiry.model.type.InquiryType;
-import com.monthlyzip.member.model.entity.Member;
+import com.monthlyzip.domain.member.entity.Member;
 import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "inquiry")
