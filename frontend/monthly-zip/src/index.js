@@ -7,7 +7,7 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = "https://j12d109.p.ssafy.io";
 axios.defaults.withCredentials = true;
 
 
