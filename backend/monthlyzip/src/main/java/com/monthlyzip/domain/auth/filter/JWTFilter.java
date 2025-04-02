@@ -1,10 +1,10 @@
 package com.monthlyzip.domain.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.monthlyzip.domain.member.entity.Member;
 import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
-import com.monthlyzip.domain.member.enums.MemberType;
 import com.monthlyzip.domain.auth.service.TokenService;
+import com.monthlyzip.domain.member.entity.Member;
+import com.monthlyzip.domain.member.enums.MemberType;
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
 import com.monthlyzip.global.common.utils.JWTUtil;
@@ -28,7 +28,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-        FilterChain filterChain) throws ServletException, IOException {
+                                    FilterChain filterChain) throws ServletException, IOException {
 
         //request에서 Authorization 헤더를 찾음
         String authorization= request.getHeader("Authorization");
@@ -64,11 +64,11 @@ public class JWTFilter extends OncePerRequestFilter {
 
         //토큰에서 username 획득, admin 추가시 여기서 role도 획득
         Long memberId = jwtUtil.getMemberId(accessToken);
-        String userType = jwtUtil.getUserType(accessToken);
+        String userType = jwtUtil.getMemberType(accessToken);
 
         //userEntity를 생성하여 값 set
         Member member = new Member();
-        member.setMemberId(memberId);
+        member.setId(memberId);
         member.setMemberType(MemberType.valueOf(userType));
         member.setPassword("temppassword");
 

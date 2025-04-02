@@ -18,7 +18,7 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // AUTO_INCREMENT 적용
     @Column(name = "member_id")
-    private Long memberId;
+    private Long id;
 
     @Column(name = "email", nullable = false, unique = true, length = 150)
     private String email;
