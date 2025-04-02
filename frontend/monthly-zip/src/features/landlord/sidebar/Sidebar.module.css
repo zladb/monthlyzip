@@ -1,0 +1,166 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 300px;
+  height: 100%;
+  background-color: #FFFFFF;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+  transition: right 0.3s ease-in-out;
+  z-index: 101;
+}
+
+.sidebar.open {
+  right: 0;
+}
+
+.header {
+  padding: 20px;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #181725;
+}
+
+.content {
+  padding: 16px;
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  color: #181725;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.menuItem:hover {
+  background-color: #F8F8F8;
+}
+
+.menuIcon {
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+.menuItem.warning {
+  color: #FF6F00;
+}
+
+.menuItem.danger {
+  color: #FF0000;
+}
+
+.menuItem.warning:hover {
+  background-color: #FFF5E6;
+}
+
+.menuItem.danger:hover {
+  background-color: #FFF0F0;
+}
+
+.logo {
+  width: 153px;
+  height: 62px;
+  margin: 86px auto 0;
+  display: block;
+}
+
+.navigation {
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 38px;
+  padding-left: 41px;
+  padding-right: 41px;
+  display: flex;
+}
+
+.navItem {
+  align-items: center;
+  gap: 17px;
+  display: flex;
+}
+
+.navLabel {
+  color: #5f6368;
+  font-family: Inter;
+  font-size: 20px;
+  margin: 0;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.logoutSection {
+  background-color: #fffbf7;
+  align-items: center;
+  height: 81px;
+  padding-left: 46px;
+  padding-right: 46px;
+  display: flex;
+}
+
+.logoutContainer {
+  align-items: center;
+  gap: 38px;
+  display: flex;
+}
+
+.logoutText {
+  color: #5e6166;
+  font-family: Inter;
+  font-size: 20px;
+  margin: 0;
+}
+
+.deleteAccountSection {
+  align-items: center;
+  gap: 36px;
+  margin-top: 50px;
+  margin-bottom: 27px;
+  padding-left: 49px;
+  padding-right: 49px;
+  display: flex;
+}
+
+.deleteAccountText {
+  color: #ec221f;
+  font-family: Inter;
+  font-size: 20px;
+  margin: 0;
+}
+  
