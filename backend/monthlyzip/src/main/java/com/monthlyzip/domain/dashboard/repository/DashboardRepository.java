@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.dashboard.repository;
 
-import com.monthlyzip.member.model.entity.Member;
+import com.monthlyzip.domain.member.entity.Member;
 import java.util.List;
 import java.util.Map;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -88,5 +88,4 @@ public interface DashboardRepository extends JpaRepository<Member, Long> {
         LIMIT 3
     """, nativeQuery = true)
     List<Map<String, Object>> findRecentNoticesByTenantId(@Param("tenantId") Long tenantId);
-
 }

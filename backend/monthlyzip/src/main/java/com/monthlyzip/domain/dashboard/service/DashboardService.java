@@ -1,6 +1,5 @@
 package com.monthlyzip.domain.dashboard.service;
 
-import com.monthlyzip.domain.auth.model.enums.MemberType;
 import com.monthlyzip.domain.dashboard.model.dto.landlord.LandlordInfoDto;
 import com.monthlyzip.domain.dashboard.model.dto.landlord.LandlordInquiryDto;
 import com.monthlyzip.domain.dashboard.model.dto.landlord.MonthlySummaryDto;
@@ -9,11 +8,11 @@ import com.monthlyzip.domain.dashboard.model.dto.tenant.NextPaymentDto;
 import com.monthlyzip.domain.dashboard.model.dto.tenant.NoticeDto;
 import com.monthlyzip.domain.dashboard.model.dto.tenant.TenantInfoDto;
 import com.monthlyzip.domain.dashboard.repository.DashboardRepository;
+import com.monthlyzip.domain.member.entity.Member;
+import com.monthlyzip.domain.member.enums.MemberType;
+import com.monthlyzip.domain.member.repository.MemberRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
-import com.monthlyzip.member.model.entity.Member;
-import com.monthlyzip.member.model.entity.UserType;
-import com.monthlyzip.member.repository.MemberRepository;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class DashboardService {
             .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
 
         // 2. 회원 유형에 따라 다른 대시보드 정보 반환
-        if (member.getUserType().equals(UserType.임대인)) {
+        if (member.getMemberType().equals(MemberType.임대인)) {
             return createLandlordDashboard(member);
         } else {
              return createTenantDashboard(member);
