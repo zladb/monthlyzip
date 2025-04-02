@@ -49,8 +49,18 @@ public class MemberService {
     }
 
     public void updatePassword(Long memberId, String password, String passwordConfirm) {
+        // 비밀번호가 비었을때 확인
+        if (password == null || passwordConfirm == null) {
+            throw new BusinessException(ApiResponseStatus.PASSWORD_INVALID);
+        }
+        // 비밀번호 둘이 다를때 확인
         if (!password.equals(passwordConfirm)) {
             throw new BusinessException(ApiResponseStatus.PASSWORD_MISMATCH);
+        }
+        // 비밀번호 유형에 안맞을때
+        String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$";
+        if (!password.matches(passwordPattern)) {
+            throw new BusinessException(ApiResponseStatus.PASSWORD_INVALID);
         }
 
         Member member = memberRepository.findById(memberId)
