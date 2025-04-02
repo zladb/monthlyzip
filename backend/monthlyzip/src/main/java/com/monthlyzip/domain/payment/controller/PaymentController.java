@@ -27,9 +27,7 @@ public class PaymentController {
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestBody @Valid PaymentCreateRequestDto requestDto) {
         // 토큰에서 memberId 추출
-//        Long memberId = userDetails.getMember().getMemberId();
-        // 테스트용 memberId 자동 생성
-        Long memberId = 1L;
+        Long memberId = userDetails.getMember().getId();
         log.debug("납부 생성 요청");
         return ApiResponse.success(paymentService.createPayment(memberId, requestDto));
     }
@@ -39,9 +37,7 @@ public class PaymentController {
     public ApiResponse<List<PaymentResponseDto>> getPayments(
             @AuthenticationPrincipal CustomUserDetails userDetails) {
         // 토큰에서 memberId 추출
-//        Long memberId = userDetails.getMember().getMemberId();
-        // 테스트용 memberId 자동 생성
-        Long memberId = 2L;
+        Long memberId = userDetails.getMember().getId();
         log.debug("납부 목록 조회 요청");
         return ApiResponse.success(paymentService.getPayments(memberId));
     }
@@ -51,10 +47,8 @@ public class PaymentController {
     public ApiResponse<PaymentResponseDto> getPaymentById(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @PathVariable Long paymentId) {
-        // 토큰에서 memberId 추출
-//        Long memberId = userDetails.getMember().getMemberId();
-        // 테스트용 memberId 자동 생성
-        Long memberId = 2L;
+//         토큰에서 memberId 추출
+        Long memberId = userDetails.getMember().getId();
         log.debug("납부 상세 조회 요청");
         return ApiResponse.success(paymentService.getPaymentById(memberId, paymentId));
     }
