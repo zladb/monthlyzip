@@ -1,15 +1,15 @@
 package com.monthlyzip.domain.inquiry.model.dto.response;
 
-import com.monthlyzip.domain.contract.model.entity.Contract;
 import com.monthlyzip.domain.inquiry.model.entity.Inquiry;
 import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
 import com.monthlyzip.domain.inquiry.model.type.InquiryType;
-import com.monthlyzip.member.model.entity.Member;
-import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -25,6 +25,7 @@ public class InquiryResponseDto {
     private InquiryType inquiryType;
     private String title;
     private InquiryStatus status;
+    private List<String> imageUrls;
     private LocalDateTime createdAt;
 
     public static InquiryResponseDto from(Inquiry inquiry) {
@@ -37,6 +38,7 @@ public class InquiryResponseDto {
             .inquiryType(inquiry.getInquiryType())
             .title(inquiry.getTitle())
             .status(inquiry.getStatus())
+            .imageUrls(inquiry.getImageUrls())  // 추가
             .createdAt(inquiry.getCreatedAt())
             .build();
     }

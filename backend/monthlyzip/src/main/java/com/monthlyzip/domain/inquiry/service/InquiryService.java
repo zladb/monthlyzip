@@ -11,18 +11,23 @@ import com.monthlyzip.domain.inquiry.model.entity.Inquiry;
 import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
 import com.monthlyzip.domain.inquiry.model.type.InquiryType;
 import com.monthlyzip.domain.inquiry.repository.InquiryRepository;
+import com.monthlyzip.domain.member.entity.Member;
+import com.monthlyzip.domain.member.enums.MemberType;
+import com.monthlyzip.domain.member.repository.MemberRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
-import com.monthlyzip.member.model.entity.Member;
-import com.monthlyzip.member.model.entity.UserType;
+import com.monthlyzip.global.common.utils.FileUtil;
 import com.monthlyzip.member.repository.MemberRepository;
-import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Service
@@ -32,9 +37,10 @@ public class InquiryService {
     private final InquiryRepository inquiryRepository;
     private final ContractRepository contractRepository;
     private final MemberRepository memberRepository;
+    private final FileUtil fileUtil;
 
     @Transactional
-    public InquiryCreateResponseDto createInquiry(Long memberId, InquiryCreateRequestDto dto) {
+    public InquiryCreateResponseDto createInquiry(Long memberId, InquiryCreateRequestDto dto, List<MultipartFile> images) {
         // 1. 회원 존재 여부 확인
         Member member = memberRepository.findById(memberId)
             .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
@@ -44,8 +50,19 @@ public class InquiryService {
             .orElseThrow(() -> new BusinessException(ApiResponseStatus.CONTRACT_NOT_FOUND));
 
         // 3. 계약이 해당 사용자의 것인지 확인 (임차인만 문의 생성 가능)
-        if (member.getUserType() != UserType.임차인 || !contract.getTenantId().equals(memberId)) {
+        if (member.getMemberType() != MemberType.임차인 || !contract.getTenantId().equals(memberId)) {
             throw new BusinessException(ApiResponseStatus.FORBIDDEN);
+        }
+
+        // 4. 이미지 업로드 처리
+        List<String> imageUrls = new ArrayList<>();
+        if (images != null && !images.isEmpty()) {
+            for (MultipartFile image : images) {
+                if (!image.isEmpty()) {
+                    String imageUrl = fileUtil.saveFile(image);
+                    imageUrls.add(imageUrl);
+                }
+            }
         }
 
         // 4. 문의 생성
@@ -56,6 +73,7 @@ public class InquiryService {
             .title(dto.getTitle())
             .content(dto.getContent())
             .status(InquiryStatus.접수) // 초기 상태는 '접수'
+            .imageUrls(imageUrls)  // 추가
             .createdAt(LocalDateTime.now())
             .updatedAt(LocalDateTime.now())
             .build();
@@ -77,7 +95,7 @@ public class InquiryService {
         List<Inquiry> inquiries;
 
         // 2. 사용자 유형에 따라 다른 목록 반환
-        if (member.getUserType() == UserType.임대인) {
+        if (member.getMemberType() == MemberType.임대인) {
             // 임대인은 자신의 건물에 대한 모든 문의를 볼 수 있음
             if (status != null && !status.isEmpty() && inquiryType != null) {
                 // 상태와 유형 모두로 필터링
@@ -141,7 +159,7 @@ public class InquiryService {
 
             // 3. 권한 확인
             boolean hasAccess = false;
-            if (member.getUserType() == UserType.임대인) {
+            if (member.getMemberType() == MemberType.임대인) {
                 // 임대인은 자신의 건물에 대한 문의만 조회 가능
                 hasAccess = inquiry.getContract().getLandlordId().equals(memberId);
             } else {
@@ -171,7 +189,7 @@ public class InquiryService {
         // 테스트 위해 권한 검사 임시 비활성화
         /*
                 // 3. 권한 확인 (각 사용자 유형별로 다른 권한)
-                if (member.getUserType() == UserType.임대인) {
+                if (member.getMemberType() == MemberType.임대인) {
                     // 임대인은 자신의 건물에 대한 문의의 상태만 수정 가능
                     if (!inquiry.getContract().getLandlordId().equals(memberId)) {
                         throw new BusinessException(ApiResponseStatus.FORBIDDEN);
