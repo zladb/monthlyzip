@@ -33,14 +33,16 @@ public class NoticeController {
     }
 
 
-    // ✅ 공지사항 목록 조회 (빌딩 ID 기준)
+    // ✅ 공지사항 목록 조회
     @GetMapping
-    public ApiResponse<List<NoticeResponseDto>> getNoticesByBuilding(
-            @RequestParam("buildingId") Long buildingId
+    public ApiResponse<List<NoticeResponseDto>> getNotices(
+            @RequestParam(value = "buildingId", required = false) Long buildingId,
+            @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
         log.debug("공지사항 목록 조회 요청");
-        return ApiResponse.success(noticeService.getNoticesByBuilding(buildingId));
+        return ApiResponse.success(noticeService.getNotices(buildingId, userDetails.getMember()));
     }
+
 
     // ✅ 공지사항 상세 조회
     @GetMapping("/{noticeId}")
