@@ -47,4 +47,14 @@ public class Member {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+
+    // ✅ 역할 확인 메서드
+    public boolean isLandlord() {
+        return this.memberType == MemberType.임대인;
+    }
+
+    public boolean isTenant() {
+        return this.memberType == MemberType.임차인;
+    }
+
 }
