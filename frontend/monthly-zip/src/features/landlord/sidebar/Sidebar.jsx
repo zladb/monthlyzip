@@ -65,11 +65,17 @@ function NavigationItems({ navigate, onClose }) {
 
 // LogoutSection Component
 function LogoutSection({ onClose }) {
-  const handleLogout = () => {
-    // TODO: 로그아웃 로직 구현
-    console.log('로그아웃');
-    onClose();
-  };
+      // ✅ 실제 로그아웃 처리
+      const handleLogout = () => {
+        if (window.confirm("정말 로그아웃 하시겠습니까?")) {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("userEmail");
+          localStorage.removeItem("userType");
+    
+          navigate("/login");
+          onClose();
+        }
+      };
 
   return (
     <footer className={styles.logoutSection}>
@@ -80,6 +86,7 @@ function LogoutSection({ onClose }) {
     </footer>
   );
 }
+
 
 // AccountActions Component
 function AccountActions({ onClose }) {
@@ -98,6 +105,7 @@ function AccountActions({ onClose }) {
     </section>
   );
 }
+
 
 // Main Sidebar Component
 const Sidebar = ({ isOpen, onClose }) => {

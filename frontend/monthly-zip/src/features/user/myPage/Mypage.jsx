@@ -1,21 +1,51 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./Mypage.module.css";
+import axios from "axios";
 
 const Mypage = () => {
+
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    userType: "",
+  });
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [profileImage, setProfileImage] = useState(null);
 
-  // 로그인된 사용자 정보 (백엔드 API 연동 시 이 부분을 API 응답으로 대체)
-  const [userInfo, setUserInfo] = useState({
-    name: "김민주",
-    email: "minju@naver.com",
-    phone: "010-4534-7643",
-    userType: "임대인",
-  });
+useEffect(() => {
+  const fetchUserInfo = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      const res = await axios.get("/api/users/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("응답 결과:", res.data);
+
+      const user = res.data.result;
+
+      setUserInfo({
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        userType: user.userType,
+      });
+
+      setProfileImage(user.profileImageUrl || null);
+    } catch (err) {
+      console.error("사용자 정보 불러오기 실패:", err);
+    }
+  };
+
+  fetchUserInfo();
+}, []);
 
   const fileInputRef = useRef(null);
 
