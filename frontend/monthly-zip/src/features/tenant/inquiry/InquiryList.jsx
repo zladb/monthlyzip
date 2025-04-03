@@ -25,7 +25,7 @@ function InquiryHeader({ title }) {
 }
 
 function CategoryFilter({ selectedCategory, onFilterChange }) {
-  const categories = ["전체", "납부 관리", "수리 요청", "생활 민원", "계약 연장", "기타"];
+  const categories = ["전체", "납부관리", "수리요청", "생활민원", "계약연장", "기타"];
 
   return (
     <nav className={styles.filterContainer}>
@@ -42,9 +42,16 @@ function CategoryFilter({ selectedCategory, onFilterChange }) {
   );
 }
 
-function InquiryItem({ category, categoryColor, title, date, status }) {
+function InquiryItem({ inquiryId, category, categoryColor, title, date, status }) {
+  
+  const navigate = useNavigate();
+  
+  const handleClick = () => {
+    navigate(`/tenant/inquiry-detail/${inquiryId}`);
+  };
+  
   return (
-    <article className={styles.inquiryCard}>
+    <article className={styles.inquiryCard} onClick={handleClick}>
       <div className={styles.categoryLabel} style={{ backgroundColor: categoryColor }}>
         {category}
       </div>
@@ -77,7 +84,7 @@ function InquiryList() {
   const fetchInquiries = () => {
     axios.get("/api/inquiries", { 
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     })
       .then((response) => {
@@ -93,11 +100,12 @@ function InquiryList() {
   };
 
   const getCategoryColor = (category) => {
+    console.log("Category:", category);
     const colors = {
-      "수리 요청": "#07f",
-      "계약 연장": "#ff1d86",
-      "생활 민원": "#16d03b",
-      "납부 관리": "#ff7e3e",
+      "수리요청": "#07f",
+      "계약연장": "#ff1d86",
+      "생활민원": "#16d03b",
+      "납부관리": "#ff7e3e",
       "기타": "#999",
     };
     return colors[category] || "#ccc";
@@ -111,9 +119,10 @@ function InquiryList() {
         <section className={styles.inquiryList}>
           {filteredInquiries.map((item) => (
             <InquiryItem
-              key={item.inquiryId}
+              inquiryId={item.inquiryId}
               category={item.inquiryType}
               categoryColor={getCategoryColor(item.inquiryType)}
+              
               title={item.title}
               date={new Date(item.createdAt).toLocaleString()}
               status={item.status}
