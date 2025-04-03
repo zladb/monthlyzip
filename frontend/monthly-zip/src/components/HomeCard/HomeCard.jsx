@@ -1,21 +1,21 @@
-import React from 'react';
-import styles from './HomeCard.module.css';
+import React from "react";
+import styles from "./HomeCard.module.css";
 
-const StatusCard = ({ icon, label, value, unit }) => {
+function HomeCard({ icon, label, value, unit }) {
   return (
-    <div className={styles.card}>
-      <div className={styles.iconWrapper}>
-        <img src={icon} alt={label} className={styles.icon} />
-      </div>
-      <div className={styles.content}>
-        <span className={styles.label}>{label}</span>
-        <div className={styles.value}>
-          {value}
+    <section className={styles.container}>
+      <article className={styles.card}>
+        <header className={styles.header}>
+          <img src={icon} alt={label} className={styles.icon} />
+          <h2 className={styles.title}>{label}</h2>
+        </header>
+        <div className={styles.amountWrapper}>
+          <p className={styles.amount}>{value}</p>
           <span className={styles.unit}>{unit}</span>
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   );
-};
+}
 
-export default StatusCard; 
+export default HomeCard; 
