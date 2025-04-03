@@ -9,6 +9,8 @@
   background-color: #FFFFFF;
   padding: 12px 0;
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .navItem {
@@ -17,21 +19,40 @@
   align-items: center;
   text-decoration: none;
   color: #666666;
+  transition: color 0.2s ease;
+}
+
+.navItem:hover {
+  color: #181725;
+}
+
+.navItem:hover .icon {
+  filter: brightness(0) saturate(100%) invert(8%) sepia(4%) saturate(5000%) hue-rotate(180deg) brightness(90%) contrast(90%);
 }
 
 .icon {
   width: 24px;
   height: 24px;
   margin-bottom: 4px;
+  transition: filter 0.2s ease;
+}
+
+.iconWrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navItem.active .iconWrapper {
+  background-color: #FF6F0099;
 }
 
 .label {
   font-size: 12px;
   font-weight: 500;
-}
-
-.navItem:hover {
-  color: #181725;
 }
 
 .navItem:hover .navIcon path {
