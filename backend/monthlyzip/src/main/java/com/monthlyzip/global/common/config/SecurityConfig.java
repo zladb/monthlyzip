@@ -70,12 +70,12 @@ public class SecurityConfig {
                 .anyRequest().authenticated());                             // 그 외 모든 요청은 인증 필요
 
         // JWT 임시 주석 처리
-        // http
-        //    .addFilterBefore(new JWTFilter(jwtUtil, tokenService), LoginFilter.class);
+        http
+           .addFilterBefore(new JWTFilter(jwtUtil, tokenService), LoginFilter.class);
 
         //AuthenticationManager()와 JWTUtil 인수 전달
-        //http
-        //   .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, accessTokenValidity, refreshTokenValidity, tokenService), UsernamePasswordAuthenticationFilter.class);
+        http
+          .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, accessTokenValidity, refreshTokenValidity, tokenService), UsernamePasswordAuthenticationFilter.class);
 
         // JWT 사용을 위한 세션 관리 설정
         http
