@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
     List<Notice> findByBuildingId(Long buildingId);
+
+    List<Notice> findByBuildingIdIn(List<Long> buildingIds);
+
 }
