@@ -1,0 +1,229 @@
+.container {
+    background-color: #fff;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 71px;
+    display: flex;
+    overflow: hidden;
+  }
+  
+  .mainContent {
+    width: 100%;
+    margin-top: 30px;
+    font-family:
+      Inter,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-weight: 700;
+  }
+  .header {
+    position: relative;
+    width: 100%;
+    z-index: 10;
+  }
+  
+  .backButton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .backButtonIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    z-index: 10;
+    width: 28px;
+    margin-left: 22px;
+  }
+  .imageSection {
+    background-color: #eaf2ff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 346px;
+    margin-top: -99px;
+    padding: 157px 40px;
+    display: flex;
+  }
+  
+  .icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 32px;
+  }
+  .paginationDots {
+    z-index: 10;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: -27px;
+    display: flex;
+  }
+  
+  .dot {
+    opacity: 0.1;
+    background-color: #1f2024;
+    border-radius: 24px;
+    flex-shrink: 0;
+    align-self: stretch;
+    width: 8px;
+    height: 8px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+  }
+  
+  .activeDot {
+    background-color: #006ffd;
+    border-radius: 24px;
+    flex-shrink: 0;
+    align-self: stretch;
+    width: 8px;
+    height: 8px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+  }
+  .contentContainer {
+    color: #000;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 13px;
+    display: flex;
+  }
+  
+  .divider {
+    border: 1px solid #e2e2e2;
+    flex-shrink: 0;
+    width: 340px;
+    max-width: 100%;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .title {
+    align-self: start;
+    margin-top: 14px;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .requestType {
+    color: #07f;
+    text-align: right;
+    align-self: start;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .description {
+    align-self: start;
+    margin-top: 14px;
+    font-weight: 400;
+  }
+  
+  .divider:last-of-type {
+    margin-top: 14px;
+  }
+  .statusContainer {
+    color: #e2e2e2;
+    text-align: center;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 20px;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 84px;
+    margin-left: 11px;
+    margin-right: 12px;
+    font-family:
+      Open Sans,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    display: flex;
+  }
+  
+  .statusItem {
+    flex-direction: column;
+    align-items: stretch;
+    display: flex;
+  }
+  
+  .activeStatusDot {
+    background-color: #ec221f;
+    border-radius: 50%;
+    flex-shrink: 0;
+    align-self: center;
+    width: 15px;
+    height: 15px;
+    display: flex;
+  }
+  
+  .inactiveStatusDot {
+    background-color: #e2e2e2;
+    border-radius: 50%;
+    flex-shrink: 0;
+    align-self: center;
+    width: 15px;
+    height: 15px;
+    display: flex;
+  }
+  
+  .statusText {
+    margin-top: 8px;
+  }
+  
+  .statusItem:first-child {
+    color: #ec221f;
+  }
+  .footer {
+    color: #fff;
+    text-align: center;
+    background-color: #e2e2e2;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 76px;
+    padding: 19px 75px 7px;
+    font-size: 28px;
+    display: flex;
+  }
+  
+  .footerContent {
+    flex-direction: column;
+    align-items: stretch;
+    width: 144px;
+    max-width: 100%;
+    display: flex;
+  }
+  
+  .statusText {
+    align-self: center;
+  }
+  
+  .homeIndicator {
+    background-color: #000;
+    border-radius: 100px;
+    flex-shrink: 0;
+    height: 5px;
+    margin-top: 15px;
+    display: flex;
+  }
+  

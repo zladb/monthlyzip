@@ -15,9 +15,12 @@ import ContractInformation from './features/tenant/contract/ContractInformation'
 import AutoPaymentAgreement from './features/tenant/payment/auto/AutoPaymentAgreement';
 import AutoPayment from './features/tenant/payment/auto/AutoPayment';
 import NoticeDetail from './features/tenant/notice/NoticeDetail';
+import InquiryRegister from './features/tenant/inquiry/InquiryRegister';
+import InquiryList from './features/tenant/inquiry/InquiryList';
 
 import LandlordHome from './features/landlord/home/LandlordHome';
 import TenantHome from './features/tenant/home/TenantHome';
+import InquiryDetail from './features/tenant/inquiry/InquiryDetail';
 
 function App() {
   // const [userType, setUserType] = useState(null);
@@ -52,6 +55,11 @@ function App() {
         <Route path="/tenant/notice-list" element={<NoticeList />} />
         {/* <Route path="/tenant/notice-detail/:noticeId" element={<NoticeDetail />} /> */}
         <Route path="/tenant/notice-detail" element={<NoticeDetail />} />
+        <Route path="/tenant/inquiry-register" element={<InquiryRegister />} />
+        <Route path="/tenant/inquiry-list" element={<InquiryList />} />
+        <Route path="/tenant/inquiry-detail/:inquiryId" element={<InquiryDetail />} />
+
+
         
 
       </Routes>
