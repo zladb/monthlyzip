@@ -2,7 +2,6 @@
     background-color: #fff9ed;
     flex-direction: column;
     align-items: start;
-    justify-content: center;
     max-width: 480px;
     margin-left: auto;
     margin-right: auto;
@@ -15,7 +14,7 @@
       sans-serif;
     display: flex;
     overflow: hidden;
-    min-height: 700px;
+    min-height: 800px;
   }
   
   .headerContainer {
@@ -40,6 +39,7 @@
   
   .headerTitle {
     flex-basis: auto;
+    font-size: 28px;
   }
   
   .contentCard {
@@ -54,6 +54,8 @@
     font-weight: 600;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .titleRow {
