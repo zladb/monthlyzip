@@ -1,76 +1,39 @@
 import React from "react";
-import styles from "./PWA.module.css";
+import styles from "./InquiryCard.module.css";
 
-function InquiryCard({ type, title, date, status, variant }) {
-  const getCardClassName = () => {
-    const baseClass = styles.inquiryCard;
-    switch (variant) {
-      case "green":
-        return `${baseClass} ${ styles.inquiryCardGreen}`;
-      case "pink":
-        return `${baseClass} ${styles.inquiryCardPink}`;
-      case "blue":
-        return `${baseClass} ${styles.inquiryCardBlue}`;
+function InquiryCard({ type, title, date, status, onClick }) {
+  const getTypeText = (type) => {
+    switch (type) {
+      case "수리 요청":
+        return { type: "REPAIR", text: "수리 요청" };
+      case "납부 관리":
+        return { type: "PAYMENT", text: "납부 관리" };
+      case "생활 민원":
+        return { type: "LIFE", text: "생활 민원" };
+      case "계약 연장":
+        return { type: "CONTRACT", text: "계약 연장" };
+      case "기타":
+        return { type: "OTHER", text: "기타" };
       default:
-        return baseClass;
+        return { type: "OTHER", text: "기타" };
     }
   };
 
-  const getTypeClassName = () => {
-    const baseClass = styles.inquiryType;
-    switch (variant) {
-      case "green":
-        return `${baseClass} ${styles.inquiryTypeGreen}`;
-      case "pink":
-        return `${baseClass} ${styles.inquiryTypePink}`;
-      case "blue":
-        return `${baseClass} ${styles.inquiryTypeBlue}`;
-      default:
-        return baseClass;
-    }
-  };
-
-  const getMetaClassName = () => {
-    const baseClass = styles.inquiryMeta;
-    switch (variant) {
-      case "green":
-        return `${baseClass} ${styles.inquiryMetaGreen}`;
-      case "pink":
-        return `${baseClass} ${styles.inquiryMetaPink}`;
-      case "blue":
-        return `${baseClass} ${styles.inquiryMetaBlue}`;
-      default:
-        return baseClass;
-    }
-  };
-
-  const getStatusClassName = () => {
-    const baseClass = styles.inquiryStatus;
-    switch (variant) {
-      case "green":
-        return `${baseClass} ${styles.inquiryStatusGreen}`;
-      case "pink":
-        return `${baseClass} ${styles.inquiryStatusPink}`;
-      case "blue":
-        return `${baseClass} ${styles.inquiryStatusBlue}`;
-      default:
-        return baseClass;
-    }
-  };
+  const { type: cardType, text: typeText } = getTypeText(type);
 
   return (
-    <article className={getCardClassName()}>
-      <div className={getTypeClassName()}>
-        {type}
+    <article className={styles.card} data-type={cardType} onClick={onClick}>
+      <div className={styles.type}>
+        {typeText}
       </div>
-      <h3 className={styles.inquiryTitle}>
+      <h3 className={styles.title}>
         {title}
       </h3>
-      <div className={getMetaClassName()}>
-        <time className={styles.inquiryDate}>
+      <div className={styles.meta}>
+        <time className={styles.date}>
           {date}
         </time>
-        <span className={getStatusClassName()}>
+        <span className={styles.status}>
           {status}
         </span>
       </div>
