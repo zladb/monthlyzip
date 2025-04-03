@@ -9,9 +9,6 @@ import lombok.Setter;
 @Setter
 public class NoticeRequestDto {
 
-    @NotNull(message = "landlordId는 필수입니다.")
-    private Long landlordId;
-
     @NotNull(message = "buildingId는 필수입니다.")
     private Long buildingId;
 
