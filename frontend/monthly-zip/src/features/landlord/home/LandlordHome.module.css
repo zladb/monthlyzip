@@ -1,45 +1,171 @@
 .container {
+  background-color: #FFFBF7;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   min-height: 100vh;
-  background-color: #FFFFFF;
-  padding: 24px 16px 80px;
-}
-
-.header {
-  margin-bottom: 24px;
-}
-
-.titleWrapper {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.menuButton {
-  background: none;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.menuButton img {
-  width: 24px;
-  height: 24px;
-}
-
-.title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #333333;
-  margin: 0;
+  padding-bottom: 120px;
+  overflow-y: auto;
 }
 
 .content {
   display: flex;
   flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.headerIcon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.userName {
+  color: #0F123F;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.userTitle {
+  color: #0F123F;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Dashboard Cards Styles */
+.dashboardContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.cardSlider {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+  width: 300%;
+  gap: 20px;
+}
+
+.cardSlider > * {
+  flex: 1;
+  min-width: 310px;
+}
+
+.pageIndicator {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #E0E0E0;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #FF6F00;
+}
+
+/* Notification Section Styles */
+.notificationContainer {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 24px 27px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 1px 10px rgba(171, 171, 171, 0.5);
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.notificationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notificationTitle {
+  color: #80848C;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.32px;
+}
+
+.viewMoreButton {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.viewMoreText {
+  color: #80848C;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22px;
+}
+
+.viewMoreIcon {
+  width: 10px;
+  height: 10px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 32px 0;
+  }
+  
+  .content {
+    padding: 0 32px;
+  }
+  
+  .header {
+    padding: 16px 32px;
+  }
+}
+
+.inquiryList {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  padding: 8px 0;
 }
 
 .landlordHome {
