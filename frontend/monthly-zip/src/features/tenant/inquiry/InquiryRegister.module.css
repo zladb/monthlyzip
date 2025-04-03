@@ -25,6 +25,7 @@
     font-size: 28px;
     font-weight: 700;
     display: flex;
+    padding-left: 24px;
   }
   
   .icon {
@@ -38,6 +39,7 @@
   }
   .title {
     flex-basis: auto;
+    font-size: 28px;
   }
   .categorySection {
     padding-left: 15px;
@@ -66,7 +68,13 @@
     width: 140px;
     font-size: 16px;
   }
-  
+  /* 카테고리 선택된 색깔 */
+  .selected {
+    background-color: #FFF9ED;
+    color: black;
+    font-weight: bold;
+  }
+
   .inputLabel {
     text-align: center;
     margin-top: 39px;
