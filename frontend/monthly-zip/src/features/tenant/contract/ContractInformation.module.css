@@ -47,6 +47,7 @@
     text-align: center;
     font-weight: 600;
     font-size: 20px;
+    margin-top:10px;
   }
   .addressDetails {
     display: flex;
@@ -73,7 +74,8 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 11px;
+    margin-top:10px;
+  
     padding: 16px 62px 16px 17px;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
@@ -105,7 +107,7 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 11px;
+    margin-top: 10px;
     padding: 11px 62px 11px 12px;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
@@ -115,11 +117,12 @@
     font-weight: 600;
     font-size: 20px;
     line-height: 1;
+    margin-top:10px;
   }
   .periodInfo {
     color: #878787;
     letter-spacing: 0.28px;
-    text-align: center;
+    text-align: start;
     margin-top: 13px;
     font-weight: 400;
     font-size: 18px;
@@ -255,7 +258,15 @@
     width: 300px;
     text-align: center;
   }
+  .modalContent h2{
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
   
+  .modalContent p {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
   .modalButtonContainer {
     align-items: center;
     gap: 8px;
