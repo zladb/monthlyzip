@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background-color: #F5F5F5;
+  background-color: #FFFFFF;
   padding: 24px 16px 80px;
 }
 
@@ -8,10 +8,32 @@
   margin-bottom: 24px;
 }
 
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuButton img {
+  width: 24px;
+  height: 24px;
+}
+
 .title {
   font-size: 20px;
   font-weight: 700;
   color: #333333;
+  margin: 0;
 }
 
 .content {
