@@ -28,12 +28,11 @@ function Login() {
       console.log("디코딩 결과:", decoded);
   
       // 디코드된 토큰에 들어있는 email, userType 확인
-      localStorage.setItem("userEmail", decoded.email || decoded.memberEmail);
-      localStorage.setItem("userType", decoded.userType || decoded.role); // 둘 중 하나
-  
-      if (decoded.userType === "임대인" || decoded.role === "ROLE_LANDLORD") {
+      localStorage.setItem("userType", decoded.userType); 
+
+      if (decoded.userType === "임대인") {
         navigate("/landlord");
-      } else if (decoded.userType === "임차인" || decoded.role === "ROLE_TENANT") {
+      } else if (decoded.userType === "임차인") {
         navigate("/tenant");
       } else {
         alert("알 수 없는 사용자 유형입니다.");
