@@ -25,15 +25,16 @@ import java.util.stream.Collectors;
 public class NoticeService {
 
     private final NoticeRepository noticeRepository;
-    private final MemberRepository memberRepository;
     private final BuildingRepository buildingRepository;
 
-    public NoticeResponseDto createNotice(NoticeRequestDto requestDto) {
-        Member landlord = memberRepository.findById(requestDto.getLandlordId())
-                .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
-
+    public NoticeResponseDto createNotice(NoticeRequestDto requestDto, Member landlord) {
         Building building = buildingRepository.findById(requestDto.getBuildingId())
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.BUILDING_NOT_FOUND));
+
+        // ✅ 건물의 소유주가 현재 로그인한 landlord인지 확인
+        if (!building.getOwner().getId().equals(landlord.getId())) {
+            throw new BusinessException(ApiResponseStatus.NOTICE_NO_AUTHORITY);
+        }
 
         Notice notice = Notice.builder()
                 .landlord(landlord)
@@ -45,6 +46,8 @@ public class NoticeService {
         noticeRepository.save(notice);
         return NoticeResponseDto.of(notice);
     }
+
+
 
     public List<NoticeResponseDto> getNoticesByBuilding(Long buildingId) {
         if (!buildingRepository.existsById(buildingId)) {

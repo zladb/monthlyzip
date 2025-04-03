@@ -47,6 +47,8 @@ public enum ApiResponseStatus {
     NOTICE_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 공지사항이 존재하지 않습니다."),
     NOTICE_ACCESS_DENIED(false, HttpStatus.FORBIDDEN, 403, "공지사항에 접근할 권한이 없습니다."),
     NOTICE_INVALID_REQUEST(false, HttpStatus.BAD_REQUEST, 400, "공지사항 요청 값이 유효하지 않습니다."),
+    NOTICE_NO_AUTHORITY(false,HttpStatus.UNAUTHORIZED, 403, "해당 건물에 대한 권한이 없습니다."),
+
 
     // notification
     NOTIFICATION_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 알림을 찾을 수 없습니다."),
