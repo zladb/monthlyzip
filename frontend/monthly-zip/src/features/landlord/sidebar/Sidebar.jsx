@@ -23,11 +23,18 @@ const SidebarHeader = () => {
 
 // SidebarNavigation component for the middle section with menu items
 const SidebarNavigation = ({ navigate, onClose }) => {
-  const handleLogout = () => {
-    // TODO: 로그아웃 로직 구현
-    console.log('로그아웃');
-    onClose();
-  };
+
+    // ✅ 실제 로그아웃 처리
+    const handleLogout = () => {
+      if (window.confirm("정말 로그아웃 하시겠습니까?")) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userType");
+  
+        navigate("/login");
+        onClose();
+      }
+    };
 
   const handleWithdraw = () => {
     // TODO: 회원 탈퇴 로직 구현
