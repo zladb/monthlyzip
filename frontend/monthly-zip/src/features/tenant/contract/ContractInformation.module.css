@@ -258,7 +258,15 @@
     width: 300px;
     text-align: center;
   }
+  .modalContent h2{
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
   
+  .modalContent p {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
   .modalButtonContainer {
     align-items: center;
     gap: 8px;
