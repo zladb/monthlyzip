@@ -32,14 +32,26 @@ const ContractParties = ({ contract }) => {
 };
 
 const ContractPeriod = ({ contract }) => {
+  const formatDate = (dateString) =>
+    new Date(dateString).toLocaleString("ko-KR", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
 
   return (
     <section className={styles.infoCard}>
       <h3 className={styles.infoLabel}>계약 기간</h3>
-      <p className={styles.periodInfo}>{new Date(contract.startDate).toLocaleString()} ~ {new Date(contract.endDate).toLocaleString()}</p>
+      <p className={styles.periodInfo}>
+        {formatDate(contract.startDate)}
+        <br />~ {formatDate(contract.endDate)}
+      </p>
     </section>
   );
 };
+
 
 const PaymentAccount = ({ contract }) => {
   return (
@@ -74,7 +86,7 @@ const PaymentDate = ({ contract }) => {
   );
 };
 
-const TerminationButton = () => {
+const TerminationButton = ({ contract }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);  // 계약 해지 모달 열기
   const [isTerminated, setIsTerminated] = useState(false);  // 계약 해지 상태
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false); // 계약 해지 취소 모달 열기
@@ -85,8 +97,38 @@ const TerminationButton = () => {
   const openCancelModal = () => setIsCancelModalOpen(true); 
   const closeCancelModal = () => setIsCancelModalOpen(false);
 
-  const handleTerminate = () => {
+  const handleTerminate = async () => {
     setIsTerminated(true);
+
+    if (!contract?.contractId) {
+      console.log("계약 ID가 없습니다.");
+      return;
+    }
+  
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.log("인증 정보가 없습니다. 다시 로그인해주세요.");
+        return;
+      }
+  
+      const response = await axios.delete(`/api/contracts/${contract.contractId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.data.isSuccess) {
+        console.log("임대 계약이 해지되었습니다.");
+        setIsTerminated(true);
+      } else {
+        console.log("해지 실패:", response.data.message);
+      }
+    } catch (error) {
+      console.error("계약 해지 요청 실패:", error);
+    }
+  
     closeModal();
   };
 
@@ -183,10 +225,9 @@ function ContractInformation() {
         <PaymentAccount contract={contract} />
         <PaymentDetails contract={contract} />
         <PaymentDate contract={contract} />
-        <TerminationButton />
+        <TerminationButton contract={contract} />
       </div>
 
-      {/* <NavigationBar /> */}
     </main>
   );
 }
