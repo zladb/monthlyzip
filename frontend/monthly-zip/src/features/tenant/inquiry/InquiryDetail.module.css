@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: stretch;
     max-width: 480px;
+    min-height: 800px;
     margin-left: auto;
     margin-right: auto;
     padding-top: 71px;
@@ -12,7 +13,10 @@
   
   .mainContent {
     width: 100%;
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1; /* 컨텐츠가 부족할 경우 footer를 아래로 밀어줌 */
     font-family:
       Inter,
       -apple-system,
@@ -60,16 +64,6 @@
     object-position: center;
     width: 32px;
   }
-  .paginationDots {
-    z-index: 10;
-    justify-content: center;
-    align-self: center;
-    align-items: center;
-    gap: 8px;
-    margin-top: -27px;
-    display: flex;
-  }
-  
   .dot {
     opacity: 0.1;
     background-color: #1f2024;
@@ -108,8 +102,7 @@
   .divider {
     border: 1px solid #e2e2e2;
     flex-shrink: 0;
-    width: 340px;
-    max-width: 100%;
+    width: 100%;
     height: 1px;
     margin: 0;
     padding: 0;
@@ -117,8 +110,9 @@
   
   .title {
     align-self: start;
-    margin-top: 14px;
-    font-size: 24px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 26px;
     font-weight: 700;
   }
   
@@ -127,16 +121,22 @@
     text-align: right;
     align-self: start;
     margin-top: 10px;
-    font-size: 16px;
+    margin-bottom: 10px;
+    font-size: 20px;
     font-weight: 600;
   }
   
   .description {
     align-self: start;
-    margin-top: 14px;
+    margin-top: 20px;
+    margin-bottom: 15px;
     font-weight: 400;
+    font-size: 18px;
   }
-  
+  .dateText {
+    color: black;
+    font-weight: 100;
+  }
   .divider:last-of-type {
     margin-top: 14px;
   }
@@ -145,6 +145,8 @@
     text-align: center;
     justify-content: space-between;
     align-items: stretch;
+    align-self: center;
+    display: inline-flex;
     gap: 20px;
     width: 100%;
     max-width: 320px;
@@ -186,13 +188,18 @@
     display: flex;
   }
   
-  .statusText {
+  .activeStatusText {
+    color: #ec221f; /* 빨간색 */
     margin-top: 8px;
+    font-weight: bold; /* 강조 */
   }
   
-  .statusItem:first-child {
-    color: #ec221f;
+  .statusText {
+    color: #e2e2e2; /* 기본 회색 */
+    margin-top: 8px;
   }
+
+
   .footer {
     color: #fff;
     text-align: center;
@@ -214,7 +221,7 @@
     display: flex;
   }
   
-  .statusText {
+  .footerStatusText {
     align-self: center;
   }
   
