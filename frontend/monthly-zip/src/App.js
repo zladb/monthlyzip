@@ -9,7 +9,6 @@ import TenantMgmtDetail from './features/landlord/tenantMgmt/TenantMgmtDetail';
 import PaymentList from './features/tenant/payment/PaymentList';
 import PaymentDetail from './features/tenant/payment/PaymentDetail';
 import Mypage from './features/user/myPage/Mypage';
-import TenantMypage from './features/myPage/tenant/TenantMypage';
 import PaymentMain from './features/tenant/payment/PaymentMain';
 import NoticeList from './features/tenant/notice/NoticeList';
 import ContractInformation from './features/tenant/contract/ContractInformation';
@@ -18,6 +17,7 @@ import AutoPayment from './features/tenant/payment/auto/AutoPayment';
 import NoticeDetail from './features/tenant/notice/NoticeDetail';
 
 import LandlordHome from './features/landlord/home/LandlordHome';
+import TenantHome from './features/tenant/home/TenantHome';
 
 function App() {
   // const [userType, setUserType] = useState(null);
@@ -42,6 +42,7 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
 
         {/* 임차인 라우트 */}
+        <Route path="/tenant" element={<TenantHome />} />
         <Route path="/tenant/payment-list" element={<PaymentList />} /> 
         <Route path="/tenant/payment-detail/:year/:month" element={<PaymentDetail />} />
         <Route path="/tenant/payment-main" element={<PaymentMain />} />
