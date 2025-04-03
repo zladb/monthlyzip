@@ -33,6 +33,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/mypage" element={<Mypage />} />
         
         {/* 임대인 라우트 */}
         <Route path="/landlord" element={<LandlordHome />} />
@@ -42,7 +43,6 @@ function App() {
         <Route path="/landlord/notice" element={<div>공지사항 메인 페이지</div>} />
         <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
         <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
-        <Route path="/mypage" element={<Mypage />} />
 
         {/* 임차인 라우트 */}
         <Route path="/tenant" element={<TenantHome />} />

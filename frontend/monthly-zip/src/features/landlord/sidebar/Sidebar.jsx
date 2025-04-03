@@ -8,42 +8,27 @@ import profileIcon from "../../../assets/icons/mypage.svg";
 import logoutIcon from "../../../assets/icons/logout.svg";
 import withdrawIcon from "../../../assets/icons/quit.svg";
 
-// SidebarHeader component for the top section with logo
-const SidebarHeader = () => {
+// NavItem Component
+function NavItem({ iconSrc, iconAlt, text, onClick }) {
   return (
-    <header className={styles.header}>
-      <img
-        src={Logo}
-        alt="Monthly ZIP"
-        className={styles.logo}
-      />
+    <div className={styles.navItem} onClick={onClick}>
+      <img src={iconSrc} alt={iconAlt} className={styles.navIcon} />
+      <span className={styles.navText}>{text}</span>
+    </div>
+  );
+}
+
+// LogoSection Component
+function LogoSection() {
+  return (
+    <header className={styles.logoSection}>
+      <img src={Logo} alt="Monthly ZIP" className={styles.logo} />
     </header>
   );
-};
+}
 
-// SidebarNavigation component for the middle section with menu items
-const SidebarNavigation = ({ navigate, onClose }) => {
-
-    // ✅ 실제 로그아웃 처리
-    const handleLogout = () => {
-      if (window.confirm("정말 로그아웃 하시겠습니까?")) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("userEmail");
-        localStorage.removeItem("userType");
-  
-        navigate("/login");
-        onClose();
-      }
-    };
-
-  const handleWithdraw = () => {
-    // TODO: 회원 탈퇴 로직 구현
-    if (window.confirm('정말 탈퇴하시겠습니까?')) {
-      console.log('회원 탈퇴');
-      onClose();
-    }
-  };
-
+// NavigationItems Component
+function NavigationItems({ navigate, onClose }) {
   const menuItems = [
     {
       icon: alarmIcon,
@@ -60,58 +45,83 @@ const SidebarNavigation = ({ navigate, onClose }) => {
         navigate('/mypage');
         onClose();
       }
-    },
-    {
-      icon: logoutIcon,
-      label: '로그아웃',
-      onClick: handleLogout
-    },
-    {
-      icon: withdrawIcon,
-      label: '회원 탈퇴',
-      onClick: handleWithdraw,
-      className: styles.withdraw
     }
   ];
 
   return (
     <nav className={styles.navigation}>
       {menuItems.map((item, index) => (
-        <button
+        <NavItem
           key={index}
-          className={`${styles.menuItem} ${item.className || ''}`}
-          onClick={() => {
-            item.onClick();
-            onClose();
-          }}
-        >
-          <img src={item.icon} alt={item.label} className={styles.menuIcon} />
-          <span className={styles.menuLabel}>{item.label}</span>
-        </button>
+          iconSrc={item.icon}
+          iconAlt={item.label}
+          text={item.label}
+          onClick={item.onClick}
+        />
       ))}
     </nav>
   );
-};
+}
 
-// Main Sidebar component
+// LogoutSection Component
+function LogoutSection({ onClose }) {
+      // ✅ 실제 로그아웃 처리
+      const handleLogout = () => {
+        if (window.confirm("정말 로그아웃 하시겠습니까?")) {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("userEmail");
+          localStorage.removeItem("userType");
+    
+          navigate("/login");
+          onClose();
+        }
+      };
+
+  return (
+    <footer className={styles.logoutSection}>
+      <div className={styles.logoutContainer} onClick={handleLogout}>
+        <img src={logoutIcon} alt="로그아웃" className={styles.navIcon} />
+        <span className={styles.logoutText}>로그아웃</span>
+      </div>
+    </footer>
+  );
+}
+
+
+// AccountActions Component
+function AccountActions({ onClose }) {
+  const handleWithdraw = () => {
+    // TODO: 회원 탈퇴 로직 구현
+    if (window.confirm('정말 탈퇴하시겠습니까?')) {
+      console.log('회원 탈퇴');
+      onClose();
+    }
+  };
+
+  return (
+    <section className={styles.withdrawSection} onClick={handleWithdraw}>
+      <img src={withdrawIcon} alt="회원 탈퇴" className={styles.navIcon} />
+      <span className={styles.withdrawText}>회원 탈퇴</span>
+    </section>
+  );
+}
+
+
+// Main Sidebar Component
 const Sidebar = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
 
   return (
     <>
-      {/* Backdrop */}
       {isOpen && (
-        <div 
-          className={styles.backdrop}
-          onClick={onClose}
-        />
+        <div className={styles.backdrop} onClick={onClose} />
       )}
-      
-      {/* Sidebar */}
-      <div className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
-        <SidebarHeader />
-        <SidebarNavigation navigate={navigate} onClose={onClose} />
-      </div>
+      <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
+        <LogoSection />
+        <NavigationItems navigate={navigate} onClose={onClose} />
+        <LogoutSection onClose={onClose} />
+        <AccountActions onClose={onClose} />
+      </aside>
     </>
   );
 };
