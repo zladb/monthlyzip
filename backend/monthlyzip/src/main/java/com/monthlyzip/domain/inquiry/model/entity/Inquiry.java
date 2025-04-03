@@ -46,10 +46,9 @@ public class Inquiry {
     @Column(nullable = false)
     private InquiryStatus status;  // 문의 상태: 접수, 처리중, 처리완료
 
-    @ElementCollection
-    @CollectionTable(name = "inquiry_images", joinColumns = @JoinColumn(name = "inquiry_id"))
+    // 단일 String으로 변경 현재는 이미지 하나만
     @Column(name = "image_url")
-    private List<String> imageUrls = new ArrayList<>();
+    private String imageUrl;
 
     @Column
     private LocalDateTime createdAt;
