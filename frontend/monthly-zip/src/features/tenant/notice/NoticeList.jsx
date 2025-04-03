@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import styles from "./NoticeList.module.css";
 
 function NoticeList() {
-
   const [notices, setNotices] = useState([]);  // 전체 문의 리스트
+
   useEffect(() => {
     const fetchNotices = () => {
       axios.get("/api/notices", { 
@@ -35,7 +36,13 @@ function NoticeList() {
           {notices.length > 0 ? (
               notices.map((notice) => (
                 <React.Fragment key={notice.noticeId}>
-                  <NoticeItem title={notice.title} date={notice.createdAt} />
+                  <NoticeItem 
+                    noticeId={notice.noticeId}
+                    title={notice.title} 
+                    date={notice.createdAt} 
+
+                  
+                  />
                   <hr className={styles.divider} />
                 </React.Fragment>
               ))
@@ -49,9 +56,15 @@ function NoticeList() {
   );
 }
 
-function NoticeItem({ title, date }) {
+function NoticeItem({ noticeId, title, date }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/tenant/notice-detail/${noticeId}`);
+  }
+
   return (
-    <div className={styles.noticeItem}>
+    <div className={styles.noticeItem} onClick={handleClick}>
       <h2 className={styles.noticeTitle}>{title}</h2>
       <time className={styles.noticeDate}>{new Date(date).toLocaleDateString()}</time>
     </div>
