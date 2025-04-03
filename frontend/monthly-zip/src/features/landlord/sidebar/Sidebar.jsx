@@ -1,4 +1,8 @@
 "use client";
+<<<<<<< HEAD
+=======
+import React from 'react';
+>>>>>>> dev-fe
 import { useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import Logo from "../../../assets/icons/monthlyZip.png";
@@ -66,9 +70,8 @@ function NavigationItems({ navigate, onClose }) {
 }
 
 // 로그아웃
-function LogoutSection({ onClose }) {
-      const navigate = useNavigate(); 
-      // 실제 로그아웃 처리
+function LogoutSection({ onClose, navigate }) {
+      // ✅ 실제 로그아웃 처리
       const handleLogout = () => {
         if (window.confirm("정말 로그아웃 하시겠습니까?")) {
           localStorage.removeItem("accessToken");
@@ -144,7 +147,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
         <LogoSection />
         <NavigationItems navigate={navigate} onClose={onClose} />
-        <LogoutSection onClose={onClose} />
+        <LogoutSection onClose={onClose} navigate={navigate} />
         <AccountActions onClose={onClose} />
       </aside>
     </>
