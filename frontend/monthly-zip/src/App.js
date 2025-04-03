@@ -9,7 +9,6 @@ import TenantMgmtDetail from './features/landlord/tenantMgmt/TenantMgmtDetail';
 import PaymentList from './features/tenant/payment/PaymentList';
 import PaymentDetail from './features/tenant/payment/PaymentDetail';
 import Mypage from './features/user/myPage/Mypage';
-import TenantMypage from './features/myPage/tenant/TenantMypage';
 import PaymentMain from './features/tenant/payment/PaymentMain';
 import NoticeList from './features/tenant/notice/NoticeList';
 import ContractInformation from './features/tenant/contract/ContractInformation';
@@ -58,7 +57,6 @@ function App() {
         <Route path="/tenant/inquiry-list" element={<InquiryList />} />
         <Route path="/tenant/inquiry-detail/:inquiryId" element={<InquiryDetail />} />
 
-        <Route path="/tenant/mypage" element={<TenantMypage />} />
 
         
 
