@@ -9,5 +9,4 @@ import lombok.*;
 @Builder
 public class InviteVerifyRequestDto {
     private String code;
-    private Long tenantId;
 }
