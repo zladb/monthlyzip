@@ -16,9 +16,6 @@ public class ContractRequestDto {
     private Long roomId;
 
     @NotNull
-    private Long landlordId;
-
-    @NotNull
     private LocalDateTime startDate;
 
     @NotNull
