@@ -5,37 +5,108 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 100;
+  z-index: 999;
 }
 
 .sidebar {
+  background-color: #fff;
+  flex-direction: column;
+  width: 259px;
+  height: 100vh;
+  display: flex;
   position: fixed;
   top: 0;
-  left: -100%;
-  width: 80%;
-  max-width: 300px;
-  height: 100%;
-  background-color: #FFFFFF;
-  transition: left 0.3s ease-in-out;
-  z-index: 101;
-  display: flex;
-  flex-direction: column;
+  left: 0;
+  z-index: 1000;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
 }
 
 .sidebar.open {
-  left: 0;
+  transform: translateX(0);
 }
 
-.logoContainer {
-  padding: 24px;
-  display: flex;
+.logoSection {
+  background-color: #FFFBF7;
   justify-content: center;
-  border-bottom: 1px solid #EEEEEE;
+  align-items: center;
+  width: 100%;
+  height: 260px;
+  display: flex;
 }
 
 .logo {
-  height: 40px;
-  width: auto;
+  width: 180px;
+  height: auto;
+  margin-top: 0;
+}
+
+.navigation {
+  flex-direction: column;
+  gap: 32px;
+  padding-top: 20px;
+  padding-left: 32px;
+  padding-right: 32px;
+  display: flex;
+}
+
+.navItem {
+  align-items: center;
+  gap: 12px;
+  display: flex;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.navIcon {
+  width: 24px;
+  height: 24px;
+  color: #666;
+}
+
+.navText {
+  color: #666;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.logoutSection {
+  background-color: #FFFBF7;
+  align-items: flex-start;
+  margin-top: auto;
+  padding: 32px;
+  display: flex;
+}
+
+.logoutContainer {
+  align-items: center;
+  gap: 12px;
+  display: flex;
+  cursor: pointer;
+}
+
+.logoutText {
+  color: #666;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.withdrawSection {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  padding: 32px;
+  display: flex;
+  cursor: pointer;
+}
+
+.withdrawText {
+  color: #f44336;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .menu {
@@ -109,76 +180,5 @@
 
 .menuItem.danger:hover {
   background-color: #FFF0F0;
-}
-
-.navigation {
-  flex-direction: column;
-  gap: 40px;
-  margin-top: 38px;
-  padding-left: 41px;
-  padding-right: 41px;
-  display: flex;
-}
-
-.navItem {
-  align-items: center;
-  gap: 17px;
-  display: flex;
-}
-
-.navLabel {
-  color: #5f6368;
-  font-family: Inter;
-  font-size: 20px;
-  margin: 0;
-}
-
-.iconWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.footer {
-  margin-top: auto;
-}
-
-.logoutSection {
-  background-color: #fffbf7;
-  align-items: center;
-  height: 81px;
-  padding-left: 46px;
-  padding-right: 46px;
-  display: flex;
-}
-
-.logoutContainer {
-  align-items: center;
-  gap: 38px;
-  display: flex;
-}
-
-.logoutText {
-  color: #5e6166;
-  font-family: Inter;
-  font-size: 20px;
-  margin: 0;
-}
-
-.deleteAccountSection {
-  align-items: center;
-  gap: 36px;
-  margin-top: 50px;
-  margin-bottom: 27px;
-  padding-left: 49px;
-  padding-right: 49px;
-  display: flex;
-}
-
-.deleteAccountText {
-  color: #ec221f;
-  font-family: Inter;
-  font-size: 20px;
-  margin: 0;
 }
   
