@@ -34,7 +34,7 @@ public class MemberController {
     public ApiResponse<Void> updatePassword(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestBody UpdatePasswordRequest request) {
-
+        System.out.println("pw : " + request.getPassword() + " cpw " + request.getConfirmPassword());
         memberService.updatePassword(userDetails.getMember().getId(), request.getPassword(), request.getConfirmPassword());
         log.info("비밀번호 변경 완료");
         return ApiResponse.success();
