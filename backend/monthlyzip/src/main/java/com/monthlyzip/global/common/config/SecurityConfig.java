@@ -91,10 +91,11 @@ public class SecurityConfig {
 
         config.addAllowedOriginPattern("http://localhost:*");
         config.addAllowedOriginPattern("http://127.0.0.1:*");
+        config.addAllowedOriginPattern("http://localhost:3000");
+        config.addAllowedOriginPattern("https://j12d109.p.ssafy.io");
 //        config.addAllowedOriginPattern("*"); // 웹소켓 테스트할때 사용
-        // config.addAllowedOriginPattern("https://frontend-domain.com");
 
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setAllowCredentials(true);
 
