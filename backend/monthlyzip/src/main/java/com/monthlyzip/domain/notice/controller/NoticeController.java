@@ -1,5 +1,6 @@
 package com.monthlyzip.domain.notice.controller;
 
+import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
 import com.monthlyzip.domain.notice.model.dto.request.NoticeRequestDto;
 import com.monthlyzip.domain.notice.model.dto.request.NoticeUpdateRequestDto;
 import com.monthlyzip.domain.notice.model.dto.response.NoticeResponseDto;
@@ -8,6 +9,7 @@ import com.monthlyzip.global.common.model.dto.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,11 +25,13 @@ public class NoticeController {
     // ✅ 공지사항 등록
     @PostMapping
     public ApiResponse<NoticeResponseDto> createNotice(
-            @RequestBody @Valid NoticeRequestDto requestDto
+            @RequestBody @Valid NoticeRequestDto requestDto,
+            @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
         log.debug("공지사항 등록 요청");
-        return ApiResponse.success(noticeService.createNotice(requestDto));
+        return ApiResponse.success(noticeService.createNotice(requestDto, userDetails.getMember()));
     }
+
 
     // ✅ 공지사항 목록 조회 (빌딩 ID 기준)
     @GetMapping
