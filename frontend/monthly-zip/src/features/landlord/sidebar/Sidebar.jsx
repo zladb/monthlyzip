@@ -1,8 +1,5 @@
 "use client";
-<<<<<<< HEAD
-=======
 import React from 'react';
->>>>>>> dev-fe
 import { useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import Logo from "../../../assets/icons/monthlyZip.png";
