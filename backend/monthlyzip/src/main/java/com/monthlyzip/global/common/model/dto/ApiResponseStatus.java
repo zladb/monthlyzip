@@ -24,6 +24,7 @@ public enum ApiResponseStatus {
     LOGIN_ERROR(false, HttpStatus.BAD_REQUEST, 500, "로그인 과정 중 서버 오류가 생겼습니다."),
     MEMBER_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 사용자가 존재하지 않습니다."),
     TOKEN_EXPIRED(false, HttpStatus.UNAUTHORIZED, 401, "로그인 세션이 만료되었습니다. 다시 로그인해주세요."),
+    INVALID_ROLE(false, HttpStatus.FORBIDDEN, 403, "허용되지 않은 기능입니다."),
 
     // building
     BUILDING_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 건물이 존재하지 않습니다."),
@@ -40,6 +41,7 @@ public enum ApiResponseStatus {
     CONTRACT_ALREADY_CONNECTED(false, HttpStatus.CONFLICT, 409, "이미 연결된 계약입니다."),
     CONTRACT_ACCESS_DENIED(false, HttpStatus.FORBIDDEN, 403, "해당 계약에 접근할 수 없습니다."),
 
+
     // payment
     PAYMENT_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 납부 내역을 찾을 수 없습니다."),
 
@@ -47,6 +49,8 @@ public enum ApiResponseStatus {
     NOTICE_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 공지사항이 존재하지 않습니다."),
     NOTICE_ACCESS_DENIED(false, HttpStatus.FORBIDDEN, 403, "공지사항에 접근할 권한이 없습니다."),
     NOTICE_INVALID_REQUEST(false, HttpStatus.BAD_REQUEST, 400, "공지사항 요청 값이 유효하지 않습니다."),
+    NOTICE_NO_AUTHORITY(false,HttpStatus.UNAUTHORIZED, 403, "해당 건물에 대한 권한이 없습니다."),
+
 
     // notification
     NOTIFICATION_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 알림을 찾을 수 없습니다."),
@@ -59,6 +63,7 @@ public enum ApiResponseStatus {
     // file
     FILE_SAVE_FAILED(false, HttpStatus.INTERNAL_SERVER_ERROR, 5001,"파일 저장에 실패했습니다."),
     FILE_DELETE_FAILED(false, HttpStatus.INTERNAL_SERVER_ERROR, 5002,"파일 삭제에 실패했습니다.")
+
     ;
 
     private final boolean isSuccess;
