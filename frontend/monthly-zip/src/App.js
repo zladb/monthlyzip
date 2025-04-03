@@ -53,8 +53,7 @@ function App() {
         <Route path="/tenant/auto-payment-agreement" element={<AutoPaymentAgreement />} /> 
         <Route path="/tenant/contract" element={<ContractInformation />} />
         <Route path="/tenant/notice-list" element={<NoticeList />} />
-        {/* <Route path="/tenant/notice-detail/:noticeId" element={<NoticeDetail />} /> */}
-        <Route path="/tenant/notice-detail" element={<NoticeDetail />} />
+        <Route path="/tenant/notice-detail/:noticeId" element={<NoticeDetail />} />
         <Route path="/tenant/inquiry-register" element={<InquiryRegister />} />
         <Route path="/tenant/inquiry-list" element={<InquiryList />} />
         <Route path="/tenant/inquiry-detail/:inquiryId" element={<InquiryDetail />} />
