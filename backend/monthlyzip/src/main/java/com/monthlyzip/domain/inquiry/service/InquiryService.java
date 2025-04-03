@@ -39,7 +39,7 @@ public class InquiryService {
     private final FileUtil fileUtil;
 
     @Transactional
-    public InquiryCreateResponseDto createInquiry(Long memberId, InquiryCreateRequestDto dto, List<MultipartFile> images) {
+    public InquiryCreateResponseDto createInquiry(Long memberId, InquiryCreateRequestDto dto, MultipartFile image) {
         // 1. 회원 존재 여부 확인
         Member member = memberRepository.findById(memberId)
             .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
@@ -54,14 +54,9 @@ public class InquiryService {
         }
 
         // 4. 이미지 업로드 처리
-        List<String> imageUrls = new ArrayList<>();
-        if (images != null && !images.isEmpty()) {
-            for (MultipartFile image : images) {
-                if (!image.isEmpty()) {
-                    String imageUrl = fileUtil.saveFile(image);
-                    imageUrls.add(imageUrl);
-                }
-            }
+        String imageUrl = null;
+        if (image != null && !image.isEmpty()) {
+            imageUrl = fileUtil.saveFile(image);
         }
 
         // 4. 문의 생성
@@ -72,7 +67,7 @@ public class InquiryService {
             .title(dto.getTitle())
             .content(dto.getContent())
             .status(InquiryStatus.접수) // 초기 상태는 '접수'
-            .imageUrls(imageUrls)  // 추가
+            .imageUrl(imageUrl)  // List 대신 단일 문자열
             .createdAt(LocalDateTime.now())
             .updatedAt(LocalDateTime.now())
             .build();
@@ -176,7 +171,7 @@ public class InquiryService {
     }
 
     @Transactional()
-    public InquiryResponseDto updateInquiry(Long memberId, Long inquiryId, InquiryUpdateRequestDto dto) {
+    public InquiryResponseDto updateInquiry(Long memberId, Long inquiryId, InquiryUpdateRequestDto dto, MultipartFile newImage) {
         // 1. 문의 존재 여부 확인
         Inquiry inquiry = inquiryRepository.findById(inquiryId)
             .orElseThrow(() -> new BusinessException(ApiResponseStatus.INQUIRY_NOT_FOUND));
@@ -236,6 +231,19 @@ public class InquiryService {
                     if (dto.getContent() != null) {
                         inquiry.setContent(dto.getContent());
                     }
+
+                    // 이미지 업데이트 로직 추가
+                    if (newImage != null && !newImage.isEmpty()) {
+                        // 기존 이미지가 있으면 삭제
+                        String oldImageUrl = inquiry.getImageUrl();
+                        if (oldImageUrl != null && !oldImageUrl.isEmpty()) {
+                            fileUtil.deleteFile(oldImageUrl);
+                        }
+
+                        // 새 이미지 저장
+                        String newImageUrl = fileUtil.saveFile(newImage);
+                        inquiry.setImageUrl(newImageUrl);
+                    }
                 }
         */
 
@@ -248,6 +256,20 @@ public class InquiryService {
         }
         if (dto.getContent() != null) {
             inquiry.setContent(dto.getContent());
+        }
+
+
+        // 이미지 업데이트 로직 추가
+        if (newImage != null && !newImage.isEmpty()) {
+            // 기존 이미지가 있으면 삭제
+            String oldImageUrl = inquiry.getImageUrl();
+            if (oldImageUrl != null && !oldImageUrl.isEmpty()) {
+                fileUtil.deleteFile(oldImageUrl);
+            }
+
+            // 새 이미지 저장
+            String newImageUrl = fileUtil.saveFile(newImage);
+            inquiry.setImageUrl(newImageUrl);
         }
 
         // 4. 수정 시간 업데이트

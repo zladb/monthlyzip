@@ -27,7 +27,7 @@ public class InquiryDetailResponseDto {
     private String title;
     private String content;
     private InquiryStatus status;
-    private List<String> imageUrls;
+    private String imageUrl;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -42,7 +42,7 @@ public class InquiryDetailResponseDto {
             .title(inquiry.getTitle())
             .content(inquiry.getContent())
             .status(inquiry.getStatus())
-            .imageUrls(inquiry.getImageUrls())  // 추가
+            .imageUrl(inquiry.getImageUrl())  // 추가
             .createdAt(inquiry.getCreatedAt())
             .updatedAt(inquiry.getUpdatedAt())
             .build();

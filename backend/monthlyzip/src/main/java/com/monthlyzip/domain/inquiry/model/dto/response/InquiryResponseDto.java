@@ -25,7 +25,7 @@ public class InquiryResponseDto {
     private InquiryType inquiryType;
     private String title;
     private InquiryStatus status;
-    private List<String> imageUrls;
+    private String imageUrl;
     private LocalDateTime createdAt;
 
     public static InquiryResponseDto from(Inquiry inquiry) {
@@ -38,7 +38,7 @@ public class InquiryResponseDto {
             .inquiryType(inquiry.getInquiryType())
             .title(inquiry.getTitle())
             .status(inquiry.getStatus())
-            .imageUrls(inquiry.getImageUrls())  // 추가
+            .imageUrl(inquiry.getImageUrl())  // 추가
             .createdAt(inquiry.getCreatedAt())
             .build();
     }
