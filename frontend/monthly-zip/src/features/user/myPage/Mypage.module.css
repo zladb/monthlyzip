@@ -43,18 +43,6 @@
 }
 
 
-.imageWrapper {
-  width: 150px;  
-  height: 150px; 
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #ccc;
-  cursor: pointer;
-  background-color: #f0f0f0;
-}
 
 @media (width<=991px) {
   .profileIconWrapper {
@@ -95,12 +83,46 @@
   position: relative;
 }
 
-.profileIcon {
-  width: 75px;
-  height: 74px;
-  margin-top: -103px;
-  margin-bottom: 42px;
+.profileWrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
 }
+
+.profileIconWrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.plusIcon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #FE6A00;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #FE6A00;
+}
+
 
 .formContainer {
   display: flex;
