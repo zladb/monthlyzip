@@ -19,6 +19,7 @@ import InquiryRegister from './features/tenant/inquiry/InquiryRegister';
 import InquiryList from './features/tenant/inquiry/InquiryList';
 
 import LandlordHome from './features/landlord/home/LandlordHome';
+import TenantHome from './features/tenant/home/TenantHome';
 import InquiryDetail from './features/tenant/inquiry/InquiryDetail';
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
 
         {/* 임차인 라우트 */}
+        <Route path="/tenant" element={<TenantHome />} />
         <Route path="/tenant/payment-list" element={<PaymentList />} /> 
         <Route path="/tenant/payment-detail/:year/:month" element={<PaymentDetail />} />
         <Route path="/tenant/payment-main" element={<PaymentMain />} />
