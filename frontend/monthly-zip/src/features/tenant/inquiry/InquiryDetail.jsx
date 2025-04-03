@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import styles from "./InquiryDetail.module.css";
 
 function Header() {
@@ -39,6 +41,49 @@ function PaginationDots() {
   );
 }
 function InquiryContent() {
+  // const { inquiryId } = useParams(); // URL에서 inquiryId 가져오기
+  // const [inquiry, setInquiry] = useState(null);
+
+  // useEffect(() => {
+  //   const fetchInquiry = async () => {
+  //     const token = localStorage.getItem("accessToken"); // 직접 토큰 가져오기
+
+  //     if (!token) {
+  //       console.log("❌ 인증 정보가 없습니다. 다시 로그인해주세요.");
+  //       return;
+  //     }
+
+  //     try {
+  //       const res = await axios.get(`/api/inquiries/${inquiryId}`, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`, // 직접 헤더 추가
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+
+  //       console.log("✅ 문의 상세 조회 성공:", res.data);
+  //       setInquiry(res.data.result);
+  //     } catch (err) {
+  //       console.log("❌ 문의 내용을 불러오는 데 실패했습니다:", err);
+  //     }
+  //   };
+
+  //   fetchInquiry();
+  // }, [inquiryId]);
+
+  // if (!inquiry) return null; // 데이터가 없을 경우 렌더링하지 않음
+
+    // return (
+    //   <article className={styles.contentContainer}>
+    //     <hr className={styles.divider} />
+    //     <h1 className={styles.title}>{inquiry.title}</h1>
+    //     <h2 className={styles.requestType}>{inquiry.inquiryType}</h2>
+    //     <hr className={styles.divider} />
+    //     <p className={styles.description}>{inquiry.content}</p>
+    //     <hr className={styles.divider} />
+    //   </article>
+    // );
+
     return (
       <article className={styles.contentContainer}>
         <hr className={styles.divider} />

@@ -75,8 +75,13 @@ function InquiryList() {
   }, [selectedCategory, inquiries]);
 
   const fetchInquiries = () => {
-    axios.get("/api/inquiries", { headers: { "Content-Type": "application/json" } })
+    axios.get("/api/inquiries", { 
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => {
+
         if (response.data.success) {
           setInquiries(response.data.result);
           setFilteredInquiries(response.data.result);  // 처음에는 전체 데이터 표시
