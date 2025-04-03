@@ -6,6 +6,7 @@
     "axios": "^1.8.4",
     "axois": "^0.0.1-security",
     "cra-template-pwa": "2.0.0",
+    "jwt-decode": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^6.30.0",

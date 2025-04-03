@@ -50,7 +50,7 @@ const SidebarNavigation = ({ navigate, onClose }) => {
       icon: profileIcon,
       label: '마이페이지',
       onClick: () => {
-        navigate('/landlord/mypage');
+        navigate('/mypage');
         onClose();
       }
     },

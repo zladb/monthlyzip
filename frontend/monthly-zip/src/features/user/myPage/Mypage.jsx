@@ -77,32 +77,28 @@ const Mypage = () => {
 
         {/* 프로필 이미지 */}
         <section className={styles.profileSection}>
-          <div
-            className={styles.profileIconWrapper}
-            onClick={handleImageClick}
-            style={{ cursor: "pointer" }}
-          >
-            {profileImage ? (
+          <div className={styles.profileWrapper}>
+            <div
+              className={styles.profileIconWrapper}
+              onClick={handleImageClick}
+            >
               <img
-                src={profileImage}
+                src={profileImage || "/프로필 이미지.png"}
                 alt="프로필 이미지"
-                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
+                className={styles.profileImage}
               />
-            ) : (
-              <svg width="150" height="163" viewBox="0 0 150 163" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="70.5" cy="72" rx="66.5" ry="66" fill="white"></ellipse>
-                <path d="M70.5 72C65.3438 72 60.9..." fill="#C0C0C0" />
-              </svg>
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              onChange={handleImageChange}
-              style={{ display: "none" }}
-            />
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleImageChange}
+                style={{ display: "none" }}
+              />
+            </div>
+            <div className={styles.plusIcon}>+</div>
+            <div className={styles.plusIcon} onClick={handleImageClick}>+</div>
           </div>
-        </section>
+      </section>
 
         {/* role */}
         <p className={styles.userType}>{userInfo.userType}</p>
@@ -190,4 +186,3 @@ const Mypage = () => {
 
 export default Mypage;
 
-// 이메일 추가가
