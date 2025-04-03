@@ -1,5 +1,8 @@
 "use client";
+<<<<<<< HEAD
+=======
 import React from 'react';
+>>>>>>> dev-fe
 import { useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import Logo from "../../../assets/icons/monthlyZip.png";
@@ -7,6 +10,9 @@ import alarmIcon from "../../../assets/icons/notification.svg";
 import profileIcon from "../../../assets/icons/mypage.svg";
 import logoutIcon from "../../../assets/icons/logout.svg";
 import withdrawIcon from "../../../assets/icons/quit.svg";
+import axios from "axios";
+
+
 
 // NavItem Component
 function NavItem({ iconSrc, iconAlt, text, onClick }) {
@@ -63,7 +69,7 @@ function NavigationItems({ navigate, onClose }) {
   );
 }
 
-// LogoutSection Component
+// 로그아웃
 function LogoutSection({ onClose, navigate }) {
       // ✅ 실제 로그아웃 처리
       const handleLogout = () => {
@@ -88,15 +94,37 @@ function LogoutSection({ onClose, navigate }) {
 }
 
 
-// AccountActions Component
+// 회원탈퇴
 function AccountActions({ onClose }) {
-  const handleWithdraw = () => {
-    // TODO: 회원 탈퇴 로직 구현
-    if (window.confirm('정말 탈퇴하시겠습니까?')) {
-      console.log('회원 탈퇴');
-      onClose();
+  const navigate = useNavigate();
+
+  const handleWithdraw = async () => {
+    const confirmed = window.confirm("정말 탈퇴하시겠습니까?");
+    if (!confirmed) return;
+
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      await axios.delete("/api/members", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // 로컬 스토리지 정리
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userType");
+
+      alert("회원 탈퇴가 완료되었습니다.");
+      onClose();          // 사이드바 닫기
+      navigate("/login"); // 로그인 페이지로 이동
+    } catch (error) {
+      console.error("회원 탈퇴 실패:", error);
+      alert("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");
     }
   };
+  console.log("보내는 토큰:", localStorage.getItem("accessToken"));
 
   return (
     <section className={styles.withdrawSection} onClick={handleWithdraw}>
