@@ -4,13 +4,15 @@ services:
       context: ../../../backend/monthlyzip
       dockerfile: Dockerfile
       args:
-        PROFILE: prod  # 빌드시 ARG PROFILE에 전달할 값
+        PROFILE: prod
     image: monthlyzip-app
     container_name: monthlyzip-app
     ports:
       - "8081:8081"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+    volumes:
+      - /home/ubuntu/inquiry/images:/inquiry/images  # 추가 : 이미지 디렉토리 마운트
     restart: always
     networks:
       - app-network
