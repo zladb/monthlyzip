@@ -12,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -52,6 +54,19 @@ public class PaymentController {
         log.debug("납부 상세 조회 요청");
         return ApiResponse.success(paymentService.getPaymentById(memberId, paymentId));
     }
+
+    @GetMapping("/income/current-month")
+    public ApiResponse<Map<String, Long>> getCurrentMonthIncome(
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
+        Long landlordId = userDetails.getMember().getId();
+        Long totalIncome = paymentService.getCurrentMonthIncome(landlordId);
+
+        Map<String, Long> result = new HashMap<>();
+        result.put("totalIncome", totalIncome);
+
+        return ApiResponse.success(result);
+    }
+
 /**
     // 납부 상태 수정
     @PatchMapping("/{paymentId}")
