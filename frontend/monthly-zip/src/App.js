@@ -21,6 +21,7 @@ import InquiryList from './features/tenant/inquiry/InquiryList';
 import LandlordHome from './features/landlord/home/LandlordHome';
 import TenantHome from './features/tenant/home/TenantHome';
 import InquiryDetail from './features/tenant/inquiry/InquiryDetail';
+import AutoPaymentRegister from './features/tenant/payment/auto/AutoPaymentRegister';
 
 function App() {
   // const [userType, setUserType] = useState(null);
@@ -47,10 +48,14 @@ function App() {
         {/* 임차인 라우트 */}
         <Route path="/tenant" element={<TenantHome />} />
         <Route path="/tenant/payment-list" element={<PaymentList />} /> 
-        <Route path="/tenant/payment-detail/:year/:month" element={<PaymentDetail />} />
+        <Route path="/tenant/payment-detail/:paymentId" element={<PaymentDetail />} />
         <Route path="/tenant/payment-main" element={<PaymentMain />} />
+
         <Route path="/tenant/auto-payment" element={<AutoPayment />} />
         <Route path="/tenant/auto-payment-agreement" element={<AutoPaymentAgreement />} /> 
+        <Route path="/tenant/auto-payment-register" element={<AutoPaymentRegister/>} /> 
+        
+        
         <Route path="/tenant/contract" element={<ContractInformation />} />
         <Route path="/tenant/notice-list" element={<NoticeList />} />
         <Route path="/tenant/notice-detail/:noticeId" element={<NoticeDetail />} />

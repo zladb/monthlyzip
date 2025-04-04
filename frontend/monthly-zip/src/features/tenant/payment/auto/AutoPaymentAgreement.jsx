@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from "./AutoPaymentAgreement.module.css";
 
@@ -22,7 +22,7 @@ function Header() {
   );
 }
 
-function ConsentForm({ isChecked, onCheckboxChange }) {
+function ConsentForm() {
   return (
     <section className={styles.formSection}>
       <h2 className={styles.formTitle}>자동이체 등록 동의서</h2>
@@ -58,8 +58,18 @@ function ConsentForm({ isChecked, onCheckboxChange }) {
 
 function AutoPaymentAgreement() {
   const navigate = useNavigate();
-
+  const [isChecked, setIsChecked] = useState(false);
+  
+  useEffect(() => {
+      const checked = localStorage.getItem("isChecked") === "true";
+      setIsChecked(checked);
+  }, []);
+  
   const handleAgreeClick = () => {
+    setIsChecked(!isChecked);
+    const newValue = !isChecked;
+    setIsChecked(newValue);
+    localStorage.setItem("isChecked", newValue.toString());
     navigate('/tenant/auto-payment');
   };
 
@@ -67,14 +77,14 @@ function AutoPaymentAgreement() {
     <div className={styles.container}>
       <div className={styles.content}>
         <Header />
-        <ConsentForm
-          // isChecked={isChecked}
-          // onCheckboxChange={handleCheckboxChange}
-        />
+        <ConsentForm />
       </div>
       <button 
-        className={styles.confirmButton} 
-        onClick={handleAgreeClick}>동의</button>
+        className={`${isChecked ? styles.inactiveConfirmButton : styles.confirmButton}`}
+        onClick={handleAgreeClick}
+      >
+        {isChecked ? '동의해제' : '전체동의'}
+      </button>
     </div>
   );
 }

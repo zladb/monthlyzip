@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./PaymentList.module.css";
 
-const PaymentCard = ({ month, year, date, amount, status }) => {
+const PaymentCard = ({ paymentId, month, year, date, amount, status }) => {
   return (
-    <Link to={`/tenant/payment-detail/${year}/${month}`} className={styles.link}>
+    <Link to={`/tenant/payment-detail/${paymentId}`} className={styles.link}>
       <article className={styles.paymentCard}>
         <div className={styles.paymentDetails}>
           <h3 className={styles.paymentPeriod}>
@@ -14,7 +14,7 @@ const PaymentCard = ({ month, year, date, amount, status }) => {
             <span className={styles.statusLabel}>상태</span>
             <span
               className={
-                status === "완납" ? styles.statusPaid : styles.statusUnpaid
+                status === "미납" ? styles.statusUnPaid : styles.statusPaid
               }
             >
               {status}
@@ -22,11 +22,10 @@ const PaymentCard = ({ month, year, date, amount, status }) => {
           </div>
         </div>
         <div className={styles.paymentInfo}>
-          <time className={styles.paymentDate}>
-            {date ? date: "-"}</time>
+          <time className={styles.paymentDate}>{new Date(date).toLocaleDateString()}</time>
           <div className={styles.amountContainer}>
             <span className={styles.amountLabel}>금액</span>
-            <span className={styles.amountValue}>{amount}</span>
+            <span className={styles.amountValue}>{Number(amount).toLocaleString()}원</span>
           </div>
         </div>
       </article>

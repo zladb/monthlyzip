@@ -1,13 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from "./AutoPayment.module.css";
 
 
 function AutoPayment() {
+  const navigate = useNavigate();
+  const [isChecked, setIsChecked] = useState(false);
+  
+  useEffect(() => {
+    const checked = localStorage.getItem("isChecked") === "true";
+    setIsChecked(checked);
+  }, []);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    const newValue = !isChecked;
+    setIsChecked(newValue);
+    localStorage.setItem("isChecked", newValue.toString());
+  };
+
+  const handleClick = () => {
+    navigate('/tenant/auto-payment-agreement');
+  };
+
   return (
     <main className={styles.container}>
       <Header />
-      <AgreementSection />
+      <section className={styles.agreementSection}>
+        <article className={styles.agreementHeader}>
+          <div className={styles.agreementTitleWrapper}>
+            <span 
+              className={styles.customCheckbox}
+              onClick={(e) => {
+                e.stopPropagation(); 
+                handleCheckboxChange();
+              }}
+            >{isChecked ? "☑" : "☐"}
+            </span>
+            <h2 className={styles.agreementTitle}>자동이체 등록 동의서</h2>
+          </div>
+          <img
+            src="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/7dc526fd4de66a26d88fee5410918e4a35957459?placeholderIfAbsent=true"
+            alt="Expand icon"
+            className={styles.expandIcon}
+            onClick={handleClick}
+          />
+      </article>
+        <AgreementInfo />
+        <ConfirmButton isChecked={isChecked} />
+      </section>
     </main>
   );
 }
@@ -31,51 +72,6 @@ function Header() {
   );
 }
 
-function AgreementSection() {
-  return (
-    <section className={styles.agreementSection}>
-      <AgreementHeader />
-      <AgreementInfo />
-      <ConfirmButton />
-    </section>
-  );
-}
-
-function AgreementHeader() {
-  const navigate = useNavigate();
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
-
-  const handleClick = () => {
-    navigate('/tenant/auto-payment-agreement');
-  };
-
-  
-  return (
-    <article className={styles.agreementHeader}>
-      <div className={styles.agreementTitleWrapper}>
-        <span 
-          className={styles.customCheckbox}
-          onClick={(e) => {
-            e.stopPropagation(); 
-            handleCheckboxChange();
-          }}
-        >{isChecked ? "☑" : "☐"}
-        </span>
-        <h2 className={styles.agreementTitle}>자동이체 등록 동의서</h2>
-      </div>
-      <img
-        src="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/7dc526fd4de66a26d88fee5410918e4a35957459?placeholderIfAbsent=true"
-        alt="Expand icon"
-        className={styles.expandIcon}
-        onClick={handleClick}
-      />
-    </article>
-  );
-}
 
 function AgreementInfo() {
   return (
@@ -89,10 +85,20 @@ function AgreementInfo() {
   );
 }
 
-function ConfirmButton() {
+function ConfirmButton({ isChecked }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/tenant/auto-payment-register');
+  }
+
   return (
-    <button className={styles.confirmButton}>
-      확인
+    <button 
+      className={`${isChecked ? styles.confirmButton : styles.inactiveConfirmButton}`}
+      onClick={handleClick}
+      disabled={!isChecked}
+    >
+      다음
     </button>
   );
 }
