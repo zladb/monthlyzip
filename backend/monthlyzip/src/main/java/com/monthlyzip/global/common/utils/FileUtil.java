@@ -23,20 +23,24 @@ public class FileUtil {
         FileUtil.imageDir = imageDir;
     }
 
-    public static String saveFile(MultipartFile file) {
+    public static String saveFile(MultipartFile file, String subDir) {
         String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
-        Path path = Paths.get(imageDir + filename);
+
+        String dirPath = imageDir + subDir + "/";
+        Path path = Paths.get(dirPath + filename);
         try {
             Files.createDirectories(path.getParent()); // 디렉토리가 없으면 생성
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new FileStorageException(ApiResponseStatus.FILE_SAVE_FAILED, e);
         }
-        return "/images/" + filename;  // 상대 경로로 저장
+        return "/images/" + subDir + "/" + filename;  // 상대 경로로 저장
     }
 
     public static void deleteFile(String relativePath) {
-        Path path = Paths.get(imageDir + relativePath.replace("/images/", ""));
+        // "/images/" 부분을 제거하고 실제 파일 경로 구성
+        String filePath = relativePath.replace("/images/", "");
+        Path path = Paths.get(imageDir + filePath);
         try {
             Files.deleteIfExists(path);
         } catch (IOException e) {

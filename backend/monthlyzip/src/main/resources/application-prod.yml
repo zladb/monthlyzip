@@ -17,4 +17,4 @@ server:
 
 app:
   baseUrl: https://j12d109.p.ssafy.io/
-  imageDir: /inquiry/images/  # 스프링부트 컨테이너 내부 경로
+  imageDir: /images/  # 스프링부트 컨테이너 내부 경로

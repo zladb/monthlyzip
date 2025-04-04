@@ -55,7 +55,7 @@ public class InquiryService {
         // 4. 이미지 업로드 처리
         String imageUrl = null;
         if (image != null && !image.isEmpty()) {
-            imageUrl = fileUtil.saveFile(image);
+            imageUrl = fileUtil.saveFile(image, "inquiry");
         }
 
         // 4. 문의 생성
@@ -237,7 +237,7 @@ public class InquiryService {
                 }
 
                 // 새 이미지 저장
-                String newImageUrl = fileUtil.saveFile(newImage);
+                String newImageUrl = fileUtil.saveFile(newImage, "inquiry");
                 inquiry.setImageUrl(newImageUrl);
             }
         }
@@ -262,7 +262,7 @@ public class InquiryService {
             }
 
             // 새 이미지 저장
-            String newImageUrl = fileUtil.saveFile(newImage);
+            String newImageUrl = fileUtil.saveFile(newImage, "inquiry");
             inquiry.setImageUrl(newImageUrl);
         }
 
