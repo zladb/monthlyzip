@@ -13,6 +13,7 @@ public enum ApiResponseStatus {
     FORBIDDEN(false, HttpStatus.FORBIDDEN, 403, "권한이 없습니다."),
     NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "대상을 찾을 수 없습니다."),
     INVALID_JSON(false, HttpStatus.BAD_REQUEST, 400, "요청 본문(JSON)이 올바른 형식이 아닙니다."),
+    MISSING_REQUEST_PARAMETER(false, HttpStatus.BAD_REQUEST, 4001, "요청 파라미터가 누락되었습니다."),
 
 
     // ✅ 비즈니스 예외
