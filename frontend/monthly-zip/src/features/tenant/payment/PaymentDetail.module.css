@@ -4,6 +4,13 @@
     min-height: 700px;   /* 일단 700px로 잡았음 */
     max-width: 480px;
     margin: 0 auto;
+    padding: 72px 22px;
+    font-family:
+    Poppins,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
   }
   .header {
     align-items: center;
@@ -19,6 +26,7 @@
   }
   .paymentCard {
     background-color: #fff;
+    min-height: 600px;   /* 일단 700px로 잡았음 */
     border-radius: 8px;
     margin: 0 24px;
     padding: 36px 16px;
@@ -26,15 +34,9 @@
       0 -1px 30px #3629b712,
       0 4px 4px #00000040;
   }
-  @media (width<=640px) {
-    .paymentCard {
-      margin: 0 16px;
-      padding: 24px 12px;
-    }
-  }
   .paymentTitle {
     color: #343434;
-    margin-bottom: 24px;
+    margin-bottom: 70px;
     font-family: Poppins, sans-serif;
     font-size: 22px;
     font-weight: 600;
@@ -93,7 +95,7 @@
     display: flex;
     flex-direction: column;
     row-gap: 14px;
-    margin-top: 40px;
+    margin-top: 60px;
   }
 
   .actionButton {

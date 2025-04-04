@@ -1,55 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./PaymentDetail.module.css";
 
-// 납부 목록 샘플 데이터 (같은 데이터 사용)
-const paymentData = [
-  {
-    month: "3",
-    year: "2025",
-    status: "완납",
-    date: "2025.03.05",
-    amount: "500,000원",
-    type: "자동이체",
-    address: "서울시 강남구 테헤란로 123, 201호",
-    landlord: "홍길동",
-    landlordAccount: "국민은행 123-4567-8901",
-    period: "2025.03.05 ~ 2025.04.04",
-  },
-  {
-    month: "2",
-    year: "2025",
-    status: "완납",
-    date: "2025.02.03",
-    amount: "500,000원",
-    type: "자동이체",
-    address: "서울시 강남구 테헤란로 123, 201호",
-    landlord: "홍길동",
-    landlordAccount: "국민은행 123-4567-8901",
-    period: "2025.02.05 ~ 2025.03.04",
-  },
-  {
-    month: "12",
-    year: "2024",
-    status: "미납",
-    date: null,
-    amount: "500,000원",
-    type: "직접결제",
-    address: "서울시 강남구 테헤란로 123, 201호",
-    landlord: "홍길동",
-    landlordAccount: "국민은행 123-4567-8901",
-    period: "2024.12.05 ~ 2025.01.04",
-  },
-];
-
 function PaymentDetail() {
-  const { year, month } = useParams(); // URL에서 year, month 가져오기
-  
-  
-  // 해당 월의 납부 내역 찾기
-  const paymentInfo = paymentData.find(
-    (item) => item.year === year && item.month === month
-  );
+  const { paymentId } = useParams();
+  const [payment, setPayment] = useState(null);
+
+  useEffect(() => {
+    const fetchPayment = () => {
+      axios.get(`/api/payments/${paymentId}`, { 
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+
+          if (response.data.success) {
+            setPayment(response.data.result);
+          } else {
+            console.error("월세 납부 상세를 가져오지 못했습니다:", response.data.message);
+          }
+        })
+        .catch((error) => console.error("월세 납부 상세를 가져오는 중 오류 발생:", error));
+    };
+    
+    fetchPayment();
+  }, []);
+
 
   return (
     <>
@@ -59,8 +38,8 @@ function PaymentDetail() {
       />
       <main className={styles.container}>
         <Header title="상세 내역" />
-        {paymentInfo ? (
-          <PaymentCard payment={paymentInfo} />
+        {payment ? (
+          <PaymentCard payment={payment} />
         ) : (
           <p className={styles.noData}>해당 월의 납부 내역이 없습니다.</p>
         )}
@@ -70,33 +49,45 @@ function PaymentDetail() {
 }
 
 function PaymentCard({ payment }) {
+  const dueDate = new Date(payment.dueDate);
+  const prevMonthDate = new Date(dueDate.setMonth(dueDate.getMonth() - 1));
+  const displayYear = prevMonthDate.getFullYear();
+  const displayMonth = prevMonthDate.getMonth() + 1; // 0부터 시작하므로 +1 필요
+
   return (
     <section className={styles.paymentCard}>
       <h2 className={styles.paymentTitle}>
-        {payment.year}년 {payment.month}월 월세 납부 내역
+        {displayYear}년 {displayMonth}월 월세 납부 내역
       </h2>
 
-      <PaymentRow label="유형" value={payment.type} />
       <PaymentRow label="주소" value={payment.address} />
-      <PaymentRow label="임대인 이름" value={payment.landlord} />
+      <PaymentRow label="임대인 이름" value={payment.landlordName} />
       <PaymentRow label="임대인 계좌" value={payment.landlordAccount} />
-      <PaymentRow label="날짜" value={payment.date} />
-      <PaymentRow label="기간" value={payment.period} />
+      <PaymentRow
+        label="날짜"
+        value={new Date(payment.paymentDate).toLocaleString("ko-KR", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      />
 
       <div className={styles.divider} />
 
       <div className={styles.totalSection}>
         <h3 className={styles.totalLabel}>
-          {payment.status === "미납" ? "미납금액" : "결제 금액"}
+          {payment.paymentStatus === "미납" ? "미납금액" : "결제 금액"}
         </h3>
-        <p className={styles.totalAmount}>{payment.amount}</p>
+        <p className={styles.totalAmount}>{Number(payment.amount).toLocaleString()}원</p>
       </div>
 
       {/* 미납 상태에서 버튼 */}
-      {payment.status === "미납" && (
+      {payment.paymentStatus === "미납" && (
         <div className={styles.buttonContainer}>
           <button className={styles.actionButton}>보증금 차감</button>
-          <button className={styles.actionButton}>기한 연장</button>
+          {/* <button className={styles.actionButton}>기한 연장</button> */}
           <button className={styles.actionButton}>즉시 결제</button>
         </div>
       )}
