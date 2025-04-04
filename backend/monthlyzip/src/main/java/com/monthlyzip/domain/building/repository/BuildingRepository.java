@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface BuildingRepository extends JpaRepository<Building, Long> {
     List<Building> findByOwnerId(Long owner_id);
+
+    boolean existsByIdAndOwnerId(Long buildingId, Long ownerId);
+
 }
