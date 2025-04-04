@@ -1,0 +1,299 @@
+.container {
+    width: 100%;
+    min-height: 700px;
+    background-color: #fff;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 72px 22px;
+    font-family:
+    Poppins,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+    overflow: hidden;
+  }
+  
+  .formContainer {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+  }
+  
+  .formContent {
+    flex-direction: column;
+    gap: 40px;
+    display: flex;
+    width: 90%;
+    margin-left: 26px;
+    margin-right: 26px;
+  }
+  .headerContainer {
+    align-items: center;
+    gap: 12px;
+    display: flex;
+    padding-bottom: 20px;
+    padding-left: 25px;
+  }
+  .titleIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    flex-shrink: 0;
+    width: 28px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  .title {
+    color: #000;
+    font-family: Inter;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .sectionContainer {
+    flex-direction: column;
+    gap: 12px;
+    display: flex;
+    margin-top: 20px;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  .accountSelector {
+    flex-direction: column;
+    display: flex;
+  }
+  
+  .selectorHeader {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  }
+  
+  .bankName {
+    color: #343434;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .bankIconContainer {
+    align-items: center;
+    gap: 12px;
+    display: flex;
+  }
+  
+  .kbIconWrapper {
+    background-color: #7c7266;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    display: flex;
+  }
+  
+  .kbIcon {
+    width: 20px;
+    height: 14px;
+  }
+  
+  .shinhanIcon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .divider {
+    background-color: #fcbe32cc;
+    height: 1px;
+    margin-top: 12px;
+  }
+  
+  .accountNumberContainer {
+    flex-direction: column;
+    margin-top: 20px;
+    display: flex;
+  }
+  
+  .accountNumberLabel {
+    color: black;
+    font-family: Poppins;
+    margin: 0;
+    border: none;
+    outline: none;
+    width: 80%; 
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .sectionContainer {
+    flex-direction: column;
+    gap: 5px;
+    display: flex;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  .amountInputContainer {
+    flex-direction: column;
+    display: flex;
+  }
+  .amountInput {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Poppins;
+    border: none;
+    outline: none;
+    width: 80%; 
+  }
+  .amountInputHeader {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  }
+  
+  .currencyLabel {
+    color: #343434;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .sectionContainer {
+    flex-direction: column;
+    gap: 12px;
+    display: flex;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  .frequencySelector {
+    flex-direction: column;
+    display: flex;
+  }
+  
+  .frequencyHeader {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  }
+  
+  .frequencyType {
+    color: #343434;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .daySelector {
+    align-items: center;
+    gap: 12px;
+    display: flex;
+  }
+  
+  .dayValue {
+    color: #343434;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .dropdownButton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .dropdownIcon {
+    width: 10px;
+    height: 18px;
+    transform: rotate(-90deg);
+  }
+  .sectionContainer {
+    flex-direction: column;
+    gap: 12px;
+    display: flex;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  .periodContainer {
+    justify-content: space-between;
+    display: flex;
+  }
+  
+  .periodStartContainer {
+    flex-direction: column;
+    flex: 1;
+    display: flex;
+  }
+  
+  .periodEndContainer {
+    flex-direction: column;
+    flex: 1;
+    margin-left: 19px;
+    display: flex;
+  }
+  
+  .periodValue {
+    color: #343434;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .nextButton {
+    color: #000;
+    text-align: center;
+    background-color: #fcbe32;
+    width: 100%;
+    height: 80px;
+    font-size: 28px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-top: 100px;
+    padding: 23px 70px;
+    font-family:
+      Montserrat,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+  }
+  
+  
