@@ -26,4 +26,4 @@ server:
 
 app:
   baseUrl: http://localhost:8080
-  imageDir: ./uploads/images/  # 실제 이미지 저장 경로로 설정
+  imageDir: ./uploads/images/  # 문의 이미지 저장 경로로 설정
