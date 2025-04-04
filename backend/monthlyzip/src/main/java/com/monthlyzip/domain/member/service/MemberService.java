@@ -73,7 +73,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void updateProfileImage(Long memberId, MultipartFile image) {
+    public String updateProfileImage(Long memberId, MultipartFile image) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
 
@@ -83,9 +83,11 @@ public class MemberService {
         }
 
         // 새 이미지 저장
-        String savedPath = FileUtil.saveFile(image);
+        String savedPath = FileUtil.saveFile(image, "profile");
         member.setProfileImageUrl(savedPath);
         memberRepository.save(member);
+
+        return savedPath;
     }
 
     // 회원탈퇴

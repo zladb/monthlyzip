@@ -3,6 +3,7 @@ package com.monthlyzip.domain.member.controller;
 import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
 import com.monthlyzip.domain.member.dto.request.UpdatePasswordRequest;
 import com.monthlyzip.domain.member.dto.response.MemberResponse;
+import com.monthlyzip.domain.member.dto.response.ProfileImageResponseDto;
 import com.monthlyzip.domain.member.service.MemberService;
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -42,13 +43,13 @@ public class MemberController {
 
     // 이미지 업데이트
     @PutMapping("/profile-image")
-    public ApiResponse<Void> updateProfileImage(
+    public ApiResponse<ProfileImageResponseDto> updateProfileImage(
             @AuthenticationPrincipal CustomUserDetails userDetails,
-            @RequestParam("image") MultipartFile image) {
+            @RequestPart("image") MultipartFile image) {
 
-        memberService.updateProfileImage(userDetails.getMember().getId(), image);
-        log.info("이미지 업데이트 완료");
-        return ApiResponse.success();
+        String imageUrl = memberService.updateProfileImage(userDetails.getMember().getId(), image);
+        log.info("이미지 업데이트 완료: {}", imageUrl);
+        return ApiResponse.success(new ProfileImageResponseDto(imageUrl));
     }
 
     // 회원 탈퇴
