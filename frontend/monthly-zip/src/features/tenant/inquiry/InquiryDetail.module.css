@@ -15,7 +15,8 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
     flex-grow: 1; /* 컨텐츠가 부족할 경우 footer를 아래로 밀어줌 */
     font-family:
       Inter,
@@ -57,7 +58,22 @@
     padding: 157px 40px;
     display: flex;
   }
+  .inquiryImage {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
   
+  .headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .iconGroup {
+    display: flex;
+    gap: 0.5rem;
+  }
   .icon {
     aspect-ratio: 1;
     object-fit: contain;
@@ -160,6 +176,23 @@
       Helvetica,
       sans-serif;
     display: flex;
+    flex-direction: column; /* 수직 정렬 */
+  }
+  .progressRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto; /* 가운데 정렬 */
+    gap: 0; /* 선과 점 사이 간격 없이 */
+  }
+  
+  .labelRow {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto; /* 가운데 정렬 */
+    width: 100%;
+    margin-top: 8px;
   }
   
   .statusItem {
@@ -198,29 +231,21 @@
     color: #e2e2e2; /* 기본 회색 */
     margin-top: 8px;
   }
-
-
-  .footer {
-    color: #fff;
-    text-align: center;
+  .activeStatusLine,
+  .inactiveStatusLine {
+    height: 3px;
+    margin: 0;
+    flex: 1; /* 점과 점 사이 공간을 자동으로 채움 */
+  }
+  
+  .activeStatusLine {
+    background-color: #ec221f;
+  }
+  
+  .inactiveStatusLine {
     background-color: #e2e2e2;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-top: 76px;
-    padding: 19px 75px 7px;
-    font-size: 28px;
-    display: flex;
   }
-  
-  .footerContent {
-    flex-direction: column;
-    align-items: stretch;
-    width: 144px;
-    max-width: 100%;
-    display: flex;
-  }
-  
+
   .footerStatusText {
     align-self: center;
   }
@@ -234,3 +259,45 @@
     display: flex;
   }
   
+.activeButton {
+  color: black;
+  white-space: nowrap;
+  background-color: #fcbe32;
+  align-self: stretch;
+  width: 100%;
+  margin-top: 353px;
+  padding: 23px 70px;
+  font-family:
+    Montserrat,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+
+.disabledButton {
+  color: #979797;
+  white-space: nowrap;
+  background-color: #d8d8d8;
+  align-self: stretch;
+  width: 100%;
+  margin-top: 353px;
+  padding: 23px 70px;
+  font-family:
+    Montserrat,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
