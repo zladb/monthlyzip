@@ -1,5 +1,6 @@
 package com.monthlyzip.domain.tenant.service;
 
+import com.monthlyzip.domain.building.repository.BuildingRepository;
 import com.monthlyzip.domain.contract.model.entity.Contract;
 import com.monthlyzip.domain.contract.repository.ContractRepository;
 import com.monthlyzip.domain.member.entity.Member;
@@ -28,12 +29,18 @@ public class TenantService {
     private final ContractRepository contractRepository;
     private final MemberRepository memberRepository;
     private final PaymentRepository paymentRepository;
+    private final BuildingRepository buildingRepository;
 
-    public List<TenantSummaryResponseDto> getTenantsByBuilding(Long buildingId) {
-        log.debug("📌 [임차인 목록 조회] buildingId: {}", buildingId);
+    public List<TenantSummaryResponseDto> getTenantsByBuilding(Long buildingId, Long landlordId) {
+        log.debug("📌 [임차인 목록 조회] buildingId: {}, landlordId: {}", buildingId, landlordId);
+
+        // 🔒 권한 체크
+        boolean isOwner = buildingRepository.existsByIdAndOwnerId(buildingId, landlordId);
+        if (!isOwner) {
+            throw new BusinessException(ApiResponseStatus.UNAUTHORIZED);
+        }
 
         List<Contract> contracts = contractRepository.findByRoom_Building_IdAndTenantIdIsNotNull(buildingId);
-
         log.debug("📌 계약 건수: {}", contracts.size());
 
         return contracts.stream()
@@ -41,13 +48,12 @@ public class TenantService {
                     Room room = contract.getRoom();
                     if (room == null) {
                         log.error("❗ room is null for contractId: {}", contract.getId());
-                        return null; // skip this entry
+                        return null;
                     }
 
                     Member tenant = null;
                     if (contract.getTenantId() != null) {
-                        tenant = memberRepository.findById(contract.getTenantId())
-                                .orElse(null);
+                        tenant = memberRepository.findById(contract.getTenantId()).orElse(null);
                         if (tenant == null) {
                             log.warn("⚠️ 임차인 정보를 찾을 수 없습니다. tenantId: {}", contract.getTenantId());
                         }
@@ -68,16 +74,22 @@ public class TenantService {
                             .contractEnd(contract.getEndDate())
                             .build();
                 })
-                .filter(dto -> dto != null) // null 필터링
+                .filter(dto -> dto != null)
                 .toList();
     }
 
-    public TenantDetailResponseDto getTenantDetailByRoomId(Long roomId) {
+    public TenantDetailResponseDto getTenantDetailByRoomId(Long roomId, Long landlordId) {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> {
                     log.error("❗ Room not found for roomId: {}", roomId);
                     return new BusinessException(ApiResponseStatus.ROOM_NOT_FOUND);
                 });
+
+        // 🔒 권한 체크
+        if (!room.getBuilding().getOwner().getId().equals(landlordId)) {
+            log.warn("❌ 권한 없음: landlordId {}는 roomId {}에 접근할 수 없습니다.", landlordId, roomId);
+            throw new BusinessException(ApiResponseStatus.UNAUTHORIZED);
+        }
 
         Contract contract = contractRepository.findLatestByTenantIdIsNotNullAndRoomId(roomId)
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.CONTRACT_NOT_FOUND));
@@ -86,7 +98,6 @@ public class TenantService {
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
 
         List<Payment> payments = paymentRepository.findByContractId(contract.getId());
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         return TenantDetailResponseDto.builder()
@@ -111,5 +122,4 @@ public class TenantService {
                 ).toList())
                 .build();
     }
-
 }
