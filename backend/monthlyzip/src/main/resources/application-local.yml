@@ -10,10 +10,20 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
+
+  web:
+    resources:
+      static-locations: classpath:/static/, file:${app.imageDir}  # 정적 리소스 설정
 
 server:
   port: 8080
 
 app:
   baseUrl: http://localhost:8080
+  imageDir: ./uploads/images/  # 문의 이미지 저장 경로로 설정
