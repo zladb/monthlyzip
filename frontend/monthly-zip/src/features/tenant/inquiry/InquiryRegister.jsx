@@ -44,10 +44,18 @@ function PhotoUpload({ labelClassName, uploadAreaClassName, onUpload }) {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImagePreview(URL.createObjectURL(file)); // 미리보기 URL 생성
-      setImage(URL.createObjectURL(file));
+      const previewURL = URL.createObjectURL(file);
+      setImage(file);
+      setImagePreview(previewURL);
       onUpload(file);
     }
+  };
+
+  const handlePreviewImageClick = () => {
+    setImage(null);
+    setImagePreview(null);
+    fileInputRef.current.value = null;
+    onUpload(null);
   };
 
   return (
@@ -70,7 +78,9 @@ function PhotoUpload({ labelClassName, uploadAreaClassName, onUpload }) {
       {imagePreview && (
         <img
           src={imagePreview}
-          alt="미리보기"
+          alt="미리보기, 클릭 시 삭제"
+          onClick={handlePreviewImageClick}
+          title="이미지를 클릭하면 삭제됩니다."
           style={{ width: "200px", margin: "15px", objectFit: "cover" }}
         />
       )}
@@ -100,7 +110,7 @@ function InquiryRegister() {
   const navigate = useNavigate();
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategory(prev => prev === category ? "" : category);
   };
 
   const handleImageUpload = (file) => {
@@ -108,7 +118,8 @@ function InquiryRegister() {
     console.log("업로드된 파일:", file);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
     if(!selectedCategory) {
       alert("문의 유형을 선택해주세요!");
       return;
@@ -124,19 +135,55 @@ function InquiryRegister() {
       return;
     }
 
-    const requestData = { title, content, inquiryType: selectedCategory, image: imageFile };
-    console.log("서버로 전송할 데이터: ", requestData);
-    
-    axios.post("/api/inquiries", requestData, {
-      headers: { "Content-Type": "application/json" }
-    })
-    .then((response) => console.log("서버 응답:", response.data))
-    .catch((error) => console.error("에러 발생:", error));
+    const dto = {
+      title,
+      content,
+      inquiryType: selectedCategory
     };
-
-    const handleClick = () => {
-      navigate('/tenant/inquiry-list');
+    
+    const formData = new FormData();
+    formData.append("data", new Blob([JSON.stringify(dto)], { type: "application/json" }));
+    
+    if (imageFile) {
+      formData.append("image", imageFile);
     }
+    
+    console.log("전송할 데이터:", formData); // FormData 객체 확인
+
+    
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.log("인증 정보가 없습니다. 다시 로그인해주세요.");
+        return;
+      }
+
+      const response = await axios.post("/api/inquiries", formData, {
+        headers: { 
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data.success) {
+        console.log("문의 등록 성공!", response.data);
+        const inquiryId = response.data.result.inquiryId; // 문의 ID 가져오기
+        navigate(`/tenant/inquiry-detail/${inquiryId}`);
+        
+      } else {
+        console.log("문의 등록 실패:", response.data.message);
+      }
+    } catch (error) {
+      console.log("에러 발생:", error);
+      console.error("문의 등록 중 오류가 발생했습니다.", error);
+      console.log(error.response?.data?.message || "네트워크 오류 또는 요청 에러입니다.");
+
+    }
+  
+ 
+  }
+  const handleClick = () => {
+    navigate('/tenant/inquiry-list');
+}
   return (
     <main className={styles.container}>
       <header className={styles.header}>
@@ -151,7 +198,7 @@ function InquiryRegister() {
         <section className={styles.contentWrapper}>
           <div className={styles.categorySection}>
             <div className={styles.categoryNav}>
-              {["수리 요청", "납 부", "계 약"].map((label) => (
+              {["수리요청", "납부", "계약"].map((label) => (
                 <CategoryButton
                   key={label}
                   label={label}
@@ -162,7 +209,7 @@ function InquiryRegister() {
               ))}
             </div>
             <div className={styles.secondaryCategoryNav}>
-              {["생활 민원", "기 타"].map((label) => (
+              {["생활민원", "기타"].map((label) => (
                 <CategoryButton
                   key={label}
                   label={label}
@@ -203,6 +250,7 @@ function InquiryRegister() {
           label="취소"
           className={styles.cancelButton}
           variant="secondary"
+          onClick={handleClick}
         />
         <ActionButton
           label="작성하기"
