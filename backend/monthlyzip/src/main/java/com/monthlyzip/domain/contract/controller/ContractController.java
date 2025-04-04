@@ -73,14 +73,4 @@ public class ContractController {
         contractService.terminateContract(contractId, memberId);
         return ApiResponse.success();
     }
-
-    // ✅ 계약 초대 수락 (세입자)
-    @PostMapping("/{contractId}/accept")
-    public ApiResponse<ContractResponseDto> acceptInvitation(
-            @AuthenticationPrincipal CustomUserDetails userDetails,
-            @PathVariable Long contractId) {
-        log.debug("임대 계약 초대 수락 - contractId: {}", contractId);
-        Long tenantId = userDetails.getMember().getId();
-        return ApiResponse.success(contractService.acceptInvitation(contractId, tenantId));
-    }
 }
