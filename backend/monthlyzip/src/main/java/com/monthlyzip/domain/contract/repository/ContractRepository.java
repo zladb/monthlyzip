@@ -18,4 +18,11 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     @Query("SELECT c FROM Contract c WHERE c.tenantId = :tenantId ORDER BY c.startDate DESC")
     Optional<Contract> findLatestByTenantId(@Param("tenantId") Long tenantId);
+
+    @Query("SELECT c FROM Contract c " +
+            "WHERE c.room.id = :roomId " +
+            "AND c.tenantId IS NOT NULL " +
+            "ORDER BY c.startDate DESC")
+    Optional<Contract> findLatestByTenantIdIsNotNullAndRoomId(@Param("roomId") Long roomId);
+
 }
