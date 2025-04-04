@@ -6,8 +6,9 @@ import com.monthlyzip.domain.inquiry.model.type.InquiryType;
 import com.monthlyzip.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "inquiry")
@@ -44,6 +45,10 @@ public class Inquiry {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private InquiryStatus status;  // 문의 상태: 접수, 처리중, 처리완료
+
+    // 단일 String으로 변경 현재는 이미지 하나만
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @Column
     private LocalDateTime createdAt;

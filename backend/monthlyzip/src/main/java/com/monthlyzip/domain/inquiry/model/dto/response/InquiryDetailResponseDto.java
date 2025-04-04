@@ -4,6 +4,7 @@ import com.monthlyzip.domain.inquiry.model.entity.Inquiry;
 import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
 import com.monthlyzip.domain.inquiry.model.type.InquiryType;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class InquiryDetailResponseDto {
     private String title;
     private String content;
     private InquiryStatus status;
+    private String imageUrl;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -40,6 +42,7 @@ public class InquiryDetailResponseDto {
             .title(inquiry.getTitle())
             .content(inquiry.getContent())
             .status(inquiry.getStatus())
+            .imageUrl(inquiry.getImageUrl())  // 추가
             .createdAt(inquiry.getCreatedAt())
             .updatedAt(inquiry.getUpdatedAt())
             .build();
