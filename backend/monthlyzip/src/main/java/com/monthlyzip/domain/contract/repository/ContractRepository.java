@@ -24,5 +24,6 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
             "AND c.tenantId IS NOT NULL " +
             "ORDER BY c.startDate DESC")
     Optional<Contract> findLatestByTenantIdIsNotNullAndRoomId(@Param("roomId") Long roomId);
-
+    // 임차인 문의 등록
+    Optional<Contract> findByTenantIdAndIsActiveTenantTrue(Long tenantId);
 }

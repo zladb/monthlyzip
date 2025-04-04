@@ -3,6 +3,7 @@ package com.monthlyzip.domain.inquiry.model.dto.response;
 import com.monthlyzip.domain.inquiry.model.entity.Inquiry;
 import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
 import com.monthlyzip.domain.inquiry.model.type.InquiryType;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class InquiryResponseDto {
     private InquiryType inquiryType;
     private String title;
     private InquiryStatus status;
+    private String imageUrl;
     private LocalDateTime createdAt;
 
     public static InquiryResponseDto from(Inquiry inquiry) {
@@ -36,6 +38,7 @@ public class InquiryResponseDto {
             .inquiryType(inquiry.getInquiryType())
             .title(inquiry.getTitle())
             .status(inquiry.getStatus())
+            .imageUrl(inquiry.getImageUrl())  // 추가
             .createdAt(inquiry.getCreatedAt())
             .build();
     }
