@@ -91,11 +91,13 @@
     margin-top: 14px;
     margin-left: 15px;
     display: flex;
+    font-size: 18px;
   }
   
   .textareaField {
     background-color: #fff;
     border: 1px solid #979797ba;
+    font-size: 18px;
     flex-shrink: 0;
     width: 90%;
     height: 178px;
