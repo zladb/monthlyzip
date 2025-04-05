@@ -198,7 +198,7 @@ function InquiryRegister() {
         <section className={styles.contentWrapper}>
           <div className={styles.categorySection}>
             <div className={styles.categoryNav}>
-              {["수리요청", "납부", "계약"].map((label) => (
+              {["수리요청", "납부관리", "계약관리"].map((label) => (
                 <CategoryButton
                   key={label}
                   label={label}
