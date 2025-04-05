@@ -48,22 +48,17 @@
     margin-left: 22px;
   }
   .imageSection {
-    background-color: #eaf2ff;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     min-height: 346px;
-    margin-top: -99px;
-    padding: 157px 40px;
     display: flex;
-  }
-  .inquiryImage {
+    margin-top: 10px;
+    margin-bottom: 10px;
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain;
   }
-  
   .headerRow {
     display: flex;
     justify-content: space-between;
@@ -78,7 +73,11 @@
     aspect-ratio: 1;
     object-fit: contain;
     object-position: center;
-    width: 32px;
+    width: 40px;
+  }
+  .iconButton {
+    border: none;
+    background: none;
   }
   .dot {
     opacity: 0.1;
@@ -265,7 +264,7 @@
   background-color: #fcbe32;
   align-self: stretch;
   width: 100%;
-  margin-top: 353px;
+  margin-top: 100px;
   padding: 23px 70px;
   font-family:
     Montserrat,
@@ -287,7 +286,7 @@
   background-color: #d8d8d8;
   align-self: stretch;
   width: 100%;
-  margin-top: 353px;
+  margin-top: 100px;
   padding: 23px 70px;
   font-family:
     Montserrat,

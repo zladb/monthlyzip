@@ -6,6 +6,8 @@ import styles from "./InquiryDetail.module.css";
 import inquiryUpdate from "../../../assets/icons/inquiryUpdate.png"; 
 import inquiryDelete from "../../../assets/icons/inquiryDelete.png";
 
+import imageTest from "../../../assets/icons/imagetest.png";
+
 function Header() {
     const navigate = useNavigate();
 
@@ -31,20 +33,23 @@ function Header() {
 
     return (
       <section className={styles.imageSection}>
-         <img src={imageUrl} className={styles.inquiryImage} alt="Inquiry" />
+        {/* <img src={imageTest} className={styles.imageSection} alt="InquiryTest" /> */}
+         <img src={imageUrl} className={styles.imageSection} alt="Inquiry" />
     </section>
     );
   }
 
   function InquiryContent({ inquiry }) {
-  
     const navigate = useNavigate();
+  
     if (!inquiry) return null; // 데이터가 없을 경우 렌더링하지 않음
 
+
     const handleDeleteClick = async (inquiryId) => {
+      navigate("/tenant/inquiry-list");
       if (!window.confirm("정말 삭제하시겠습니까?")) return;
-    
-      console.log("삭제할 ID:", inquiryId); // ✅ 이거 확인 꼭!
+  
+      console.log("삭제할 ID:", inquiryId); 
       const token = localStorage.getItem("accessToken");
     
       try {
@@ -53,12 +58,11 @@ function Header() {
             Authorization: `Bearer ${token}`,
           },
         });
-    
+        
         const result = response.data;
     
         if (result.isSuccess) {
           console.log("문의가 삭제되었습니다.");
-          navigate("/tenant/inquiry-list");
         } else {
           console.log(result.message || "삭제에 실패했습니다.");
         }
@@ -67,8 +71,8 @@ function Header() {
         console.log(error.response?.data?.message || "네트워크 오류 또는 요청 에러입니다.");
       }
     };
-    
 
+   
     return (
       <article className={styles.contentContainer}>
         {inquiry.imageUrl && <ImageSection imageUrl={inquiry.imageUrl} />}
@@ -76,18 +80,19 @@ function Header() {
         <div className={styles.headerRow}>
           <h1 className={styles.title}>{inquiry.title}</h1>
           <div className={styles.iconGroup}>
-            <img 
-              src={inquiryUpdate} 
-              alt="inquiryUpdate" 
-              className={styles.icon} 
-              // onClick={handleUpdateClick}
-            />
-            <img 
-              src={inquiryDelete} 
-              alt="inquiryDelete" 
-              className={styles.icon} 
+            <button 
+              className={styles.iconButton}
+              // onClick={() => handleUpdateClick(inquiry.inquiryId)}
+            >
+              <img src={inquiryUpdate} alt="수정 아이콘" />
+            </button>
+            <button 
+              className={styles.iconButton}
               onClick={() => handleDeleteClick(inquiry.inquiryId)}
-            />
+            >
+              <img src={inquiryDelete} alt="삭제 아이콘" />
+            </button>
+
           </div>
         </div>
         
