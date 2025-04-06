@@ -22,7 +22,7 @@ import LandlordHome from './features/landlord/home/LandlordHome';
 import TenantHome from './features/tenant/home/TenantHome';
 import InquiryDetail from './features/tenant/inquiry/InquiryDetail';
 import AutoPaymentRegister from './features/tenant/payment/auto/AutoPaymentRegister';
-
+import Inquiry from './features/landlord/inquiry/Inquiry';
 function App() {
   // const [userType, setUserType] = useState(null);
   const [userType, setUserType] = useState('임대인');
@@ -40,7 +40,7 @@ function App() {
         <Route path="/landlord" element={<LandlordHome />} />
         <Route path="/landlord/alarm-setting" element={<div>알림 발송 설정 페이지</div>} />
         <Route path="/landlord/building" element={<div>세대 관리 메인 페이지</div>} />
-        <Route path="/landlord/inquiry" element={<div>문의 메인 페이지</div>} />
+        <Route path="/landlord/inquiry" element={<Inquiry />} />
         <Route path="/landlord/notice" element={<div>공지사항 메인 페이지</div>} />
         <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
         <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />

@@ -112,21 +112,21 @@ function InquiryList() {
     // 더미 데이터
     {
       id: 1,
-      type: '생활 민원',
+      type: '생활민원',
       title: '층간 소음 신고',
       date: '2025-03-24 18:20',
       status: '처리중'
     },
     {
       id: 2,
-      type: '납부 관리',
+      type: '납부관리',
       title: '3월 월세 미납금',
       date: '2025-03-23 13:46',
       status: '처리중'
     },
     {
       id: 3,
-      type: '수리 요청',
+      type: '수리요청',
       title: '전등 고장',
       date: '2025-03-21 01:39',
       status: '처리중'

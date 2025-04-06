@@ -7,6 +7,7 @@
   border: 1px solid transparent;
 }
 
+
 /* 생활 민원 - 초록색 */
 .card[data-type="LIFE"] {
   background-color: #F0FFF3;
@@ -23,6 +24,7 @@
 .card[data-type="LIFE"] .status {
   color: #16D03B;
 }
+
 
 /* 수리 요청 - 파란색 */
 .card[data-type="REPAIR"] {
@@ -41,6 +43,7 @@
   color: #0077FF;
 }
 
+
 /* 납부 관리 - 핑크색 */
 .card[data-type="PAYMENT"] {
   background-color: #FFF0F7;
@@ -58,6 +61,7 @@
   color: #FF1D86;
 }
 
+
 /* 계약 연장 - 주황색 */
 .card[data-type="CONTRACT"] {
   background-color: #FFF4F0;
@@ -74,6 +78,7 @@
 .card[data-type="CONTRACT"] .status {
   color: #FF7A45;
 }
+
 
 /* 기타 - 보라색 */
 .card[data-type="OTHER"] {
