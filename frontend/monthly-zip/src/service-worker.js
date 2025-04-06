@@ -33,8 +33,8 @@ registerRoute(
       return false;
     } // If this is a URL that starts with /_, skip.
 
-    // 추가: /jenkins 또는 /api로 시작하는 경로는 제외
-    if (url.pathname.startsWith('/jenkins') || url.pathname.startsWith('/api/')) {
+    // 추가: /jenkins 또는 /api, /로 시작하는 경로는 제외
+    if (url.pathname.startsWith('/jenkins') || url.pathname.startsWith('/api/') || url.pathname.startsWith('/images/')) {
       return false;
     }
 

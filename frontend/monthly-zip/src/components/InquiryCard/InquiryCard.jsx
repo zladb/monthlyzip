@@ -4,14 +4,14 @@ import styles from "./InquiryCard.module.css";
 function InquiryCard({ type, title, date, status, onClick }) {
   const getTypeText = (type) => {
     switch (type) {
-      case "수리 요청":
-        return { type: "REPAIR", text: "수리 요청" };
-      case "납부 관리":
-        return { type: "PAYMENT", text: "납부 관리" };
-      case "생활 민원":
-        return { type: "LIFE", text: "생활 민원" };
-      case "계약 연장":
-        return { type: "CONTRACT", text: "계약 연장" };
+      case "수리요청":
+        return { type: "REPAIR", text: "수리요청" };
+      case "납부관리":
+        return { type: "PAYMENT", text: "납부관리" };
+      case "생활민원":
+        return { type: "LIFE", text: "생활민원" };
+      case "계약연장":
+        return { type: "CONTRACT", text: "계약연장" };
       case "기타":
         return { type: "OTHER", text: "기타" };
       default:

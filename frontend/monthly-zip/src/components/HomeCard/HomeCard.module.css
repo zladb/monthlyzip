@@ -2,17 +2,19 @@
   min-height: screen;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   display: flex;
+  width: 100%;
+  max-width: 480px;
 }
 
 .card {
   background-color: #fff;
   border-radius: 10px;
   flex-direction: column;
-  width: 310px;
+  width: 100%;
   height: 153px;
-  padding: 20px;
+  padding: 30px;
   display: flex;
   position: relative;
   box-shadow: 0 1px 10px #ababab80;
@@ -21,7 +23,7 @@
 .header {
   align-items: center;
   gap: 12px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   display: flex;
 }
 
