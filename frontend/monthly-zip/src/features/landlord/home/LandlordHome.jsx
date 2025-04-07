@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from "./LandlordHome.module.css";
+import axios from 'axios';
+import styles from './LandlordHome.module.css';
 import Navbar from "../navbar/Navbar";
 import Sidebar from "../sidebar/Sidebar";
 import HomeCard from '../../../components/HomeCard/HomeCard';
@@ -28,7 +29,7 @@ const Header = ({ onMenuClick, userName }) => {
 };
 
 // DashboardCards Component
-function DashboardCards() {
+function DashboardCards({ monthlySummary }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
@@ -68,7 +69,7 @@ function DashboardCards() {
     <div className={styles.dashboardContainer}>
       <div 
         className={styles.cardSlider}
-        style={{ transform: `translateX(-${currentPage * 33.33}%)` }}
+        style={{ transform: `translateX(-${currentPage * 100}%)` }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -76,28 +77,28 @@ function DashboardCards() {
         <HomeCard
           icon={moneyIcon}
           label="이번 달 수입"
-          value="250만"
+          value={monthlySummary.currentMonthIncome.toLocaleString()}
           unit="원"
         />
         <HomeCard
           icon={roomIcon}
           label="임대중인 방"
-          value="5"
+          value={monthlySummary.occupiedRooms}
           unit="개"
         />
         <HomeCard
           icon={unpaidIcon}
-          label="미납 현황"
-          value="2"
-          unit="건"
+          label="미납자 수"
+          value={monthlySummary.paymentOverdue}
+          unit="명"
         />
-
       </div>
       <div className={styles.pageIndicator}>
         {[...Array(totalPages)].map((_, index) => (
           <div
             key={index}
             className={`${styles.dot} ${index === currentPage ? styles.active : ''}`}
+            onClick={() => setCurrentPage(index)}
           />
         ))}
       </div>
@@ -106,32 +107,8 @@ function DashboardCards() {
 }
 
 // InquiryList Component
-function InquiryList() {
+function InquiryList({ inquiries, onInquiryClick }) {
   const navigate = useNavigate();
-  const inquiries = [
-    // 더미 데이터
-    {
-      id: 1,
-      type: '생활민원',
-      title: '층간 소음 신고',
-      date: '2025-03-24 18:20',
-      status: '처리중'
-    },
-    {
-      id: 2,
-      type: '납부관리',
-      title: '3월 월세 미납금',
-      date: '2025-03-23 13:46',
-      status: '처리중'
-    },
-    {
-      id: 3,
-      type: '수리요청',
-      title: '전등 고장',
-      date: '2025-03-21 01:39',
-      status: '처리중'
-    }
-  ];
 
   return (
     <section className={styles.notificationContainer}>
@@ -146,16 +123,24 @@ function InquiryList() {
           />
         </button>
       </div>
-      {inquiries.map((inquiry) => (
-        <InquiryCard
-          key={inquiry.id}
-          type={inquiry.type}
-          title={inquiry.title}
-          date={inquiry.date}
-          status={inquiry.status}
-          onClick={() => navigate(`/landlord/inquiries/${inquiry.id}`)}
-        />
-      ))}
+      {inquiries.length > 0 ? (
+        inquiries.map((inquiry) => (
+          <InquiryCard
+            key={inquiry.inquiryId}
+            id={inquiry.inquiryId}
+            type={inquiry.type}
+            title={inquiry.title}
+            date={inquiry.createdAt}
+            status={inquiry.status}
+            onClick={() => onInquiryClick(inquiry.inquiryId)}
+            roomInfo={inquiry.roomInfo}
+          />
+        ))
+      ) : (
+        <div className={styles.emptyState}>
+          <p>아직 문의가 없습니다.</p>
+        </div>
+      )}
     </section>
   );
 }
@@ -163,15 +148,74 @@ function InquiryList() {
 // Main LandlordHome Component
 function LandlordHome() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
+  const navigate = useNavigate();
+  const [dashboardData, setDashboardData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+          navigate('/login');
+          return;
+        }
+
+        const response = await axios.get('/api/dashboard', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (response.data.success) {
+          console.log('대시보드 데이터:', response.data.result);
+          // 데이터 유효성 검사
+          if (!response.data.result || !response.data.result.landlordInfo) {
+            throw new Error('유효하지 않은 데이터입니다.');
+          }
+          setDashboardData(response.data.result);
+        } else {
+          throw new Error(response.data.message);
+        }
+      } catch (err) {
+        console.error('대시보드 데이터 로딩 에러:', err);
+        if (err.response?.status === 401) {
+          navigate('/login');
+          return;
+        }
+        setError(err.response?.data?.message || '데이터를 불러오는 중 오류가 발생했습니다.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, [navigate]);
+
+  const handleInquiryClick = (inquiryId) => {
+    console.log('클릭한 문의 ID:', inquiryId);
+    if (inquiryId) {
+      navigate(`/landlord/inquiry/${inquiryId}`);
+    } else {
+      console.error('문의 ID가 없습니다.');
+    }
+  };
+
+  if (loading) return <div>로딩중...</div>;
+  if (error) return <div>에러가 발생했습니다: {error}</div>;
+  if (!dashboardData) return <div>데이터를 찾을 수 없습니다.</div>;
+
   return (
     <div className={styles.container}>
-      <Header userName="홍길동" onMenuClick={() => setIsSidebarOpen(true)} />
+      <Header userName={dashboardData.landlordInfo.name} onMenuClick={() => setIsSidebarOpen(true)} />
       <div className={styles.content}>
-        <DashboardCards />
-        <InquiryList />
+        <DashboardCards monthlySummary={dashboardData.monthlySummary} />
+        <InquiryList 
+          inquiries={dashboardData.recentInquiries} 
+          onInquiryClick={handleInquiryClick}
+        />
       </div>
-
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
       <Navbar />
     </div>

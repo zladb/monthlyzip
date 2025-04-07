@@ -50,6 +50,12 @@
   margin: 0;
 }
 
+.header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2024;
+}
+
 /* Dashboard Cards Styles */
 .dashboardContainer {
   position: relative;
@@ -63,30 +69,53 @@
   display: flex;
   transition: transform 0.3s ease-in-out;
   width: 300%;
-  gap: 20px;
 }
 
 .cardSlider > * {
   flex: 1;
-  min-width: 310px;
+  padding: 0 10px;
 }
 
 .pageIndicator {
   display: flex;
   justify-content: center;
   gap: 8px;
+  margin-top: 16px;
+  margin-bottom: 8px;
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: #E0E0E0;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .dot.active {
   background-color: #FF6F00;
+  width: 8px;
+  height: 8px;
+}
+
+.dashboardItem {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.dashboardItem h3 {
+  font-size: 16px;
+  color: #6c757d;
+  margin-bottom: 10px;
+}
+
+.dashboardItem p {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2024;
 }
 
 /* Notification Section Styles */
@@ -137,6 +166,100 @@
 .viewMoreIcon {
   width: 10px;
   height: 10px;
+}
+
+.inquiryList {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.sectionTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sectionTitle h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2024;
+}
+
+.sectionTitle button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.inquiryItem {
+  padding: 15px;
+  border-bottom: 1px solid #e9ecef;
+  cursor: pointer;
+}
+
+.inquiryItem:last-child {
+  border-bottom: none;
+}
+
+.inquiryHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.inquiryType {
+  color: #007bff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.inquiryDate {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.inquiryTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2024;
+  margin-bottom: 8px;
+}
+
+.inquiryFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.roomInfo {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.접수 {
+  background-color: #ffd8cc;
+  color: #ff6b35;
+}
+
+.처리중 {
+  background-color: #cce5ff;
+  color: #007bff;
+}
+
+.처리완료 {
+  background-color: #d4edda;
+  color: #28a745;
 }
 
 @media (min-width: 768px) {
@@ -191,4 +314,12 @@
 .navLabel {
   align-self: center;
   margin-top: 5px;
+}
+
+.emptyState {
+  padding: 40px 20px;
+  text-align: center;
+  color: #808080;
+  font-size: 16px;
+  font-weight: 500;
 }
