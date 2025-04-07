@@ -10,6 +10,19 @@ import reportWebVitals from './reportWebVitals';
 axios.defaults.baseURL = "https://j12d109.p.ssafy.io";
 axios.defaults.withCredentials = true;
 
+// API 요청 인터셉터 설정
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
