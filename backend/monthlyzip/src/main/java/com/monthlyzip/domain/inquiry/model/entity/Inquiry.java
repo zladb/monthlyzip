@@ -44,7 +44,7 @@ public class Inquiry {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private InquiryStatus status;  // 문의 상태: 접수, 처리중, 처리완료
+    private InquiryStatus status;  // 문의 상태: 접수대기, 처리중, 처리완료
 
     // 단일 String으로 변경 현재는 이미지 하나만
     @Column(name = "image_url")
