@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
@@ -34,5 +35,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     Long getTotalIncomeForCurrentMonth(@Param("landlordId") Long landlordId,
                                        @Param("year") int year,
                                        @Param("month") int month);
+
+    Optional<Payment> findTopByContractIdAndPaymentStatusOrderByDueDateDesc(Long contractId, PaymentStatus status);
 
 }
