@@ -63,8 +63,11 @@ public enum ApiResponseStatus {
 
     // file
     FILE_SAVE_FAILED(false, HttpStatus.INTERNAL_SERVER_ERROR, 5001,"파일 저장에 실패했습니다."),
-    FILE_DELETE_FAILED(false, HttpStatus.INTERNAL_SERVER_ERROR, 5002,"파일 삭제에 실패했습니다.")
+    FILE_DELETE_FAILED(false, HttpStatus.INTERNAL_SERVER_ERROR, 5002,"파일 삭제에 실패했습니다."),
 
+    // API
+    EXTERNAL_USERKEY_API_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR, 6001, "USER KEY API 호출에 실패했습니다."),
+    EXTERNAL_ACCOUNT_API_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR, 6002, "ACCOUNT API 호출에 실패했습니다.")
     ;
 
     private final boolean isSuccess;

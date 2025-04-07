@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.room.controller;
 
-import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.domain.room.model.dto.request.RoomBatchRequestDto;
 import com.monthlyzip.domain.room.model.dto.request.RoomUpdateRequestDto;
 import com.monthlyzip.domain.room.model.dto.response.RoomDetailResponseDto;

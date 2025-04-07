@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.contract.controller;
 
-import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.domain.contract.model.dto.request.ContractRequestDto;
 import com.monthlyzip.domain.contract.model.dto.request.ContractUpdateRequestDto;
 import com.monthlyzip.domain.contract.model.dto.response.ContractResponseDto;
