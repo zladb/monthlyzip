@@ -217,6 +217,9 @@ public class InquiryService {
                     if (dto.getContent() != null) {
                         inquiry.setContent(dto.getContent());
                     }
+                    if (dto.getInquiryType() != null) {
+                        inquiry.setInquiryType(dto.getInquiryType());
+                    }
 
                     // 이미지 업데이트
                     if (newImage != null && !newImage.isEmpty()) {
