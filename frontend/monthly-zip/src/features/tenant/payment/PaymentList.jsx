@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import styles from "./PaymentList.module.css";
 import PaymentCard from "./PaymentCard";
@@ -9,6 +9,19 @@ const PaymentList = () => {
   const [payments, setPayments] = useState([]); // 전체 납부 리스트
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // URL 파라미터(tab)에 따라 초기 탭 설정
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tabParam = params.get("tab");
+
+    if (tabParam === "unpaid") {
+      setActiveTab("unpaid");
+    } else {
+      setActiveTab("payment");
+    }
+  }, [location.search]);
 
   useEffect(() => {
     const fetchPayments = () => {
