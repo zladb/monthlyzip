@@ -45,6 +45,8 @@ public enum ApiResponseStatus {
 
     // payment
     PAYMENT_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 납부 내역을 찾을 수 없습니다."),
+    NO_UNPAID_RENT(false, HttpStatus.BAD_REQUEST, 400, "미납된 월세가 존재하지 않습니다."),
+    DEPOSIT_TOO_LOW(false, HttpStatus.BAD_REQUEST, 400, "보증금 잔액보다 큰 금액은 차감할 수 없습니다."),
 
     // notice
     NOTICE_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 공지사항이 존재하지 않습니다."),
