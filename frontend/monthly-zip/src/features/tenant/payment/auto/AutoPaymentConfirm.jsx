@@ -5,12 +5,17 @@ import styles from "./AutoPaymentConfirm.module.css";
 function Header() {
     const navigate = useNavigate();
 
+    const handleClick = () => {
+      navigate('/tenant/auto-payment-register');
+    };
+    
     return (
       <header className={styles.headerContainer}>
         <img
             src="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/7a31437be2e255491b409270ea87dc20bf8f242b?placeholderIfAbsent=true"
             alt="Registration icon"
             className={styles.titleIcon}
+            onClick={handleClick}
           />
   
         <h1 className={styles.title}>자동이체 등록</h1>
