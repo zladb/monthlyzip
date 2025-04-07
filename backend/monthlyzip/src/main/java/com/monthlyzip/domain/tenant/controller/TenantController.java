@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.tenant.controller;
 
-import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.domain.tenant.model.dto.response.TenantDetailResponseDto;
 import com.monthlyzip.domain.tenant.model.dto.response.TenantSummaryResponseDto;
 import com.monthlyzip.domain.tenant.service.TenantService;

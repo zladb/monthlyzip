@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.inquiry.controller;
 
-import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.domain.inquiry.model.dto.request.InquiryCreateRequestDto;
 import com.monthlyzip.domain.inquiry.model.dto.request.InquiryUpdateRequestDto;
 import com.monthlyzip.domain.inquiry.model.dto.response.InquiryCreateResponseDto;

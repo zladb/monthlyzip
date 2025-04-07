@@ -5,7 +5,7 @@ import com.monthlyzip.domain.building.model.dto.request.BuildingUpdateRequestDto
 import com.monthlyzip.domain.building.model.dto.response.BuildingDetailResponseDto;
 import com.monthlyzip.domain.building.model.dto.response.BuildingResponseDto;
 import com.monthlyzip.domain.building.service.BuildingService;
-import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
