@@ -109,6 +109,7 @@ public class TenantService {
                         .build())
                 .contract(TenantDetailResponseDto.ContractInfo.builder()
                         .deposit(contract.getDeposit())
+                        .remainingDeposit(contract.getRemainingDeposit())
                         .monthlyRent(contract.getMonthlyRent())
                         .contractStart(contract.getStartDate().format(formatter))
                         .contractEnd(contract.getEndDate().format(formatter))

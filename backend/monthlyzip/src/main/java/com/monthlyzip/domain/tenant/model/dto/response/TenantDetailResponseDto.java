@@ -25,14 +25,15 @@ public class TenantDetailResponseDto {
         private String bankAccount;
     }
 
-    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    @Getter @Setter @Builder
+    @NoArgsConstructor @AllArgsConstructor
     public static class ContractInfo {
         private Long deposit;
+        private Long remainingDeposit;
         private Long monthlyRent;
-        private String contractStart; // 포맷 적용
+        private String contractStart;
         private String contractEnd;
     }
-
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class PaymentInfo {
         private String date;
