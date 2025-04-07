@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import styles from "./DirectPayment.module.css";
 
 function PaymentHeader({ userName, accountNumber }) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/tenant/payment-main');
+  };
+
   return (
     <header className={styles.header}>
       <h1 className={styles.paymentTitle}>
@@ -10,6 +15,7 @@ function PaymentHeader({ userName, accountNumber }) {
           src="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/ba303b10f42913d041ae593ce99d7d2a9f515610?placeholderIfAbsent=true"
           alt="Payment icon"
           className={styles.icon}
+          onClick={handleClick}
         />
         <span className={styles.titleText}>월세 결제</span>
       </h1>

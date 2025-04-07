@@ -81,7 +81,6 @@ function Header() {
         console.log(error.response?.data?.message || "네트워크 오류 또는 요청 에러입니다.");
       }
     };
-
    
     return (
       <article className={styles.contentContainer}>
