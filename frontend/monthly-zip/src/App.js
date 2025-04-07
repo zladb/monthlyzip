@@ -27,6 +27,7 @@ import PaymentReview from './features/tenant/payment/direct/PaymentReview';
 import PaymentPassword from './features/tenant/payment/direct/PaymentPassword';
 import PaymentConfirm from './features/tenant/payment/direct/PaymentConfirm';
 import AutoPaymentConfirm from './features/tenant/payment/auto/AutoPaymentConfirm';
+import InquiryUpdate from './features/tenant/inquiry/InquiryUpdate';
 
 function App() {
   // const [userType, setUserType] = useState(null);
@@ -72,6 +73,7 @@ function App() {
         <Route path="/tenant/inquiry-register" element={<InquiryRegister />} />
         <Route path="/tenant/inquiry-list" element={<InquiryList />} />
         <Route path="/tenant/inquiry-detail/:inquiryId" element={<InquiryDetail />} />
+        <Route path="/tenant/inquiry-update/:inquiryId" element={<InquiryUpdate />} />
 
 
         
