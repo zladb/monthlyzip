@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./PaymentMain.module.css";
 
 
-function PaymentOptionCard({ imageUrl, title, extraPadding = false }) {
+function PaymentOptionCard({ imageUrl, title, extraPadding = false, onClick }) {
     return (
       <article
         className={`${styles.card} ${extraPadding ? styles.extraPadding : ""}`}
+        onClick={onClick}
+        style={{ cursor: 'pointer' }} // 사용자에게 클릭 가능한 UI로 보이게
       >
         <img src={imageUrl} alt="" className={styles.cardIcon} />
         <h3 className={styles.cardTitle}>{title}</h3>
@@ -16,11 +19,28 @@ function PaymentOptionCard({ imageUrl, title, extraPadding = false }) {
 
 function AutoPaymentSection() {
     const [isAutoPaymentActive, setIsAutoPaymentActive] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const savedStatus = localStorage.getItem("isAutoPaymentActive");
+      if (savedStatus === "true") {
+        setIsAutoPaymentActive(true);
+      }
+    }, []);
 
     const handleToggleAutoPayment = () => {
-        setIsAutoPaymentActive(!isAutoPaymentActive);
+        const newValue = !isAutoPaymentActive;
+        setIsAutoPaymentActive(newValue);
+        localStorage.setItem("isAutoPaymentActive", newValue.toString());
+        
+        if (newValue) {
+          navigate("/tenant/auto-payment");
+        }
       };
     
+      
+
+
     return (
       <section className={styles.autoPaymentContainer}>
         <h3 className={styles.autoPaymentTitle}>자동이체</h3>
@@ -35,7 +55,7 @@ function AutoPaymentSection() {
           
           {isAutoPaymentActive && (
           <div className={styles.registrationInfo}>
-            <p>자동이체가 등록되었습니다. <br />매월 15일에 결제됩니다.</p>
+            <p>자동이체가 등록되었습니다. <br />매월 10일에 결제됩니다.</p>
           </div>
         )}
           <div className={styles.toggleContainer}>
@@ -60,13 +80,46 @@ function AutoPaymentSection() {
   }
 
 function PaymentHistorySection() {
-  const paymentHistory = [
-    { month: "2025. 03", amount: "500,000원" },
-    { month: "2025. 02", amount: "500,000원" },
-    { month: "2025. 01", amount: "500,000원" },
-  ];
-
+  const [paymentHistory, setPaymentHistory] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPayments = async () => {
+      try {
+        const response = await axios.get("/api/payments", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.data.success) {
+          const allPayments = response.data.result;
+
+          const sorted = allPayments
+          .filter(item => item.paymentDate) // 납부된 항목만
+          .sort((a, b) => new Date(b.paymentDate) - new Date(a.paymentDate))
+          .slice(0, 3)
+          .map((item) => {
+            const paymentDate = new Date(item.paymentDate);
+            const monthStr = `${paymentDate.getFullYear()}. ${String(paymentDate.getMonth() + 1).padStart(2, "0")}`;
+            return {
+              month: monthStr,
+              amount: `${item.amount.toLocaleString()}원`,
+            };
+          });
+        
+          setPaymentHistory(sorted);
+        } else {
+          console.error("납부 목록을 가져오지 못했습니다:", response.data.message);
+        }
+      } catch (error) {
+        console.error("납부 목록을 가져오는 중 오류 발생:", error);
+      }
+    };
+
+    fetchPayments();
+  }, []);
 
   return (
     <section className={styles.historyContainer}>
@@ -99,6 +152,8 @@ function PaymentHistorySection() {
 }
 
   function PaymentMain() {
+    const navigate = useNavigate();
+
     return (
       <main className={styles.container}>
         <section className={styles.contentWrapper}>
@@ -113,11 +168,13 @@ function PaymentHistorySection() {
             <PaymentOptionCard
               imageUrl="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/1d1c2a1f74cb7c82151ae1c726c5045019acfdac?placeholderIfAbsent=true"
               title="이번 달 월세 납부"
+              onClick={() => navigate("/tenant/direct-payment")}
             />
             <PaymentOptionCard
               imageUrl="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/2601cdfa66be04ee9aebfd0f34ae191aa29c1d3d?placeholderIfAbsent=true"
               title="미납 월세 납부"
               extraPadding
+              onClick={() => navigate("/tenant/payment-list?tab=unpaid")}
             />
           </div>
   

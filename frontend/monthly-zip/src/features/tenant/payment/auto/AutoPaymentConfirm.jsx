@@ -73,6 +73,13 @@ const TransferSchedule = () => {
 
 // Main component that combines all the smaller components
 function AutoPaymentConfirm() {
+  const navigate = useNavigate();
+
+  const handleConfirm = () => {
+    localStorage.setItem("isAutoPaymentActive", "true");
+    navigate("/tenant/payment-main");
+  };
+
   return (
     <main className={styles.container}>
       <Header />
@@ -83,8 +90,8 @@ function AutoPaymentConfirm() {
         <TransferSchedule />
         <hr className={styles.bottomDivider} />
       </div>
-      <button type="button" className={styles.nextButton}>
-        다음
+      <button type="button" className={styles.nextButton} onClick={handleConfirm}>
+        확인
      </button>
     </main>
   );

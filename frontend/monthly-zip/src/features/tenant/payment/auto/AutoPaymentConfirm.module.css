@@ -2,11 +2,10 @@
     background-color: #fff;
     width: 100%;
     max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 68px 22px;
+    padding-top: 68px;
     min-height: 700px;
     overflow: hidden;
+    justify-self: center;
     font-family:
     Poppins,
     -apple-system,
