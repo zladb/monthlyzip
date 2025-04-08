@@ -2,6 +2,7 @@ package com.monthlyzip.global.common.scheduler;
 
 import com.monthlyzip.domain.autotransfer.entity.AutoTransfer;
 import com.monthlyzip.domain.autotransfer.repository.AutoTransferRepository;
+import com.monthlyzip.domain.transfer.service.TransferService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.util.List;
 public class AutoTransferExecutor {
 
     private final AutoTransferRepository autoTransferRepository;
+    private final TransferService transferService;
 
     public void executeTransfersForToday() {
         LocalDate today = LocalDate.now();
@@ -27,9 +29,19 @@ public class AutoTransferExecutor {
             if (isEligibleForTransfer(today, transfer)) {
                 log.info("[자동이체 대상] ID: {}, 금액: {}", transfer.getId(), transfer.getAmount());
 
-                // 송금 API 호출 예정
-                // 송금 부분 구현 할 부분입니다.
-
+                // 송금 API 호출
+                try {
+                    transferService.transfer(
+                            transfer.getFromAccount().getAccountNo(),
+                            transfer.getToAccount().getAccountNo(),
+                            transfer.getFromAccount().getUserApiKey(),
+                            transfer.getAmount(),
+                            transfer.getContract(),
+                            transfer.getTenant().getId()
+                    );
+                } catch (Exception e) {
+                    log.error("[자동이체 실패] ID: {}, 사유: {}", transfer.getId(), e.getMessage());
+                }
             } else {
                 log.debug("[자동이체 제외] ID: {} (기간 외)", transfer.getId());
             }
