@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./InquiryList.module.css";
-import registerIcon from '../../../assets/icons/inquiryregister.png';
+import registerIcon from "../../../assets/icons/inquiryregister.png";
+import Navbar from "../navbar/Navbar"
 
 function InquiryHeader({ title }) {
   const navigate = useNavigate();
@@ -129,6 +130,7 @@ function InquiryList() {
             />
           ))}
         </section>
+        <Navbar />
       </main>
     </>
   );
