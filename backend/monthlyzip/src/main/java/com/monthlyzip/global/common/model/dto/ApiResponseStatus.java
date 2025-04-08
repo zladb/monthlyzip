@@ -67,11 +67,11 @@ public enum ApiResponseStatus {
     EXTERNAL_USERKEY_API_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR, 6001, "USER KEY API 호출에 실패했습니다."),
     EXTERNAL_ACCOUNT_API_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR, 6002, "ACCOUNT API 호출에 실패했습니다."),
     EXTERNAL_DEPOSIT_API_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR, 6003, "DEPOSIT API 호출에 실패했습니다."),
+    EXTERNAL_TRANSFER_API_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR, 6004, "TRANSFER API 호출에 실패했습니다."),
 
     // AutoTransfer
     INVALID_DATE_RANGE(false, HttpStatus.BAD_REQUEST, 400, "기간 설정이 유효하지 않습니다."),
     AUTO_TRANSFER_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "등록된 자동이체가 없습니다.")
-
 
     ;
 
