@@ -21,7 +21,7 @@ function NotificationHeader() {
   const navigate = useNavigate();
 
   const handleCreateClick = () => {
-    navigate("/landlord/notice/create");
+    navigate("/landlord/notice-create");
   };
 
   return (
@@ -44,7 +44,10 @@ function NotificationPanel() {
       const url = buildingId ? `/api/notices?buildingId=${buildingId}` : '/api/notices';
       const response = await axios.get(url);
       if (response.data.success) {
-        setNotices(response.data.result);
+        const sortedNotices = response.data.result.sort((a, b) => 
+          new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setNotices(sortedNotices);
       }
     } catch (error) {
       console.error("공지사항 목록을 불러오는데 실패했습니다:", error);

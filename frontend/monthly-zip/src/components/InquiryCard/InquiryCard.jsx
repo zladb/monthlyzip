@@ -25,6 +25,12 @@ function InquiryCard({ id, type, title, date, status }) {
     navigate(`/landlord/inquiry/${id}`);
   };
 
+  const formattedDate = new Date(date).toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).replace(/\. /g, '.').slice(0, -1);
+
   return (
     <article 
       className={styles.card} 
@@ -39,7 +45,7 @@ function InquiryCard({ id, type, title, date, status }) {
       </h3>
       <div className={styles.meta}>
         <time className={styles.date}>
-          {date}
+          {formattedDate}
         </time>
         <span className={styles.status}>
           {status}

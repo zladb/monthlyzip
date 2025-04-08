@@ -1,6 +1,6 @@
 .container {
   background-color: #FFFBF7;
-  padding: 24px 0;
+  padding: 40px 0;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -38,7 +38,7 @@
 
 .userName {
   color: #0F123F;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   margin: 0;
 }
@@ -51,7 +51,6 @@
 }
 
 .header h1 {
-  font-size: 24px;
   font-weight: 700;
   color: #1f2024;
 }
