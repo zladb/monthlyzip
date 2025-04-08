@@ -26,7 +26,7 @@ public class Payment {
     @JoinColumn(name = "contract_id", nullable = false)
     private Contract contract;
 
-    @Column(name = "payment_date", nullable = false)
+    @Column(name = "payment_date")
     private LocalDateTime paymentDate;
 
     @Column(name = "due_date", nullable = false)
