@@ -21,6 +21,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 @Slf4j
@@ -36,6 +38,8 @@ public class JoinService {
     private String USER_KEY_API_URL;
     @Value("${fintech.url.account-create}")
     private String ACCOUNT_API_URL;
+    @Value("${fintech.url.deposit-url}")
+    private String ACCOUNT_DEPOSIT_URL;
     @Value("${fintech.values.manager-key}")
     private String MANAGER_API_KEY;
     @Value("${fintech.values.account-type-no}")
@@ -121,9 +125,9 @@ public class JoinService {
             accountRequest.setHeader(header);
             accountRequest.setAccountTypeUniqueNo(ACCOUNT_NO_FIXED);
 
-            ObjectMapper objectMap = new ObjectMapper();
-            String jsonBody = objectMap.writeValueAsString(accountRequest);
-            log.info("보낼 JSON Body:\n{}", jsonBody);
+//            ObjectMapper objectMap = new ObjectMapper();
+//            String jsonBody = objectMap.writeValueAsString(accountRequest);
+//            log.info("보낼 JSON Body:\n{}", jsonBody);
 
             ResponseEntity<CreateAccountResponse> accountResponse = restTemplate.postForEntity(
                     ACCOUNT_API_URL,
@@ -139,6 +143,45 @@ public class JoinService {
         } catch (Exception e) {
             log.error("회원가입 실패 - 계좌 생성 API 호출 중 예외 발생", e);
             throw new BusinessException(ApiResponseStatus.EXTERNAL_ACCOUNT_API_ERROR);
+        }
+
+        // ********** 계좌에 초기 금액 입금 **********
+        try {
+            LocalDateTime now = LocalDateTime.now();
+            String transmissionDate = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+            String transmissionTime = now.format(DateTimeFormatter.ofPattern("HHmmss"));
+            String transactionUniqueNo = transmissionDate + transmissionTime + String.format("%06d", new Random().nextInt(999999));
+
+            Map<String, Object> depositRequest = new HashMap<>();
+            Map<String, String> header = new HashMap<>();
+            header.put("apiName", "updateDemandDepositAccountDeposit");
+            header.put("transmissionDate", transmissionDate);
+            header.put("transmissionTime", transmissionTime);
+            header.put("institutionCode", INSTITUTION_CODE);
+            header.put("fintechAppNo", FINTECH_APP_NO);
+            header.put("apiServiceCode", "updateDemandDepositAccountDeposit");
+            header.put("institutionTransactionUniqueNo", transactionUniqueNo);
+            header.put("apiKey", MANAGER_API_KEY);
+            header.put("userKey", userKey);
+
+            depositRequest.put("Header", header);
+            depositRequest.put("accountNo", accountNo);
+            depositRequest.put("transactionBalance", "10000000");
+            depositRequest.put("transactionSummary", "카뱅 자동 입금");
+
+            ResponseEntity<String> depositResponse = restTemplate.postForEntity(
+                    ACCOUNT_DEPOSIT_URL,
+                    depositRequest,
+                    String.class
+            );
+
+            if (!depositResponse.getStatusCode().is2xxSuccessful()) {
+                log.error("계좌 입금 실패 - 응답 코드: {}", depositResponse.getStatusCode());
+                throw new BusinessException(ApiResponseStatus.EXTERNAL_DEPOSIT_API_ERROR);
+            }
+        } catch (Exception e) {
+            log.error("계좌 입금 중 예외 발생", e);
+            throw new BusinessException(ApiResponseStatus.EXTERNAL_DEPOSIT_API_ERROR);
         }
 
         // 데이터 저장 부분
