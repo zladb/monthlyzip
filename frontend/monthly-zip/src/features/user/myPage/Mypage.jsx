@@ -14,8 +14,8 @@ const Mypage = () => {
     userType: "",
   });
 
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [passwordVisible] = useState(false);
+  const [confirmPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [profileImage, setProfileImage] = useState(null); // 서버 전송용

@@ -20,6 +20,7 @@
   text-decoration: none;
   color: #666666;
   transition: color 0.2s ease;
+  gap: 3px;
 }
 
 .navItem:hover {
@@ -73,12 +74,17 @@
 .navLabel {
   font-family: Inter, sans-serif;
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 1000;
   text-align: center;
 }
 
 .active {
   color: #181725;
+  font-weight: 700;
+}
+
+.active .icon {
+  filter: brightness(0) saturate(100%) invert(8%) sepia(4%) saturate(5000%) hue-rotate(180deg) brightness(90%) contrast(90%);
 }
 
 .active .navIcon path {
