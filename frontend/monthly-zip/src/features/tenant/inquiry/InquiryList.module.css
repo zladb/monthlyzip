@@ -2,7 +2,7 @@
     background-color: #fff9ed;
     width: 100%;
     max-width: 480px;
-    min-height: 700px;
+    min-height: 800px;
     margin: 0 auto;
     position: relative;
   }
@@ -36,6 +36,10 @@
     overflow-x: auto;
     margin: 0 15px;
     padding: 10px 15px;
+    gap: 8px; 
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
   }
   
   .filterItem {
@@ -43,13 +47,14 @@
     white-space: nowrap;
     text-align: center;
     min-width: 50px;
-    padding: 10px 8px;
+    padding: 6px 14px; 
     font-family: Inter, sans-serif;
     font-size: 14px;
     font-weight: 700;
     background: none;
     border: none;
     cursor: pointer;
+    flex-shrink: 0;
   }
 
   .inquiryCard {

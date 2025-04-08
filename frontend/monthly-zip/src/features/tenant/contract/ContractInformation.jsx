@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./ContractInformation.module.css";
+import Navbar from "../navbar/Navbar"
 
 
 const AddressCard = ({ contract }) => {
@@ -227,7 +228,7 @@ function ContractInformation() {
         <PaymentDate contract={contract} />
         <TerminationButton contract={contract} />
       </div>
-
+      <Navbar />
     </main>
   );
 }
