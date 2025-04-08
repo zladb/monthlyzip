@@ -1,17 +1,12 @@
 import React, { useMemo } from 'react';
 import styles from './InquiryStatus.module.css';
 
-const STATUSES = {
-  WAITING: "접수대기",
-  PROCESSING: "처리중",
-  COMPLETED: "처리완료"
-};
 
 const InquiryStatus = ({ status }) => {
   const statusStyles = useMemo(() => {
     const getStyles = (currentStatus) => {
       switch (currentStatus) {
-        case STATUSES.WAITING:
+        case "접수대기":
           return {
             line1: styles.lineInactive,
             line2: styles.lineInactive,
@@ -22,7 +17,7 @@ const InquiryStatus = ({ status }) => {
             text2: styles.textInactive,
             text3: styles.textInactive
           };
-        case STATUSES.PROCESSING:
+        case "처리중":
           return {
             line1: styles.lineActive,
             line2: styles.lineInactive,
@@ -33,7 +28,7 @@ const InquiryStatus = ({ status }) => {
             text2: styles.textActive,
             text3: styles.textInactive
           };
-        case STATUSES.COMPLETED:
+        case "처리완료":
           return {
             line1: styles.lineActive,
             line2: styles.lineActive,
@@ -71,9 +66,9 @@ const InquiryStatus = ({ status }) => {
         <div className={`${styles.dot3} ${statusStyles.dot3}`} />
       </div>
       <div className={styles.statusTexts}>
-        <span className={`${styles.text1} ${statusStyles.text1}`}>{STATUSES.WAITING}</span>
-        <span className={`${styles.text2} ${statusStyles.text2}`}>{STATUSES.PROCESSING}</span>
-        <span className={`${styles.text3} ${statusStyles.text3}`}>{STATUSES.COMPLETED}</span>
+        <span className={`${styles.text1} ${statusStyles.text1}`}>접수 대기</span>
+        <span className={`${styles.text2} ${statusStyles.text2}`}>처리중</span>
+        <span className={`${styles.text3} ${statusStyles.text3}`}>처리 완료</span>
       </div>
     </div>
   );

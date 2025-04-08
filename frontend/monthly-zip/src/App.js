@@ -24,6 +24,13 @@ import InquiryDetail from './features/tenant/inquiry/InquiryDetail';
 import LandlordInquiryDetail from './features/landlord/inquiry/InquiryDetail';
 import AutoPaymentRegister from './features/tenant/payment/auto/AutoPaymentRegister';
 import Inquiry from './features/landlord/inquiry/Inquiry';
+import DirectPayment from './features/tenant/payment/direct/DirectPayment';
+import PaymentReview from './features/tenant/payment/direct/PaymentReview';
+import PaymentPassword from './features/tenant/payment/direct/PaymentPassword';
+import PaymentConfirm from './features/tenant/payment/direct/PaymentConfirm';
+import AutoPaymentConfirm from './features/tenant/payment/auto/AutoPaymentConfirm';
+import InquiryUpdate from './features/tenant/inquiry/InquiryUpdate';
+
 function App() {
   // const [userType, setUserType] = useState(null);
   const [userType, setUserType] = useState('임대인');
@@ -53,9 +60,15 @@ function App() {
         <Route path="/tenant/payment-detail/:paymentId" element={<PaymentDetail />} />
         <Route path="/tenant/payment-main" element={<PaymentMain />} />
 
+        <Route path="/tenant/direct-payment" element={<DirectPayment />} />
+        <Route path="/tenant/direct-payment-review" element={<PaymentReview />} />
+        <Route path="/tenant/direct-payment-password" element={<PaymentPassword />} />
+        <Route path="/tenant/direct-payment-confirm" element={<PaymentConfirm />} /> 
+
         <Route path="/tenant/auto-payment" element={<AutoPayment />} />
         <Route path="/tenant/auto-payment-agreement" element={<AutoPaymentAgreement />} /> 
         <Route path="/tenant/auto-payment-register" element={<AutoPaymentRegister/>} /> 
+        <Route path="/tenant/auto-payment-confirm" element={<AutoPaymentConfirm/>} /> 
         
         <Route path="/tenant/contract" element={<ContractInformation />} />
         <Route path="/tenant/notice-list" element={<NoticeList />} />
@@ -63,6 +76,7 @@ function App() {
         <Route path="/tenant/inquiry-register" element={<InquiryRegister />} />
         <Route path="/tenant/inquiry-list" element={<InquiryList />} />
         <Route path="/tenant/inquiry-detail/:inquiryId" element={<InquiryDetail />} />
+        <Route path="/tenant/inquiry-update/:inquiryId" element={<InquiryUpdate />} />
 
 
         

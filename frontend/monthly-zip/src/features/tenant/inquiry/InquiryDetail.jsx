@@ -44,8 +44,18 @@ function Header() {
   
     if (!inquiry) return null; // 데이터가 없을 경우 렌더링하지 않음
 
+    const handleUpdateClick = (inquiryId) => {
+      navigate(`/tenant/inquiry-update/${inquiryId}`, {
+        state: { inquiry }, // inquiry 객체 전체 전달
+      });
+    };
 
     const handleDeleteClick = async (inquiryId) => {
+      if (inquiry.status === "처리중") {
+        alert("처리중인 문의는 삭제할 수 없습니다.");
+        return;
+      }
+      
       navigate("/tenant/inquiry-list");
       if (!window.confirm("정말 삭제하시겠습니까?")) return;
   
@@ -71,7 +81,6 @@ function Header() {
         console.log(error.response?.data?.message || "네트워크 오류 또는 요청 에러입니다.");
       }
     };
-
    
     return (
       <article className={styles.contentContainer}>
@@ -82,7 +91,7 @@ function Header() {
           <div className={styles.iconGroup}>
             <button 
               className={styles.iconButton}
-              // onClick={() => handleUpdateClick(inquiry.inquiryId)}
+              onClick={() => handleUpdateClick(inquiry.inquiryId)}
             >
               <img src={inquiryUpdate} alt="수정 아이콘" />
             </button>
@@ -107,7 +116,7 @@ function Header() {
   }
 
   function StatusIndicators({ status }) {
-    const statusList = ["접수", "처리중", "처리완료"];
+    const statusList = ["접수대기", "처리중", "처리완료"];
     const currentStep = statusList.findIndex((item) => item === status);
   
     return (
@@ -154,54 +163,26 @@ function Header() {
       </section>
     );
   }
-  
-
-  // function StatusIndicators({ status }) {
-  //   const statusList = ["접수", "처리중", "처리완료"];
-  //   const currentStep = statusList.findIndex((item) => item === status);
-
-  //   console.log("현재 상태:", status); // 콘솔 로그 추가
-    
-  //   return (
-  //     <section className={styles.statusContainer}>
-  //      {statusList.map((item, index) =>  (
-  //         <div key={index} className={styles.statusItem}>
-  //           <div
-  //             className={
-  //               status === item ? styles.activeStatusDot : styles.inactiveStatusDot
-  //             }
-  //           />
-  //           <div
-  //             className={
-  //               status === item ? styles.activeStatusText : styles.statusText
-  //             } 
-  //           >
-  //             {item}
-  //           </div>
-  //         </div>
-  //       ))}
-  //     </section>
-  //   );
-  // }
-
 
   function Footer({ status, onToggleStatus }) {
+    const isComplete = status === "처리완료";
+    const isInProgress = status === "처리중";
+  
     return (
       <>
-        {status === "접수" ? (
-          <button className={styles.disabledButton} disabled>
-            처리 완료
+        {isInProgress ? (
+          <button className={styles.activeButton} onClick={onToggleStatus}>
+            처리완료
           </button>
         ) : (
-          <button className={styles.activeButton} onClick={onToggleStatus}>
-            {status === "처리중" ? "처리 완료" : "처리 완료 취소"}
+          <button className={styles.disabledButton} disabled>
+            처리완료
           </button>
         )}
       </>
     );
   }
-
-
+  
   function InquiryDetail() {
     const { inquiryId } = useParams();
     const [inquiry, setInquiry] = useState(null);
@@ -232,32 +213,51 @@ function Header() {
   
       fetchInquiry();
     }, [inquiryId]);
-  
+
     const handleToggleStatus = async () => {
       if (!inquiry) return;
   
-      const newStatus = inquiry.status === "처리중" ? "처리완료" : "처리중";
+      if (inquiry.status !== "처리중") {
+        return;
+      }
+  
+      const token = localStorage.getItem("accessToken");
+  
+      const updatePayload = {
+        status: "처리완료", 
+        title: inquiry.title,
+        content: inquiry.content,
+      };
+  
+      const formData = new FormData();
+      formData.append(
+        "data",
+        new Blob([JSON.stringify(updatePayload)], {
+          type: "application/json",
+        })
+      );
   
       try {
-        const token = localStorage.getItem("accessToken");
-        
-        const response = await axios.put(
+        const response = await axios.patch(
           `/api/inquiries/${inquiryId}`,
-          { status: newStatus },
+          formData,
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
+              "Content-Type": "multipart/form-data",
             },
           }
         );
   
-        // 응답 데이터로 상태 업데이트 (서버에서 최신 상태 반환됨)
+        console.log("서버 응답:", response.data);
         setInquiry(response.data.result);
+        alert("처리 상태가 처리완료로 변경되었습니다.");
       } catch (error) {
         console.log("상태 변경 실패:", error);
+        console.log("서버 응답 메시지:", error.response?.data?.message);
       }
     };
+  
   
     if (!inquiry) return null;
   

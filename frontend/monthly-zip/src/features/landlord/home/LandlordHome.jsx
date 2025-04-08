@@ -34,6 +34,7 @@ function DashboardCards({ monthlySummary }) {
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
   const totalPages = 3;
+  const cardWidth = 100 / totalPages; // 각 카드의 너비를 퍼센트로 계산
 
   const handleTouchStart = (e) => {
     setTouchStart(e.touches[0].clientX);
@@ -69,7 +70,7 @@ function DashboardCards({ monthlySummary }) {
     <div className={styles.dashboardContainer}>
       <div 
         className={styles.cardSlider}
-        style={{ transform: `translateX(-${currentPage * 100}%)` }}
+        style={{ transform: `translateX(-${currentPage * cardWidth}%)` }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}

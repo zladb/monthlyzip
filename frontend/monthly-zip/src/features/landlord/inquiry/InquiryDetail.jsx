@@ -7,32 +7,6 @@ import InquiryStatus from "../../../components/InquiryStatus/InquiryStatus";
 import InquiryButton from "../../../components/InquiryButton/InquiryButton";
 import defaultProfile from "../../../assets/images/default_profile.png";
 
-// Status 상수 정의
-const STATUS_MAPPING = {
-  WAITING: "접수대기",
-  PROCESSING: "처리중",
-  COMPLETED: "처리완료"
-};
-
-// API 요청 인터셉터 설정
-const api = axios.create({
-  baseURL: 'https://j12d109.p.ssafy.io',
-  withCredentials: true
-});
-
-// API 요청 인터셉터 설정
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 // Status indicator dots component
 const StatusIndicator = ({ currentIndex, totalImages }) => {
@@ -138,7 +112,7 @@ function InquiryDetail() {
 
   const handleInquiryAction = async () => {
     try {
-      if (inquiryData.status !== STATUS_MAPPING.WAITING) {
+      if (inquiryData.status !== "접수대기") {
         return;
       }
 
@@ -147,9 +121,11 @@ function InquiryDetail() {
         throw new Error('인증 토큰이 없습니다.');
       }
 
-      const response = await axios.put(
+      const response = await axios.patch(
         `/api/inquiries/${inquiryId}`,
-        { status: "처리중" },
+        {
+          status: "처리중"
+        },
         {
           headers: {
             'Content-Type': 'application/json',
@@ -159,10 +135,8 @@ function InquiryDetail() {
       );
 
       if (response.data.success) {
-        setInquiryData(prevData => ({
-          ...prevData,
-          status: STATUS_MAPPING.PROCESSING
-        }));
+        // 상태 업데이트 후 데이터를 다시 불러옵니다.
+        await fetchInquiryData();
       }
     } catch (err) {
       console.error('API 요청 에러:', err);
@@ -211,24 +185,8 @@ function InquiryDetail() {
   }, [inquiryId]);
 
   useEffect(() => {
-    let isSubscribed = true;
-
-    const loadData = async () => {
-      try {
-        await fetchInquiryData();
-      } catch (err) {
-        if (isSubscribed) {
-          console.error('데이터 로딩 에러:', err);
-        }
-      }
-    };
-
-    loadData();
-
-    return () => {
-      isSubscribed = false;
-    };
-  }, [inquiryId, fetchInquiryData]);
+    fetchInquiryData();
+  }, [fetchInquiryData]);
 
   if (loading) return <div>로딩중...</div>;
   if (error) return <div>에러가 발생했습니다: {error}</div>;
