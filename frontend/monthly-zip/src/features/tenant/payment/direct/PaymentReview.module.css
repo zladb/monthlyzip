@@ -1,0 +1,180 @@
+.container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 68px;
+    overflow: hidden;
+    min-height: 800px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 26px;
+    padding-right: 26px;
+    margin-top: 75px;
+  }
+
+  /* 상단 헤더 */
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 231px;
+    margin-left: 25px;
+    gap: 10px;
+  }
+  
+  .backIcon {
+    width: 28px;
+    aspect-ratio: 1;
+    object-fit: contain;
+    margin: auto 0;
+  }
+  
+  .pageTitle {
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #000;
+    font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+    gap: 10px;
+  }
+  .accountDisplay {
+    color: #5f6368;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: Poppins, -apple-system, Roboto, Helvetica, sans-serif;
+    align-self: center;
+    margin-top: 19px;
+    line-height: 1;
+  }
+  
+  .recipientTitle {
+    color: #343434;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: Poppins, -apple-system, Roboto, Helvetica, sans-serif;
+    align-self: center;
+    text-align: center;
+    margin-top: 32px;
+    line-height: 1;
+  }
+  
+  .amountText {
+    color: #343434;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: Poppins, -apple-system, Roboto, Helvetica, sans-serif;
+    align-self: end;
+    text-align: center;
+    margin-top: 7px;
+    line-height: 1;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .dividerTop {
+    width: 400px;
+    max-width: 100%;
+    height: 1px;
+    border: 1px solid #dadada;
+    flex-shrink: 0;
+    margin-top: 120px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .dividerBottom {
+    width: 400px;
+    max-width: 100%;
+    height: 1px;
+    border: 1px solid #dadada;
+    flex-shrink: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 23px;
+  }
+  .accountSection {
+    display: flex;
+    align-items: stretch;
+    gap: 30px;
+    width: 100%;
+    max-width: 288px;
+    align-self: center;
+    margin-top: 21px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: Poppins, -apple-system, Roboto, Helvetica, sans-serif;
+    line-height: 1;
+  }
+  
+  .accountLabel {
+    color: #979797;
+  }
+  
+  .accountNumber {
+    color: #343434;
+    text-align: right;
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 188px;
+  }
+  
+  .recipientSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    align-self: center;
+    width: 100%;
+    max-width: 288px;
+    gap: 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: Poppins, -apple-system, Roboto, Helvetica, sans-serif;
+    line-height: 1;
+  }
+  
+  .recipientLabelRow {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    color: #979797;
+  }
+  
+  .rightAlignedLabel {
+    margin-top: 22px;
+    align-self: start;
+  }
+  
+  .recipientValueRow {
+    color: #343434;
+    text-align: right;
+    white-space: nowrap;
+  }
+  
+  .rightAlignedName {
+    margin-top: 21px;
+  }
+  
+  .nextButton {
+    width: 100%;
+    margin-top: 190px;
+    padding: 23px 70px;
+    color: #000;
+    border: none;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #fcbe32;
+    font-family: Montserrat, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  

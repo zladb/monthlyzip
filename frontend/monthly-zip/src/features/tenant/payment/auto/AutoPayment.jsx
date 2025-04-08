@@ -54,6 +54,12 @@ function AutoPayment() {
 }
 
 function Header() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/tenant/payment-main');
+  };
+
   return (
     <header className={styles.header}>
       <h1 className={styles.title}>
@@ -61,6 +67,7 @@ function Header() {
           src="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/7a31437be2e255491b409270ea87dc20bf8f242b?placeholderIfAbsent=true"
           alt="Registration icon"
           className={styles.titleIcon}
+          onClick={handleClick}
         />
         <span className={styles.titleText}>자동이체 등록</span>
       </h1>

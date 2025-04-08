@@ -48,24 +48,26 @@ const StatusFlow = ({ activeStatus, setActiveStatus, statusCounts }) => {
   );
 };
 
-// BuildingFilter Component
-const BuildingFilter = ({ activeBuilding, setActiveBuilding, buildings }) => {
+// TypeFilter Component
+const TypeFilter = ({ activeType, setActiveType }) => {
+  const types = [
+    { label: "전체", key: "" },
+    { label: "수리 요청", key: "수리요청" },
+    { label: "납부 관리", key: "납부관리" },
+    { label: "계약 관리", key: "계약관리" },
+    { label: "생활 민원", key: "생활민원" },
+    { label: "기타", key: "기타" }
+  ];
+
   return (
     <nav className={styles.div16}>
-      <button
-        key="building-all"
-        className={activeBuilding === "전체" ? styles.filterButtonActive : styles.filterButton}
-        onClick={() => setActiveBuilding("전체")}
-      >
-        전체
-      </button>
-      {buildings.map((building, index) => (
+      {types.map((type) => (
         <button
-          key={`building-${building.id}`}
-          className={activeBuilding === building.id ? styles.filterButtonActive : styles.filterButton}
-          onClick={() => setActiveBuilding(building.id)}
+          key={`type-${type.key || 'all'}`}
+          className={activeType === type.key ? styles.filterButtonActive : styles.filterButton}
+          onClick={() => setActiveType(type.key)}
         >
-          {building.buildingName}
+          {type.label}
         </button>
       ))}
     </nav>
@@ -78,30 +80,9 @@ function Inquiry() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeStatus, setActiveStatus] = useState("");
-  const [activeBuilding, setActiveBuilding] = useState("전체");
+  const [activeType, setActiveType] = useState("");
   const [statusCounts, setStatusCounts] = useState({});
-  const [buildings, setBuildings] = useState([]);
   const [allInquiries, setAllInquiries] = useState([]);
-
-  // 건물 목록 fetch 함수
-  const fetchBuildings = async () => {
-    try {
-      const token = localStorage.getItem('accessToken');
-      const response = await axios.get('/api/buildings', {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.data.success) {
-        const buildingsData = response.data.result;
-        setBuildings(buildingsData);
-      }
-    } catch (err) {
-      console.error('건물 목록 조회 에러:', err);
-    }
-  };
 
   // 문의 데이터 fetch 함수
   const fetchInquiries = useCallback(async () => {
@@ -127,15 +108,15 @@ function Inquiry() {
         }, {});
         setStatusCounts(counts);
 
-        // 선택된 상태와 건물에 따라 필터링
+        // 선택된 상태와 유형에 따라 필터링
         let filteredData = allInquiriesData;
         
         if (activeStatus) {
           filteredData = filteredData.filter(inquiry => inquiry.status === activeStatus);
         }
         
-        if (activeBuilding !== "전체") {
-          filteredData = filteredData.filter(inquiry => inquiry.contractId === activeBuilding);
+        if (activeType) {
+          filteredData = filteredData.filter(inquiry => inquiry.inquiryType === activeType);
         }
         
         setInquiries(filteredData);
@@ -146,14 +127,9 @@ function Inquiry() {
     } finally {
       setLoading(false);
     }
-  }, [activeStatus, activeBuilding]);
+  }, [activeStatus, activeType]);
 
   // 초기 데이터 로드
-  useEffect(() => {
-    fetchBuildings();
-  }, []);
-
-  // 필터 변경시 데이터 새로고침
   useEffect(() => {
     fetchInquiries();
   }, [fetchInquiries]);
@@ -172,10 +148,9 @@ function Inquiry() {
         />
       </section>
       <section className={styles.div15}>
-        <BuildingFilter 
-          activeBuilding={activeBuilding}
-          setActiveBuilding={setActiveBuilding}
-          buildings={buildings}
+        <TypeFilter 
+          activeType={activeType}
+          setActiveType={setActiveType}
         />
         {inquiries.map((inquiry) => (
           <InquiryCard

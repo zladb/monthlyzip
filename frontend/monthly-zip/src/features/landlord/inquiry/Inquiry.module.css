@@ -138,6 +138,17 @@
   display: flex;
   gap: 24px;
   margin-bottom: 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  padding-bottom: 8px; /* 스크롤바 공간 확보 */
+}
+
+/* Chrome, Safari, Opera에서 스크롤바 숨기기 */
+.div16::-webkit-scrollbar {
+  display: none;
 }
 
 .div17 {
@@ -176,6 +187,7 @@ button {
   padding: 0;
   position: relative;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .filterButton:hover {
@@ -192,6 +204,7 @@ button {
   padding: 0;
   position: relative;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .filterButtonActive::after {

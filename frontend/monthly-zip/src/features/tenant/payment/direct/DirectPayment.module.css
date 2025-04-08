@@ -1,0 +1,192 @@
+/* 전체 레이아웃 */
+.paymentSection {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding-top: 68px;
+    font-family: Poppins, -apple-system, Roboto, Helvetica, sans-serif;
+    overflow: hidden;
+  }
+  
+  /* 상단 헤더 */
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 231px;
+    margin-left: 25px;
+  }
+  
+  .paymentTitle {
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #000;
+    font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+    gap: 10px;
+  }
+  
+  .icon {
+    width: 28px;
+    aspect-ratio: 1;
+    object-fit: contain;
+    margin: auto 0;
+  }
+  
+  .titleText {
+    flex-basis: auto;
+  }
+  
+  .userInfoWrapper {
+    display: flex;
+    margin-top: 34px;
+    margin-left: 15px;
+    font-size: 16px;
+    color: #343434;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  
+  .userName {
+    font-weight: 600;
+  }
+  
+  .userSuffix {
+    font-weight: 500;
+  }
+  
+  .accountNumber {
+    color: #5f6368;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    margin-top: 10px;
+    margin-left: 15px;
+  }
+  
+  /* 금액 표시 영역 */
+  .amountDisplayContainer {
+    align-self: flex-end;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 54px;
+
+  }
+  
+  .amount {
+    color: #343434;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+  }
+  
+  .balance {
+    color: #5f6368;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 18px;
+  }
+  
+  /* 빠른 금액 버튼 */
+  .quickAmountContainer {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    max-width: 330px;
+    width: 100%;
+    margin: 88px auto 0;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1;
+  }
+  
+  .quickAll,
+  .quick100,
+  .quick10,
+  .quick5,
+  .quick1 {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    border-radius: 3px;
+    font-weight: 500;
+    white-space: nowrap;         /* 줄바꿈 방지 */
+  }
+  
+  .quickAll {
+    padding: 7px 19px;
+  }
+  
+  .quick100 {
+    padding: 7px 16px;
+  }
+  
+  .quick10 {
+    padding: 7px 20px;
+  }
+  
+  .quick5 {
+    padding: 7px 21px;
+  }
+  
+  .quick1 {
+    padding: 7px 23px;
+  }
+  
+  /* 키패드 */
+  .keypadWrapper {
+    background-color: #fff;
+    border-radius: 14px;
+    padding: 19px 42px 11px;
+    margin-top: 7px;
+    width: 100%;
+    box-shadow: 0 2px 48px #0000000a;
+    display: flex;
+    flex-direction: column;
+    font-size: 32px;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #404046;
+  }
+  
+  .keypadRow {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  .key {
+    flex: 1;
+    background-color: #fff;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+  }
+  
+  .backspaceIcon {
+    width: 25px;
+    aspect-ratio: 1.04;
+    object-fit: contain;
+    margin: auto;
+  }
+  
+  /* 확인 버튼 */
+  .confirmButton {
+    width: 100%;
+    padding: 23px 70px;
+    background-color: #fcbe32;
+    color: #000;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    font-family: Montserrat, -apple-system, Roboto, Helvetica, sans-serif;
+    border: none;
+    margin-top: 20px;
+  }
+  

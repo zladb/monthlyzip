@@ -1,0 +1,54 @@
+.wheelWrapperContainer {
+  display: flex;          /* 좌우 배치 */
+  justify-content: center;
+  align-items: center;
+  gap: 12px;              /* 년도/월 휠 사이 간격 */
+  height: 200px;
+  position: relative;
+}
+
+.wheelWrapper {
+    position: relative;
+    flex: 1;                /* 전체 너비의 절반 */
+    height: 200px;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+  }
+  
+  .wheelList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 100%;
+    overflow-y: scroll;
+    text-align: center;
+    scroll-behavior: smooth;
+    padding-top: 80px; /* 중앙선 위쪽 여백 */
+    padding-bottom: 80px;
+  }
+  
+  .wheelItem {
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #aaa;
+  }
+  
+  .wheelItemSelected {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .wheelOverlay {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    pointer-events: none;
+  }
+  
