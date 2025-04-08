@@ -2,13 +2,13 @@ package com.monthlyzip.domain.autotransfer.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class AutoTransferInitResponse {
-    private Long contractId;
-    private String fromAccount;
-    private String toAccount;
+public class AutoTransferCreateResponse {
+    private Long autoTransferId;
 }

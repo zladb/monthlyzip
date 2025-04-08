@@ -36,13 +36,13 @@ public class AutoTransfer {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_account", referencedColumnName = "account_no", nullable = false, unique = true,
             foreignKey = @ForeignKey(name = "fk_auto_transfer_from_account"))
-    private Member fromMember;
+    private Member fromAccount;
 
     // N:1 관계 - 입금 계좌
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_account", referencedColumnName = "account_no", nullable = false,
             foreignKey = @ForeignKey(name = "fk_auto_transfer_to_account"))
-    private Member toMember;
+    private Member toAccount;
 
     @Column(nullable = false)
     private Long amount;

@@ -1,12 +1,16 @@
 package com.monthlyzip.domain.auth.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class CreateAccountRequest {
-    private Header Header;
+
+    @JsonProperty("Header")
+    private Header header;
+    @JsonProperty("accountTypeUniqueNo")
     private String accountTypeUniqueNo;
 
     @Getter
