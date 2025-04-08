@@ -1,0 +1,218 @@
+.pwa {
+  background-color: #FFFBF7;
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 120px;
+  overflow-y: auto;
+}
+
+.div2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.div3 {
+  color: #000;
+  font-family: Inter, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.div4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  position: relative;
+}
+
+.statusWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.statusCircle {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 500;
+  position: relative;
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+.statusCircleInactive {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.2s ease;
+  background-color: #F5F5F5;
+  color: #80848C;
+}
+
+.statusCircleInactive:hover {
+  background-color: #E5E5E5;
+}
+
+.statusCircleActive {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.2s ease;
+  background-color: #808080;
+  color: white;
+}
+
+.div4::before {
+  content: '';
+  position: absolute;
+  top: calc(20px + 32.5px);  /* padding-top + circle의 반높이 */
+  left: 85px;
+  right: 85px;
+  border-top: 3px dotted #E2E2E2;
+  z-index: 0;
+}
+
+.statusLabel {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #80848C;
+}
+
+.statusLabelActive {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+}
+
+.div15 {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 24px 27px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 1px 10px rgba(171, 171, 171, 0.5);
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.div16 {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  padding-bottom: 8px; /* 스크롤바 공간 확보 */
+}
+
+/* Chrome, Safari, Opera에서 스크롤바 숨기기 */
+.div16::-webkit-scrollbar {
+  display: none;
+}
+
+.div17 {
+  position: relative;
+}
+
+.div18 {
+  color: #000;
+  font-weight: 600;
+}
+
+.div19 {
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #FF5F2E;
+}
+
+button {
+  background: none;
+  border: none;
+  color: #767676;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+}
+
+.filterButton {
+  background: none;
+  border: none;
+  color: #767676;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filterButton:hover {
+  color: #000;
+}
+
+.filterButtonActive {
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filterButtonActive::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #FF5F2E;
+}

@@ -1,0 +1,85 @@
+.container {
+    width: 100%;
+    padding: 20px;
+    position: relative;
+  }
+  
+  .statusLine {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 2px;
+    margin-bottom: 12px;
+  }
+  
+  .line1, .line2 {
+    flex: 1;
+    height: 3px;
+    background-color: #E2E2E2;
+    transition: background-color 0.3s ease;
+  }
+  
+  .lineActive {
+    background-color: #808080;
+  }
+  
+  .lineInactive {
+    background-color: #E2E2E2;
+  }
+  
+  .dot1, .dot2, .dot3 {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #E2E2E2;
+    transition: all 0.3s ease;
+  }
+  
+  .dotActive {
+    background-color: #808080;
+    transform: scale(1.2);
+  }
+  
+  .dotInactive {
+    background-color: #E2E2E2;
+  }
+  
+  .statusTexts {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 8px;
+  }
+  
+  .text1, .text2, .text3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #80848C;
+    transition: color 0.3s ease;
+  }
+  
+  .text1 {
+    transform: translateX(-50%);
+    margin-left: 6px;
+  }
+  
+  .text2 {
+    text-align: center;
+  }
+  
+  .text3 {
+    transform: translateX(50%);
+    margin-right: 6px;
+  }
+  
+  .textActive {
+    color: #808080;
+    font-weight: 600;
+  }
+  
+  .textInactive {
+    color: #80848C;
+  }
+  

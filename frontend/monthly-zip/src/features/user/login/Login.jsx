@@ -11,14 +11,28 @@ function Login() {
   const [password, setPassword] = React.useState("");
 
   const handleLogin = async () => {
+    // 입력값 검증
+    if (!email || !password) {
+      alert("이메일과 비밀번호를 모두 입력해주세요.");
+      return;
+    }
+
+    // 이메일 형식 검증
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("올바른 이메일 형식이 아닙니다.");
+      return;
+    }
+
     try {
+      console.log("로그인 요청 데이터:", { email, password });
+      
       const response = await axios.post("/api/auth/login", {
         email,
         password,
       });
   
-      console.log(response.data); 
-  
+      console.log("로그인 응답:", response.data); 
   
       const token = response.data.result.accessToken;
   
@@ -40,7 +54,16 @@ function Login() {
   
     } catch (error) {
       console.error("로그인 실패:", error);
-      alert("로그인에 실패했습니다. 다시 시도해주세요.");
+      console.error("에러 응답:", error.response?.data);
+      
+      // 서버 응답에 따른 구체적인 에러 메시지 표시
+      if (error.response?.data?.message) {
+        alert(error.response.data.message);
+      } else if (error.response?.status === 401) {
+        alert("이메일 또는 비밀번호가 올바르지 않습니다.");
+      } else {
+        alert("로그인에 실패했습니다. 다시 시도해주세요.");
+      }
     }
   };
 
