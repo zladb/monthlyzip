@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import './App.css';
@@ -12,6 +12,9 @@ import LandlordHome from './features/landlord/home/LandlordHome'
 import Inquiry from './features/landlord/inquiry/Inquiry';
 import LandlordInquiryDetail from './features/landlord/inquiry/InquiryDetail'
 import Notice from './features/landlord/notice/Notice';
+import LandlordNoticeDetail from './features/landlord/notice/NoticeDetail';
+import NoticeUpdate from './features/landlord/notice/NoticeUpdate';
+import NoticeCreate from './features/landlord/notice/NoticeCreate';
 
 import TenantHome from './features/tenant/home/TenantHome';
 import PaymentList from './features/tenant/payment/PaymentList';
@@ -34,8 +37,6 @@ import AutoPaymentConfirm from './features/tenant/payment/auto/AutoPaymentConfir
 import InquiryUpdate from './features/tenant/inquiry/InquiryUpdate';
 
 function App() {
-  // const [userType, setUserType] = useState(null);
-  const [userType, setUserType] = useState('임대인');
 
   return (
     <Router>
@@ -50,11 +51,14 @@ function App() {
         <Route path="/landlord" element={<LandlordHome />} />
         <Route path="/landlord/alarm-setting" element={<div>알림 발송 설정 페이지</div>} />
         <Route path="/landlord/building" element={<div>세대 관리 메인 페이지</div>} />
+        <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
+        <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
         <Route path="/landlord/inquiry" element={<Inquiry />} />
         <Route path="/landlord/inquiry/:inquiryId" element={<LandlordInquiryDetail />} />
         <Route path="/landlord/notice" element={<Notice />} />
-        <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
-        <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
+        <Route path="/landlord/notice/:noticeId" element={<LandlordNoticeDetail />} />
+        <Route path="/landlord/notice-update/:noticeId" element={<NoticeUpdate />} />
+        <Route path="/landlord/notice-create" element={<NoticeCreate />} />
 
         {/* 임차인 라우트 */}
         <Route path="/tenant" element={<TenantHome />} />
