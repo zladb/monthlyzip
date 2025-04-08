@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./PaymentMain.module.css";
+import Navbar from "../navbar/Navbar"
 
 
 function PaymentOptionCard({ imageUrl, title, extraPadding = false, onClick }) {
@@ -92,23 +93,24 @@ function PaymentHistorySection() {
             "Content-Type": "application/json",
           },
         });
-
+  
         if (response.data.success) {
           const allPayments = response.data.result;
-
+  
           const sorted = allPayments
-          .filter(item => item.paymentDate) // 납부된 항목만
-          .sort((a, b) => new Date(b.paymentDate) - new Date(a.paymentDate))
-          .slice(0, 3)
-          .map((item) => {
-            const paymentDate = new Date(item.paymentDate);
-            const monthStr = `${paymentDate.getFullYear()}. ${String(paymentDate.getMonth() + 1).padStart(2, "0")}`;
-            return {
-              month: monthStr,
-              amount: `${item.amount.toLocaleString()}원`,
-            };
-          });
-        
+            .filter(item => item.paymentDate) // 납부된 항목만
+            .sort((a, b) => new Date(b.paymentDate) - new Date(a.paymentDate))
+            .slice(0, 3)
+            .map((item) => {
+              const dueDate = new Date(item.dueDate);
+              dueDate.setMonth(dueDate.getMonth() - 1); // -1개월 처리
+              const monthStr = `${dueDate.getFullYear()}. ${String(dueDate.getMonth() + 1).padStart(2, "0")}`;
+              return {
+                month: monthStr,
+                amount: `${item.amount.toLocaleString()}원`,
+              };
+            });
+  
           setPaymentHistory(sorted);
         } else {
           console.error("납부 목록을 가져오지 못했습니다:", response.data.message);
@@ -117,9 +119,10 @@ function PaymentHistorySection() {
         console.error("납부 목록을 가져오는 중 오류 발생:", error);
       }
     };
-
+  
     fetchPayments();
   }, []);
+  
 
   return (
     <section className={styles.historyContainer}>
@@ -153,6 +156,30 @@ function PaymentHistorySection() {
 
   function PaymentMain() {
     const navigate = useNavigate();
+    const [tenantName, setTenantName] = useState("");
+
+    useEffect(() => {
+      const fetchTenantName = async () => {
+        try {
+          const token = localStorage.getItem("accessToken");
+          const response = await axios.get("/api/dashboard", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+  
+          if (response.data.success && response.data.result?.tenantInfo?.name) {
+            setTenantName(response.data.result.tenantInfo.name);
+          } else {
+            console.error("임차인 이름을 불러오지 못했습니다.");
+          }
+        } catch (error) {
+          console.error("임차인 정보 조회 오류:", error);
+        }
+      };
+  
+      fetchTenantName();
+    }, []);
 
     return (
       <main className={styles.container}>
@@ -160,7 +187,7 @@ function PaymentHistorySection() {
           <h1 className={styles.pageTitle}>월세 납부</h1>
   
           <header className={styles.userHeader}>
-            <h2 className={styles.userName}>김철수</h2>
+            <h2 className={styles.userName}>{tenantName || "임차인"}</h2>
             <p className={styles.userDescription}>님의 월세 납부 현황</p>
           </header>
   
@@ -181,8 +208,7 @@ function PaymentHistorySection() {
           <AutoPaymentSection />
           <PaymentHistorySection />
         </section>
-  
-        {/* <NavigationBar /> */}
+        <Navbar />
       </main>
     );                                                                                                              
   }
