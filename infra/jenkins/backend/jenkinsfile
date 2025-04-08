@@ -1,0 +1,95 @@
+pipeline {
+    agent any
+    stages {
+        stage('Check Branch') {
+            steps {
+                script {
+                    // def targetBranch = 'dev-be'
+                    def targetBranch = env.gitlabTargetBranch ?: env.BRANCH_NAME
+                    if (targetBranch != null && targetBranch != 'dev-be') {
+                        currentBuild.result = 'ABORTED'
+                        error("This pipeline only runs for merge requests to dev-be branch")
+                    }
+                }
+            }
+        }
+        stage('CheckOut') {
+            steps {
+                echo 'Start CheckOut monthlyzip project...'
+                git branch: 'dev-be',
+                    credentialsId: 'account',
+                    url: 'https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21D109.git'
+								sh 'ls -R infra/docker/app'  // 파일 목록 출력
+                sh '''
+				            pwd
+				            ls -R
+				        '''
+                echo 'CheckOut finished!'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Start building monthlyzip project...'
+                dir('backend/monthlyzip') {
+                    withCredentials([file(credentialsId: 'application-secret', variable: 'SECRET_FILE')]) {
+                        sh """
+                            cp -f "$SECRET_FILE" src/main/resources/application-secret.yml
+                            cat src/main/resources/application-secret.yml
+                        """
+                    }
+                    sh '''
+                        chmod +x ./gradlew
+                        ./gradlew clean build -x test
+                    '''
+                }
+                echo 'Build finished!'
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                script {
+                    dir('infra/docker/app') {
+                        // application-secret.yml 파일 복사
+                        withCredentials([file(credentialsId: 'application-secret', variable: 'SECRET_FILE')]) {
+                            sh """
+                                cp -f "\$SECRET_FILE" application-secret.yml
+                                chmod 600 application-secret.yml
+                            """
+                        }
+
+                        // 기존 컨테이너 중지 및 제거
+                        sh "docker compose down app || true"
+                        
+                        // 새 이미지 빌드 및 컨테이너 시작
+                        sh "docker compose build --no-cache app"
+                        sh "docker compose up -d app"
+                        
+                        sh "sleep 20" // 서버가 완전히 시작될 때까지 잠시 대기
+
+                        // 배포 완료 후 시크릿 파일 삭제
+                        sh "rm -f application-secret.yml"
+
+                        echo 'Deploy finished!'
+                    }
+                }
+            }
+        }
+        
+    }
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+            dir('infra/docker/app') {
+                sh 'docker compose logs app'
+            }
+        }
+        always {
+            echo 'Cleaning up workspace'
+            cleanWs()
+        }
+    }
+}
