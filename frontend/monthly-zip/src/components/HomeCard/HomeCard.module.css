@@ -59,3 +59,60 @@
   font-size: 28px;
   font-weight: 600;
 } 
+
+/* Tablet sizes */
+@media (max-width: 768px) {
+  .userName {
+    font-size: 28px;
+  }
+
+  .userTitle {
+    font-size: 20px;
+  }
+
+  .amount {
+    font-size: 28px;
+  }
+
+  .unit {
+    font-size: 24px;
+  }
+}
+
+/* Mobile sizes */
+@media (max-width: 480px) {
+  .userName {
+    font-size: 24px;
+  }
+
+  .userTitle {
+    font-size: 18px;
+  }
+
+  .amount {
+    font-size: 24px;
+  }
+
+  .unit {
+    font-size: 20px;
+  }
+}
+
+/* Small Mobile (like iPhone SE) */
+@media (max-width: 375px) {
+  .userName {
+    font-size: 24px;
+  }
+
+  .userTitle {
+    font-size: 16px;
+  }
+
+  .amount {
+    font-size: 22px;
+  }
+
+  .unit {
+    font-size: 18px;
+  }
+}
