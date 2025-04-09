@@ -37,11 +37,13 @@ function AutoPaymentSection({ isAutoPaymentActive, setIsAutoPaymentActive }) {
         <h3 className={styles.autoPaymentTitle}>자동이체</h3>
         <div className={styles.autoPaymentInfo}>
 
-          {isAutoPaymentActive && (
+          {/* {isAutoPaymentActive && (
           <div className={styles.registrationInfo}>
             <p>자동이체가 등록되었습니다. <br />매월 10일에 결제됩니다.</p>
-          </div>
-        )}
+            <p>자동이체가 등록되었습니다.</p>
+            </div>
+        )} */}
+        
           <div className={styles.toggleContainer}>
           <span className={styles.toggleLabel}>
             {isAutoPaymentActive ? "자동이체 등록됨" : "자동이체 미등록"}
