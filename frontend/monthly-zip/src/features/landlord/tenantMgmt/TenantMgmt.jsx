@@ -1,24 +1,75 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styles from "./TenantMgmt.module.css";
+import { useNavigate } from "react-router-dom";
 
 function TenantMgmt() {
-  const [selectedBuilding, setSelectedBuilding] = useState("유로빌");
+  const navigate = useNavigate();
+  
+  const [buildings, setBuildings] = useState([]);
+  const [selectedBuilding, setSelectedBuilding] = useState(""); 
+  const [buildingMap, setBuildingMap] = useState({}); 
+  const [tenants, setTenants] = useState([]);
 
-  const allTenants = {
-    유로빌: [
-      { room: "101", name: "김민호", rent: 55, contractEndDate: "2025-06-23", latePaymentCount: 0 },
-      { room: "102", name: "이서연", rent: 42, contractEndDate: "2025-08-03", latePaymentCount: 2 },
-      { room: "103", name: "이지현", rent: 45, contractEndDate: "2025-10-01", latePaymentCount: 0 },
-      { room: "104", name: "김유진", rent: 52, contractEndDate: "2025-05-25", latePaymentCount: 0 },
-    ],
-    아름빌: [
-      { room: "201", name: "박지훈", rent: 48, contractEndDate: "2025-07-12", latePaymentCount: 1 },
-      { room: "202", name: "정수연", rent: 50, contractEndDate: "2025-09-15", latePaymentCount: 0 },
-      { room: "203", name: "최민석", rent: 46, contractEndDate: "2025-11-20", latePaymentCount: 3 },
-    ],
-  };
+  // 건물 정보 불러오기
+useEffect(() => {
+  const token = localStorage.getItem("accessToken");
 
+  axios.get("/api/buildings", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,  // 쿠키 기반 인증 사용 시 필요
+  })
+    .then(res => {
+      const buildings = res.data.result;
+      setBuildings(buildings);
+
+      const map = {};
+      buildings.forEach(b => {
+        map[b.buildingName] = b.id;
+      });
+      setBuildingMap(map);
+
+      const firstBuilding = buildings[0];
+      if (firstBuilding) {
+        setSelectedBuilding(firstBuilding.buildingName);
+        fetchTenants(firstBuilding.id, token); // ⬅ 토큰 전달
+      }
+    })
+    .catch(err => {
+      console.error("건물 목록 불러오기 실패:", err);
+    });
+}, []);
+
+
+//임차인 정보 
+const fetchTenants = (buildingId, tokenParam = null) => {
+  const token = tokenParam || localStorage.getItem("accessToken");
+
+  axios.get(`/api/tenants?buildingId=${buildingId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  })
+    .then(res => {
+      setTenants(res.data.result);
+    })
+    .catch(err => {
+      console.error("임차인 목록 불러오기 실패:", err);
+    });
+};
+
+// 3. 건물 클릭 시 임차인 정보 불러오기 (토큰 넘기기)
+const handleBuildingClick = (buildingName) => {
+  setSelectedBuilding(buildingName);
+  const buildingId = buildingMap[buildingName];
+  if (buildingId) {
+    fetchTenants(buildingId);
+  }
+};
   return (
     <section className={styles.container}>
       <img
@@ -30,22 +81,22 @@ function TenantMgmt() {
 
       {/* 건물 선택 네비게이션 */}
       <nav className={styles.buildingSelector}>
-        {["유로빌", "아름빌"].map((building) => (
-          <div key={building} className={styles.buildingWrapper}>
+        {buildings.map((building) => (
+          <div key={building.id} className={styles.buildingWrapper}>
             <button
-              className={`${styles.buildingName} ${selectedBuilding === building ? styles.active : ""}`}
-              onClick={() => setSelectedBuilding(building)}
+              className={`${styles.buildingName} ${selectedBuilding === building.buildingName ? styles.active : ""}`}
+              onClick={() => handleBuildingClick(building.buildingName)}
             >
-              {building}
+              {building.buildingName}
             </button>
-            {selectedBuilding === building && <div className={styles.selectedIndicator} />}
+            {selectedBuilding === building.buildingName && <div className={styles.selectedIndicator} />}
           </div>
         ))}
       </nav>
 
       <hr className={styles.divider} />
 
-      {/* 검색 바 */}
+      {/* 검색 바 (기능은 나중에 붙일 수 있어요) */}
       <div className={styles.searchBar}>
         <img
           src="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/9d7cb21c14ecb41e80b2d11119158049bd13fac1?placeholderIfAbsent=true"
@@ -55,23 +106,26 @@ function TenantMgmt() {
         <input type="text" placeholder="건물 검색" className={styles.searchInput} />
       </div>
 
-      {/* 선택된 건물의 임차인 목록 */}
+      {/* 임차인 목록 */}
       <div className={styles.tenantList}>
-        {allTenants[selectedBuilding].map((tenant, index) => (
-          <article key={index} className={styles.tenantCard}>
+        {tenants.map((tenant) => (
+            <article
+            key={tenant.roomId}
+            className={styles.tenantCard}
+            onClick={() => navigate(`/landlord/tenant-mgmt-detail/${tenant.roomId}`)} 
+            style={{ cursor: "pointer" }}  // 포인터 표시
+          >
             <div className={styles.tenantInfo}>
-              <h2 className={styles.roomNumber}>{tenant.room} 호</h2>
-              <h3 className={styles.tenantName}>{tenant.name}</h3>
-              <p className={styles.rentInfo}>월세: {tenant.rent}</p>
-              <p className={styles.contractInfo}>계약 기간: {tenant.contractEndDate}</p>
+              <h2 className={styles.roomNumber}>{tenant.roomNumber}</h2>
+              <h3 className={styles.tenantName}>{tenant.tenantName}</h3>
+              <p className={styles.rentInfo}>월세: {tenant.monthlyRent / 10000}</p>
+              <p className={styles.contractInfo}>계약 기간: {tenant.contractEnd.split("T")[0]}</p>
             </div>
             <p className={styles.latePaymentInfo}>
               연체 횟수:{" "}
-              {tenant.latePaymentCount > 0 ? (
-                <span className={styles.latePaymentHighlight}>{tenant.latePaymentCount}</span>
-              ) : (
-                tenant.latePaymentCount
-              )}
+              <span className={styles.latePaymentHighlight}>
+                {tenant.latePaymentCount ?? 0}
+              </span>
             </p>
           </article>
         ))}
