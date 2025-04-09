@@ -54,6 +54,38 @@ function PaymentCard({ payment }) {
   const displayYear = prevMonthDate.getFullYear();
   const displayMonth = prevMonthDate.getMonth() + 1; // 0부터 시작하므로 +1 필요
 
+  const navigate = useNavigate();
+
+  const handleDepositDeduction = () => {
+    axios.post(
+      "/api/payments/deposit-deduction",
+      { paymentId: payment.paymentId }, // API가 요구하는 body
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((response) => {
+      if (response.data.isSuccess) {
+        alert("보증금에서 차감되었습니다.");
+        window.location.reload();
+      } else {
+        console.log("보증금 차감 처리 실패: " + response.data.message);
+      }
+    })
+    .catch((error) => {
+      console.error("보증금 차감 중 오류 발생:", error);
+    });
+  };
+  
+
+  const handleClick = () => {
+    navigate("/tenant/direct-payment");
+  };
+
+
   return (
     <section className={styles.paymentCard}>
       <h2 className={styles.paymentTitle}>
@@ -63,16 +95,18 @@ function PaymentCard({ payment }) {
       <PaymentRow label="주소" value={payment.address} />
       <PaymentRow label="임대인 이름" value={payment.landlordName} />
       <PaymentRow label="임대인 계좌" value={payment.landlordAccount} />
-      <PaymentRow
-        label="날짜"
-        value={new Date(payment.paymentDate).toLocaleString("ko-KR", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit",
-        })}
-      />
+      {payment.paymentStatus !== "미납" && (
+        <PaymentRow
+          label="날짜"
+          value={new Date(payment.paymentDate).toLocaleString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        />
+      )}
 
       <div className={styles.divider} />
 
@@ -86,9 +120,8 @@ function PaymentCard({ payment }) {
       {/* 미납 상태에서 버튼 */}
       {payment.paymentStatus === "미납" && (
         <div className={styles.buttonContainer}>
-          <button className={styles.actionButton}>보증금 차감</button>
-          {/* <button className={styles.actionButton}>기한 연장</button> */}
-          <button className={styles.actionButton}>즉시 결제</button>
+          <button className={styles.actionButton} onClick={handleDepositDeduction}>보증금 차감</button>
+          <button className={styles.actionButton} onClick={handleClick}>즉시 결제</button>
         </div>
       )}
     </section>
