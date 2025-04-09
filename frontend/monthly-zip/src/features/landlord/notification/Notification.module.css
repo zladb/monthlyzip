@@ -388,4 +388,71 @@
     font-size: 14px;
     font-weight: 500;
   }
+  .roomRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
   
+  .roomName {
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  
+  .toggleLabel {
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+    color: #555;
+  }.form-check-input {
+  width: 3.5rem;
+  height: 2rem;
+  background-color: #e0e0e0;
+  border: none;
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #0d6efd;
+}
+
+.form-check-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 0.75rem;
+  pointer-events: none;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.4s;
+  border-radius: 30px;
+}
+
+.switch input:checked + .slider {
+  background-color: #0d6efd;
+}
