@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import styles from "./PaymentConfirm.module.css";
 
 function PaymentHeader({ amount }) {
@@ -13,32 +14,40 @@ function PaymentHeader({ amount }) {
   );
 }
 
-function TransactionDetails() {
+function TransactionDetails({ landlordAccount, landlordName, tenantAccount, tenantName }) {
   return (
     <section className={styles.transactionContainer}>
       <div className={styles.transactionRow}>
-        <p className={styles.transactionLabels}>받는 계좌</p>
-        <p className={styles.transactionValues}>110-123-456789</p>
+        <p className={styles.transactionLabels}>입금 계좌</p>
+        <p className={styles.transactionValues}>{landlordAccount}</p>
       </div>
 
       <div className={styles.transactionRow}>
         <p className={styles.transactionLabels}>받는 분</p>
-        <p className={styles.transactionValues}>홍길동</p>
+        <p className={styles.transactionValues}>{landlordName}</p>
       </div>
 
       <div className={styles.transactionRow}>
         <p className={styles.transactionLabels}>출금 계좌</p>
-        <p className={styles.transactionValues}>123456-78-901234</p>
+        <p className={styles.transactionValues}>{tenantAccount}</p>
       </div>
 
       <div className={styles.transactionRow}>
         <p className={styles.transactionLabels}>보낸 분</p>
-        <p className={styles.transactionValues}>김철수</p>
+        <p className={styles.transactionValues}>{tenantName}</p>
       </div>
 
       <div className={styles.transactionRow}>
         <p className={styles.transactionLabels}>날짜</p>
-        <p className={styles.transactionValues}>2025. 03. 05 13:24</p>
+        <p className={styles.transactionValues}>
+          {new Date().toLocaleString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </p>
       </div>
     </section>
   );
@@ -51,6 +60,63 @@ function ConfirmButton() {
 
 function PaymentConfirm() {
   const [paymentAmount, setPaymentAmount] = useState("");
+
+  const [landlordAccount, setLandlordAccount] = useState("");
+  const [landlordName, setLandlordName] = useState("");
+  const [tenantAccount, setTenantAccount] = useState("");
+  const [tenantName, setTenantName] = useState("");
+
+  useEffect(() => {
+    const fetchAndTransfer = async () => {
+      const token = localStorage.getItem("accessToken");
+      const amount = Number(localStorage.getItem("paymentAmount"));
+  
+      try {
+        // 1. 먼저 GET 요청으로 필요한 계좌 정보 가져오기
+        const response = await axios.get("/api/transfers", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        const result = response.data.result;
+        setLandlordAccount(result.landlordAccount);
+        setLandlordName(result.landlordName);
+        setTenantAccount(result.tenantAccount);
+        setTenantName(result.tenantName);
+  
+        // 2. 계좌 정보 모두 받아온 후 POST 요청 보내기
+        const postResponse = await axios.post(
+          "/api/transfers",
+          {
+            landlordAccount: result.landlordAccount,
+            tenantAccount: result.tenantAccount,
+            amount,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+  
+        console.log("POST 응답:", postResponse.data);
+  
+        // 성공 여부에 따라 처리
+        if (postResponse.data.success) {
+          console.log("이체 성공");
+        } else {
+          console.log("이체 실패:", postResponse.data.message);
+        }
+      } catch (error) {
+        console.error("API 요청 중 오류 발생:", error);
+      }
+    };
+  
+    fetchAndTransfer(); // 컴포넌트 마운트 시 자동 실행
+  }, []);
+  
+
 
   useEffect(() => {
     const amount = localStorage.getItem("paymentAmount");
@@ -65,7 +131,12 @@ function PaymentConfirm() {
     <main className={styles.container}>
       <section className={styles.contentWrapper}>
       <PaymentHeader amount={paymentAmount || "0원"} />  
-        <TransactionDetails />
+      <TransactionDetails
+        landlordAccount={landlordAccount}
+        landlordName={landlordName}
+        tenantAccount={tenantAccount}
+        tenantName={tenantName}
+      />
       </section>
       <ConfirmButton />
     </main>
