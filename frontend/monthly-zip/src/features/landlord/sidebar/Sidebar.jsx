@@ -37,7 +37,7 @@ function NavigationItems({ navigate, onClose }) {
       icon: alarmIcon,
       label: '알림 발송 설정',
       onClick: () => {
-        navigate('/landlord/alarm-setting');
+        navigate('/landlord/notification');
         onClose();
       }
     },

@@ -118,6 +118,7 @@
     font-weight: 600;
     cursor: pointer;
     font-family: inherit;
+    margin-top: 45px;
   }
   
   .selectedIndicator {

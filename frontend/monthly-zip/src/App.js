@@ -59,6 +59,8 @@ function App() {
         <Route path="/landlord/notice/:noticeId" element={<LandlordNoticeDetail />} />
         <Route path="/landlord/notice-update/:noticeId" element={<NoticeUpdate />} />
         <Route path="/landlord/notice-create" element={<NoticeCreate />} />
+        <Route path="/landlord/tenant-mgmt-detail/:id" element={<TenantMgmtDetail />} />
+        <Route path="/landlord/notification" element={<Notification />} />
 
         {/* 임차인 라우트 */}
         <Route path="/tenant" element={<TenantHome />} />
