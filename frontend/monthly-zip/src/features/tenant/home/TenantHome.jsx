@@ -65,6 +65,7 @@ function DashboardCards({ monthlySummary }) {
     setTouchEnd(null);
   };
 
+  
   return (
     <div className={styles.dashboardContainer}>
       <div 
