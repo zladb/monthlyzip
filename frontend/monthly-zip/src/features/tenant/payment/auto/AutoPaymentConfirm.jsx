@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./AutoPaymentConfirm.module.css";
 
@@ -26,12 +26,23 @@ function Header() {
 
 // Transfer details component with recipient and amount
 const TransferDetails = () => {
+  const [amount, setAmount] = useState("");
+
+  useEffect(() => {
+    const storedAmount = localStorage.getItem("autoPaymentAmount");
+    if (storedAmount) {
+      // 천 단위 콤마 추가
+      const formatted = Number(storedAmount).toLocaleString();
+      setAmount(formatted);
+    }
+  }, []);
+
   return (
     <>
       <p className={styles.accountNumber}>신한 110-123-456789</p>
       <h2 className={styles.recipientName}>홍길동 님께</h2>
       <h3 className={styles.transferAmount}>
-        500,000 <span className={styles.regularWeight}>원 자동이체를</span>
+      {amount} <span className={styles.regularWeight}>원 자동이체를</span>
         <br />
         <span className={styles.regularWeight}>등록하시겠습니까?</span>
       </h3>
@@ -51,6 +62,20 @@ const AccountInformation = () => {
 
 // Transfer schedule component with frequency, period, and display names
 const TransferSchedule = () => {
+  const [frequency, setFrequency] = useState("");
+  const [period, setPeriod] = useState("");
+
+  useEffect(() => {
+    const storedFrequency = localStorage.getItem("autoPaymentFrequency");
+    const storedPeriod = localStorage.getItem("autoPaymentPeriod");
+
+    if (storedFrequency) setFrequency(`매월/${storedFrequency}일`);
+    if (storedPeriod) setPeriod(storedPeriod);
+
+  }, []);
+
+
+
   return (
     <section className={styles.scheduleContainer}>
       <div className={styles.scheduleLabels}>
@@ -60,8 +85,8 @@ const TransferSchedule = () => {
         <p className={styles.myDisplayLabel}>보내는 분</p>
       </div>
       <div className={styles.scheduleValues}>
-        <p className={styles.frequencyValue}>매월/5일</p>
-        <p className={styles.periodValue}>2024.01 ~ 2026.01</p>
+        <p className={styles.frequencyValue}>{frequency}</p>
+        <p className={styles.periodValue}>{period}</p>
         <div className={styles.displayNamesContainer}>
           <p>홍길동</p>
           <p className={styles.myDisplayValue}>김철수</p>
