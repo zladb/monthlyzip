@@ -1,4 +1,4 @@
-package com.monthlyzip.domain.auth.model.dto;
+package com.monthlyzip.domain.auth.dto.request;
 
 import com.monthlyzip.domain.member.enums.MemberType;
 import lombok.Getter;

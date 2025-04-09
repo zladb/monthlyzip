@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.payment.controller;
 
-import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.domain.payment.model.dto.request.PaymentCreateRequestDto;
 import com.monthlyzip.domain.payment.model.dto.response.DepositDeductionResponseDto;
 import com.monthlyzip.domain.payment.model.dto.response.PaymentCreateResponseDto;

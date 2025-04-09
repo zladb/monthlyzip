@@ -34,7 +34,7 @@ public class PaymentService {
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.CONTRACT_NOT_FOUND));
 
         // 2. 계약이 이 사용자(memberId)의 것인지 확인
-        if (!contract.getLandlordId().equals(memberId)) {
+        if (!(contract.getLandlordId().equals(memberId) || contract.getTenantId().equals(memberId))) {
             throw new BusinessException(ApiResponseStatus.FORBIDDEN);  // 또는 적절한 에러코드
         }
 

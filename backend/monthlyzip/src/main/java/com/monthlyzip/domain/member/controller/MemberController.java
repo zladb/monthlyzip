@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.member.controller;
 
-import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.domain.member.dto.request.UpdatePasswordRequest;
 import com.monthlyzip.domain.member.dto.response.MemberResponse;
 import com.monthlyzip.domain.member.dto.response.ProfileImageResponseDto;
