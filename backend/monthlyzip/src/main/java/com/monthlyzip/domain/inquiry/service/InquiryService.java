@@ -16,6 +16,7 @@ import com.monthlyzip.domain.member.enums.MemberType;
 import com.monthlyzip.domain.member.repository.MemberRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,7 @@ public class InquiryService {
             .inquiryType(dto.getInquiryType())
             .title(dto.getTitle())
             .content(dto.getContent())
-            .status(InquiryStatus.접수) // 초기 상태는 '접수'
+            .status(InquiryStatus.접수대기) // 초기 상태는 '접수'
             .imageUrl(imageUrl)  // List 대신 단일 문자열
             .createdAt(LocalDateTime.now())
             .updatedAt(LocalDateTime.now())
@@ -192,24 +193,14 @@ public class InquiryService {
 
             // 상태 변경 로직
             if (dto.getStatus() != null) {
-                switch (inquiry.getStatus()) {
-                    case 접수:
-                        if (dto.getStatus() == InquiryStatus.처리중) {
-                            inquiry.setStatus(dto.getStatus());
-                        } else {
-                            throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
-                        }
-                        break;
-                    case 처리중:
-                        if (dto.getStatus() == InquiryStatus.처리완료) {
-                            inquiry.setStatus(dto.getStatus());
-                        } else {
-                            throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
-                        }
-                        break;
-                    default:
-                        throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
+                if (Objects.requireNonNull(inquiry.getStatus()) == InquiryStatus.접수대기 &&
+                    dto.getStatus() == InquiryStatus.처리중) {
+                    inquiry.setStatus(dto.getStatus());
+                } else {
+                    throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
                 }
+            } else {
+                throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
             }
         } else {
             // 임차인은 자신이 작성한 문의의 내용, 제목만 수정 가능 (접수 상태일 때만)
@@ -217,15 +208,44 @@ public class InquiryService {
                 throw new BusinessException(ApiResponseStatus.FORBIDDEN);
             }
 
-            if (inquiry.getStatus() != InquiryStatus.접수) {
-                throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
-            }
+            switch (inquiry.getStatus()) {
+                case 접수대기:
+                    // 접수대기 상태에서는 내용, 제목, 이미지 수정 가능
+                    if (dto.getTitle() != null) {
+                        inquiry.setTitle(dto.getTitle());
+                    }
+                    if (dto.getContent() != null) {
+                        inquiry.setContent(dto.getContent());
+                    }
+                    if (dto.getInquiryType() != null) {
+                        inquiry.setInquiryType(dto.getInquiryType());
+                    }
 
-            if (dto.getTitle() != null) {
-                inquiry.setTitle(dto.getTitle());
-            }
-            if (dto.getContent() != null) {
-                inquiry.setContent(dto.getContent());
+                    // 이미지 업데이트
+                    if (newImage != null && !newImage.isEmpty()) {
+                        // 기존 이미지가 있으면 삭제
+                        String oldImageUrl = inquiry.getImageUrl();
+                        if (oldImageUrl != null && !oldImageUrl.isEmpty()) {
+                            fileUtil.deleteFile(oldImageUrl);
+                        }
+
+                        // 새 이미지 저장
+                        String newImageUrl = fileUtil.saveFile(newImage, "inquiry");
+                        inquiry.setImageUrl(newImageUrl);
+                    }
+                    break;
+
+                case 처리중:
+                    // 처리중 상태: 처리완료로만 변경 가능
+                    if (dto.getStatus() == InquiryStatus.처리완료) {
+                        inquiry.setStatus(dto.getStatus());
+                    } else {
+                        throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
+                    }
+                    break;
+                default:
+                    // 그 외 상태(처리완료 등): 수정 불가
+                    throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
             }
 
             // 이미지 업데이트 로직 추가
@@ -240,30 +260,6 @@ public class InquiryService {
                 String newImageUrl = fileUtil.saveFile(newImage, "inquiry");
                 inquiry.setImageUrl(newImageUrl);
             }
-        }
-
-        // 테스트 중에는 모든 필드 업데이트 허용
-//        if (dto.getStatus() != null) {
-//            inquiry.setStatus(dto.getStatus());
-//        }
-//        if (dto.getTitle() != null) {
-//            inquiry.setTitle(dto.getTitle());
-//        }
-//        if (dto.getContent() != null) {
-//            inquiry.setContent(dto.getContent());
-//        }
-
-        // 이미지 업데이트 로직 추가
-        if (newImage != null && !newImage.isEmpty()) {
-            // 기존 이미지가 있으면 삭제
-            String oldImageUrl = inquiry.getImageUrl();
-            if (oldImageUrl != null && !oldImageUrl.isEmpty()) {
-                fileUtil.deleteFile(oldImageUrl);
-            }
-
-            // 새 이미지 저장
-            String newImageUrl = fileUtil.saveFile(newImage, "inquiry");
-            inquiry.setImageUrl(newImageUrl);
         }
 
         // 4. 수정 시간 업데이트
@@ -288,7 +284,7 @@ public class InquiryService {
          }
 
         // 3. 상태 확인 (접수 상태일 때만 삭제 가능)
-        if (inquiry.getStatus() != InquiryStatus.접수) {
+        if (inquiry.getStatus() != InquiryStatus.접수대기) {
             throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
         }
 
