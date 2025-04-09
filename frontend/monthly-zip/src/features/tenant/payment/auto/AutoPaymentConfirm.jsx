@@ -40,7 +40,7 @@ const TransferDetails = ({ landlordName, toAccount }) => {
 
   return (
     <>
-      <p className={styles.accountNumber}>{toAccount}</p>
+      {/* <p className={styles.accountNumber}>{toAccount}</p> */}
       <h2 className={styles.recipientName}>{landlordName} 님께</h2>
       <h3 className={styles.transferAmount}>
       {amount} <span className={styles.regularWeight}>원 자동이체를</span>
@@ -70,7 +70,7 @@ const TransferSchedule = ({ landlordName, tenantName }) => {
     const storedFrequency = localStorage.getItem("autoPaymentFrequency");
     const storedPeriod = localStorage.getItem("autoPaymentPeriod");
 
-    if (storedFrequency) setFrequency(`매월/${storedFrequency}일`);
+    if (storedFrequency) setFrequency(`매월 / ${storedFrequency}일`);
     if (storedPeriod) setPeriod(storedPeriod);
 
   }, []);

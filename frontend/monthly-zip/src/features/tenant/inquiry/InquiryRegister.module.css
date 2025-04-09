@@ -7,6 +7,13 @@
     overflow: hidden;
     justify-content: center;
     min-height: 700px;
+    font-family:
+    Poppins,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+
   }
   
   .contentWrapper {
@@ -40,13 +47,14 @@
   .title {
     flex-basis: auto;
     font-size: 28px;
+    font-weight: 700;
   }
   .categorySection {
     padding-left: 15px;
     padding-right: 15px;
     flex-shrink: 0;
-    width: 350px;
-    
+    width: 100%;
+    max-width: 100%;
  }
   .categoryNav,
   .secondaryCategoryNav {
@@ -54,25 +62,46 @@
     text-align: center;
     align-items: stretch;
     gap: 10px;
-    margin-top: 63px;
     font-weight: 600;
     display: flex;
-    width: 90%;
+    width: 100%;
     flex-wrap: nowrap;
+    justify-content: center;
   }
-  
+  .categoryNav {
+    margin-top: 45px;
+  }
+  .secondaryCategoryNav {
+    margin-top: 20px;
+  }
   .categoryButtonWrapper {
     flex: 1;
   }
-  
   .categoryButton {
     background-color: #fff;
     border: 1px solid #dadada;
     border-radius: 5px;
-    padding: 15px 15px;
-    width: 140px;
+    padding: 12px 0;
     font-size: 16px;
+    width: 90px; /* 기본값: 작은 화면 */
+    min-width: 80px;
+    text-align: center;
   }
+  
+  /* 화면 너비가 375px 이상일 때 */
+  @media (min-width: 375px) {
+    .categoryButton {
+      width: 110px;
+    }
+  }
+  
+  /* 화면 너비가 480px 이상일 때 */
+  @media (min-width: 480px) {
+    .categoryButton {
+      width: 120px;
+    }
+  }
+  
   /* 카테고리 선택된 색깔 */
   .selected {
     background-color: #FCBE32;
@@ -125,7 +154,7 @@
     background-color: #dadadad4;
     margin-top: 14px;
     margin-left: 15px;
-    padding: 29px 39px 59px;
+    padding: 29px 39px 29px;
     font-size: 36px;
     font-weight: 70;
     border: none;
@@ -143,7 +172,7 @@
   
   .cancelButton {
     white-space: nowrap;
-    color: #fff;
+    color: black;
     background-color: #d8d8d8;
     text-align: center;
     width: 100%;
@@ -164,6 +193,7 @@
   .submitButton {
     white-space: nowrap;
     text-align: center;
+    color: black;
     background-color: #fcbe32;
     width: 100%;
     margin-top: 117px;
