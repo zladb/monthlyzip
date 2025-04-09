@@ -1,12 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./Notification.module.css";
+import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-// BackArrow Component
+// 화살표
 function BackArrow() {
+  const navigate = useNavigate(); 
   return (
-    <button aria-label="Go back">
+    <button aria-label="Go back" onClick={() => navigate("/landlord")}>
       <svg
+
         width="27"
         height="24"
         viewBox="0 0 27 24"
@@ -44,7 +48,7 @@ function BellIcon() {
   );
 }
 
-// NotificationInfo Component
+// 안내문
 function NotificationInfo() {
   return (
     <section className={styles.div4}>
@@ -73,90 +77,8 @@ function NotificationInfo() {
   );
 }
 
-// RoomToggle Component
-function RoomToggle({ name, enabled, onToggle }) {
-  // Determine which set of classes to use based on the room name
-  const getToggleClasses = () => {
-    switch (name) {
-      case "101호":
-        return {
-          container: styles.div22,
-          roomName: styles.span3,
-          toggle: styles.div23,
-          slider: styles.div24,
-          status: styles.span4,
-        };
-      case "102호":
-        return {
-          container: styles.div25,
-          roomName: styles.span5,
-          toggle: styles.div26,
-          slider: styles.div27,
-          status: styles.span6,
-        };
-      case "103호":
-        return {
-          container: styles.div28,
-          roomName: styles.span7,
-          toggle: styles.div29,
-          slider: styles.div30,
-          status: styles.span8,
-        };
-      case "104호":
-        return {
-          container: styles.div31,
-          roomName: styles.span9,
-          toggle: styles.div32,
-          slider: styles.div33,
-          status: styles.span10,
-        };
-      case "201호":
-        return {
-          container: styles.div34,
-          roomName: styles.span11,
-          toggle: styles.div35,
-          slider: styles.div36,
-          status: styles.span12,
-        };
-      case "202호":
-        return {
-          container: styles.div37,
-          roomName: styles.span13,
-          toggle: styles.div38,
-          slider: styles.div39,
-          status: styles.span14,
-        };
-      default:
-        return {
-          container: styles.div22,
-          roomName: styles.span3,
-          toggle: styles.div23,
-          slider: styles.div24,
-          status: styles.span4,
-        };
-    }
-  };
 
-  const classes = getToggleClasses();
-
-  return (
-    <div className={classes.container}>
-      <span className={classes.roomName}>{name}</span>
-      <button
-        className={classes.toggle}
-        onClick={onToggle}
-        aria-label={`${enabled ? "Disable" : "Enable"} notifications for ${name}`}
-        role="switch"
-        aria-checked={enabled}
-      >
-        <div className={classes.slider} />
-        <span className={classes.status}>발송</span>
-      </button>
-    </div>
-  );
-}
-
-// SettingsSection Component
+// 자동발송
 function SettingsSection() {
   const [rooms, setRooms] = useState([
     { id: 1, name: "101호", enabled: true },
@@ -177,42 +99,46 @@ function SettingsSection() {
 
   const toggleRoom = (id) => {
     const updatedRooms = rooms.map((room) =>
-      room.id === id ? { ...room, enabled: !room.enabled } : room,
+      room.id === id ? { ...room, enabled: !room.enabled } : room
     );
     setRooms(updatedRooms);
-
-    // Check if all rooms are enabled
-    const areAllEnabled = updatedRooms.every((room) => room.enabled);
-    setAllEnabled(areAllEnabled);
+    setAllEnabled(updatedRooms.every((room) => room.enabled));
   };
 
   return (
     <section className={styles.div17}>
+      {/* 건물명 + 전체 토글 */}
       <div className={styles.div18}>
-        <h3 className={styles.div19}>유로빌</h3>
-        <button
-          className={styles.div20}
-          onClick={toggleAll}
-          aria-label={
-            allEnabled
-              ? "Disable all notifications"
-              : "Enable all notifications"
-          }
-          role="switch"
-          aria-checked={allEnabled}
-        >
-          <div className={styles.div21} />
-          <span className={styles.span2}>전체</span>
-        </button>
+        <h3 className={styles.div19}>푸른숲빌라</h3>
+        <div className="form-check form-switch">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id="allToggle"
+            checked={allEnabled}
+            onChange={toggleAll}
+          />
+          <label className="form-check-label" htmlFor="allToggle">
+            전체
+          </label>
+        </div>
       </div>
+
+      {/* 개별 호실 토글 */}
       <div>
         {rooms.map((room) => (
-          <RoomToggle
-            key={room.id}
-            name={room.name}
-            enabled={room.enabled}
-            onToggle={() => toggleRoom(room.id)}
-          />
+          <div key={room.id} className={styles.roomRow}>
+            <span className={styles.roomName}>{room.name}</span>
+            <label className={styles.switch}>
+              <input
+                type="checkbox"
+                checked={room.enabled}
+                onChange={() => toggleRoom(room.id)}
+              />
+              <span className={styles.slider}>{room.enabled ? "ON" : "OFF"}</span>
+            </label>
+          </div>  
+        // </div>
         ))}
       </div>
     </section>
@@ -220,7 +146,7 @@ function SettingsSection() {
 }
 
 
-function Notification() {
+function NotificationPage() {
   return (
     <>
       <link
@@ -245,4 +171,4 @@ function Notification() {
   );
 }
 
-export default Notification;
+export default NotificationPage;
