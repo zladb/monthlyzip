@@ -18,42 +18,25 @@ function PaymentOptionCard({ imageUrl, title, extraPadding = false, onClick }) {
     );
   }
 
-function AutoPaymentSection() {
-    const [isAutoPaymentActive, setIsAutoPaymentActive] = useState(false);
+function AutoPaymentSection({ isAutoPaymentActive, setIsAutoPaymentActive }) {
     const navigate = useNavigate();
 
-    useEffect(() => {
-      const savedStatus = localStorage.getItem("isAutoPaymentActive");
-      if (savedStatus === "true") {
-        setIsAutoPaymentActive(true);
-      }
-    }, []);
-
     const handleToggleAutoPayment = () => {
-        const newValue = !isAutoPaymentActive;
-        setIsAutoPaymentActive(newValue);
-        localStorage.setItem("isAutoPaymentActive", newValue.toString());
-        
-        if (newValue) {
-          navigate("/tenant/auto-payment");
-        }
-      };
-    
-      
+      const newValue = !isAutoPaymentActive;
+      setIsAutoPaymentActive(newValue);
+      localStorage.setItem("isAutoPaymentActive", newValue.toString());
+  
+      if (newValue) {
+        navigate("/tenant/auto-payment");
+      }
+    };
 
 
     return (
       <section className={styles.autoPaymentContainer}>
         <h3 className={styles.autoPaymentTitle}>자동이체</h3>
         <div className={styles.autoPaymentInfo}>
-          
-          {/* <p className={styles.infoText}>
-            {isAutoPaymentActive 
-              ? "자동이체가 등록되었습니다. 매월 지정된 날짜에 결제됩니다."
-              : "자동이체를 등록하면 매월 지정된 날짜에 자동 결제됩니다."}
-          </p>
-         */}
-          
+
           {isAutoPaymentActive && (
           <div className={styles.registrationInfo}>
             <p>자동이체가 등록되었습니다. <br />매월 10일에 결제됩니다.</p>
@@ -158,6 +141,8 @@ function PaymentHistorySection() {
     const navigate = useNavigate();
     const [tenantName, setTenantName] = useState("");
 
+    const [isAutoPaymentActive, setIsAutoPaymentActive] = useState(false);
+   
     useEffect(() => {
       const fetchTenantName = async () => {
         try {
@@ -178,6 +163,9 @@ function PaymentHistorySection() {
         }
       };
   
+      const savedStatus = localStorage.getItem("isAutoPaymentActive");
+      setIsAutoPaymentActive(savedStatus === "true");
+
       fetchTenantName();
     }, []);
 
@@ -205,7 +193,11 @@ function PaymentHistorySection() {
             />
           </div>
   
-          <AutoPaymentSection />
+          <AutoPaymentSection   
+            isAutoPaymentActive={isAutoPaymentActive} 
+            setIsAutoPaymentActive={setIsAutoPaymentActive} 
+          />
+
           <PaymentHistorySection />
         </section>
         <Navbar />

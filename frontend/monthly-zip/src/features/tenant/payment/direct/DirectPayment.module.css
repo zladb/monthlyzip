@@ -97,7 +97,7 @@
   .quickAmountContainer {
     display: flex;
     justify-content: center;
-    gap: 5px;
+    gap: 4px;
     max-width: 330px;
     width: 100%;
     margin: 88px auto 0;
@@ -115,27 +115,10 @@
     border: 1px solid #dadada;
     border-radius: 3px;
     font-weight: 500;
+    width: 18%;
     white-space: nowrap;         /* 줄바꿈 방지 */
-  }
-  
-  .quickAll {
-    padding: 7px 19px;
-  }
-  
-  .quick100 {
-    padding: 7px 16px;
-  }
-  
-  .quick10 {
-    padding: 7px 20px;
-  }
-  
-  .quick5 {
-    padding: 7px 21px;
-  }
-  
-  .quick1 {
-    padding: 7px 23px;
+    flex: 1;
+    padding: 7px 8px; /* 동일하게 최소로 */
   }
   
   /* 키패드 */
