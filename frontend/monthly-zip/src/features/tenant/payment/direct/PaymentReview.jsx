@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./PaymentReview.module.css";
 
@@ -24,14 +25,14 @@ function PageHeader() {
 }
 
 // Bank account indicator
-function BankAccount() {
+function BankAccount({ landlordAccount }) {
   return (
-      <p className={styles.accountDisplay}>110-123-456789</p>
+      <p className={styles.accountDisplay}>{landlordAccount}</p>
   );
 }
 
 // Transfer details section
-function TransferDetails() {
+function TransferDetails({ landlordName }) {
   const [amount, setAmount] = useState(0);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ function TransferDetails() {
 
   return (
     <>
-      <h2 className={styles.recipientTitle}>홍길동 님께</h2>
+      <h2 className={styles.recipientTitle}>{landlordName} 님께</h2>
       <h3 className={styles.amountText}>
         {formattedAmount}  <span style={{ fontWeight: 500 }}>원 을 이체합니다.</span>
       </h3>
@@ -54,22 +55,22 @@ function TransferDetails() {
 }
 
 // Account information section
-function AccountInformation() {
+function AccountInformation({ tenantAccount, tenantName, landlordName }) {
   return (
     <>
       <hr className={styles.dividerTop} />
       <section className={styles.accountSection}>
         <label className={styles.accountLabel}>출금계좌</label>
-        <p className={styles.accountNumber}>123456-78-901234</p>
+        <p className={styles.accountNumber}>{tenantAccount}</p>
       </section>
       <section className={styles.recipientSection}>
         <div className={styles.recipientLabelRow}>
-          <label>받는 분 통장 표시</label>
-          <label className={styles.rightAlignedLabel}>내 통장 표시</label>
+          <label>받는 분</label>
+          <label className={styles.rightAlignedLabel}>보내는 분</label>
         </div>
         <div className={styles.recipientValueRow}>
-          <p>홍길동</p>
-          <p className={styles.rightAlignedName}>김철수</p>
+          <p>{landlordName}</p>
+          <p className={styles.rightAlignedName}>{tenantName}</p>
         </div>
       </section>
       <hr className={styles.dividerBottom} />
@@ -81,6 +82,35 @@ function AccountInformation() {
 function PaymentReview() {
   const navigate = useNavigate();
 
+  const [landlordAccount, setLandlordAccount] = useState("");
+  const [landlordName, setLandlordName] = useState("");
+  const [tenantAccount, setTenantAccount] = useState("");
+  const [tenantName, setTenantName] = useState("");
+
+  useEffect(() => {
+    const fetchTransferData = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        const response = await axios.get("/api/transfers", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+          console.log(response.data.result);
+          const result = response.data.result;
+          setLandlordAccount(result.landlordAccount);
+          setLandlordName(result.landlordName);
+          setTenantAccount(result.tenantAccount);
+          setTenantName(result.tenantName);
+
+      } catch (error) {
+        console.error("API 호출 오류:", error);
+      }
+    };
+
+    fetchTransferData();
+  }, []);
+
   const handleClick = () => {
     navigate('/tenant/direct-payment-password');
   };
@@ -89,9 +119,13 @@ function PaymentReview() {
     <article className={styles.container}>
       <PageHeader />
       <div className={styles.content}>
-        <BankAccount />
-        <TransferDetails />
-        <AccountInformation />
+        <BankAccount landlordAccount={landlordAccount}/>
+        <TransferDetails landlordName={landlordName}/>
+        <AccountInformation 
+          tenantAccount={tenantAccount}
+          tenantName={tenantName}
+          landlordName={landlordName}
+        />
       </div>
       <button 
         className={styles.nextButton}
