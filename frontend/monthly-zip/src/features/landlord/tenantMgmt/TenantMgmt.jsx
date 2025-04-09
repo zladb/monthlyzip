@@ -76,6 +76,8 @@ const handleBuildingClick = (buildingName) => {
         src="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/ec3637c49e111e793c356889858c828968d2bbb9?placeholderIfAbsent=true"
         alt="Tenant Management Icon"
         className={styles.headerIcon}
+        onClick={() => navigate("/landlord")}
+        style={{ cursor: "pointer" }}
       />
       <h1 className={styles.title}>임차인 관리</h1>
 

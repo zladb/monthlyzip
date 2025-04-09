@@ -15,6 +15,7 @@ import Notice from './features/landlord/notice/Notice';
 import LandlordNoticeDetail from './features/landlord/notice/NoticeDetail';
 import NoticeUpdate from './features/landlord/notice/NoticeUpdate';
 import NoticeCreate from './features/landlord/notice/NoticeCreate';
+import NotificationPage from './features/landlord/notification/NotificationPage';
 
 import TenantHome from './features/tenant/home/TenantHome';
 import PaymentList from './features/tenant/payment/PaymentList';
@@ -60,7 +61,7 @@ function App() {
         <Route path="/landlord/notice-update/:noticeId" element={<NoticeUpdate />} />
         <Route path="/landlord/notice-create" element={<NoticeCreate />} />
         <Route path="/landlord/tenant-mgmt-detail/:id" element={<TenantMgmtDetail />} />
-        <Route path="/landlord/notification" element={<Notification />} />
+        <Route path="/landlord/notification" element={<NotificationPage />} />
 
         {/* 임차인 라우트 */}
         <Route path="/tenant" element={<TenantHome />} />
