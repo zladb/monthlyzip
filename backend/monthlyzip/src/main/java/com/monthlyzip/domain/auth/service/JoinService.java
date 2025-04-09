@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,7 +106,7 @@ public class JoinService {
         // ******* ACCOUNT NO 발급 부분 *******
         String accountNo;
         try {
-            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
             String transmissionDate = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
             String transmissionTime = now.format(DateTimeFormatter.ofPattern("HHmmss"));
             String transactionUniqueNo = transmissionDate + transmissionTime + String.format("%06d", new Random().nextInt(999999));
@@ -147,7 +148,7 @@ public class JoinService {
 
         // ********** 계좌에 초기 금액 입금 **********
         try {
-            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
             String transmissionDate = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
             String transmissionTime = now.format(DateTimeFormatter.ofPattern("HHmmss"));
             String transactionUniqueNo = transmissionDate + transmissionTime + String.format("%06d", new Random().nextInt(999999));
