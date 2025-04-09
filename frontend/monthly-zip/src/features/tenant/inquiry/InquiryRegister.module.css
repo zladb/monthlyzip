@@ -43,6 +43,10 @@
   }
   .categorySection {
     padding-left: 15px;
+    padding-right: 15px;
+    flex-shrink: 0;
+    width: 350px;
+    
  }
   .categoryNav,
   .secondaryCategoryNav {
@@ -53,7 +57,8 @@
     margin-top: 63px;
     font-weight: 600;
     display: flex;
-    width: 100%;
+    width: 90%;
+    flex-wrap: nowrap;
   }
   
   .categoryButtonWrapper {
@@ -64,7 +69,7 @@
     background-color: #fff;
     border: 1px solid #dadada;
     border-radius: 5px;
-    padding: 15px 23px;
+    padding: 15px 15px;
     width: 140px;
     font-size: 16px;
   }
