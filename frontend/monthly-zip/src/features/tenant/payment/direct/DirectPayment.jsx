@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./DirectPayment.module.css";
 
 function PaymentHeader({ userName, accountNumber }) {
@@ -102,6 +103,31 @@ function DirectPayment() {
   const [amount, setAmount] = useState(0);
   const [availableBalance] = useState(1500000);
 
+  const [landlordName, setLandlordName] = useState("");
+  const [landlordAccount, setLandlordAccount] = useState("");
+
+  useEffect(() => {
+    const fetchTransferInfo = async () => {
+      try {
+        const token = localStorage.getItem("accessToken"); // 토큰이 있는 경우
+        const response = await axios.get("/api/transfers", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        console.log("서버 응답: ", response.data.result);
+          const { landlordName, landlordAccount } = response.data.result;
+          setLandlordName(landlordName);
+          setLandlordAccount(landlordAccount);
+      } catch (error) {
+        console.error("API 호출 중 오류 발생:", error);
+      }
+    };
+
+    fetchTransferInfo();
+  }, []);
+
   const handleQuickAmountSelect = (value) => {
     switch (value) {
       case "전액":
@@ -145,8 +171,8 @@ function DirectPayment() {
   return (
     <section className={styles.paymentSection}>
       <PaymentHeader
-        userName="홍길동"
-        accountNumber="신한 110123456789"
+        userName={landlordName}
+        accountNumber={landlordAccount}
       />
 
       <AmountDisplay
