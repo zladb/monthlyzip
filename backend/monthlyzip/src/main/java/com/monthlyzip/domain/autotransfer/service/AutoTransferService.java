@@ -32,7 +32,7 @@ public class AutoTransferService {
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
 
         // 해당 member가 tenant인 계약 정보 찾기
-        Contract contract = contractRepository.findLatestByTenantIdIsNotNullAndRoomId(memberId)
+        Contract contract = contractRepository.findLatestByTenantId(memberId)
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.CONTRACT_NOT_FOUND));
 
         String fromAccount = member.getAccountNo();        // 임차인 계좌
@@ -69,6 +69,7 @@ public class AutoTransferService {
         Member landlord = memberRepository.findById(contract.getLandlordId())
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
 
+        System.out.println();
         // 5. 자동이체 생성
         AutoTransfer autoTransfer = AutoTransfer.builder()
                 .contract(contract)
