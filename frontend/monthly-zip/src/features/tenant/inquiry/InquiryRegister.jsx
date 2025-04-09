@@ -218,6 +218,12 @@ function InquiryRegister() {
                   className={styles.categoryButton}
                 />
               ))}
+               <button
+                className={styles.categoryButton}
+                style={{ visibility: "hidden" }}
+              >
+                placeholder
+              </button>
             </div>
           </div>
             
