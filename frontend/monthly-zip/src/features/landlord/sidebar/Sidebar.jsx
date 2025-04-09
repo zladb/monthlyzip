@@ -37,7 +37,7 @@ function NavigationItems({ navigate, onClose }) {
       icon: alarmIcon,
       label: '알림 발송 설정',
       onClick: () => {
-        navigate('/landlord/alarm-setting');
+        navigate('/landlord/notification');
         onClose();
       }
     },
@@ -75,7 +75,7 @@ function LogoutSection({ onClose, navigate }) {
           localStorage.removeItem("userEmail");
           localStorage.removeItem("userType");
     
-          navigate("/user/login");
+          navigate("/login");
           onClose();
         }
       };
@@ -115,7 +115,7 @@ function AccountActions({ onClose }) {
 
       alert("회원 탈퇴가 완료되었습니다.");
       onClose();          // 사이드바 닫기
-      navigate("/user/login"); // 로그인 페이지로 이동
+      navigate("/login"); // 로그인 페이지로 이동
     } catch (error) {
       console.error("회원 탈퇴 실패:", error);
       alert("회원 탈퇴에 실패했습니다. 다시 시도해주세요.");

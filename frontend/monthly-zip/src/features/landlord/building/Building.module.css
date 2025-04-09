@@ -1,0 +1,188 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #FFFBF7;
+}
+
+.building {
+  flex: 1;
+  background-color: #fffbf7;
+  width: 100%;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 24px;
+  padding-bottom: 120px;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000;
+}
+
+.buildingRegister {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #E1EEF6;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.buildingRegister img {
+  width: 16px;
+  height: 16px;
+}
+
+.buildingRegister span {
+  font-size: 12px;
+  color: #000;
+  font-weight: 700;
+}
+
+.buildingCard {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 16px;
+}
+
+.buildingHeader {
+  background-color: #E1EEF6;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+}
+
+.buildingHeader h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  margin: 0;
+}
+
+.menuButton {
+  border: none;
+  background: none;
+  font-size: 20px;
+  color: #000;
+  cursor: pointer;
+}
+
+.divider {
+  height: 1px;
+  background-color: #E8E8E8;
+  margin: 0;
+}
+
+.unitRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+}
+
+.unitName {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
+  margin: 0;
+}
+
+.vacantStatus {
+  color: #EC221F;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.occupiedStatus {
+  color: #53B175;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.thinDivider {
+  height: 1px;
+  background-color: #F1F1F1;
+  margin: 0;
+}
+
+.registerUnitButton {
+  width: 100%;
+  background-color: #F8F8F8;
+  border: none;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  cursor: pointer;
+  text-align: center;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.registerUnitIcon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  flex-shrink: 0;
+  width: 20px;
+}
+
+.dotIndicator {
+  border-radius: 50px;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 13px;
+  padding: 8px 12px;
+  display: flex;
+}
+
+.dot {
+  background-color: #000;
+  border-radius: 50px;
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 8px;
+  height: 8px;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+}
+
+.pageIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #D9D9D9;
+  transition: background-color 0.2s ease;
+}
+
+.indicator.active {
+  background-color: #000;
+}
+  
