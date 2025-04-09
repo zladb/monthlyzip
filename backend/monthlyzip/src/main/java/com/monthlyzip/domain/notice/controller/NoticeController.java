@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.notice.controller;
 
-import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.domain.notice.model.dto.request.NoticeRequestDto;
 import com.monthlyzip.domain.notice.model.dto.request.NoticeUpdateRequestDto;
 import com.monthlyzip.domain.notice.model.dto.response.NoticeResponseDto;

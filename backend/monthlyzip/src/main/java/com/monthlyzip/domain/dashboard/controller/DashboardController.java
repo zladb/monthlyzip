@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.dashboard.controller;
 
-import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.domain.dashboard.model.dto.response.DashboardResponseDto;
 import com.monthlyzip.domain.dashboard.service.DashboardService;
 import com.monthlyzip.global.common.model.dto.ApiResponse;

@@ -39,6 +39,12 @@ public class Member {
     @Column(name = "user_type", nullable = false)
     private MemberType memberType;
 
+    @Column(name = "account_no", nullable = false, unique = true, length = 100)
+    private String accountNo;
+
+    @Column(name = "user_api_key", nullable = false, length = 255)
+    private String userApiKey;
+
     @CreationTimestamp  // 생성 시 자동으로 현재 시간 입력
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

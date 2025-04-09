@@ -1,4 +1,4 @@
-package com.monthlyzip.domain.auth.model.dto;
+package com.monthlyzip.domain.auth.dto;
 
 import com.monthlyzip.domain.member.entity.Member;
 import org.springframework.security.core.GrantedAuthority;

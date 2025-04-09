@@ -1,6 +1,6 @@
 package com.monthlyzip.domain.contract.controller;
 
-import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.domain.contract.model.dto.request.InviteVerifyRequestDto;
 import com.monthlyzip.domain.contract.model.dto.response.InviteCodeResponseDto;
 import com.monthlyzip.domain.contract.service.ContractInviteService;
