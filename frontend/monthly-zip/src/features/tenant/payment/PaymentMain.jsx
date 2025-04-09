@@ -207,7 +207,7 @@ function PaymentHistorySection() {
           <div className={styles.paymentOptions}>
             <PaymentOptionCard
               imageUrl="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/1d1c2a1f74cb7c82151ae1c726c5045019acfdac?placeholderIfAbsent=true"
-              title="이번 달 월세 납부"
+              title="직접 월세 납부"
               onClick={() => navigate("/tenant/direct-payment")}
             />
             <PaymentOptionCard

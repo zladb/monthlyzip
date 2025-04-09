@@ -6,7 +6,7 @@
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 68px;
+  padding-top: 80px;
   display: flex;
   overflow: hidden;
 }
@@ -177,7 +177,7 @@
   text-align: center;
   background-color: #fcbe32;
   width: 100%;
-  margin-top: 70px;
+  margin-top: 80px;
   padding: 23px 70px;
   font-family:
     Montserrat,
