@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./PaymentPassword.module.css";
 import ResetIcon from "../../../../assets/icons/Arrow-Back-Right.png"
 
@@ -81,7 +82,8 @@ const PasswordDots = ({ length = 4, filledCount = 0, visibleIndex = null, passwo
 
 function PaymentPassword() {
     const initialNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-    
+    const navigate = useNavigate();
+
     // shuffle
     const shuffle = (array) => [...array].sort(() => Math.random() - 0.5);
 
@@ -98,6 +100,15 @@ function PaymentPassword() {
       return () => clearTimeout(timer);
     }, [visibleIndex]);
   
+    // 비밀번호 4자리 완료 후 이동
+    useEffect(() => {
+      if (password.length === 4) {
+        setTimeout(() => {
+          navigate("/tenant/direct-payment-confirm");
+        }, 300);
+      }
+    }, [password, navigate]);
+
     const handleKeyPress = (key) => {
       if (key === "delete") {
         setPassword((prev) => prev.slice(0, -1));

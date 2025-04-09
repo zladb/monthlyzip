@@ -68,7 +68,9 @@ function PaymentCard({ payment }) {
       }
     )
     .then((response) => {
-      if (response.data.isSuccess) {
+      console.log("서버 응답:", response.data);
+
+      if (response.data.success) {
         alert("보증금에서 차감되었습니다.");
         window.location.reload();
       } else {
