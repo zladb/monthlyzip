@@ -10,12 +10,14 @@ import Mypage from './features/user/myPage/Mypage';
 import TenantMgmt from './features/landlord/tenantMgmt/TenantMgmt';
 import TenantMgmtDetail from './features/landlord/tenantMgmt/TenantMgmtDetail';
 import LandlordHome from './features/landlord/home/LandlordHome'
+import Building from './features/landlord/building/Building'
 import Inquiry from './features/landlord/inquiry/Inquiry';
 import LandlordInquiryDetail from './features/landlord/inquiry/InquiryDetail'
 import Notice from './features/landlord/notice/Notice';
 import LandlordNoticeDetail from './features/landlord/notice/NoticeDetail';
 import NoticeUpdate from './features/landlord/notice/NoticeUpdate';
 import NoticeCreate from './features/landlord/notice/NoticeCreate';
+import NotificationPage from './features/landlord/notification/NotificationPage';
 
 import TenantHome from './features/tenant/home/TenantHome';
 import PaymentList from './features/tenant/payment/PaymentList';
@@ -42,25 +44,30 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* 공개 라우트 */}
-        <Route path="/" element={<Navigate to="/user/login" replace />} />
-        <Route path="/user/login" element={<Login />} />
-        <Route path="/user/signup" element={<Signup />} />
+        {/* 공개 라우트 - 로그인하지 않은 사용자도 접근 가능 */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         
-        {/* 로그인한 모든 사용자가 접근 가능한 라우트 (예: 마이페이지) */}
+        {/* 로그인한 모든 사용자가 접근 가능한 라우트 */}
         <Route element={<ProtectedRoute />}>
           <Route path="/mypage" element={<Mypage />} />
         </Route>
-
+        
         {/* 임대인 전용 라우트 */}
         <Route element={<ProtectedRoute requiredType="임대인" />}>
           <Route path="/landlord" element={<LandlordHome />} />
-          <Route path="/landlord/alarm-setting" element={<div>알림 발송 설정 페이지</div>} />
-          <Route path="/landlord/building" element={<div>세대 관리 메인 페이지</div>} />
+
+          <Route path="/landlord/building" element={<Building />} />
+
           <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
           <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
+          <Route path="/landlord/tenant-mgmt-detail/:id" element={<TenantMgmtDetail />} />
+          <Route path="/landlord/notification" element={<NotificationPage />} />
+
           <Route path="/landlord/inquiry" element={<Inquiry />} />
           <Route path="/landlord/inquiry/:inquiryId" element={<LandlordInquiryDetail />} />
+
           <Route path="/landlord/notice" element={<Notice />} />
           <Route path="/landlord/notice/:noticeId" element={<LandlordNoticeDetail />} />
           <Route path="/landlord/notice-update/:noticeId" element={<NoticeUpdate />} />
