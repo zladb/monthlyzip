@@ -1,5 +1,6 @@
 package com.monthlyzip.domain.contract.repository;
 
+import com.monthlyzip.domain.autotransfer.entity.AutoTransfer;
 import com.monthlyzip.domain.contract.model.entity.Contract;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
