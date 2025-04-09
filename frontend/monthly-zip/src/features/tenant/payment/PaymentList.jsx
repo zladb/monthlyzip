@@ -91,7 +91,7 @@ const PaymentList = () => {
               month={displayMonth}
               year={displayYear}
               status={payment.paymentStatus}
-              date={payment.paymentDate}
+              date={payment.paymentStatus === "미납" ? "-" : payment.paymentDate}
               amount={payment.amount}
             />
           );
