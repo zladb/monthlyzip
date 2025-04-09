@@ -2,6 +2,23 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./NoticeList.module.css";
+import Navbar from "../navbar/Navbar"
+
+
+function NoticeItem({ noticeId, title, date }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/tenant/notice-detail/${noticeId}`);
+  }
+
+  return (
+    <div className={styles.noticeItem} onClick={handleClick}>
+      <h2 className={styles.noticeTitle}>{title}</h2>
+      <time className={styles.noticeDate}>{new Date(date).toLocaleDateString()}</time>
+    </div>
+  );
+}
 
 function NoticeList() {
   const [notices, setNotices] = useState([]);  // 전체 문의 리스트
@@ -51,23 +68,8 @@ function NoticeList() {
             )}
         </article>
       </section>
-      {/* <NavigationBar /> */}
+      <Navbar />
     </main>
-  );
-}
-
-function NoticeItem({ noticeId, title, date }) {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(`/tenant/notice-detail/${noticeId}`);
-  }
-
-  return (
-    <div className={styles.noticeItem} onClick={handleClick}>
-      <h2 className={styles.noticeTitle}>{title}</h2>
-      <time className={styles.noticeDate}>{new Date(date).toLocaleDateString()}</time>
-    </div>
   );
 }
 
