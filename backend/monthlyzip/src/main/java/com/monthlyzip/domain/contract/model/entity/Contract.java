@@ -63,4 +63,8 @@ public class Contract {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(name = "remaining_deposit")
+    private Long remainingDeposit;
+
 }
