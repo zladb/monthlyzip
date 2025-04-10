@@ -8,6 +8,7 @@ import AddIcon from '../../assets/icons/add.svg';
 function BuildingCard({ buildingId, buildingName, onDelete }) {
   const navigate = useNavigate();
   const [rooms, setRooms] = useState([]);
+  const [roomContracts, setRoomContracts] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,13 +26,55 @@ function BuildingCard({ buildingId, buildingName, onDelete }) {
         }
       });
       if (response.data.success) {
+        console.log('세대 목록 응답:', response.data.result);
         setRooms(response.data.result);
+        // 각 세대별 계약 정보 조회
+        fetchContractsForRooms(response.data.result);
       }
       setLoading(false);
     } catch (error) {
       setError('세대 목록을 불러오는데 실패했습니다.');
       setLoading(false);
     }
+  };
+
+  const fetchContractsForRooms = async (roomsList) => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      const contracts = {};
+      
+      for (const room of roomsList) {
+        console.log('계약 정보 조회 중인 세대:', room);
+        const response = await axios.get(`/api/contracts?roomId=${room.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        
+        console.log(`세대 ${room.id}의 계약 정보:`, response.data);
+        
+        if (response.data.success && response.data.result.length > 0) {
+          // 해당 세대의 계약 정보만 필터링
+          const roomContracts = response.data.result.filter(contract => contract.roomId === room.id);
+          if (roomContracts.length > 0) {
+            // 가장 최근 계약 정보 사용
+            const latestContract = roomContracts[0];
+            contracts[room.id] = latestContract;
+          }
+        }
+      }
+      
+      console.log('모든 세대의 계약 정보:', contracts);
+      setRoomContracts(contracts);
+    } catch (error) {
+      console.error('계약 정보를 불러오는데 실패했습니다:', error);
+    }
+  };
+
+  const isRoomOccupied = (roomId) => {
+    const contract = roomContracts[roomId];
+    console.log(`세대 ${roomId}의 입주 여부 확인:`, contract);
+    return contract && contract.isActiveLandlord === true && contract.isActiveTenant === true;
   };
 
   const handleRoomClick = (roomId) => {
@@ -82,20 +125,24 @@ function BuildingCard({ buildingId, buildingName, onDelete }) {
             <p className={styles.noUnitsSubText}>세대를 등록해주세요</p>
           </div>
         ) : (
-          rooms.map((room, index) => (
-            <React.Fragment key={room.id}>
-              <div
-                className={styles.unitRow}
-                onClick={() => handleRoomClick(room.id)}
-              >
-                <h3 className={styles.unitName}>{room.detailAddress}</h3>
-                <span className={room.isOccupied ? styles.occupiedStatus : styles.vacantStatus}>
-                  {room.isOccupied ? '입주' : '공실'}
-                </span>
-              </div>
-              {index < rooms.length - 1 && <hr className={styles.thinDivider} />}
-            </React.Fragment>
-          ))
+          rooms.map((room, index) => {
+            const isOccupied = isRoomOccupied(room.id);
+            console.log(`세대 ${room.id} 렌더링:`, { room, isOccupied });
+            return (
+              <React.Fragment key={room.id}>
+                <div
+                  className={styles.unitRow}
+                  onClick={() => handleRoomClick(room.id)}
+                >
+                  <h3 className={styles.unitName}>{room.detailAddress}</h3>
+                  <span className={isOccupied ? styles.occupiedStatus : styles.vacantStatus}>
+                    {isOccupied ? '입주' : '공실'}
+                  </span>
+                </div>
+                {index < rooms.length - 1 && <hr className={styles.thinDivider} />}
+              </React.Fragment>
+            );
+          })
         )}
       </div>
 
