@@ -79,17 +79,29 @@ const PaymentHistory = ({ history }) => {
 function TenantMgmtDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [tenantData, setTenantData] = useState(null);
+  const [tenantData, setTenantData] = useState({
+    roomNumber: "",
+    tenant: {},
+    contract: {},
+    paymentHistory: []
+  });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
 
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const detailRes = await axios.get(`/api/tenants/${id}/detail`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
+
+        if (!detailRes.data || !detailRes.data.result) {
+          console.error("❌ API 응답이 올바르지 않습니다:", detailRes);
+          return;
+        }
 
         const result = detailRes.data.result;
         const today = new Date();
@@ -108,22 +120,21 @@ function TenantMgmtDetail() {
         };
 
         setTenantData({
-          roomNumber: result.roomNumber,
-          tenant: result.tenant,
-          contract: contractData,
-          paymentHistory: result.paymentHistory,
+          roomNumber: result.roomNumber || "",
+          tenant: result.tenant || {},
+          contract: contractData || {},
+          paymentHistory: result.paymentHistory || [],
         });
       } catch (err) {
         console.error("❌ 임차인 정보 불러오기 실패:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [id]);
 
-  // if (!tenantData) {
-  //   return <p>불러오는 중...</p>;
-  // }
 
   return (
     <article className={styles.container}>
