@@ -191,3 +191,31 @@
     cursor: pointer;
   }
   
+  /* PaymentList.module.css */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pageButton,
+.pageNumber {
+  padding: 6px 12px;
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.activePage {
+  background-color: #4a90e2;
+  color: white;
+  font-weight: bold;
+}
+
+.pageButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
