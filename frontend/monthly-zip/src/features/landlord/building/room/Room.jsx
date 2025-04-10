@@ -60,7 +60,7 @@ const KakaoMap = ({ address }) => {
 };
 
 // Property card component
-const PropertyCard = ({ roomData, buildingData }) => {
+const PropertyCard = ({ roomData, buildingData, isOccupied }) => {
   console.log('Building Address:', buildingData?.address); // 주소 확인용 로그
 
   return (
@@ -75,8 +75,8 @@ const PropertyCard = ({ roomData, buildingData }) => {
         <div className={styles.sizeAndButton}>
           <p className={styles.propertySize}>{roomData.area}㎡</p>
           <div className={styles.buttonContainer}>
-            <ActionButton isOccupied={roomData.isOccupied}>
-              {roomData.isOccupied ? '입주' : '공실'}
+            <ActionButton isOccupied={isOccupied}>
+              {isOccupied ? '입주' : '공실'}
             </ActionButton>
           </div>
         </div>
@@ -110,11 +110,15 @@ const NoticeMessage = () => (
 );
 
 // Contract button component
-const ContractButton = ({ isActiveLandlord, onClick }) => (
-  <button className={styles.contractButton} onClick={onClick}>
-    {isActiveLandlord ? '계약 조회' : '계약 등록'}
-  </button>
-);
+const ContractButton = ({ isActiveLandlord, onClick }) => {
+  console.log('ContractButton isActiveLandlord:', isActiveLandlord);
+  console.log('Button Text:', isActiveLandlord ? '계약 조회' : '계약 등록');
+  return (
+    <button className={styles.contractButton} onClick={onClick}>
+      {isActiveLandlord ? '계약 조회' : '계약 등록'}
+    </button>
+  );
+};
 
 function Room() {
   const navigate = useNavigate();
@@ -124,6 +128,7 @@ function Room() {
   const [contractData, setContractData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isOccupied, setIsOccupied] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -151,9 +156,29 @@ function Room() {
 
           // 계약 정보 조회
           const contractResponse = await axios.get(`/api/contracts?roomId=${roomId}`, { headers });
+          console.log('계약 정보 조회 응답:', contractResponse.data);
           
           if (contractResponse.data.success && contractResponse.data.result.length > 0) {
-            setContractData(contractResponse.data.result[0]); // 가장 최근 계약 정보 사용
+            // 현재 roomId와 일치하는 계약 정보만 필터링
+            const contract = contractResponse.data.result.find(c => c.roomId === parseInt(roomId));
+            console.log('선택된 계약 정보:', contract);
+            
+            if (contract) {
+              console.log('isActiveLandlord:', contract.isActiveLandlord);
+              console.log('isActiveTenant:', contract.isActiveTenant);
+              setContractData(contract);
+              
+              // isActiveLandlord와 isActiveTenant가 모두 true인 경우에만 입주로 표시
+              setIsOccupied(contract.isActiveLandlord && contract.isActiveTenant);
+            } else {
+              console.log('해당 roomId의 계약 정보가 없습니다.');
+              setContractData(null);
+              setIsOccupied(false);
+            }
+          } else {
+            console.log('계약 정보가 없습니다.');
+            setContractData(null);
+            setIsOccupied(false);
           }
         }
       } catch (error) {
@@ -197,6 +222,8 @@ function Room() {
   };
 
   const handleContractClick = () => {
+    console.log('handleContractClick contractData:', contractData);
+    console.log('handleContractClick isActiveLandlord:', contractData?.isActiveLandlord);
     if (contractData?.isActiveLandlord) {
       navigate(`/landlord/building/${roomId}/contract`, { state: { roomId } });
     } else {
@@ -224,19 +251,23 @@ function Room() {
       </header>
 
       <section className={styles.content}>
-        <PropertyCard roomData={roomData} buildingData={buildingData} />
-        {!roomData.isOccupied && (
+        <PropertyCard 
+          roomData={roomData} 
+          buildingData={buildingData} 
+          isOccupied={isOccupied}
+        />
+        {!isOccupied && (
           <ManagementButtons 
             onEdit={handleEdit}
             onDelete={handleDelete}
           />
         )}
-        {roomData.isOccupied && <NoticeMessage />}
+        {isOccupied && <NoticeMessage />}
       </section>
 
       <footer className={styles.footer}>
         <ContractButton 
-          isActiveLandlord={contractData?.isActiveLandlord || false}
+          isActiveLandlord={contractData?.isActiveLandlord}
           onClick={handleContractClick}
         />
       </footer>

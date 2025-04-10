@@ -8,6 +8,26 @@ function Divider() {
   return <hr className={styles.divider} />;
 }
 
+// 금액을 한글로 변환하는 함수
+function formatAmountToKorean(amount) {
+  if (!amount) return '0원';
+  
+  const numAmount = Number(amount);
+  
+  if (numAmount >= 100000000) {
+    const billion = Math.floor(numAmount / 100000000);
+    const million = Math.floor((numAmount % 100000000) / 10000);
+    if (million > 0) {
+      return `${billion}억 ${million}만원`;
+    }
+    return `${billion}억원`;
+  } else if (numAmount >= 10000) {
+    const million = Math.floor(numAmount / 10000);
+    return `${million}만원`;
+  }
+  return `${numAmount}원`;
+}
+
 // ContractSection 컴포넌트
 function ContractSection({ title, content, value, isKeyValue = false }) {
   if (isKeyValue) {
@@ -135,8 +155,8 @@ console.log("보내는 payload:", payload);
         <ContractSection title="임대인" value={roomInfo.lessorName} isKeyValue={true} />
         <ContractSection title="임차인" value={formData.lesseeName} isKeyValue={true} />
         <Divider />
-        <ContractSection title="월세" value={`${formData.monthlyRent} 원`} isKeyValue={true} />
-        <ContractSection title="보증금" value={`${formData.deposit} 원`} isKeyValue={true} />
+        <ContractSection title="월세" value={formatAmountToKorean(formData.monthlyRent)} isKeyValue={true} />
+        <ContractSection title="보증금" value={formatAmountToKorean(formData.deposit)} isKeyValue={true} />
         <Divider />
         <ContractSection title="납부 계좌" content={formData.bankAccount} />
         <Divider />

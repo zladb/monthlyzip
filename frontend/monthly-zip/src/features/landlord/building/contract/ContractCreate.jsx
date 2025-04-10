@@ -78,6 +78,15 @@ function ContractCreate() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+    // 납부일은 1~31 사이의 숫자만 입력 가능
+    if (name === 'paymentDay') {
+      const numValue = parseInt(value);
+      if (numValue < 1 || numValue > 31) {
+        return; // 유효하지 않은 값은 무시
+      }
+    }
+    
     setFormData((prev) => ({
       ...prev,
       [name]: value
@@ -93,6 +102,24 @@ function ContractCreate() {
   };
 
   const handleNext = () => {
+    // 모든 필드가 필수 입력인지 확인
+    const requiredFields = ['startDate', 'endDate', 'lesseeName', 'monthlyRent', 'deposit', 'bankAccount', 'paymentDay'];
+    const emptyFields = requiredFields.filter(field => !formData[field]);
+    
+    if (emptyFields.length > 0) {
+      alert('모든 필드를 입력해주세요.');
+      return;
+    }
+    
+    // 시작 날짜가 종료 날짜보다 늦은지 확인
+    const startDate = new Date(formData.startDate);
+    const endDate = new Date(formData.endDate);
+    
+    if (startDate > endDate) {
+      alert('시작 날짜는 종료 날짜보다 늦을 수 없습니다.');
+      return;
+    }
+    
     if (!roomId || isNaN(roomId)) {
       alert("유효한 방 ID가 아닙니다.");
       return;
@@ -129,6 +156,8 @@ function ContractCreate() {
               value={formData.startDate}
               onChange={handleChange}
               placeholder="시작일"
+              required
+              max={formData.endDate || undefined}
             />
             <span className={styles.span}>~</span>
             <input
@@ -138,6 +167,8 @@ function ContractCreate() {
               value={formData.endDate}
               onChange={handleChange}
               placeholder="종료일"
+              required
+              min={formData.startDate || undefined}
             />
           </div>
         </section>
@@ -156,6 +187,7 @@ function ContractCreate() {
             value={formData.lesseeName}
             onChange={handleChange}
             placeholder="이름 입력"
+            required
           />
         </div>
         <hr className={styles.div23} />
@@ -168,6 +200,7 @@ function ContractCreate() {
             value={formData.monthlyRent}
             onChange={handleChange}
             placeholder="금액 입력"
+            required
           />
           <span className={styles.div27}>원</span>
         </div>
@@ -180,6 +213,7 @@ function ContractCreate() {
             value={formData.deposit}
             onChange={handleChange}
             placeholder="금액 입력"
+            required
           />
           <span className={styles.div31}>원</span>
         </div>
@@ -193,6 +227,7 @@ function ContractCreate() {
             value={formData.bankAccount}
             onChange={handleChange}
             placeholder="계좌번호 입력"
+            required
           />
         </section>
         <hr className={styles.div36} />
@@ -208,6 +243,7 @@ function ContractCreate() {
             min="1"
             max="31"
             placeholder="일"
+            required
           />
           <span className={styles.div41}>일</span>
         </div>
