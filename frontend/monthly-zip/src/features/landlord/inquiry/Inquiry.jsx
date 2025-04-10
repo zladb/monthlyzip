@@ -99,17 +99,23 @@ function Inquiry() {
       
       if (response.data.success) {
         const allInquiriesData = response.data.result;
-        setAllInquiries(allInquiriesData);
+        
+        // 최신순으로 정렬 (createdAt 기준 내림차순)
+        const sortedInquiries = allInquiriesData.sort((a, b) => 
+          new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        
+        setAllInquiries(sortedInquiries);
         
         // 전체 데이터에서 상태별 카운트 계산
-        const counts = allInquiriesData.reduce((acc, inquiry) => {
+        const counts = sortedInquiries.reduce((acc, inquiry) => {
           acc[inquiry.status] = (acc[inquiry.status] || 0) + 1;
           return acc;
         }, {});
         setStatusCounts(counts);
 
         // 선택된 상태와 유형에 따라 필터링
-        let filteredData = allInquiriesData;
+        let filteredData = sortedInquiries;
         
         if (activeStatus) {
           filteredData = filteredData.filter(inquiry => inquiry.status === activeStatus);
@@ -152,16 +158,22 @@ function Inquiry() {
           activeType={activeType}
           setActiveType={setActiveType}
         />
-        {inquiries.map((inquiry) => (
-          <InquiryCard
-            key={inquiry.inquiryId}
-            id={inquiry.inquiryId}
-            type={inquiry.inquiryType}
-            title={inquiry.title}
-            date={inquiry.createdAt}
-            status={inquiry.status}
-          />
-        ))}
+        {inquiries.length > 0 ? (
+          inquiries.map((inquiry) => (
+            <InquiryCard
+              key={inquiry.inquiryId}
+              id={inquiry.inquiryId}
+              type={inquiry.inquiryType}
+              title={inquiry.title}
+              date={inquiry.createdAt}
+              status={inquiry.status}
+            />
+          ))
+        ) : (
+          <div className={styles.emptyMessage}>
+            문의 내역이 없습니다.
+          </div>
+        )}
       </section>
       <Navbar />
     </main>

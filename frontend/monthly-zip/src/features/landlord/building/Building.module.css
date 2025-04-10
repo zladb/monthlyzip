@@ -1,0 +1,282 @@
+.container {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #fffbf7;
+}
+
+.building {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  padding-bottom: calc(40px + 60px);
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+
+.buildingRegister {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #E1EEF6;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+}
+
+.buildingRegister img {
+  width: 16px;
+  height: 16px;
+}
+
+.buildingRegister span {
+  font-size: 12px;
+  color: #000;
+  font-weight: 700;
+}
+
+.buildingCard {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 8px 0;
+  overflow: hidden;
+  height: calc(100% - 16px);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.buildingHeader {
+  background-color: #E1EEF6;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  flex-shrink: 0;
+}
+
+.buildingHeader h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  margin: 0;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1002;
+}
+
+.menuButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+}
+
+.divider {
+  height: 1px;
+  background-color: #E8E8E8;
+  margin: 0;
+}
+
+.unitRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+}
+
+.unitName {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
+  margin: 0;
+}
+
+.vacantStatus {
+  color: #EC221F;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.occupiedStatus {
+  color: #53B175;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.thinDivider {
+  height: 1px;
+  background-color: #F1F1F1;
+  margin: 0;
+}
+
+.cardsContainer {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  margin: 0 -24px;
+}
+
+.cardsWrapper {
+  display: flex;
+  height: 100%;
+}
+
+.cardSlide {
+  flex: 0 0 100%;
+  padding: 0 24px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.cardSlide > * {
+  width: 100%;
+  max-width: 100%;
+}
+
+.pageIndicator {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 16px 0;
+  padding: 8px 0;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #dee2e6;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.indicator.active {
+  background-color: #FF9C46;
+  transform: scale(1.2);
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  background-color: #F5F5F5;
+  border-radius: 24px;
+  margin: 24px 0;
+}
+
+.emptyState p {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+
+.noUnits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin: 1rem;
+}
+
+.noUnitsIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.noUnitsText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.noUnitsSubText {
+  font-size: 0.9rem;
+  color: #868e96;
+}
+
+.roomCreateButton {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  cursor: pointer;
+  text-align: center;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  margin-top: auto;
+  transition: background-color 0.2s ease;
+}
+
+.roomCreateButton:hover {
+  background-color: #f8f8f8;
+}
+
+.modalOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalPosition {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1001;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  margin-top: 4px;
+}
+  
