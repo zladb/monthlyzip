@@ -15,6 +15,9 @@ RUN npm run build
 # 프로덕션 단계
 FROM nginx:alpine
 
+# nginx 설정 파일 복사
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # 빌드 결과물 복사
 COPY --from=builder /app/build /usr/share/nginx/html
 

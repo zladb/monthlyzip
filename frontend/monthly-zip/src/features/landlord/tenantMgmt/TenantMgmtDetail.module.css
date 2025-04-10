@@ -130,7 +130,7 @@
     Helvetica,
     sans-serif;
 }
-.historyCard {
+/* .historyCard {
   background-color: #fff;
   border: 1px solid #dadada;
   border-radius: 10px;
@@ -141,7 +141,24 @@
   display: flex;
   flex-direction: column; 
   gap: 16px;
+} */
+
+.historyCard {
+  /* 기존 스타일 유지 */
+  background-color: #fff;
+  border: 1px solid #dadada;
+  border-radius: 10px;
+  margin-top: 11px;
+  padding: 17px 10px;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 300px; /* 원하는 높이로 조절 가능 */
+  overflow-y: auto;
 }
+
 .historyContent {
   white-space: normal;
   align-self: start;
@@ -152,18 +169,7 @@
   gap: 20px;
   display: flex;
 }
-/* .dateColumn {
-  color: #000;
-  flex-direction: column;
-  align-items: stretch;
-  font-family:
-    Poppins,
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
-  display: flex;
-} */
+
 .columnHeader {
   color: #555353;
   align-self: center;
@@ -174,14 +180,7 @@
     Helvetica,
     sans-serif;
 }
-/* .dateEntry1 {
-  text-align: center;
-  margin-top: 19px;
-}
-.dateEntry2 {
-  text-align: center;
-  margin-top: 17px;
-} */
+
 .amountHeader {
   color: #555353;
   font-family:
