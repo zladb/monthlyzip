@@ -181,4 +181,11 @@
 .menuItem.danger:hover {
   background-color: #FFF0F0;
 }
-  
+
+.sidebarContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 32px; /* 아래 여유 */
+}
