@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./ContractCreate.module.css";
 import BackIcon from "../../../../assets/icons/arrow_back.svg";
+import axios from "axios";
 
 // ContractHeader Component
 function ContractHeader({ title, onBack }) {
@@ -29,6 +30,64 @@ function ContractCreate() {
     paymentDay: ""
   });
 
+  //유저, 건물 정보
+  const [roomInfo, setRoomInfo] = useState({
+    address: "",
+    roomNumber: "",
+    lessorName: ""
+  });
+  
+
+  useEffect(() => {
+    const fetchRoomAndBuildingInfo = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+  
+        // 1. 방 정보 요청
+        const roomRes = await axios.get(`/api/rooms/${roomId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+  
+        if (!roomRes.data.success) {
+          console.error("방 정보 조회 실패", roomRes.data.message);
+          return;
+        }
+  
+        const room = roomRes.data.result;
+        console.log("받아온 방 데이터:", room);
+  
+        // 2. 건물 정보 요청
+        const buildingRes = await axios.get(`/api/buildings/${room.buildingId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+  
+        if (!buildingRes.data.success) {
+          console.error("건물 정보 조회 실패", buildingRes.data.message);
+          return;
+        }
+  
+        const building = buildingRes.data.result;
+        console.log("건물 데이터:", building);
+  
+        // 3. 필요한 정보 저장
+        setRoomInfo({
+          address: building.address,
+          roomNumber: room.detailAddress,
+          lessorName: building.ownerName
+        });
+      } catch (error) {
+        console.error("정보 요청 오류", error);
+      }
+    };
+  
+    if (roomId) {
+      fetchRoomAndBuildingInfo();
+    }
+  }, [roomId]);
+
+
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -45,9 +104,43 @@ function ContractCreate() {
     navigate(`/landlord/building/${roomId}`);
   };
 
-  const handleNext = () => {
-    // TODO: API 호출 및 다음 단계로 이동
-    console.log(formData);
+  const handleNext = async () => {
+    const token = localStorage.getItem("accessToken");
+
+    const payload = {
+      roomId: Number(roomId),
+      startDate: `${formData.startDate}T00:00:00`,
+      endDate: `${formData.endDate}T00:00:00`,
+      monthlyRent: Number(formData.monthlyRent),
+      deposit: Number(formData.deposit),
+      paymentDay: Number(formData.paymentDay),
+      bankAccount: formData.bankAccount
+    };
+
+    console.log("보내는 payload:", payload);
+
+    try {
+      const response = await axios.post(
+        "/api/contracts",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      if (response.data.success) {
+        console.log("계약 생성 성공:", response.data);
+        navigate(`/landlord/building/${roomId}`);
+      } else {
+        console.error("계약 생성 실패:", response.data.message);
+      }
+    } catch (err) {
+      console.error("API 요청 에러:", err);
+      alert("계약 생성 중 오류가 발생했습니다.");
+    }
   };
 
   if (!roomId) {
@@ -61,8 +154,8 @@ function ContractCreate() {
 
         <section className={styles.div5}>
           <h2 className={styles.div6}>주소</h2>
-          <p className={styles.div7}>서울특별시 동작구 현충로 52 (흑석동, 아크로리버하임)</p>
-          <p className={styles.div8}>103호 1502호</p>
+          <p className={styles.div7}>{roomInfo.address}</p>
+          <p className={styles.div8}>{roomInfo.roomNumber}</p>
         </section>
 
         <hr className={styles.div9} />
@@ -94,7 +187,7 @@ function ContractCreate() {
 
         <div className={styles.div16}>
           <h2 className={styles.div17}>임대인</h2>
-          <p className={styles.div18}>홍길동</p>
+          <p className={styles.div18}>{roomInfo.lessorName}</p>
         </div>
 
         <hr className={styles.div19} />
