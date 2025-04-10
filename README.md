@@ -162,6 +162,6 @@
 
 ### 3. [API 명세서](https://gravel-seagull-322.notion.site/API-1b4ef7bc76258019a0a4f6f80af26682?pvs=4)
 
-### 4. [ERD](/docs/erd.jpg)
+### 4. [ERD](/docs/erd.png)
 
 ### 5. [포팅매뉴얼](/docs/포팅메뉴얼/)
