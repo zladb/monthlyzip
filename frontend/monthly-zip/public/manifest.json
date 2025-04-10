@@ -1,9 +1,28 @@
 {
   "short_name": "월간Zip",
   "name": "월간Zip",
-  "icons": [],
+  "icons": [
+    {
+      "src": "monthtlyZip.svg",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#FFFBF7",
-  "background_color": "#FFFBF7"
+  "background_color": "#FFFBF7",
+  "orientation": "portrait"
 }
