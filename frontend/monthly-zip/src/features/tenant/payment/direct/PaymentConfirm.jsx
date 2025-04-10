@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./PaymentConfirm.module.css";
 
@@ -54,8 +55,8 @@ function TransactionDetails({ landlordAccount, landlordName, tenantAccount, tena
 }
 
 
-function ConfirmButton() {
-  return <button className={styles.confirmButton}>확인</button>;
+function ConfirmButton({ onConfirm }) {
+  return <button className={styles.confirmButton} onClick={onConfirm}>확인</button>;
 }
 
 function PaymentConfirm() {
@@ -65,6 +66,8 @@ function PaymentConfirm() {
   const [landlordName, setLandlordName] = useState("");
   const [tenantAccount, setTenantAccount] = useState("");
   const [tenantName, setTenantName] = useState("");
+
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchAndTransfer = async () => {
@@ -127,6 +130,10 @@ function PaymentConfirm() {
     }
   }, []);
 
+  const handleConfirmClick = () => {
+    navigate("/tenant/payment-main");  // 확인 버튼 클릭 시 페이지 이동
+  };
+
   return (
     <main className={styles.container}>
       <section className={styles.contentWrapper}>
@@ -138,7 +145,7 @@ function PaymentConfirm() {
         tenantName={tenantName}
       />
       </section>
-      <ConfirmButton />
+      <ConfirmButton onConfirm={handleConfirmClick} />
     </main>
   );
 }

@@ -17,7 +17,7 @@
     width: 100%;
     padding-left: 26px;
     padding-right: 26px;
-    margin-top: 45px;
+    margin-top: 60px;
   }
 
   /* 상단 헤더 */
@@ -166,7 +166,7 @@
   
   .nextButton {
     width: 100%;
-    margin-top: 130px;
+    margin-top: 140px;
     padding: 23px 70px;
     color: #000;
     border: none;
