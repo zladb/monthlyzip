@@ -12,7 +12,7 @@
       Helvetica,
       sans-serif;
     overflow: hidden;
-    min-height: 800px;   /* 일단 700px로 잡았음 */
+    min-height: 100vh;
   }
   
   .contentWrapper {

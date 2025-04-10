@@ -2,7 +2,7 @@
     background-color: #fff9ed;
     width: 100%;
     max-width: 480px;
-    min-height: 800px;
+    min-height: 100vh;
     margin: 0 auto;
     position: relative;
   }
