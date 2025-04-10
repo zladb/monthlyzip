@@ -8,17 +8,22 @@ function AutoPayment() {
   const [isChecked, setIsChecked] = useState(false);
   
   useEffect(() => {
-    const checked = localStorage.getItem("isChecked") === "true";
-    setIsChecked(checked);
+    const memberId = localStorage.getItem("memberId");
+    if (memberId) {
+      const checked = localStorage.getItem(`${memberId}_isChecked`) === "true";
+      setIsChecked(checked);
+    }
   }, []);
-
+  
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+    const memberId = localStorage.getItem("memberId");
+    if (!memberId) return;
+  
     const newValue = !isChecked;
     setIsChecked(newValue);
-    localStorage.setItem("isChecked", newValue.toString());
+    localStorage.setItem(`${memberId}_isChecked`, newValue.toString());
   };
-
+  
   const handleClick = () => {
     navigate('/tenant/auto-payment-agreement');
   };

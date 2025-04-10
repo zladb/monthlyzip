@@ -41,15 +41,17 @@ function AutoPaymentSection({ isAutoPaymentActive, setIsAutoPaymentActive }) {
 
           if (response.data.success) {
             // 성공 시 localStorage 값 제거
-            setIsAutoPaymentActive(false);
-            localStorage.setItem("isAutoPaymentActive", "false");
-            localStorage.removeItem("autoPaymentAmount");
-            localStorage.removeItem("autoPaymentFrequency");
-            localStorage.removeItem("autoPaymentPeriodStart");
-            localStorage.removeItem("autoPaymentPeriodEnd");
-            localStorage.removeItem("autoPaymentPeriod");
-    
+            const memberId = localStorage.getItem("memberId");
+
+            localStorage.removeItem(`${memberId}_isChecked`);
+            localStorage.removeItem(`${memberId}_autoPaymentAmount`);
+            localStorage.removeItem(`${memberId}_autoPaymentFrequency`);
+            localStorage.removeItem(`${memberId}_autoPaymentPeriodStart`);
+            localStorage.removeItem(`${memberId}_autoPaymentPeriodEnd`);
+            localStorage.removeItem(`${memberId}_autoPaymentPeriod`);
+           
             alert("자동이체가 성공적으로 해지되었습니다.");
+            window.location.reload();
           } else {
             console.log("자동이체 해지에 실패했습니다.");
             setIsAutoPaymentActive(true); // UI 복원
@@ -177,7 +179,8 @@ function PaymentHistorySection() {
               Authorization: `Bearer ${token}`,
             },
           });
-  
+    
+          console.log("임차인 이름 데이터: ", response.data);
           if (response.data.success && response.data.result?.tenantInfo?.name) {
             setTenantName(response.data.result.tenantInfo.name);
           } else {
@@ -187,12 +190,30 @@ function PaymentHistorySection() {
           console.error("임차인 정보 조회 오류:", error);
         }
       };
-  
-      const savedStatus = localStorage.getItem("isAutoPaymentActive");
-      setIsAutoPaymentActive(savedStatus === "true");
-
+    
+      const fetchAutoPaymentStatus = async () => {
+        try {
+          const token = localStorage.getItem("accessToken");
+          const response = await axios.get("/api/autotransfers/status", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          console.log("자동이체 상태 데이터: ", response.data);
+          if (response.data.success) {
+            setIsAutoPaymentActive(response.data.result.registered === true);
+          } else {
+            console.error("자동이체 상태 조회 실패:", response.data.message);
+          }
+        } catch (error) {
+          console.error("자동이체 상태 조회 오류:", error);
+        }
+      };
+    
       fetchTenantName();
+      fetchAutoPaymentStatus();
     }, []);
+    
 
     return (
       <main className={styles.container}>

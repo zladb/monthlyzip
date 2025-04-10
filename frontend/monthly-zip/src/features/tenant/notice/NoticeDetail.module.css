@@ -14,7 +14,7 @@
       sans-serif;
     display: flex;
     overflow: hidden;
-    min-height: 800px;
+    min-height: 100vh;
   }
   
   .headerContainer {

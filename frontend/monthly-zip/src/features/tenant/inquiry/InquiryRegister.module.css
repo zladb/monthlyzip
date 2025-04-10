@@ -6,14 +6,13 @@
     padding-top: 68px;
     overflow: hidden;
     justify-content: center;
-    min-height: 700px;
     font-family:
     Poppins,
     -apple-system,
     Roboto,
     Helvetica,
     sans-serif;
-
+    min-height: 100vh;
   }
   
   .contentWrapper {

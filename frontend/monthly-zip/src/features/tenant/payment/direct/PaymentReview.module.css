@@ -6,7 +6,7 @@
     margin-right: auto;
     padding-top: 68px;
     overflow: hidden;
-    min-height: 800px;
+    min-height: 100vh; 
     display: flex;
     flex-direction: column;
   }

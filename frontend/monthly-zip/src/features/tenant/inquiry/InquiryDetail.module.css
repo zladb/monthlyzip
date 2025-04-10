@@ -9,6 +9,7 @@
     padding-top: 71px;
     display: flex;
     overflow: hidden;
+    min-height: 100vh;
   }
   
   .mainContent {
