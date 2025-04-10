@@ -11,6 +11,7 @@ import roomIcon from '../../../assets/icons/rent.svg';
 import unpaidIcon from '../../../assets/icons/edit.svg';
 import menuIcon from '../../../assets/icons/sidebar.svg';
 import arrowIcon from '../../../assets/icons/arrow_front.svg';
+import Loader from "../../../loader/Loader";
 
 // Header Component
 const Header = ({ onMenuClick, userName }) => {
@@ -203,6 +204,7 @@ function LandlordHome() {
     }
   };
 
+  if (loading) return <Loader />;
   if (error) return <div>에러가 발생했습니다: {error}</div>;
   if (!dashboardData) return <div>데이터를 찾을 수 없습니다.</div>;
 
