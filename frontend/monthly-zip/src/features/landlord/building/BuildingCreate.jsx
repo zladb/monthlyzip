@@ -75,7 +75,7 @@ function KakaoMap({ address }) {
         if (!window.kakao || !window.kakao.maps) {
           const script = document.createElement("script");
           // script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=4943e15a49deadc2845be981678e69da&libraries=services&autoload=false`;
-          script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_API_KEY}&libraries=services&autoload=false`;
+          script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_MAP_API_KEY}&libraries=services&autoload=false`;
           script.async = true;
           
           const onScriptLoad = () => {
