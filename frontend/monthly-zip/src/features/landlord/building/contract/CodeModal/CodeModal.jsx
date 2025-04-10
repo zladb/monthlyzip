@@ -16,6 +16,7 @@ function CodeModal({ contractCode, expireTime, onClose }) {
         if (minutes === 0) {
           clearInterval(timer);
           setRemainingTime('00:00');
+          onClose(); // 시간이 다 되면 모달 닫기
           return;
         }
         minutes--;
@@ -32,7 +33,7 @@ function CodeModal({ contractCode, expireTime, onClose }) {
     
     // 컴포넌트 언마운트 시 타이머 정리
     return () => clearInterval(timer);
-  }, []);
+  }, [onClose]);
 
   const handleCopyClick = () => {
     navigator.clipboard.writeText(contractCode)
