@@ -124,10 +124,10 @@ const handleBuildingClick = (buildingName) => {
               <p className={styles.contractInfo}>계약 기간: {tenant.contractEnd.split("T")[0]}</p>
             </div>
             <p className={styles.latePaymentInfo}>
-              연체 횟수:{" "}
+              {/* 연체 횟수:{" "}
               <span className={styles.latePaymentHighlight}>
                 {tenant.latePaymentCount ?? 0}
-              </span>
+              </span> */}
             </p>
           </article>
         ))}
