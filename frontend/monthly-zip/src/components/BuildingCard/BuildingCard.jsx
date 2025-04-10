@@ -1,270 +1,106 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import styles from "./BuildingCard.module.css";
-import MenuIcon from '../../assets/icons/menu.svg';
+import styles from './BuildingCard.module.css';
+import UDModal from '../UDModal/UDModal';
 import AddIcon from '../../assets/icons/add.svg';
-import UDModal from '../../components/UDModal/UDModal';
-import DeleteModal from '../../components/DeleteModal/DeleteModal';
 
-// Building Header Component
-const BuildingHeader = ({ buildingId, buildingName, onDelete }) => {
+function BuildingCard({ buildingId, buildingName, onDelete }) {
   const navigate = useNavigate();
-  const [isUDModalOpen, setIsUDModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
-
-  const handleMenuClick = (event) => {
-    const buttonRect = event.currentTarget.getBoundingClientRect();
-    setModalPosition({
-      top: buttonRect.bottom + window.scrollY,
-      right: window.innerWidth - buttonRect.right,
-    });
-    setIsUDModalOpen(true);
-  };
-
-  const handleUpdate = () => {
-    setIsUDModalOpen(false);
-    navigate(`/landlord/building-update/${buildingId}`);
-  };
-
-  const handleDeleteClick = () => {
-    setIsUDModalOpen(false);
-    setIsDeleteModalOpen(true);
-  };
-
-  const handleDeleteConfirm = async () => {
-    try {
-      const response = await axios.delete(`/api/building/${buildingId}`);
-      if (response.data.success) {
-        onDelete(buildingId);
-        setIsDeleteModalOpen(false);
-      }
-    } catch (error) {
-      console.error('Failed to delete building:', error);
-    }
-  };
-
-  return (
-    <header className={styles.buildingHeader}>
-      <h2>{buildingName}</h2>
-      <button className={styles.menuButton} onClick={handleMenuClick}>
-        <img src={MenuIcon} alt="menu" className={styles.headerIcon} />
-      </button>
-      {isUDModalOpen && (
-        <div 
-          className={styles.modalPosition} 
-          style={{ 
-            position: 'absolute',
-            top: modalPosition.top,
-            right: modalPosition.right 
-          }}
-        >
-          <UDModal
-            onUpdate={handleUpdate}
-            onDelete={handleDeleteClick}
-            onClose={() => setIsUDModalOpen(false)}
-          />
-        </div>
-      )}
-      {isDeleteModalOpen && (
-        <DeleteModal
-          message="건물을 삭제하시겠습니까?"
-          subMessage="건물을 삭제하면 복구할 수 없습니다."
-          onConfirm={handleDeleteConfirm}
-          onCancel={() => setIsDeleteModalOpen(false)}
-        />
-      )}
-    </header>
-  );
-};
-
-// Unit Row Component
-const UnitRow = ({ unitName, status }) => {
-  const isVacant = status === "공실";
-
-  return (
-    <section className={styles.unitRow}>
-      <h2 className={styles.unitName}>{unitName}</h2>
-      <p className={isVacant ? styles.vacantStatus : styles.occupiedStatus}>
-        {status}
-      </p>
-    </section>
-  );
-};
-
-// Divider Component
-const Divider = () => {
-  return <hr className={styles.divider} />;
-};
-
-// Registration Footer Component
-const RegistrationFooter = () => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate('/landlord/room-create');
-  };
-
-  return (
-    <button className={styles.registrationFooter} onClick={handleClick}>
-      <img src={AddIcon} alt="add" className={styles.footerIcon} />
-      <span>세대 등록</span>
-    </button>
-  );
-};
-
-// Main BuildingCard Component
-const BuildingCard = ({ buildingId, buildingName, onDelete, currentPage }) => {
   const [rooms, setRooms] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [modalPosition, setModalPosition] = useState({ top: 0, right: 0 });
-  const menuButtonRef = useRef(null);
-  const cardRef = useRef(null);
-  const modalRef = useRef(null);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setIsModalOpen(false);
-    setIsDeleteModalOpen(false);
-  }, [currentPage]);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target) &&
-          menuButtonRef.current && !menuButtonRef.current.contains(event.target)) {
-        setIsModalOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  useEffect(() => {
-    const fetchRooms = async () => {
-      try {
-        const response = await axios.get(`/api/rooms?propertyId=${buildingId}`);
-        if (response.data.success) {
-          setRooms(response.data.result);
-        }
-      } catch (error) {
-        console.error('Failed to fetch rooms:', error);
-      }
-    };
-
     fetchRooms();
   }, [buildingId]);
 
-  const handleMenuClick = (event) => {
-    event.stopPropagation();
-    const buttonRect = menuButtonRef.current.getBoundingClientRect();
-    const cardRect = cardRef.current.getBoundingClientRect();
-    
-    setModalPosition({
-      top: buttonRect.height,
-      right: cardRect.right - buttonRect.right
-    });
-    setIsModalOpen(prev => !prev);
-  };
-
-  const handleUpdate = () => {
-    setIsModalOpen(false);
-    navigate(`/landlord/building-update/${buildingId}`);
-  };
-
-  const handleDeleteClick = () => {
-    setIsModalOpen(false);
-    setIsDeleteModalOpen(true);
-  };
-
-  const handleDeleteConfirm = async () => {
+  const fetchRooms = async () => {
     try {
-      const response = await axios.delete(`/api/building/${buildingId}`);
+      const token = localStorage.getItem('accessToken');
+      const response = await axios.get(`/api/rooms?propertyId=${buildingId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       if (response.data.success) {
-        onDelete(buildingId);
-        setIsDeleteModalOpen(false);
+        setRooms(response.data.result);
       }
+      setLoading(false);
     } catch (error) {
-      console.error('Failed to delete building:', error);
+      setError('세대 목록을 불러오는데 실패했습니다.');
+      setLoading(false);
     }
   };
 
-  const handleRoomCreate = () => {
-    navigate('/landlord/room-create', { state: { propertyId: buildingId } });
+  const handleRoomClick = (roomId) => {
+    navigate(`/landlord/building/${roomId}`);
   };
 
-  return (
-    <div className={styles.buildingCard} ref={cardRef}>
-      <div className={styles.buildingHeader}>
-        <h2>{buildingName}</h2>
-        <div className={styles.menuContainer}>
-          <button 
-            ref={menuButtonRef}
-            className={styles.menuButton} 
-            onClick={handleMenuClick}
-          >
-            <img src={MenuIcon} alt="menu" className={styles.headerIcon} />
-          </button>
-          {isModalOpen && (
-            <>
-              <div 
-                className={styles.cardOverlay} 
-                onClick={() => setIsModalOpen(false)}
-              />
-              <div 
-                ref={modalRef}
-                className={styles.modalPosition} 
-                style={{ 
-                  top: modalPosition.top,
-                  right: modalPosition.right
-                }}
-              >
-                <UDModal
-                  onUpdate={handleUpdate}
-                  onDelete={handleDeleteClick}
-                  onClose={() => setIsModalOpen(false)}
-                />
-              </div>
-            </>
-          )}
-        </div>
-      </div>
+  const handleBuildingUpdate = () => {
+    navigate(`/landlord/building-update/${buildingId}`);
+    setIsModalOpen(false);
+  };
 
-      {rooms.length > 0 ? (
-        <>
-          {rooms.map((room, index) => (
+  const handleBuildingDelete = () => {
+    onDelete(buildingId);
+    setIsModalOpen(false);
+  };
+
+  const handleRoomCreate = () => {
+    navigate(`/landlord/building/room-create`, { state: { propertyId: buildingId } });
+  };
+
+  if (loading) return <div>로딩 중...</div>;
+  if (error) return <div>{error}</div>;
+
+  return (
+    <div className={styles.buildingCard}>
+      <header className={styles.buildingHeader}>
+        <h2>{buildingName}</h2>
+        <button
+          className={styles.menuButton}
+          onClick={() => setIsModalOpen(true)}
+          aria-label="메뉴 열기"
+        >
+          ⋮
+        </button>
+        {isModalOpen && (
+          <UDModal
+            onUpdate={handleBuildingUpdate}
+            onDelete={handleBuildingDelete}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )}
+      </header>
+
+      <div className={styles.unitsContainer}>
+        {rooms.length === 0 ? (
+          <div className={styles.noUnits}>
+            <p className={styles.noUnitsText}>등록된 세대가 없습니다</p>
+            <p className={styles.noUnitsSubText}>세대를 등록해주세요</p>
+          </div>
+        ) : (
+          rooms.map((room, index) => (
             <React.Fragment key={room.id}>
-              <div className={styles.unitRow}>
-                <span className={styles.unitName}>{room.detailAddress}</span>
+              <div
+                className={styles.unitRow}
+                onClick={() => handleRoomClick(room.id)}
+              >
+                <h3 className={styles.unitName}>{room.detailAddress}</h3>
                 <span className={room.isOccupied ? styles.occupiedStatus : styles.vacantStatus}>
                   {room.isOccupied ? '입주' : '공실'}
                 </span>
               </div>
-              {index < rooms.length - 1 && <div className={styles.divider} />}
+              {index < rooms.length - 1 && <hr className={styles.thinDivider} />}
             </React.Fragment>
-          ))}
-        </>
-      ) : (
-        <div className={styles.noUnits}>
-          <span>등록된 세대가 없습니다</span>
-        </div>
-      )}
+          ))
+        )}
+      </div>
 
-      {isDeleteModalOpen && (
-        <DeleteModal
-          message="건물을 삭제하시겠습니까?"
-          subMessage="건물을 삭제하면 복구할 수 없습니다."
-          onConfirm={handleDeleteConfirm}
-          onCancel={() => setIsDeleteModalOpen(false)}
-        />
-      )}
-
-      <button 
-        className={styles.registrationFooter}
+      <button
+        className={styles.roomCreateButton}
         onClick={handleRoomCreate}
       >
         <img src={AddIcon} alt="add" className={styles.footerIcon} />
@@ -272,6 +108,6 @@ const BuildingCard = ({ buildingId, buildingName, onDelete, currentPage }) => {
       </button>
     </div>
   );
-};
+}
 
 export default BuildingCard;

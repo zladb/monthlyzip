@@ -14,6 +14,10 @@ import Building from './features/landlord/building/Building';
 import BuildingCreate from './features/landlord/building/BuildingCreate';
 import BuildingUpdate from './features/landlord/building/BuildingUpdate';
 import RoomCreate from './features/landlord/building/room/RoomCreate';
+import RoomUpdate from './features/landlord/building/room/RoomUpdate';
+import Contract from './features/landlord/building/contract/Contract';
+import ContractCreate from './features/landlord/building/contract/ContractCreate';
+import Room from './features/landlord/building/room/Room';
 import Inquiry from './features/landlord/inquiry/Inquiry';
 import LandlordInquiryDetail from './features/landlord/inquiry/InquiryDetail'
 import Notice from './features/landlord/notice/Notice';
@@ -63,7 +67,11 @@ function App() {
           <Route path="/landlord/building" element={<Building />} />
           <Route path="/landlord/building-create" element={<BuildingCreate />} />
           <Route path="/landlord/building-update/:buildingId" element={<BuildingUpdate />} />
-          <Route path="/landlord/room-create" element={<RoomCreate />} />
+          <Route path="/landlord/building/:roomId" element={<Room />} />
+          <Route path="/landlord/building/room-create" element={<RoomCreate />} />
+          <Route path="/landlord/building/room-update/:roomId" element={<RoomUpdate />} />
+          <Route path="/landlord/building/:roomId/contract" element={<Contract />} />
+          <Route path="/landlord/building/:roomId/contract-create" element={<ContractCreate />} />
 
           <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
           <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />

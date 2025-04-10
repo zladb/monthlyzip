@@ -1,0 +1,226 @@
+.div {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #fff;
+    max-width: 480px;
+    margin: 0 auto;
+    font-family: Inter;
+  }
+  .div2 {
+    flex-direction: column;
+    padding: 0;
+    padding-bottom: 80px;
+    display: flex;
+  }
+  .div3 {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 40px 22px 20px;
+  }
+  .div3 button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .div4 {
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .div5 {
+    padding: 0 34px;
+  }
+  .div6 {
+    color: #000;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .div7 {
+    color: #000;
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .div8 {
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .div9, .div15, .div19, .div23, .div32, .div36 {
+    border: none;
+    height: 1px;
+    background-color: #E8E8E8;
+    margin: 20px 0;
+  }
+  .div10 {
+    padding: 0 34px;
+  }
+  .div11 {
+    color: #000;
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .div12 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .div13, .div14 {
+    flex: 1;
+    height: 48px;
+    border: 1px solid #E8E8E8;
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #000;
+    background-color: #F5F5F5;
+  }
+  .div13::placeholder, .div14::placeholder,
+  .div22::placeholder, .div26::placeholder,
+  .div30::placeholder, .div35::placeholder,
+  .div40::placeholder {
+    color: #BDBDBD;
+  }
+  .span {
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .div16, .div20 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 34px;
+  }
+  .div17, .div21 {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+  }
+  .div18 {
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .div22 {
+    width: 120px;
+    height: 48px;
+    border: 1px solid #E8E8E8;
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #000;
+    text-align: right;
+    background-color: #F5F5F5;
+  }
+  .div24, .div28 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 34px;
+  }
+  .div25, .div29 {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    width: 80px;
+  }
+  .div26, .div30 {
+    flex: 1;
+    height: 48px;
+    border: 1px solid #E8E8E8;
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #000;
+    text-align: right;
+    background-color: #F5F5F5;
+  }
+  .div27, .div31 {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    width: 24px;
+  }
+  .div33 {
+    padding: 0 34px;
+  }
+  .div34 {
+    color: #000;
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .div35 {
+    width: 100%;
+    height: 48px;
+    border: 1px solid #E8E8E8;
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #000;
+    background-color: #F5F5F5;
+  }
+  .div37 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 34px;
+  }
+  .div38, .div39 {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+  }
+  .div40 {
+    width: 64px;
+    height: 48px;
+    border: 1px solid #E8E8E8;
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    background-color: #F5F5F5;
+  }
+  .div41 {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .div42 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .div43, .div44 {
+    flex: 1;
+    height: 70px;
+    border: none;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .div43 {
+    background-color: #D9D9D9;
+    color: #000;
+  }
+  .div44 {
+    background-color: #004E66;
+    color: #fff;
+  }
+  

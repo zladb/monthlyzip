@@ -1,0 +1,243 @@
+.container {
+    min-height: 100vh;
+    background-color: #fff;
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+  }
+  
+  .header {
+    align-items: center;
+    gap: 10px;
+    padding-top: 40px;
+    padding-left: 22px;
+    padding-right: 22px;
+    display: flex;
+  }
+  
+  .title {
+    color: #000;
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .detailsContainer {
+    flex-direction: column;
+    margin-top: 20px;
+    padding-left: 34px;
+    padding-right: 34px;
+    display: flex;
+  }
+  
+  .addressSection {
+    border-bottom: 1px solid #E0E0E0;
+    padding-bottom: 8px;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .addressMain {
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    word-break: keep-all;
+    white-space: pre-wrap;
+    line-height: 1.4;
+    margin: 0;
+  }
+  
+  .addressUnit {
+    color: #000;
+    margin-top: 4px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  
+  .periodSection {
+    border-bottom: 1px solid #E0E0E0;
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
+  
+  .periodValue {
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  
+  .peopleSection {
+    border-bottom: 1px solid #E0E0E0;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .personContainer {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  }
+  
+  .personLabel {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .personName {
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  
+  .paymentSection {
+    border-bottom: 1px solid #E0E0E0;
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
+  
+  .paymentRow {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    display: flex;
+  }
+  
+  .paymentRow:last-child {
+    margin-bottom: 0;
+  }
+  
+  .paymentLabel {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .paymentValue {
+    align-items: center;
+    display: flex;
+  }
+  
+  .amountValue {
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  
+  .amountUnit {
+    color: #000;
+    margin-left: 4px;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .accountSection {
+    border-bottom: 1px solid #E0E0E0;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .accountNumber {
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .dateSection {
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
+  
+  .dateContainer {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  }
+  
+  .dateLabel {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .dateValue {
+    align-items: center;
+    display: flex;
+  }
+  
+  .datePrefix {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .dateDay {
+    color: #000;
+    margin-left: 8px;
+    margin-right: 8px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  
+  .dateSuffix {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .buttonContainer {
+    width: 100%;
+    margin-top: auto;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+  }
+  
+  .cancelButton {
+    color: #000;
+    width: 50%;
+    background-color: #d9d9d9;
+    height: 70px;
+    font-size: 22px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .codeButton {
+    color: #fff;
+    width: 50%;
+    background-color: #004e66;
+    height: 70px;
+    font-size: 22px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .addressMain, .addressUnit, .periodValue {
+      font-size: 17px;
+    }
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .addressMain, .addressUnit, .periodValue {
+      font-size: 19px;
+    }
+  }
+  
