@@ -40,7 +40,10 @@ function Login() {
   
       const decoded = jwtDecode(token);
       console.log("디코딩 결과:", decoded);
-  
+
+      // 디코드된 토큰에 들어있는 memberId 확인
+      localStorage.setItem("memberId", decoded.memberId);
+
       // 디코드된 토큰에 들어있는 email, userType 확인
       localStorage.setItem("userType", decoded.userType); 
 
