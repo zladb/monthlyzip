@@ -15,7 +15,7 @@
       sans-serif;
     display: flex;
     overflow: hidden;
-    min-height: 700px;   /* 일단 700px로 잡았음 */
+    min-height: 100vh;
   }
   
   .header {

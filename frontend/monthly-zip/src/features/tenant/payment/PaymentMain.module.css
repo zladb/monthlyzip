@@ -5,7 +5,7 @@
   margin-right: auto;
   padding-top: 68px;
   overflow: hidden;
-  min-height: 1000px;   /* 일단 700px로 잡았음 */
+  min-height: 100vh;
 }
 
 .contentWrapper {
