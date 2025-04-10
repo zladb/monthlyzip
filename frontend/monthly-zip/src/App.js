@@ -29,6 +29,7 @@ import LandlordNoticeDetail from './features/landlord/notice/NoticeDetail';
 import NoticeUpdate from './features/landlord/notice/NoticeUpdate';
 import NoticeCreate from './features/landlord/notice/NoticeCreate';
 import NotificationPage from './features/landlord/notification/NotificationPage';
+import ContractConfirm from './features/landlord/building/contract/ContractConfirm';
 
 // 임차인
 import TenantHome from './features/tenant/home/TenantHome';
@@ -50,6 +51,7 @@ import PaymentPassword from './features/tenant/payment/direct/PaymentPassword';
 import PaymentConfirm from './features/tenant/payment/direct/PaymentConfirm';
 import AutoPaymentConfirm from './features/tenant/payment/auto/AutoPaymentConfirm';
 import InquiryUpdate from './features/tenant/inquiry/InquiryUpdate';
+
 
 // ✨ 로딩 상태 & 라우트 감지 처리
 function AppRoutes() {
@@ -93,6 +95,7 @@ function AppRoutes() {
           <Route path="/landlord/building/room-update/:roomId" element={<RoomUpdate />} />
           <Route path="/landlord/building/:roomId/contract" element={<Contract />} />
           <Route path="/landlord/building/:roomId/contract-create" element={<ContractCreate />} />
+          <Route path="/landlord/building/:roomId/contract-confirm" element={<ContractConfirm />} />
 
           <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
           <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />
