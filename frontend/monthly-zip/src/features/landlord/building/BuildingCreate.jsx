@@ -138,7 +138,7 @@ function KakaoMap({ address }) {
     return (
       <div className={styles.buildingImage} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f5f5f5' }}>
         <p style={{ color: '#666' }}>지도를 불러올 수 없습니다</p>
-      </div>
+            </div>
     );
   }
 
@@ -159,7 +159,7 @@ function ActionButtons({ onCancel, onComplete, isValid }) {
       >
         완료
       </button>
-    </div>
+          </div>
   );
 }
 
