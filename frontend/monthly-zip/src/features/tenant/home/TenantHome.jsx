@@ -217,7 +217,7 @@ function TenantHome() {
     }
   };
 
-  if (loading) return <div>로딩중...</div>;
+  if (loading) return;
   if (error) return <div>에러가 발생했습니다: {error}</div>;
   if (!dashboardData) return <div>데이터를 찾을 수 없습니다.</div>;
 
