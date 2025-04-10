@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./Room.module.css";
 import arrow_back from "../../../../assets/icons/arrow_back.svg";
+import BackIcon from "../../../../assets/icons/arrow_back.svg";
+import Loader from "../../../../loader/Loader";
 
 // Back button component
 const BackButton = ({ onClick }) => (
@@ -109,9 +111,9 @@ const NoticeMessage = () => (
 );
 
 // Contract button component
-const ContractButton = ({ isOccupied, onClick }) => (
+const ContractButton = ({ isActiveLandlord, onClick }) => (
   <button className={styles.contractButton} onClick={onClick}>
-    {isOccupied ? '계약 조회' : '계약 등록'}
+    {isActiveLandlord ? '계약 조회' : '계약 등록'}
   </button>
 );
 
@@ -188,12 +190,16 @@ function Room() {
   };
 
   const handleContractClick = () => {
-    if (roomData.isOccupied) {
+    if (roomData.isActiveLandlord) {
       navigate(`/landlord/building/${roomId}/contract`, { state: { roomId } });
     } else {
       navigate(`/landlord/building/${roomId}/contract-create`, { state: { roomId } });
     }
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   if (error) {
     return <div className={styles.error}>{error}</div>;
@@ -223,7 +229,7 @@ function Room() {
 
       <footer className={styles.footer}>
         <ContractButton 
-          isOccupied={roomData.isOccupied} 
+          isActiveLandlord={roomData.isActiveLandlord} 
           onClick={handleContractClick}
         />
       </footer>

@@ -3,6 +3,8 @@ import styles from "./Contract.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import BackIcon from "../../../../assets/icons/arrow_back.svg";
 import axios from "axios";
+import CodeModal from "./CodeModal/CodeModal";
+import Loader from "../../../../loader/Loader";
 
 function Contract() {
   const navigate = useNavigate();
@@ -11,6 +13,8 @@ function Contract() {
   const [contractData, setContractData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showCodeModal, setShowCodeModal] = useState(false);
+  const [modalData, setModalData] = useState(null);
 
   useEffect(() => {
     const fetchContractData = async () => {
@@ -37,6 +41,50 @@ function Contract() {
     }
   }, [roomId]);
 
+  const handleCodeButtonClick = async () => {
+    try {
+      const response = await axios.get(`/api/contracts/${contractData.contractId}/invite`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.data.success) {
+        const expireTime = new Date();
+        expireTime.setMinutes(expireTime.getMinutes() + 10);
+        
+        setModalData({
+          code: response.data.result.code,
+          expireTime: expireTime.toISOString()
+        });
+        setShowCodeModal(true);
+      }
+    } catch (error) {
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 404) {
+          alert('해당 임대차 계약이 존재하지 않습니다.');
+        } else if (status === 400) {
+          alert('올바르지 않은 요청입니다.');
+        } else {
+          alert('초대 코드 발행에 실패했습니다.');
+        }
+      } else {
+        alert('서버와의 통신에 실패했습니다.');
+      }
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowCodeModal(false);
+    setModalData(null);
+  };
+
+  if (loading) {
+    return <Loader />;
+  }
+
   if (error) {
     return <div>{error}</div>;
   }
@@ -49,7 +97,18 @@ function Contract() {
     <main className={styles.container}>
       <Header title="계약 정보" roomId={roomId} />
       <ContractDetails contract={contractData} />
-      <ActionButtons isActiveLandlord={contractData.isActiveLandlord} />
+      <ActionButtons 
+        isActiveLandlord={contractData.isActiveLandlord}
+        isActiveTenant={contractData.isActiveTenant}
+        onCodeButtonClick={handleCodeButtonClick}
+      />
+      {showCodeModal && modalData && (
+        <CodeModal 
+          contractCode={modalData.code}
+          expireTime={modalData.expireTime}
+          onClose={handleCloseModal}
+        />
+      )}
     </main>
   );
 }
@@ -152,17 +211,30 @@ function ContractDetails({ contract }) {
   );
 }
 
-function ActionButtons({ isActiveLandlord }) {
+function ActionButtons({ isActiveLandlord, isActiveTenant, onCodeButtonClick }) {
   return (
     <div className={styles.buttonContainer}>
       <button 
         className={styles.cancelButton} 
         disabled={!isActiveLandlord}
-        style={{ opacity: isActiveLandlord ? 1 : 0.5 }}
+        style={{ 
+          opacity: isActiveLandlord ? 1 : 0.5,
+          cursor: isActiveLandlord ? 'pointer' : 'not-allowed'
+        }}
       >
         해지 요청
       </button>
-      <button className={styles.codeButton}>코드 발행</button>
+      <button 
+        className={styles.codeButton}
+        disabled={isActiveTenant}
+        onClick={onCodeButtonClick}
+        style={{ 
+          opacity: !isActiveTenant ? 1 : 0.5,
+          cursor: !isActiveTenant ? 'pointer' : 'not-allowed'
+        }}
+      >
+        코드 발행
+      </button>
     </div>
   );
 }
