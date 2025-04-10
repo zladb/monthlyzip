@@ -39,6 +39,7 @@
 .userInfoWrapper {
   display: flex;
   flex-direction: row;
+  gap: 12px;
   flex: 1;
   min-width: 0;
   overflow: hidden;
