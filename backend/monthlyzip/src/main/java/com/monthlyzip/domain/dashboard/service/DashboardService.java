@@ -94,11 +94,23 @@ public class DashboardService {
         // 2. 다음 납부 정보
         Map<String, Object> dashboardData = dashboardRepository.getTenantDashboardData(tenant.getId());
 
-        NextPaymentDto nextPayment = NextPaymentDto.builder()
-            .paymentDate(formatDate(((java.sql.Date) dashboardData.get("dueDate")).toLocalDate()))
-            .amount(((Number) dashboardData.get("monthlyRent")).longValue())
-            .paymentOverdue(((Number) dashboardData.get("paymentOverdue")).longValue())
-            .build();
+        NextPaymentDto nextPayment;
+
+        // 2-1. 다음 납부 정보가 없으면 기본값 반환
+        if (dashboardData == null || dashboardData.get("dueDate") == null ||
+            dashboardData.get("monthlyRent") == null || dashboardData.get("paymentOverdue") == null) {
+            nextPayment = NextPaymentDto.builder()
+                .paymentDate("계약 정보가 없습니다")
+                .amount(0L)
+                .paymentOverdue(0L)
+                .build();
+        } else {
+            nextPayment = NextPaymentDto.builder()
+                .paymentDate(formatDate(((java.sql.Date) dashboardData.get("dueDate")).toLocalDate()))
+                .amount(((Number) dashboardData.get("monthlyRent")).longValue())
+                .paymentOverdue(((Number) dashboardData.get("paymentOverdue")).longValue())
+                .build();
+        }
 
         // 3. 공지사항 목록 (문의 목록 대신)
         List<Map<String, Object>> noticeData = dashboardRepository.findRecentNoticesByTenantId(tenant.getId());
