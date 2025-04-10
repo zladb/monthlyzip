@@ -1,0 +1,147 @@
+.container {
+    box-sizing: border-box;
+    background-color: #fff;
+    width: 375px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 68px 34px 0;
+    font-family: Inter, sans-serif;
+  }
+  
+  @media (width<=640px) {
+    .container {
+      width: 100%;
+      padding: 48px 20px 0;
+    }
+  }
+  
+  .title {
+    color: #000;
+    margin-bottom: 22px;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  
+  @media (width<=640px) {
+    .title {
+      font-size: 24px;
+    }
+  }
+  
+  .warning {
+    color: #ff3b30;
+    margin-bottom: 33px;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  
+  @media (width<=640px) {
+    .warning {
+      font-size: 13px;
+    }
+  }
+  
+  .contractDetails {
+    margin-bottom: 100px; /* Space for fixed bottom navigation */
+  }
+  
+  .addressLine {
+    color: #000;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  .addressLine:last-child {
+    margin-bottom: 0;
+  }
+  
+
+  .section {
+    margin-bottom: 22px;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  @media (width<=640px) {
+    .sectionTitle {
+      font-size: 18px;
+    }
+  }
+  
+  .sectionContent {
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .keyValueContainer {
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    display: flex;
+  }
+  
+  @media (width<=640px) {
+    .keyValueContainer {
+      font-size: 18px;
+    }
+  }
+  
+  .sectionValue {
+    color: #000;
+    font-weight: 600;
+  }
+  
+
+  .divider {
+    background-color: #767676b3;
+    height: 1px;
+    margin: 22px -4px;
+    border: none;
+  }
+  
+
+
+  .navigation {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+  
+  @media (width<=640px) {
+    .navigation {
+      position: fixed;
+      bottom: 0;
+    }
+  }
+  
+  .cancelButton {
+    color: #000;
+    background-color: #d9d9d9;
+    width: 50%;
+    height: 80px;
+    font-size: 26px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .confirmButton {
+    color: #fff;
+    background-color: #004e66;
+    width: 50%;
+    height: 80px;
+    font-size: 26px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
+  
