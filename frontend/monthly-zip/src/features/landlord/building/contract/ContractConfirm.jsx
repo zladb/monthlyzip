@@ -101,6 +101,11 @@ console.log("보내는 payload:", payload);
     }
   };
 
+//취소 버튼
+  const handleCancel = () => {
+    navigate(`/landlord/building/${roomInfo.roomId}/contract-create`);
+  };
+
   return (
     <main className={styles.container}>
       <header>
@@ -141,7 +146,7 @@ console.log("보내는 payload:", payload);
       <BottomNavigation
         cancelText="취소"
         confirmText="완료"
-        onCancel={() => console.log("Cancel clicked")}
+        onCancel={handleCancel} 
         onConfirm={handleConfirm} // 계약 생성 처리
       />
     </main>
