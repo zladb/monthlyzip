@@ -195,10 +195,6 @@ function Room() {
     }
   };
 
-  if (loading) {
-    return <div className={styles.loading}>로딩 중...</div>;
-  }
-
   if (error) {
     return <div className={styles.error}>{error}</div>;
   }
