@@ -10,6 +10,7 @@
     padding-top: 68px;
     font-family: Poppins, -apple-system, Roboto, Helvetica, sans-serif;
     overflow: hidden;
+    min-height: 100vh;
   }
   
   /* 상단 헤더 */

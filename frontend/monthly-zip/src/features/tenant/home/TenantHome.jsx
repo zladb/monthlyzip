@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './TenantHome.module.css';
 import Navbar from "../navbar/Navbar";
-import Sidebar from "../../landlord/sidebar/Sidebar";
+import Sidebar from "../../tenant/sidebar/Sidebar";
 import HomeCard from '../../../components/HomeCard/HomeCard';
 import moneyIcon from '../../../assets/icons/income.svg';
 import roomIcon from '../../../assets/icons/rent.svg';

@@ -36,24 +36,24 @@ function AccountSection({ title, accountNumber }) {
   );
 }
 
-
 function AmountSection({ amount, setAmount }) {
+  const memberId = localStorage.getItem("memberId");
 
   useEffect(() => {
-    const stored = localStorage.getItem("autoPaymentAmount");
+    const stored = localStorage.getItem(`${memberId}_autoPaymentAmount`);
     if (stored) setAmount(stored);
-  }, [setAmount]);
+  }, [setAmount, memberId]);
 
   const handleChange = (e) => {
     const value = e.target.value;
-    // 숫자만 허용 + 앞에 0이 오는 건 막음 (단, 빈 값은 허용)
     if (/^\d*$/.test(value)) {
       if (value === "" || !/^0\d+/.test(value)) {
         setAmount(value);
-        localStorage.setItem("autoPaymentAmount", value); 
+        localStorage.setItem(`${memberId}_autoPaymentAmount`, value); 
       }
     }
-  }
+  };
+
   return (
     <section className={styles.sectionContainer}>
       <h2 className={styles.sectionTitle}>금액</h2>
@@ -63,7 +63,7 @@ function AmountSection({ amount, setAmount }) {
             type="number"
             className={styles.amountInput}
             placeholder="숫자만 입력"
-            step="10000" // 10000씩 증가하도록 설정
+            step="10000"
             onChange={handleChange}
             value={amount}
           />
@@ -188,7 +188,6 @@ function FrequencySection({ day, onClick }) {
     </section>
   );
 }
-
 
 
 function PeriodModal({ onClose, onSelect, initialPeriod  }) {
@@ -369,31 +368,33 @@ function AutoPaymentRegister() {
   const [startPeriod, setStartPeriod] = useState(defaultStart);
   const [endPeriod, setEndPeriod] = useState(defaultEnd);
 
+  const memberId = localStorage.getItem("memberId");
+
   useEffect(() => {
-    const savedDay = localStorage.getItem("autoPaymentFrequency");
-    const savedStart = localStorage.getItem("autoPaymentPeriodStart");
-    const savedEnd = localStorage.getItem("autoPaymentPeriodEnd");
-  
+    const savedDay = localStorage.getItem(`${memberId}_autoPaymentFrequency`);
+    const savedStart = localStorage.getItem(`${memberId}_autoPaymentPeriodStart`);
+    const savedEnd = localStorage.getItem(`${memberId}_autoPaymentPeriodEnd`);
+
     if (savedDay) {
       setSelectedDay(Number(savedDay));
     } else {
-      localStorage.setItem("autoPaymentFrequency", selectedDay); // 기본값도 저장
+       localStorage.setItem(`${memberId}_autoPaymentFrequency`, selectedDay); // 기본값도 저장
     }
   
     if (savedStart) {
       setStartPeriod(savedStart);
     } else {
-      localStorage.setItem("autoPaymentPeriodStart", defaultStart);
+      localStorage.setItem(`${memberId}_autoPaymentPeriodStart`, defaultStart);
     }
   
     if (savedEnd) {
       setEndPeriod(savedEnd);
     } else {
-      localStorage.setItem("autoPaymentPeriodEnd", defaultEnd);
+      localStorage.setItem(`${memberId}_autoPaymentPeriodEnd`, defaultEnd);
     }
 
     localStorage.setItem(
-      "autoPaymentPeriod",
+      `${memberId}_autoPaymentPeriod`,
       `${savedStart ?? defaultStart} ~ ${savedEnd ?? defaultEnd}`
     );
   }, []);
@@ -429,7 +430,7 @@ function AutoPaymentRegister() {
 
   const handleDaySelect = (day) => {
     setSelectedDay(day);
-    localStorage.setItem("autoPaymentFrequency", day); 
+    localStorage.setItem(`${memberId}_autoPaymentFrequency`, day); 
     setIsDayModalOpen(false);
   };
   
@@ -501,9 +502,9 @@ function AutoPaymentRegister() {
                   const newEndPeriod = `${newYear}.${String(newMonth).padStart(2, '0')}`;
                   setEndPeriod(newEndPeriod);
 
-                  localStorage.setItem("autoPaymentPeriodStart", period);
-                  localStorage.setItem("autoPaymentPeriodEnd", newEndPeriod);
-                  localStorage.setItem("autoPaymentPeriod", `${period} ~ ${newEndPeriod}`);
+                  localStorage.setItem(`${memberId}_autoPaymentPeriodStart`, period);
+                  localStorage.setItem(`${memberId}_autoPaymentPeriodEnd`, newEndPeriod);
+                  localStorage.setItem(`${memberId}_autoPaymentPeriod`, `${period} ~ ${newEndPeriod}`);
                  
                   setIsStartModalOpen(false);
                 }}
@@ -518,9 +519,9 @@ function AutoPaymentRegister() {
                 onSelect={(period) => {
                   setEndPeriod(period);
 
-                  const start = localStorage.getItem("autoPaymentPeriodStart") || startPeriod;
-                  localStorage.setItem("autoPaymentPeriodEnd", period);
-                  localStorage.setItem("autoPaymentPeriod", `${start} ~ ${period}`);
+                  const start = localStorage.getItem(`${memberId}_autoPaymentPeriodStart`) || startPeriod;
+                  localStorage.setItem(`${memberId}_autoPaymentPeriodEnd`, period);
+                  localStorage.setItem(`${memberId}_autoPaymentPeriod`, `${start} ~ ${period}`);
 
                   setIsEndModalOpen(false);
                 }}

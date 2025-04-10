@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import Logo from "../../../assets/icons/monthlyZip.png";
-import alarmIcon from "../../../assets/icons/notification.svg";
 import profileIcon from "../../../assets/icons/mypage.svg";
 import logoutIcon from "../../../assets/icons/logout.svg";
 import withdrawIcon from "../../../assets/icons/quit.svg";
@@ -31,40 +30,32 @@ function LogoSection() {
 
 // NavigationItems Component
 function NavigationItems({ navigate, onClose }) {
-  const menuItems = [
-    {
-      icon: alarmIcon,
-      label: '알림 발송 설정',
-      onClick: () => {
-        navigate('/landlord/notification');
-        onClose();
+    const menuItems = [
+      {
+        icon: profileIcon,
+        label: '마이페이지',
+        onClick: () => {
+          navigate('/mypage');
+          onClose();
+        }
       }
-    },
-    {
-      icon: profileIcon,
-      label: '마이페이지',
-      onClick: () => {
-        navigate('/mypage');
-        onClose();
-      }
-    }
-  ];
-
-  return (
-    <nav className={styles.navigation}>
-      {menuItems.map((item, index) => (
-        <NavItem
-          key={index}
-          iconSrc={item.icon}
-          iconAlt={item.label}
-          text={item.label}
-          onClick={item.onClick}
-        />
-      ))}
-    </nav>
-  );
-}
-
+    ];
+  
+    return (
+      <nav className={styles.navigation}>
+        {menuItems.map((item, index) => (
+          <NavItem
+            key={index}
+            iconSrc={item.icon}
+            iconAlt={item.label}
+            text={item.label}
+            onClick={item.onClick}
+          />
+        ))}
+      </nav>
+    );
+  }
+  
 // 로그아웃
 function LogoutSection({ onClose, navigate }) {
       // ✅ 실제 로그아웃 처리
