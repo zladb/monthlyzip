@@ -3,7 +3,7 @@
   "name": "월간Zip",
   "icons": [
     {
-      "src": "monthtlyZip.svg",
+      "src": "monthlyZip.svg",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/svg+xml"
     },
@@ -21,7 +21,7 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
+  "display": "fullscreen",
   "theme_color": "#FFFBF7",
   "background_color": "#FFFBF7",
   "orientation": "portrait"
