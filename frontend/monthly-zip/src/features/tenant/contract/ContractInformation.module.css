@@ -19,8 +19,8 @@
     align-items: stretch;
     justify-self: center;
     width: 90%;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 18px;
+    padding-right: 18px;
     font-size: 14px;
     display: flex;
     margin-left: auto;
@@ -311,5 +311,73 @@
     width: 100%;
     border: none;
     text-align: center;
+  }
+  
+
+
+  /* 계약 초대 코드 관련 디자인 */
+  .contractCodeCard {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+  }
+  
+  .codeLabel {
+    margin-top: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .codeValue {
+    font-size: 13px;
+    color: #555;
+  }
+  
+  .codeDescription {
+    font-size: 13px;
+    color: #777;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  .inviteInputGroup {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .inviteInput {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    flex: 1;
+    max-width: 180px;
+  }
+  
+  .inviteButton {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .inviteButton:hover {
+    background-color: #303f9f;
+  }
+  
+  .inviteStatus {
+    font-size: 13px;
+    color: #d32f2f;
+    margin-top: 6px;
   }
   

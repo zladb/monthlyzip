@@ -3,7 +3,6 @@ import axios from "axios";
 import styles from "./ContractInformation.module.css";
 import Navbar from "../navbar/Navbar"
 
-
 const AddressCard = ({ contract }) => {
   return (
     <section className={styles.addressCard}>
@@ -83,6 +82,33 @@ const PaymentDate = ({ contract }) => {
     <section className={styles.dateCard}>
       <h3 className={styles.infoLabel}>월세 납부 일</h3>
       <p className={styles.dateInfo}>매달 {contract.paymentDay} 일</p>
+    </section>
+  );
+};
+
+const ContractCode = ({
+  inviteCode,
+  setInviteCode,
+  inviteStatus,
+  handleInviteSubmit,
+}) => {
+  return (
+    <section className={styles.contractCodeCard}>
+      <h3 className={styles.codeLabel}>현재 등록된 계약이 없습니다</h3>
+      <p className={styles.codeDescription}>초대 코드를 입력하여 계약을 등록해주세요.</p>
+      <div className={styles.inviteInputGroup}>
+        <input
+          type="text"
+          value={inviteCode}
+          onChange={(e) => setInviteCode(e.target.value)}
+          className={styles.inviteInput}
+          placeholder="초대 코드 입력"
+        />
+        <button onClick={handleInviteSubmit} className={styles.inviteButton}>
+          등록
+        </button>
+      </div>
+      {inviteStatus && <p className={styles.inviteStatus}>{inviteStatus}</p>}
     </section>
   );
 };
@@ -180,15 +206,13 @@ const TerminationButton = ({ contract }) => {
 
 function ContractInformation() {
   const [contract, setContract] = useState(null);
+  const [inviteCode, setInviteCode] = useState("");
+  const [inviteStatus, setInviteStatus] = useState(null);
 
   useEffect(() => {
     const fetchContract = async () => {
       const token = localStorage.getItem("accessToken");
-  
-      if (!token) {
-        console.log("인증 정보가 없습니다. 다시 로그인해주세요.");
-        return;
-      }
+      if (!token) return;
 
       try {
         const response = await axios.get("/api/contracts", {
@@ -198,8 +222,9 @@ function ContractInformation() {
           },
         });
 
-        console.log("계약 정보 조회 성공:", response.data);
-        setContract(response.data.result[0]);
+        if (response.data.result && response.data.result.length > 0) {
+          setContract(response.data.result[0]);
+        }
       } catch (error) {
         console.log("계약 정보를 불러오는 데 실패했습니다:", error);
       }
@@ -208,10 +233,40 @@ function ContractInformation() {
     fetchContract();
   }, []);
 
+  const handleInviteSubmit = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setInviteStatus("인증 정보가 없습니다. 다시 로그인해주세요.");
+      return;
+    }
+  
+    try {
+      const response = await axios.post(
+        "/api/contracts/invite/verify",
+        { code: inviteCode },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      console.log("초대 코드 데이터: ", response.data);
 
-
-  if (!contract) return;
-
+      if (response.data.success) {
+        alert("초대 코드 등록 성공했습니다."); 
+        window.location.reload(); // 계약 정보 갱신
+      } else {
+        setInviteStatus(response.data.message || "초대 코드 등록 실패");
+      }
+    } catch (error) {
+      setInviteStatus(
+        error.response?.data?.message || "초대 코드 등록 중 오류 발생"
+      );
+    }
+  };
+  
 
   return (
     <main className={styles.container}>
@@ -220,13 +275,24 @@ function ContractInformation() {
           <h1 className={styles.contractTitle}>계약 정보</h1>
         </header>
 
-        <AddressCard contract={contract} />
-        <ContractParties contract={contract} />
-        <ContractPeriod contract={contract} />
-        <PaymentAccount contract={contract} />
-        <PaymentDetails contract={contract} />
-        <PaymentDate contract={contract} />
-        <TerminationButton contract={contract} />
+        {contract ? (
+          <>
+            <AddressCard contract={contract} />
+            <ContractParties contract={contract} />
+            <ContractPeriod contract={contract} />
+            <PaymentAccount contract={contract} />
+            <PaymentDetails contract={contract} />
+            <PaymentDate contract={contract} />
+            <TerminationButton contract={contract} />
+          </>
+        ) : (
+          <ContractCode
+            inviteCode={inviteCode}
+            setInviteCode={setInviteCode}
+            inviteStatus={inviteStatus}
+            handleInviteSubmit={handleInviteSubmit}
+          />
+        )}
       </div>
       <Navbar />
     </main>
