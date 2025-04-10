@@ -19,8 +19,8 @@
     align-items: stretch;
     justify-self: center;
     width: 90%;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 18px;
+    padding-right: 18px;
     font-size: 14px;
     display: flex;
     margin-left: auto;
@@ -314,7 +314,8 @@
   }
   
 
-  /* 계약 초대 코드 관련 디자인인 */
+
+  /* 계약 초대 코드 관련 디자인 */
   .contractCodeCard {
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
@@ -327,28 +328,30 @@
   }
   
   .codeLabel {
-    font-size: 20px;
+    margin-top: 30px;
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 40x;
     color: #333;
   }
   
   .codeValue {
-    font-size: 16px;
+    font-size: 13px;
     color: #555;
   }
   
   .codeDescription {
-    font-size: 14px;
+    font-size: 13px;
     color: #777;
-    margin-bottom: 15px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-weight: 600;
   }
   
   .inviteInputGroup {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
   }
   
   .inviteInput {
@@ -356,7 +359,7 @@
     border-radius: 8px;
     border: 1px solid #ccc;
     flex: 1;
-    max-width: 200px;
+    max-width: 180px;
   }
   
   .inviteButton {
