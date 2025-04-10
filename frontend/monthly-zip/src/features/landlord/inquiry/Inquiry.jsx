@@ -140,7 +140,6 @@ function Inquiry() {
     fetchInquiries();
   }, [fetchInquiries]);
 
-  if (loading) return <div>로딩중...</div>;
   if (error) return <div>에러가 발생했습니다: {error}</div>;
 
   return (

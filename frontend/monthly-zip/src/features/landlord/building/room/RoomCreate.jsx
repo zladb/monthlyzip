@@ -109,7 +109,6 @@ function RoomCreate() {
     }
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
   if (error) return <div>{error}</div>;
 
   return (
