@@ -27,65 +27,63 @@ const Header = ({ onMenuClick, userName }) => {
   );
 };
 
-// DashboardCards Component
 function DashboardCards({ monthlySummary }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
-  const totalPages = 2;
-  const cardWidth = 100 / totalPages; // 각 카드의 너비를 퍼센트로 계산
 
-  const handleTouchStart = (e) => {
-    setTouchStart(e.touches[0].clientX);
-  };
+  const hasContract = monthlySummary && monthlySummary.paymentDate;
 
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.touches[0].clientX);
-  };
+  const totalPages = hasContract ? 2 : 1;
+  const cardWidth = 100 / totalPages;
 
+  const handleTouchStart = (e) => setTouchStart(e.touches[0].clientX);
+  const handleTouchMove = (e) => setTouchEnd(e.touches[0].clientX);
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-
+    if (touchStart === null || touchEnd === null) return;
     const distance = touchStart - touchEnd;
     const minSwipeDistance = 50;
 
-    if (Math.abs(distance) < minSwipeDistance) {
-      return;
-    }
-
-    if (distance > 0 && currentPage < totalPages - 1) {
-      setCurrentPage(prev => prev + 1);
-    }
-
-    if (distance < 0 && currentPage > 0) {
-      setCurrentPage(prev => prev - 1);
+    if (distance > minSwipeDistance && currentPage < totalPages - 1) {
+      setCurrentPage((prev) => prev + 1);
+    } else if (distance < -minSwipeDistance && currentPage > 0) {
+      setCurrentPage((prev) => prev - 1);
     }
 
     setTouchStart(null);
     setTouchEnd(null);
   };
 
-  
   return (
     <div className={styles.dashboardContainer}>
-      <div 
+      <div
         className={styles.cardSlider}
         style={{ transform: `translateX(-${currentPage * cardWidth}%)` }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        <HomeCard
-          icon={moneyIcon}
-          label="다음 월세 납부일"
-          value={monthlySummary.paymentDate.toLocaleString()}
-        />
-        <HomeCard
-          icon={roomIcon}
-          label="월세 연체 금액"
-          value={monthlySummary.amount}
-          unit="원"
-        />
+        {hasContract ? (
+          <>
+            <HomeCard
+              icon={moneyIcon}
+              label="다음 월세 납부일"
+              value={monthlySummary.paymentDate}
+            />
+            <HomeCard
+              icon={roomIcon}
+              label="월세 연체 금액"
+              value={monthlySummary.amount}
+              unit="원"
+            />
+          </>
+        ) : (
+          <HomeCard
+            icon={roomIcon}
+            label="계약 정보 없음"
+            value="현재 계약이 없습니다."
+          />
+        )}
       </div>
       <div className={styles.pageIndicator}>
         {[...Array(totalPages)].map((_, index) => (
@@ -99,6 +97,7 @@ function DashboardCards({ monthlySummary }) {
     </div>
   );
 }
+
 
 function NoticeCard({ title, date, onClick}) {
 
@@ -184,11 +183,6 @@ function TenantHome() {
         });
 
         if (response.data.success) {
-          console.log('대시보드 데이터:', response.data.result);
-          // 데이터 유효성 검사
-          if (!response.data.result || !response.data.result.tenantInfo) {
-            throw new Error('유효하지 않은 데이터입니다.');
-          }
           setDashboardData(response.data.result);
         } else {
           throw new Error(response.data.message);
@@ -209,32 +203,27 @@ function TenantHome() {
   }, [navigate]);
 
   const handleClick = (noticeId) => {
-    console.log('클릭한 공지사항 ID:', noticeId);
     if (noticeId) {
       navigate(`/tenant/notice-detail/${noticeId}`);
-    } else {
-      console.error('공지사항 ID가 없습니다.');
     }
   };
 
   if (loading) return;
-  if (error) return <div>에러가 발생했습니다: {error}</div>;
-  if (!dashboardData) return <div>데이터를 찾을 수 없습니다.</div>;
 
+  const userName = dashboardData?.tenantInfo?.name || '임차인';
+  const monthlySummary = dashboardData?.nextPayment ?? null;
+  const notices = dashboardData?.notices || [];
+  
   return (
     <div className={styles.container}>
-      <Header userName={dashboardData.tenantInfo.name} onMenuClick={() => setIsSidebarOpen(true)} />
+      <Header userName={userName} onMenuClick={() => setIsSidebarOpen(true)} />
       <div className={styles.content}>
-        <DashboardCards monthlySummary={dashboardData.nextPayment} />
-        <NoticeList
-          notices={dashboardData.notices || []}
-          onClick={handleClick}
-        />
+        <DashboardCards monthlySummary={monthlySummary} />
+        <NoticeList notices={notices} onClick={handleClick} />
       </div>
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
       <Navbar />
     </div>
   );
 }
-
 export default TenantHome;
