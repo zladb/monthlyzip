@@ -5,6 +5,7 @@ import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.domain.autotransfer.dto.request.AutoTransferCreateRequest;
 import com.monthlyzip.domain.autotransfer.dto.response.AutoTransferCreateResponse;
 import com.monthlyzip.domain.autotransfer.dto.response.AutoTransferInitResponse;
+import com.monthlyzip.domain.autotransfer.dto.response.AutoTransferStatusResponse;
 import com.monthlyzip.domain.autotransfer.service.AutoTransferService;
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -47,5 +48,13 @@ public class AutoTransferController {
         Long memberId = userDetails.getMember().getId();
         autoTransferService.deleteAutoTransfer(memberId);
         return ApiResponse.success();
+    }
+
+    @GetMapping("/status")
+    public ApiResponse<AutoTransferStatusResponse> statusAutoTransfer(
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
+        Long memberId = userDetails.getMember().getId();
+        boolean isRegistered = autoTransferService.statusAutoTransfer(memberId);
+        return ApiResponse.success(new AutoTransferStatusResponse(isRegistered));
     }
 }

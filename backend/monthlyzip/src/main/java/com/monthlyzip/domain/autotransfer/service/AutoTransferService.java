@@ -93,4 +93,8 @@ public class AutoTransferService {
 
         autoTransferRepository.delete(autoTransfer);
     }
+
+    public boolean statusAutoTransfer(Long memberId) {
+        return autoTransferRepository.existsByTenant_Id(memberId);
+    }
 }
