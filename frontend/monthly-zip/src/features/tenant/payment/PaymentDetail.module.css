@@ -1,7 +1,7 @@
 .container {
     background-color: #fff;
     width: 100%;
-    min-height: 700px;   /* 일단 700px로 잡았음 */
+    min-height: 100vh;
     max-width: 480px;
     margin: 0 auto;
     padding: 72px 22px;
