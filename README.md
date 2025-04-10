@@ -9,17 +9,14 @@
 
 ---
 
-1. **[웹 서비스 소개](#웹-서비스-소개)**
-2. **[기술 스택](#기술-스택)**
-3. **[주요 기능](#주요-기능)**
-4. **[시스템 아키텍쳐](#시스템-아키텍쳐)**
-5. **[서비스 화면](#서비스-화면)**
-6. **[개발 팀 소개](#개발-팀-소개)**
+1. **[웹 서비스 소개](#1-웹-서비스-소개)**
+2. **[기술 스택](#2-기술-스택)**
+3. **[주요 기능](#3-주요-기능)**
+4. **[시스템 아키텍쳐](#4-시스템-아키텍쳐)**
+5. **[서비스 화면](#5-서비스-화면)**
+6. **[개발 팀 소개](#6-개발-팀-소개)**
    
-<div id="웹-서비스-소개"></div>
-<br>
-
-## ✨ 웹 서비스 소개
+## 1. 웹 서비스 소개
 
 ### ✨ 월간ZIP: 임대차인을 위한 스마트한 월세 관리 솔루션
 
@@ -44,31 +41,33 @@
 <div id="기술-스택"></div>
 <br>
 
-## 🔨 기술 스택
+## 2. 기술 스택
 
 ---
-
+ 
 ### **Backend**
 
-<img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"> <img src="https://img.shields.io/badge/Java 17-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/SpringBoot 3.4.3-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"> <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white"> <br> <img src="https://img.shields.io/badge/Lombok-BC4521?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Redis 7.4.2-DC382D?style=for-the-badge&logo=Redis&logoColor=white"> <img src="https://img.shields.io/badge/MySQL 8.0.40-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
+<img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"> <img src="https://img.shields.io/badge/Java 17-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/SpringBoot 3.4.3-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"> <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring%20Security&logoColor=white"> <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white"> <br> <img src="https://img.shields.io/badge/Lombok-BC4521?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Redis 7.4.2-DC382D?style=for-the-badge&logo=Redis&logoColor=white"> <img src="https://img.shields.io/badge/MySQL 8.0.40-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/P6Spy-0A0A0A?style=for-the-badge&logoColor=white"> <img src="https://img.shields.io/badge/External API-4B5563?style=for-the-badge&logo=code&logoColor=white">
 
 ### **Frontend**
 
-<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white"> <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white"> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=white"> <br> <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&logo=Tailwind CSS&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/Stompjs-000000?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white"> <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white"> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/Kakao Map API-FFCD00?style=for-the-badge&logo=kakao&logoColor=black">
+
 
 ### **CI/CD**
 
-<img src="https://img.shields.io/badge/AWS EC2-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"> <img src="https://img.shields.io/badge/Jenkins 2.492.2-D24939?style=for-the-badge&logo=Jenkins&logoColor=white"> <img src="https://img.shields.io/badge/Docker 28.0.1-2496ED?style=for-the-badge&logo=Docker&logoColor=white"> <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=white"> <img src="https://img.shields.io/badge/Ubuntu 22.04.5 LTS-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white">
+<img src="https://img.shields.io/badge/AWS EC2-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"> <img src="https://img.shields.io/badge/Jenkins 2.492.2-D24939?style=for-the-badge&logo=Jenkins&logoColor=white"> <img src="https://img.shields.io/badge/Docker 28.0.1-2496ED?style=for-the-badge&logo=Docker&logoColor=white"> <img src="https://img.shields.io/badge/Docker Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+<img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=white"> <img src="https://img.shields.io/badge/Ubuntu 22.04.5 LTS-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white"> <img src="https://img.shields.io/badge/Cursor-5D3FD3?style=for-the-badge&logoColor=white">
 
 ### **Communication**
 
-<img src="https://img.shields.io/badge/Git(Gitlab)-FCA121?style=for-the-badge&logo=Gitlab&logoColor=white"> <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Mattermost-0058CC?style=for-the-badge&logo=Mattermost&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
+<img src="https://img.shields.io/badge/Git(Gitlab)-FCA121?style=for-the-badge&logo=Gitlab&logoColor=white"> <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Mattermost-0058CC?style=for-the-badge&logo=Mattermost&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
 
 
 <br>
 <div id="주요-기능"></div>
 
-## 💡 주요 기능
+## 3. 주요 기능
 
 ---
 
@@ -85,7 +84,7 @@
 <div id="시스템-아키텍처"></div>
 <br>
 
-## 📊 시스템 아키텍쳐
+## 4. 시스템 아키텍쳐
 
 ---
 <br>
@@ -96,7 +95,7 @@
 <br>
 <div id="서비스-화면"></div>
 
-## 💻 서비스 화면
+## 5. 서비스 화면
 
 ---
 
@@ -145,7 +144,7 @@
 <br>
 <div id="개발-팀-소개"></div>
 
-## 👨🏻‍💻 개발 팀 소개
+## 6. 개발 팀 소개
 
 ---
 
