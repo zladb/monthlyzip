@@ -64,7 +64,7 @@ function NoticeDetail() {
     fetchNotice();
   }, []);
 
-  if (!notice) return <p>공지사항을 불러오는 중입니다...</p>;
+  if (!notice) return;
 
   return (
     <section className={styles.container}>

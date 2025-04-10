@@ -1,8 +1,6 @@
 .container {
     background-color: #fff9ed;
     max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
     padding-top: 69px;
     font-family:
       Inter,
@@ -12,16 +10,21 @@
       sans-serif;
     overflow: hidden;
     min-height: 100vh;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
   .contentWrapper {
     flex-direction: column;
     align-items: stretch;
     justify-self: center;
     width: 90%;
-    padding-left: 34px;
-    padding-right: 34px;
+    padding-left: 25px;
+    padding-right: 25px;
     font-size: 14px;
     display: flex;
+    margin-left: auto;
+    margin-right: auto;
   }
   .contractTitle {
     color: #000;
