@@ -13,6 +13,7 @@
     sans-serif;
     overflow: hidden;
     min-height: 100vh;
+    margin-bottom: 0;
   }
   
   .content {
@@ -110,6 +111,7 @@
   }
   
   .confirmButton {
+    color: black;
     white-space: nowrap;
     text-align: center;
     background-color: #fcbe32;
@@ -133,7 +135,7 @@
     text-align: center;
     background-color: #d8d8d8;
     width: 100%;
-    margin-top: 105px;
+    margin-top: 95px;
     padding: 23px 70px;
     font-family:
       Montserrat,
@@ -145,5 +147,6 @@
     font-weight: 700;
     border: none;
     cursor: pointer;
+    color: black;
   }
   
