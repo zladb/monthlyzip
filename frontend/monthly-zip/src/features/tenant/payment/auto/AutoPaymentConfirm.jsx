@@ -28,9 +28,10 @@ function Header() {
 // Transfer details component with recipient and amount
 const TransferDetails = ({ landlordName, toAccount }) => {
   const [amount, setAmount] = useState("");
+  const memberId = localStorage.getItem("memberId");
 
   useEffect(() => {
-    const storedAmount = localStorage.getItem("autoPaymentAmount");
+    const storedAmount = localStorage.getItem(`${memberId}_autoPaymentAmount`);
     if (storedAmount) {
       // 천 단위 콤마 추가
       const formatted = Number(storedAmount).toLocaleString();
@@ -65,10 +66,11 @@ const AccountInformation = ({ fromAccount }) => {
 const TransferSchedule = ({ landlordName, tenantName }) => {
   const [frequency, setFrequency] = useState("");
   const [period, setPeriod] = useState("");
+  const memberId = localStorage.getItem("memberId");
 
   useEffect(() => {
-    const storedFrequency = localStorage.getItem("autoPaymentFrequency");
-    const storedPeriod = localStorage.getItem("autoPaymentPeriod");
+    const storedFrequency = localStorage.getItem(`${memberId}_autoPaymentFrequency`);
+    const storedPeriod = localStorage.getItem(`${memberId}_autoPaymentPeriod`);
 
     if (storedFrequency) setFrequency(`매월 / ${storedFrequency}일`);
     if (storedPeriod) setPeriod(storedPeriod);
@@ -100,7 +102,9 @@ const TransferSchedule = ({ landlordName, tenantName }) => {
 // Main component that combines all the smaller components
 function AutoPaymentConfirm() {
   const navigate = useNavigate();
-  
+
+  const memberId = localStorage.getItem("memberId");
+
   const [landlordName, setLandlordName] = useState("");
   const [tenantName, setTenantName] = useState("");
 
@@ -166,13 +170,13 @@ function AutoPaymentConfirm() {
       const token = localStorage.getItem("accessToken");
       const toDateFormat = (str) => str?.replace(/\./g, "-");
 
-      const amountRaw = localStorage.getItem("autoPaymentAmount");
+      const amountRaw = localStorage.getItem(`${memberId}_autoPaymentAmount`);
       const amount = amountRaw ? Number(amountRaw) : 0;
   
-      const paymentDay = Number(localStorage.getItem("autoPaymentFrequency"));
+      const paymentDay = Number(localStorage.getItem(`${memberId}_autoPaymentFrequency`));
       
-      const rawStart = localStorage.getItem("autoPaymentPeriodStart");
-      const rawEnd = localStorage.getItem("autoPaymentPeriodEnd");
+      const rawStart = localStorage.getItem(`${memberId}_autoPaymentPeriodStart`);
+      const rawEnd = localStorage.getItem(`${memberId}_autoPaymentPeriodEnd`);
 
       const startMonth = toDateFormat(rawStart) + "-01"; // "2025-04-01"
       const endMonth = toDateFormat(rawEnd) + "-01";     // "2025-10-01"
@@ -197,7 +201,6 @@ function AutoPaymentConfirm() {
       console.log("자동이체 등록 요청: ", postResponse.data);
       if (postResponse.data.success) {
         alert("자동이체 등록이 완료되었습니다!");
-        localStorage.setItem("isAutoPaymentActive", "true");
         navigate("/tenant/payment-main");
       } else {
         console.log("자동이체 등록에 실패했습니다.");
