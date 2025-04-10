@@ -25,6 +25,9 @@ function NoticeDetailHeader() {
 }
 
 function NoticeContent({ title, content }) {
+  // 줄바꿈 문자를 \n으로 통일
+  const formattedContent = content?.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
   return (
     <article className={styles.contentCard}>
       <div className={styles.titleRow}>
@@ -33,7 +36,7 @@ function NoticeContent({ title, content }) {
       </div>
       <hr className={styles.divider} />
       <h3 className={styles.contentLabel}>내용</h3>
-      <p className={styles.contentText}>{content}</p>
+      <p className={styles.contentText}>{formattedContent}</p>
     </article>
   );
 }
@@ -51,8 +54,9 @@ function NoticeDetail() {
         },
       })
         .then((response) => {
-  
           if (response.data.success) {
+            console.log('서버 응답 데이터:', response.data.result);
+            console.log('content 줄바꿈 확인:', response.data.result.content.split('\n'));
             setNotice(response.data.result);
           } else {
             console.error("공지사항 상세를 가져오지 못했습니다:", response.data.message);
