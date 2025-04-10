@@ -79,7 +79,17 @@ function NoticeUpdate() {
   useEffect(() => {
     const fetchNoticeDetail = async () => {
       try {
-        const response = await axios.get(`/api/notices/${noticeId}`);
+        const token = localStorage.getItem('accessToken');
+        const response = await axios.get(
+          `https://j12d109.p.ssafy.io/api/notices/${noticeId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+        
         if (response.data.success) {
           const { title, content } = response.data.result;
           setTitle(title);
@@ -87,6 +97,11 @@ function NoticeUpdate() {
         }
       } catch (error) {
         console.error("공지사항을 불러오는데 실패했습니다:", error);
+        if (error.response?.status === 404) {
+          alert('존재하지 않는 공지사항입니다.');
+        } else {
+          alert('공지사항을 불러오는데 실패했습니다.');
+        }
         navigate("/landlord/notice");
       }
     };
@@ -111,15 +126,46 @@ function NoticeUpdate() {
   };
 
   const handleComplete = async () => {
+    if (!title.trim() || !content.trim()) {
+      alert('제목과 내용을 모두 입력해주세요.');
+      return;
+    }
+
     try {
-      await axios.patch(`/api/notices/${noticeId}`, {
-        title,
-        content
-      });
-      navigate(`/landlord/notice/${noticeId}`);
+      const token = localStorage.getItem('accessToken');
+      const requestData = {
+        title: title.trim(),
+        content: content.trim()
+      };
+
+      console.log('Request payload:', requestData);
+
+      const response = await axios.patch(
+        `https://j12d109.p.ssafy.io/api/notices/${noticeId}`,
+        requestData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if (response.data.success) {
+        navigate(`/landlord/notice/${noticeId}`);
+      }
     } catch (error) {
       console.error("공지사항 수정에 실패했습니다:", error);
-      // 에러 처리 로직 추가 가능
+      if (error.response?.status === 400) {
+        alert(error.response.data.message || '입력값을 확인해주세요.');
+      } else if (error.response?.status === 403) {
+        alert('수정 권한이 없습니다.');
+      } else if (error.response?.status === 500) {
+        console.error('Server response:', error.response.data);
+        alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      } else {
+        alert('공지사항 수정에 실패했습니다.');
+      }
     }
   };
 

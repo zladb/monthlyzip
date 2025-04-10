@@ -47,7 +47,7 @@ function NoticeCreate() {
       const requestData = {
         buildingId: selectedBuilding,
         title: title.trim(),
-        content: content.trim().replace(/^"|"$/g, '')
+        content: content.trim()
       };
       
       console.log('Request payload:', requestData);
@@ -70,8 +70,6 @@ function NoticeCreate() {
         setError('해당 건물이 존재하지 않습니다.');
       } else if (error.response?.status === 400) {
         setError(error.response.data.message || '필수 항목을 모두 입력해주세요.');
-      } else if (error.response?.status === 403) {
-        setError('해당 건물에 대한 권한이 없습니다.');
       } else if (error.response?.status === 500) {
         console.error('Server response:', error.response.data);
         setError('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
