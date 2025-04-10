@@ -1,12 +1,16 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import './App.css';
+import Loader from './loader/Loader'; // 로딩 컴포넌트
+
+// 사용자 관련
 import Login from './features/user/login/Login';
 import Signup from './features/user/signup/Signup';
 import Mypage from './features/user/myPage/Mypage';
 
+// 임대인
 import TenantMgmt from './features/landlord/tenantMgmt/TenantMgmt';
 import TenantMgmtDetail from './features/landlord/tenantMgmt/TenantMgmtDetail';
 import LandlordHome from './features/landlord/home/LandlordHome';
@@ -19,13 +23,14 @@ import Contract from './features/landlord/building/contract/Contract';
 import ContractCreate from './features/landlord/building/contract/ContractCreate';
 import Room from './features/landlord/building/room/Room';
 import Inquiry from './features/landlord/inquiry/Inquiry';
-import LandlordInquiryDetail from './features/landlord/inquiry/InquiryDetail'
+import LandlordInquiryDetail from './features/landlord/inquiry/InquiryDetail';
 import Notice from './features/landlord/notice/Notice';
 import LandlordNoticeDetail from './features/landlord/notice/NoticeDetail';
 import NoticeUpdate from './features/landlord/notice/NoticeUpdate';
 import NoticeCreate from './features/landlord/notice/NoticeCreate';
 import NotificationPage from './features/landlord/notification/NotificationPage';
 
+// 임차인
 import TenantHome from './features/tenant/home/TenantHome';
 import PaymentList from './features/tenant/payment/PaymentList';
 import PaymentDetail from './features/tenant/payment/PaymentDetail';
@@ -46,10 +51,26 @@ import PaymentConfirm from './features/tenant/payment/direct/PaymentConfirm';
 import AutoPaymentConfirm from './features/tenant/payment/auto/AutoPaymentConfirm';
 import InquiryUpdate from './features/tenant/inquiry/InquiryUpdate';
 
-function App() {
+// ✨ 로딩 상태 & 라우트 감지 처리
+function AppRoutes() {
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // 라우트가 변경되면 로딩 표시
+    setLoading(true);
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500); // 최소 로딩 시간 설정 (실제 API 연동 시 조정 가능)
+
+    return () => clearTimeout(timer);
+  }, [location]);
 
   return (
-    <Router>
+    <>
+      {loading && <Loader />}
+
       <Routes>
         {/* 공개 라우트 - 로그인하지 않은 사용자도 접근 가능 */}
         <Route path="/" element={<Navigate to="/login" replace />} />
@@ -114,6 +135,15 @@ function App() {
         </Route>
 
       </Routes>
+    </>
+  );
+}
+
+// 최상위 App 구성
+function App() {
+  return (
+    <Router>
+      <AppRoutes />
     </Router>
   );
 }
