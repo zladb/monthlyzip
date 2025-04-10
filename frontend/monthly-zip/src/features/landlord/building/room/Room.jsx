@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./Room.module.css";
 import arrow_back from "../../../../assets/icons/arrow_back.svg";
+import Loader from "../../../../loader/Loader";
 
 // Back button component
 const BackButton = ({ onClick }) => (
@@ -109,9 +110,9 @@ const NoticeMessage = () => (
 );
 
 // Contract button component
-const ContractButton = ({ isOccupied, onClick }) => (
+const ContractButton = ({ isActiveLandlord, onClick }) => (
   <button className={styles.contractButton} onClick={onClick}>
-    {isOccupied ? '계약 조회' : '계약 등록'}
+    {isActiveLandlord ? '계약 조회' : '계약 등록'}
   </button>
 );
 
@@ -120,6 +121,7 @@ function Room() {
   const { roomId } = useParams();
   const [roomData, setRoomData] = useState(null);
   const [buildingData, setBuildingData] = useState(null);
+  const [contractData, setContractData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -145,6 +147,13 @@ function Room() {
           
           if (buildingResponse.data.success) {
             setBuildingData(buildingResponse.data.result);
+          }
+
+          // 계약 정보 조회
+          const contractResponse = await axios.get(`/api/contracts?roomId=${roomId}`, { headers });
+          
+          if (contractResponse.data.success && contractResponse.data.result.length > 0) {
+            setContractData(contractResponse.data.result[0]); // 가장 최근 계약 정보 사용
           }
         }
       } catch (error) {
@@ -188,12 +197,16 @@ function Room() {
   };
 
   const handleContractClick = () => {
-    if (roomData.isOccupied) {
+    if (contractData?.isActiveLandlord) {
       navigate(`/landlord/building/${roomId}/contract`, { state: { roomId } });
     } else {
       navigate(`/landlord/building/${roomId}/contract-create`, { state: { roomId } });
     }
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   if (error) {
     return <div className={styles.error}>{error}</div>;
@@ -223,7 +236,7 @@ function Room() {
 
       <footer className={styles.footer}>
         <ContractButton 
-          isOccupied={roomData.isOccupied} 
+          isActiveLandlord={contractData?.isActiveLandlord || false}
           onClick={handleContractClick}
         />
       </footer>

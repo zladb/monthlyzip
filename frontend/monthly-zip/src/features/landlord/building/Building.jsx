@@ -5,6 +5,7 @@ import styles from "./Building.module.css";
 import buildingIcon from '../../../assets/icons/building.svg';
 import Navbar from "../navbar/Navbar";
 import BuildingCard from "../../../components/BuildingCard/BuildingCard";
+import Loader from "../../../loader/Loader";
 
 // Header Component
 const Header = ({ onBuildingRegister }) => (
@@ -149,6 +150,7 @@ function Building() {
     }
   };
 
+  if (isLoading) return <Loader />;
   if (error) return <div>{error}</div>;
 
   return (
