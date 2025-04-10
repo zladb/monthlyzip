@@ -12,14 +12,14 @@
       Helvetica,
       sans-serif;
     overflow: hidden;
-    min-height: 700px;   /* 일단 700px로 잡았음 */
+    min-height: 800px;   /* 일단 700px로 잡았음 */
   }
   
   .contentWrapper {
     flex-direction: column;
     align-items: center;
-    padding-left: 33px;
-    padding-right: 33px;
+    padding-left: 20px;
+    padding-right: 20px;
     display: flex;
   }
   
