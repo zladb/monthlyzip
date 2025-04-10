@@ -15,9 +15,17 @@ function NoticeCreate() {
   useEffect(() => {
     const fetchBuildings = async () => {
       try {
-        const response = await axios.get('/api/buildings');
+        const token = localStorage.getItem('accessToken');
+        const response = await axios.get('https://j12d109.p.ssafy.io/api/buildings', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.success) {
           setBuildings(response.data.result);
+          if (response.data.result.length > 0) {
+            setSelectedBuilding(response.data.result[0].id.toString());
+          }
         }
       } catch (error) {
         setError('건물 목록을 불러오는데 실패했습니다.');
@@ -35,11 +43,24 @@ function NoticeCreate() {
     }
 
     try {
-      const response = await axios.post('/api/notices', {
-        buildingId: parseInt(selectedBuilding),
+      const token = localStorage.getItem('accessToken');
+      const requestData = {
+        buildingId: selectedBuilding,
         title: title.trim(),
-        content: content.trim()
-      });
+        content: content.trim().replace(/^"|"$/g, '')
+      };
+      
+      console.log('Request payload:', requestData);
+      
+      const response = await axios.post('https://j12d109.p.ssafy.io/api/notices', 
+        requestData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
 
       if (response.data.success) {
         navigate('/landlord/notice');
@@ -47,6 +68,13 @@ function NoticeCreate() {
     } catch (error) {
       if (error.response?.status === 404) {
         setError('해당 건물이 존재하지 않습니다.');
+      } else if (error.response?.status === 400) {
+        setError(error.response.data.message || '필수 항목을 모두 입력해주세요.');
+      } else if (error.response?.status === 403) {
+        setError('해당 건물에 대한 권한이 없습니다.');
+      } else if (error.response?.status === 500) {
+        console.error('Server response:', error.response.data);
+        setError('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
       } else {
         setError('공지사항 등록에 실패했습니다.');
       }
