@@ -110,6 +110,14 @@ function NotificationFilters({ selectedBuilding, setSelectedBuilding }) {
 }
 
 function NotificationList({ notices }) {
+  if (!notices || notices.length === 0) {
+    return (
+      <div className={styles.emptyNotice}>
+        <p>공지사항이 없습니다</p>
+      </div>
+    );
+  }
+
   return (
     <>
       {notices.map((notice, index) => (

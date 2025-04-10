@@ -216,3 +216,17 @@ button {
   height: 2px;
   background-color: #FF5F2E;
 }
+
+.emptyMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  color: #80848C;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-top: 20px;
+}
