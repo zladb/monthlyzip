@@ -9,8 +9,11 @@ import Mypage from './features/user/myPage/Mypage';
 
 import TenantMgmt from './features/landlord/tenantMgmt/TenantMgmt';
 import TenantMgmtDetail from './features/landlord/tenantMgmt/TenantMgmtDetail';
-import LandlordHome from './features/landlord/home/LandlordHome'
-import Building from './features/landlord/building/Building'
+import LandlordHome from './features/landlord/home/LandlordHome';
+import Building from './features/landlord/building/Building';
+import BuildingCreate from './features/landlord/building/BuildingCreate';
+import BuildingUpdate from './features/landlord/building/BuildingUpdate';
+import RoomCreate from './features/landlord/building/room/RoomCreate';
 import Inquiry from './features/landlord/inquiry/Inquiry';
 import LandlordInquiryDetail from './features/landlord/inquiry/InquiryDetail'
 import Notice from './features/landlord/notice/Notice';
@@ -57,8 +60,10 @@ function App() {
         {/* 임대인 전용 라우트 */}
         <Route element={<ProtectedRoute requiredType="임대인" />}>
           <Route path="/landlord" element={<LandlordHome />} />
-
           <Route path="/landlord/building" element={<Building />} />
+          <Route path="/landlord/building-create" element={<BuildingCreate />} />
+          <Route path="/landlord/building-update/:buildingId" element={<BuildingUpdate />} />
+          <Route path="/landlord/room-create" element={<RoomCreate />} />
 
           <Route path="/landlord/tenant-mgmt" element={<TenantMgmt />} />  
           <Route path="/landlord/tenant-mgmt-detail" element={<TenantMgmtDetail />} />

@@ -1,158 +1,165 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./Building.module.css";
 import buildingIcon from '../../../assets/icons/building.svg';
-import addIcon from '../../../assets/icons/add.svg';
 import Navbar from "../navbar/Navbar";
-import UDModal from "../../../components/UDModal/UDModal";
+import BuildingCard from "../../../components/BuildingCard/BuildingCard";
 
 // Header Component
-const Header = () => {
-  return (
-    <header className={styles.headerContainer}>
-      <h1 className={styles.title}>세대 목록</h1>
-      <div className={styles.buildingRegister}>
-        <img src={buildingIcon} alt="Building icon" />
-        <span>건물 등록</span>
-      </div>
-    </header>
-  );
-};
-
-// Unit Row Component
-const UnitRow = ({ unitName, status, isLast }) => {
-  const isVacant = status === "공실";
-
-  return (
-    <>
-      <div className={styles.unitRow}>
-        <h3 className={styles.unitName}>{unitName}</h3>
-        <span className={isVacant ? styles.vacantStatus : styles.occupiedStatus}>
-          {status}
-        </span>
-      </div>
-      {!isLast && <div className={styles.thinDivider} />}
-    </>
-  );
-};
-
-// Register Unit Button Component
-const RegisterUnitButton = () => {
-  return (
-    <button className={styles.registerUnitButton}>
-      <img
-        src={addIcon}
-        alt="Add unit icon"
-        className={styles.registerUnitIcon}
-      />
-      <span>세대 등록</span>
+const Header = ({ onBuildingRegister }) => (
+  <header className={styles.headerContainer}>
+    <h1 className={styles.title}>세대 목록</h1>
+    <button 
+      className={styles.buildingRegister} 
+      onClick={onBuildingRegister}
+      type="button"
+    >
+      <img src={buildingIcon} alt="Building icon" />
+      <span>건물 등록</span>
     </button>
-  );
-};
-
-// Dot Indicator Component
-const DotIndicator = () => {
-  return (
-    <nav className={styles.dotIndicator}>
-      <div className={styles.dot} aria-label="Page 1" />
-      <div className={styles.dot} aria-label="Page 2" />
-      <div className={styles.dot} aria-label="Page 3" />
-    </nav>
-  );
-};
+  </header>
+);
 
 // Page Indicator Component
-const PageIndicator = ({ totalPages, currentPage }) => {
+const PageIndicator = ({ totalPages, currentPage, onPageChange }) => (
+  <div className={styles.pageIndicator}>
+    {[...Array(totalPages)].map((_, index) => (
+      <button 
+        key={index}
+        className={`${styles.indicator} ${currentPage === index ? styles.active : ''}`}
+        aria-label={`Page ${index + 1}`}
+        onClick={() => onPageChange(index)}
+      />
+    ))}
+  </div>
+);
+
+// Building Cards Container Component
+const BuildingCardsContainer = ({ buildings, onBuildingClick, onRoomCreate, onBuildingUpdate, onBuildingDelete, currentPage, setCurrentPage }) => {
+  const containerRef = useRef(null);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe && currentPage < buildings.length - 1) {
+      setCurrentPage(prev => prev + 1);
+    }
+    if (isRightSwipe && currentPage > 0) {
+      setCurrentPage(prev => prev - 1);
+    }
+  };
+
+  const transitionStyle = {
+    transform: `translateX(-${currentPage * 100}%)`,
+    transition: 'transform 0.3s ease-out'
+  };
+
+  if (buildings.length === 0) {
+    return (
+      <div className={styles.emptyState}>
+        <p>등록된 건물이 없습니다.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className={styles.pageIndicator}>
-      {[...Array(totalPages)].map((_, index) => (
-        <div 
-          key={index}
-          className={`${styles.indicator} ${currentPage === index ? styles.active : ''}`}
-          aria-label={`Page ${index + 1}`}
-        />
-      ))}
-    </div>
-  );
-};
-
-// Building Card Component
-const BuildingCard = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [buttonPosition, setButtonPosition] = useState(null);
-
-  const handleMenuClick = (event) => {
-    const button = event.currentTarget;
-    const rect = button.getBoundingClientRect();
-    setButtonPosition({
-      top: rect.top,
-      right: rect.right,
-    });
-    setShowModal(true);
-  };
-
-  const handleUpdate = () => {
-    setShowModal(false);
-    // 수정 로직 구현
-  };
-
-  const handleDelete = () => {
-    setShowModal(false);
-    // 삭제 로직 구현
-  };
-
-  const units = [
-    { name: "101동 101호", status: "공실" },
-    { name: "101동 102호", status: "입주" },
-    { name: "101동 103호", status: "입주" },
-    { name: "101동 201호", status: "입주" },
-    { name: "101동 202호", status: "공실" },
-  ];
-
-  return (
-    <>
-      <section className={styles.buildingCard}>
-        <div className={styles.buildingHeader}>
-          <h2>유로빌</h2>
-          <button className={styles.menuButton} onClick={handleMenuClick}>⋮</button>
-        </div>
-        <div className={styles.divider} />
-
-        {units.map((unit, index) => (
-          <UnitRow 
-            key={index} 
-            unitName={unit.name} 
-            status={unit.status}
-            isLast={index === units.length - 1}
-          />
+    <div 
+      className={styles.cardsContainer}
+      ref={containerRef}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
+      <div className={styles.cardsWrapper} style={transitionStyle}>
+        {buildings.map((building) => (
+          <div key={building.id} className={styles.cardSlide}>
+            <BuildingCard
+              buildingId={building.id}
+              buildingName={building.buildingName}
+              onDelete={onBuildingDelete}
+              currentPage={currentPage}
+            />
+          </div>
         ))}
-
-        <button className={styles.registerUnitButton}>
-          + 세대 등록
-        </button>
-      </section>
-      {showModal && (
-        <UDModal
-          onClose={() => setShowModal(false)}
-          onUpdate={handleUpdate}
-          onDelete={handleDelete}
-          buttonPosition={buttonPosition}
-        />
-      )}
-    </>
+      </div>
+    </div>
   );
 };
 
 // Main Building Component
 function Building() {
+  const navigate = useNavigate();
+  const [buildings, setBuildings] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const totalPages = 3; // 예시로 3개의 건물이 있다고 가정
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchBuildings();
+  }, []);
+
+  const fetchBuildings = async () => {
+    try {
+      const response = await axios.get('/api/buildings');
+      if (response.data.success) {
+        setBuildings(response.data.result);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setError('건물 목록을 불러오는데 실패했습니다.');
+      setIsLoading(false);
+    }
+  };
+
+  const handleBuildingDelete = async (buildingId) => {
+    try {
+      const response = await axios.delete(`/api/building/${buildingId}`);
+      if (response.data.success) {
+        await fetchBuildings();
+      }
+    } catch (error) {
+      console.error('건물 삭제에 실패했습니다.', error);
+    }
+  };
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className={styles.container}>
       <div className={styles.building}>
-        <Header />
-        <BuildingCard />
-        <PageIndicator totalPages={totalPages} currentPage={currentPage} />
+        <Header onBuildingRegister={() => navigate('/landlord/building-create')} />
+        <BuildingCardsContainer
+          buildings={buildings}
+          onBuildingDelete={handleBuildingDelete}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+        {buildings.length > 0 && (
+          <PageIndicator 
+            totalPages={buildings.length} 
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </div>
       <Navbar />
     </div>
