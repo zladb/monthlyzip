@@ -210,7 +210,7 @@ function ContractInformation() {
 
 
 
-  if (!contract) return <p>계약 정보를 불러오는 중...</p>;
+  if (!contract) return;
 
 
   return (
