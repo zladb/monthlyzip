@@ -121,9 +121,9 @@ function TenantMgmtDetail() {
     fetchData();
   }, [id]);
 
-  if (!tenantData) {
-    return <p>불러오는 중...</p>;
-  }
+  // if (!tenantData) {
+  //   return <p>불러오는 중...</p>;
+  // }
 
   return (
     <article className={styles.container}>
