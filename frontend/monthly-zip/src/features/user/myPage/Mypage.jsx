@@ -97,18 +97,19 @@ const Mypage = () => {
 
       // 프로필 이미지 변경
       if (profileImage && profileImage instanceof File) {
-        const formData = new FormData();
-        formData.append("profileImage", profileImage);
-        
-        await axios.patch("/api/members/profile-image", formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
+      const formData = new FormData();
+      formData.append("image", profileImage);
+      
+      await axios.put("/api/members/profile-image", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-        alert("프로필 이미지가 변경되었습니다.");
-      }
+      alert("프로필 이미지가 변경되었습니다.");
+    }
+  
 
       if (!(password || confirmPassword || profileImage)) {
         alert("변경할 정보가 없습니다.");
