@@ -140,36 +140,29 @@
 }
 
 .cardsContainer {
-  flex: 1;
-  overflow: hidden;
   position: relative;
-  margin: 0 -24px;
+  overflow: hidden;
+  flex: 1;
 }
 
 .cardsWrapper {
   display: flex;
-  height: 100%;
+  transition: transform 0.3s ease-out;
 }
 
 .cardSlide {
   flex: 0 0 100%;
   padding: 0 24px;
   box-sizing: border-box;
-  position: relative;
   display: flex;
-  justify-content: center;
-}
-
-.cardSlide > * {
-  width: 100%;
-  max-width: 100%;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .pageIndicator {
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
-  margin: 16px 0;
+  gap: 8px;
   padding: 8px 0;
 }
 
@@ -177,16 +170,14 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #dee2e6;
+  background-color: #D9D9D9;
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .indicator.active {
-  background-color: #FF9C46;
-  transform: scale(1.2);
+  background-color: #FF9B57;
 }
 
 .emptyState {
