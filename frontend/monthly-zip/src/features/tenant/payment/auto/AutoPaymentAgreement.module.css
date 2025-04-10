@@ -4,7 +4,7 @@
     max-width: 480px;
     margin-left: auto;
     margin-right: auto;
-    padding: 72px 22px;
+    margin-top: 68px;
     font-family:
     Poppins,
     -apple-system,
@@ -58,15 +58,24 @@
     flex-basis: auto;
     font-size: 28px;
     margin: 0;
+    font-family:
+      Inter,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-weight: 700;
   }
   
   .formSection {
     width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .formTitle {
     color: #343434;
-    margin-top: 66px;
+    margin-top: 50px;
     line-height: 0.8;
     font-size: 20px;
     font-weight: 600;
@@ -105,7 +114,7 @@
     text-align: center;
     background-color: #fcbe32;
     width: 100%;
-    margin-top: 150px;
+    margin-top: 95px;
     padding: 23px 70px;
     font-family:
       Montserrat,
@@ -124,7 +133,7 @@
     text-align: center;
     background-color: #d8d8d8;
     width: 100%;
-    margin-top: 150px;
+    margin-top: 105px;
     padding: 23px 70px;
     font-family:
       Montserrat,

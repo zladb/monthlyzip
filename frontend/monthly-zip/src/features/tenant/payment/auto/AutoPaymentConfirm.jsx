@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./AutoPaymentConfirm.module.css";
 
 function Header() {
@@ -25,7 +26,7 @@ function Header() {
 
 
 // Transfer details component with recipient and amount
-const TransferDetails = () => {
+const TransferDetails = ({ landlordName, toAccount }) => {
   const [amount, setAmount] = useState("");
 
   useEffect(() => {
@@ -39,8 +40,8 @@ const TransferDetails = () => {
 
   return (
     <>
-      <p className={styles.accountNumber}>신한 110-123-456789</p>
-      <h2 className={styles.recipientName}>홍길동 님께</h2>
+      {/* <p className={styles.accountNumber}>{toAccount}</p> */}
+      <h2 className={styles.recipientName}>{landlordName} 님께</h2>
       <h3 className={styles.transferAmount}>
       {amount} <span className={styles.regularWeight}>원 자동이체를</span>
         <br />
@@ -51,17 +52,17 @@ const TransferDetails = () => {
 };
 
 // Account information component
-const AccountInformation = () => {
+const AccountInformation = ({ fromAccount }) => {
   return (
     <section className={styles.accountInfoRow}>
       <p className={styles.accountInfoLabel}>출금계좌</p>
-      <p className={styles.accountInfoValue}>123456-78-901234</p>
+      <p className={styles.accountInfoValue}>{fromAccount}</p>
     </section>
   );
 };
 
 // Transfer schedule component with frequency, period, and display names
-const TransferSchedule = () => {
+const TransferSchedule = ({ landlordName, tenantName }) => {
   const [frequency, setFrequency] = useState("");
   const [period, setPeriod] = useState("");
 
@@ -69,7 +70,7 @@ const TransferSchedule = () => {
     const storedFrequency = localStorage.getItem("autoPaymentFrequency");
     const storedPeriod = localStorage.getItem("autoPaymentPeriod");
 
-    if (storedFrequency) setFrequency(`매월/${storedFrequency}일`);
+    if (storedFrequency) setFrequency(`매월 / ${storedFrequency}일`);
     if (storedPeriod) setPeriod(storedPeriod);
 
   }, []);
@@ -88,8 +89,8 @@ const TransferSchedule = () => {
         <p className={styles.frequencyValue}>{frequency}</p>
         <p className={styles.periodValue}>{period}</p>
         <div className={styles.displayNamesContainer}>
-          <p>홍길동</p>
-          <p className={styles.myDisplayValue}>김철수</p>
+          <p>{landlordName}</p>
+          <p className={styles.myDisplayValue}>{tenantName}</p>
         </div>
       </div>
     </section>
@@ -99,20 +100,122 @@ const TransferSchedule = () => {
 // Main component that combines all the smaller components
 function AutoPaymentConfirm() {
   const navigate = useNavigate();
+  
+  const [landlordName, setLandlordName] = useState("");
+  const [tenantName, setTenantName] = useState("");
 
-  const handleConfirm = () => {
-    localStorage.setItem("isAutoPaymentActive", "true");
-    navigate("/tenant/payment-main");
+  const [contractId, setContractId] = useState(null);
+  const [fromAccount, setFromAccount] = useState("");
+  const [toAccount, setToAccount] = useState("");
+
+  useEffect(() => {
+    const fetchAndTransfer = async () => {
+      const token = localStorage.getItem("accessToken");
+  
+      try {
+        const response = await axios.get("/api/transfers", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        const result = response.data.result;
+        setLandlordName(result.landlordName);
+        setTenantName(result.tenantName);
+      } catch (error) {
+        console.error("계좌 정보 조회 실패:", error);
+      }
+    };
+  
+    fetchAndTransfer(); 
+  }, []);
+  
+
+  useEffect(() => {
+    const fetchAutoTransfer = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+  
+        const getResponse = await axios.get("/api/autotransfers", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        console.log("자동이체 GET 응답:", getResponse.data);
+  
+        if (getResponse.data.success) {
+          const data = getResponse.data.result;
+          
+          setContractId(data.contractId);
+          setFromAccount(data.fromAccount);
+          setToAccount(data.toAccount);
+  
+        }
+      } catch (error) {
+        console.error("계좌 정보 조회 실패:", error);
+      }
+    };
+  
+    fetchAutoTransfer(); // 마운트 시 조회만
+  }, []);
+          
+
+  const handleConfirm = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const toDateFormat = (str) => str?.replace(/\./g, "-");
+
+      const amountRaw = localStorage.getItem("autoPaymentAmount");
+      const amount = amountRaw ? Number(amountRaw) : 0;
+  
+      const paymentDay = Number(localStorage.getItem("autoPaymentFrequency"));
+      
+      const rawStart = localStorage.getItem("autoPaymentPeriodStart");
+      const rawEnd = localStorage.getItem("autoPaymentPeriodEnd");
+
+      const startMonth = toDateFormat(rawStart) + "-01"; // "2025-04-01"
+      const endMonth = toDateFormat(rawEnd) + "-01";     // "2025-10-01"
+
+      const postBody = {
+        contractId,
+        fromAccount,
+        toAccount,
+        amount,
+        paymentDay,
+        startMonth,
+        endMonth
+      };
+
+      console.log("자동이체 등록 요청 body:", postBody);
+      const postResponse = await axios.post("/api/autotransfers", postBody, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("자동이체 등록 요청: ", postResponse.data);
+      if (postResponse.data.success) {
+        alert("자동이체 등록이 완료되었습니다!");
+        localStorage.setItem("isAutoPaymentActive", "true");
+        navigate("/tenant/payment-main");
+      } else {
+        console.log("자동이체 등록에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("자동이체 등록 오류:", error);
+    }
   };
+  
 
   return (
     <main className={styles.container}>
       <Header />
       <div className={styles.contentWrapper}>
-        <TransferDetails />
+        <TransferDetails landlordName={landlordName} toAccount={toAccount} />
         <hr className={styles.divider} />
-        <AccountInformation />
-        <TransferSchedule />
+        <AccountInformation fromAccount={fromAccount} />
+        <TransferSchedule landlordName={landlordName} tenantName={tenantName} />
         <hr className={styles.bottomDivider} />
       </div>
       <button type="button" className={styles.nextButton} onClick={handleConfirm}>

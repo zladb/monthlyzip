@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./AutoPaymentRegister.module.css";
 import wheelStyles from "./WheelPicker.module.css";
 
@@ -22,17 +23,11 @@ function Header() {
     </header>
   );
 }
-function AccountSection({ title, bankName, accountNumber }) {
+function AccountSection({ title, accountNumber }) {
   return (
     <section className={styles.sectionContainer}>
       <h2 className={styles.sectionTitle}>{title}</h2>
-      <div className={styles.accountSelector}>
-        <div className={styles.selectorHeader}>
-          <p className={styles.bankName}>{bankName}</p>
-        </div>
-        <div className={styles.divider} />
-      </div>
-
+    
       <div className={styles.accountNumberContainer}>
         <p className={styles.accountNumberLabel}>{accountNumber}</p>
         <div className={styles.divider} />
@@ -360,7 +355,9 @@ const getDefaultPeriods = () => {
 function AutoPaymentRegister() {
   const navigate = useNavigate();
   const [amount, setAmount] = useState("");
-
+  const [fromAccount, setFromAccount] = useState("");
+  const [toAccount, setToAccount] = useState("");
+  
   const [isDayModalOpen, setIsDayModalOpen] = useState(false);
   const [isStartModalOpen, setIsStartModalOpen] = useState(false);
   const [isEndModalOpen, setIsEndModalOpen] = useState(false);
@@ -401,6 +398,35 @@ function AutoPaymentRegister() {
     );
   }, []);
   
+  useEffect(() => {
+    const fetchAccounts = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+  
+        const response = await axios.get("/api/autotransfers", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
+        console.log("자동이체 응답: ", response.data);
+        if (response.data.success) {
+          const data = response.data.result;
+  
+          setFromAccount(data.fromAccount);
+          setToAccount(data.toAccount);
+        } else {
+          console.error("계좌 정보를 불러오지 못했습니다:", response.data.message);
+        }
+      } catch (error) {
+        console.error("계좌 정보 조회 실패:", error);
+      }
+    };
+  
+    fetchAccounts();
+  }, []);
+  
+
   const handleDaySelect = (day) => {
     setSelectedDay(day);
     localStorage.setItem("autoPaymentFrequency", day); 
@@ -424,14 +450,12 @@ function AutoPaymentRegister() {
             <form className={styles.formContent}>
             <AccountSection
               title="출금계좌"
-              bankName="KB국민"
-              accountNumber="123-456-789012"
+              accountNumber={fromAccount}
             />
 
             <AccountSection
-              title="받는 분"
-              bankName="신한"
-              accountNumber="987-654-321098"
+              title="입금계좌"
+              accountNumber={toAccount}
             />
 
             <AmountSection amount={amount} setAmount={setAmount}/>
