@@ -81,26 +81,35 @@ const BuildingCardsContainer = ({ buildings, onBuildingClick, onRoomCreate, onBu
   }
 
   return (
-    <div 
-      className={styles.cardsContainer}
-      ref={containerRef}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-    >
-      <div className={styles.cardsWrapper} style={transitionStyle}>
-        {buildings.map((building) => (
-          <div key={building.id} className={styles.cardSlide}>
-            <BuildingCard
-              buildingId={building.id}
-              buildingName={building.buildingName}
-              onDelete={onBuildingDelete}
-              currentPage={currentPage}
-            />
-          </div>
-        ))}
+    <>
+      <div 
+        className={styles.cardsContainer}
+        ref={containerRef}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        <div className={styles.cardsWrapper} style={transitionStyle}>
+          {buildings.map((building) => (
+            <div key={building.id} className={styles.cardSlide}>
+              <BuildingCard
+                buildingId={building.id}
+                buildingName={building.buildingName}
+                onDelete={onBuildingDelete}
+                currentPage={currentPage}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+      {buildings.length > 0 && (
+        <PageIndicator 
+          totalPages={buildings.length} 
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
+      )}
+    </>
   );
 };
 
@@ -153,13 +162,6 @@ function Building() {
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
-        {buildings.length > 0 && (
-          <PageIndicator 
-            totalPages={buildings.length} 
-            currentPage={currentPage}
-            onPageChange={setCurrentPage}
-          />
-        )}
       </div>
       <Navbar />
     </div>
