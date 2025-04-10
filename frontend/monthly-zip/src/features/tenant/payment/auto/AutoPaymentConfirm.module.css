@@ -29,7 +29,7 @@
     font-size: 16px;
     font-weight: 500;
     display: flex;
-    margin-top: 50px;
+    margin-top: 30px;
   }
   .headerContainer {
     align-items: center;
@@ -58,14 +58,14 @@
 
   .accountNumber {
     color: #5f6368;
-    margin-top: 18px;
+    margin-top: 15px;
     line-height: 1;
   }
   
   .recipientName {
     color: #343434;
     text-align: center;
-    margin-top: 32px;
+    margin-top: 20px;
     font-size: 24px;
     font-weight: 600;
     line-height: 1;
@@ -90,7 +90,7 @@
     align-self: start;
     width: 100%;
     height: 1px;
-    margin-top: 90px;
+    margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -100,7 +100,7 @@
     gap: 29px;
     width: 100%;
     max-width: 287px;
-    margin-top: 21px;
+    margin-top: 15px;
     line-height: 1;
     display: flex;
   }
@@ -163,6 +163,7 @@
   
   .periodValue {
     margin-top: 17px;
+    white-space: nowrap;
   }
   
   .displayNamesContainer {
@@ -195,7 +196,7 @@
     text-align: center;
     background-color: #fcbe32;
     width: 100%;
-    margin-top: 100px;
+    margin-top: 81px;
     padding: 23px 70px;
     font-family:
       Montserrat,

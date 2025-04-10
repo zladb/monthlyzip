@@ -36,8 +36,8 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 47px;
-    padding: 9px 62px 16px 17px;
+    margin-top: 30px;
+    padding: 9px 17px 16px 17px;
     font-weight: 400;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
@@ -75,7 +75,6 @@
     flex-direction: column;
     align-items: start;
     margin-top:10px;
-  
     padding: 16px 62px 16px 17px;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
@@ -89,11 +88,13 @@
     color: #000;
     font-weight: 600;
     font-size: 20px;
+    margin-bottom: 0;
   }
   .partyName {
     color: #878787;
     font-weight: 400;
     font-size: 18px;
+    margin-bottom: 0;
   }
   .tenantRow {
     align-items: center;
@@ -108,7 +109,7 @@
     flex-direction: column;
     align-items: start;
     margin-top: 10px;
-    padding: 11px 62px 11px 12px;
+    padding: 11px 12px 11px 12px;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
   }
@@ -133,7 +134,7 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 19px;
+    margin-top: 10px;
     padding: 10px 62px 10px 12px;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
@@ -142,7 +143,8 @@
     color: #878787;
     letter-spacing: 0.28px;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 12px;
+    margin-bottom: 0;
     font-weight: 400;
     font-size: 18px;
   }
@@ -154,7 +156,7 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 19px;
+    margin-top: 10px;
     padding: 12px 62px 12px 12px;
     font-weight: 600;
     display: flex;
@@ -163,6 +165,7 @@
   .depositLabel {
     line-height: 1;
     font-size: 20px;
+    font-weight: 600;
   }
   .depositAmount {
     color: #878787;
@@ -177,6 +180,7 @@
     text-align: center;
     margin-top: 11px;
     font-size: 20px;
+    font-weight: 600;
   }
   .rentAmount {
     color: #878787;
@@ -185,6 +189,7 @@
     margin-top: 10px;
     font-weight: 400;
     font-size: 18px;
+    margin-bottom: 0;
   }
   .dateCard {
     background-color: #fff;
@@ -192,7 +197,7 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 11px;
+    margin-top: 10px;
     padding: 6px 62px 17px 12px;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
@@ -202,6 +207,7 @@
     letter-spacing: 0.28px;
     text-align: center;
     margin-top: 11px;
+    margin-bottom: 0;
     font-weight: 400;
     font-size: 18px;
   }
@@ -210,7 +216,7 @@
     letter-spacing: 0.32px;
     background-color: #ff3b30;
     border-radius: 10px;
-    margin-top: 47px;
+    margin-top: 40px;
     padding: 12px 70px;
     font-size: 16px;
     font-weight: 600;
@@ -218,7 +224,7 @@
     cursor: pointer;
     width: 100%;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 120px;
   }
 
   .terminatedButton {
@@ -226,7 +232,7 @@
     letter-spacing: 0.32px;
     background-color: #fff;
     border-radius: 10px;
-    margin-top: 47px;
+    margin-top: 40px;
     padding: 12px 70px;
     font-size: 16px;
     font-weight: 600;
@@ -234,7 +240,7 @@
     cursor: pointer;
     width: 100%;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 120px;
     border: 1px solid #ff3b30;
   }
 

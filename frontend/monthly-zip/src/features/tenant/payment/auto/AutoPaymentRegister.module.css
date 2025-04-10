@@ -24,7 +24,7 @@
   
   .formContent {
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
     display: flex;
     width: 90%;
     margin-left: 26px;
@@ -34,7 +34,7 @@
     align-items: center;
     gap: 12px;
     display: flex;
-    padding-bottom: 20px;
+    padding-bottom: 35px;
     padding-left: 25px;
   }
   .titleIcon {
@@ -58,7 +58,7 @@
     flex-direction: column;
     gap: 12px;
     display: flex;
-    margin-top: 20px;
+    margin-top: 15x;
   }
   
   .sectionTitle {
@@ -79,35 +79,11 @@
     align-items: center;
     display: flex;
   }
-  
-  .bankName {
-    color: #343434;
-    font-family: Poppins;
-    font-size: 18px;
-    font-weight: 700;
-    margin: 0;
-  }
-  
-  .bankIconContainer {
-    align-items: center;
-    gap: 12px;
-    display: flex;
-  }
-  
-  .kbIconWrapper {
-    background-color: #7c7266;
-    border-radius: 10px;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    display: flex;
-  }
 
   .divider {
     background-color: #fcbe32cc;
     height: 1px;
-    margin-top: 10px;
+    margin-top: 8px;
   }
   
   .accountNumberContainer {
@@ -164,6 +140,7 @@
     font-size: 18px;
     font-weight: 700;
     margin: 0;
+    margin-right: 30px;
   }
 
   .sectionContainer {
@@ -203,6 +180,7 @@
     align-items: center;
     gap: 12px;
     display: flex;
+    margin-right: 30px;
   }
   
   .dayValue {
@@ -281,7 +259,7 @@
     border: none;
     cursor: pointer;
     white-space: nowrap;
-    margin-top: 100px;
+    margin-top: 90px;
     padding: 23px 70px;
     font-family:
       Montserrat,
@@ -359,8 +337,8 @@
     text-align: center;
     margin-top: 20px;
     font-family: Poppins, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 18px;
+    font-weight: 500;
     line-height: 16px;
   }
   

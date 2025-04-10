@@ -21,27 +21,52 @@ function PaymentOptionCard({ imageUrl, title, extraPadding = false, onClick }) {
 function AutoPaymentSection({ isAutoPaymentActive, setIsAutoPaymentActive }) {
     const navigate = useNavigate();
 
-    const handleToggleAutoPayment = () => {
-      const newValue = !isAutoPaymentActive;
-      setIsAutoPaymentActive(newValue);
-      localStorage.setItem("isAutoPaymentActive", newValue.toString());
+    const handleToggleAutoPayment = async () => {
   
-      if (newValue) {
+      const token = localStorage.getItem("accessToken");
+    
+      if (!isAutoPaymentActive) {
+        // 자동이체 등록 시
         navigate("/tenant/auto-payment");
+      } else {
+        // 자동이체 해지 시 API + localStorage 삭제
+        try {
+          const response = await axios.delete("/api/autotransfers", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+    
+          console.log("자동이체 해지 정보 요청", response.data);
+
+          if (response.data.success) {
+            // 성공 시 localStorage 값 제거
+            setIsAutoPaymentActive(false);
+            localStorage.setItem("isAutoPaymentActive", "false");
+            localStorage.removeItem("autoPaymentAmount");
+            localStorage.removeItem("autoPaymentFrequency");
+            localStorage.removeItem("autoPaymentPeriodStart");
+            localStorage.removeItem("autoPaymentPeriodEnd");
+            localStorage.removeItem("autoPaymentPeriod");
+    
+            alert("자동이체가 성공적으로 해지되었습니다.");
+          } else {
+            console.log("자동이체 해지에 실패했습니다.");
+            setIsAutoPaymentActive(true); // UI 복원
+          }
+        } catch (error) {
+          console.error("자동이체 해지 오류:", error);
+          setIsAutoPaymentActive(true); // UI 복원
+        }
       }
     };
-
+    
 
     return (
       <section className={styles.autoPaymentContainer}>
         <h3 className={styles.autoPaymentTitle}>자동이체</h3>
         <div className={styles.autoPaymentInfo}>
 
-          {isAutoPaymentActive && (
-          <div className={styles.registrationInfo}>
-            <p>자동이체가 등록되었습니다. <br />매월 10일에 결제됩니다.</p>
-          </div>
-        )}
           <div className={styles.toggleContainer}>
           <span className={styles.toggleLabel}>
             {isAutoPaymentActive ? "자동이체 등록됨" : "자동이체 미등록"}
@@ -182,7 +207,7 @@ function PaymentHistorySection() {
           <div className={styles.paymentOptions}>
             <PaymentOptionCard
               imageUrl="https://cdn.builder.io/api/v1/image/assets/94f9b1b367134d27b681c8187a3426ca/1d1c2a1f74cb7c82151ae1c726c5045019acfdac?placeholderIfAbsent=true"
-              title="이번 달 월세 납부"
+              title="직접 월세 납부"
               onClick={() => navigate("/tenant/direct-payment")}
             />
             <PaymentOptionCard
