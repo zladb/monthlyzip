@@ -32,7 +32,9 @@ function Contract() {
           console.log('조회된 계약 정보:', {
             roomId: contractForRoom?.roomId,
             roomDetailedAddress: contractForRoom?.roomDetailedAddress,
-            buildingName: contractForRoom?.buildingName
+            buildingName: contractForRoom?.buildingName,
+            isActiveLandlord: contractForRoom?.isActiveLandlord,
+            isActiveTenant: contractForRoom?.isActiveTenant
           });
           
           if (contractForRoom) {
@@ -61,7 +63,9 @@ function Contract() {
 
   const handleCodeButtonClick = async () => {
     try {
-      const response = await axios.get(`/api/contracts/${contractData.contractId}/invite`, {
+      console.log('계약 ID:', contractData.contractId);
+      
+      const response = await axios.post(`/api/contracts/${contractData.contractId}/invite`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
           'Content-Type': 'application/json'
@@ -69,27 +73,41 @@ function Contract() {
       });
 
       if (response.data.success) {
+        // API 응답에서 코드를 가져옵니다
+        const inviteCode = response.data.result.code;
+        
+        // 만료 시간을 10분으로 설정
         const expireTime = new Date();
         expireTime.setMinutes(expireTime.getMinutes() + 10);
         
         setModalData({
-          code: response.data.result.code,
+          code: inviteCode,
           expireTime: expireTime.toISOString()
         });
         setShowCodeModal(true);
       }
     } catch (error) {
+      console.error('초대 코드 발행 오류:', error);
+      
       if (error.response) {
-        const { status } = error.response;
+        const { status, data } = error.response;
+        console.error('서버 응답:', data);
+        
         if (status === 404) {
           alert('해당 임대차 계약이 존재하지 않습니다.');
         } else if (status === 400) {
           alert('올바르지 않은 요청입니다.');
+        } else if (status === 500) {
+          alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
         } else {
-          alert('초대 코드 발행에 실패했습니다.');
+          alert(`초대 코드 발행에 실패했습니다. (${status})`);
         }
+      } else if (error.request) {
+        console.error('요청 오류:', error.request);
+        alert('서버와의 통신에 실패했습니다. 네트워크 연결을 확인해주세요.');
       } else {
-        alert('서버와의 통신에 실패했습니다.');
+        console.error('오류 메시지:', error.message);
+        alert(`오류가 발생했습니다: ${error.message}`);
       }
     }
   };
@@ -230,14 +248,19 @@ function ContractDetails({ contract }) {
 }
 
 function ActionButtons({ isActiveLandlord, isActiveTenant, onCodeButtonClick }) {
+  console.log('ActionButtons props:', { isActiveLandlord, isActiveTenant, type: typeof isActiveTenant });
+  
+  // isActiveTenant 값이 문자열 '0'인 경우도 처리
+  const isTenantActive = isActiveTenant !== 0 && isActiveTenant !== '0' && isActiveTenant !== null && isActiveTenant !== undefined;
+  
   return (
     <div className={styles.buttonContainer}>
       <button 
         className={styles.cancelButton} 
-        disabled={!isActiveLandlord}
+        disabled={!isActiveLandlord || !isTenantActive}
         style={{ 
-          opacity: isActiveLandlord ? 1 : 0.5,
-          cursor: isActiveLandlord ? 'pointer' : 'not-allowed'
+          opacity: (isActiveLandlord && isTenantActive) ? 1 : 0.5,
+          cursor: (isActiveLandlord && isTenantActive) ? 'pointer' : 'not-allowed'
         }}
       >
         해지 요청
