@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Contract.module.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import BackIcon from "../../../../assets/icons/arrow_back.svg";
 import axios from "axios";
 import CodeModal from "./CodeModal/CodeModal";
@@ -9,7 +9,7 @@ import Loader from "../../../../loader/Loader";
 function Contract() {
   const navigate = useNavigate();
   const location = useLocation();
-  const roomId = location.state?.roomId;
+  const { roomId } = useParams();
   const [contractData, setContractData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,10 +26,25 @@ function Contract() {
           }
         });
 
-        if (response.data.success) {
-          setContractData(response.data.result[0]); // 첫 번째 계약 정보를 사용
+        if (response.data.success && response.data.result.length > 0) {
+          // roomId에 해당하는 계약만 필터링
+          const contractForRoom = response.data.result.find(contract => contract.roomId === parseInt(roomId));
+          console.log('조회된 계약 정보:', {
+            roomId: contractForRoom?.roomId,
+            roomDetailedAddress: contractForRoom?.roomDetailedAddress,
+            buildingName: contractForRoom?.buildingName
+          });
+          
+          if (contractForRoom) {
+            setContractData(contractForRoom);
+          } else {
+            setError('해당 방의 계약 정보가 없습니다.');
+          }
+        } else {
+          setError('해당 방의 계약 정보가 없습니다.');
         }
       } catch (error) {
+        console.error('계약 정보 조회 에러:', error.response || error);
         setError(error.response?.data?.message || '계약 정보를 불러오는데 실패했습니다.');
       } finally {
         setLoading(false);
@@ -38,6 +53,9 @@ function Contract() {
 
     if (roomId) {
       fetchContractData();
+    } else {
+      setError('방 정보가 없습니다.');
+      setLoading(false);
     }
   }, [roomId]);
 
