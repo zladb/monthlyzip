@@ -14,4 +14,5 @@ public interface AutoTransferRepository extends JpaRepository<AutoTransfer, Long
 
     List<AutoTransfer> findAllByPaymentDay(short paymentDay);
 
+    boolean existsByTenant_Id(Long tenantId);
 }
