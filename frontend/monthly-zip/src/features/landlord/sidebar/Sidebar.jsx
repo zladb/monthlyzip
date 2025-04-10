@@ -142,9 +142,11 @@ const Sidebar = ({ isOpen, onClose }) => {
       )}
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
         <LogoSection />
-        <NavigationItems navigate={navigate} onClose={onClose} />
-        <LogoutSection onClose={onClose} navigate={navigate} />
-        <AccountActions onClose={onClose} />
+        <div className={styles.sidebarContent}>
+          <NavigationItems navigate={navigate} onClose={onClose} />
+          <LogoutSection onClose={onClose} navigate={navigate} />
+          <AccountActions onClose={onClose} />
+        </div>
       </aside>
     </>
   );

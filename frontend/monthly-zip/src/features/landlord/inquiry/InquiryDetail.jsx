@@ -112,30 +112,33 @@ function InquiryDetail() {
 
   const handleInquiryAction = async () => {
     try {
-      if (inquiryData.status !== "접수대기") {
-        return;
-      }
-
+      if (inquiryData.status !== "접수대기") return;
+  
       const token = localStorage.getItem('accessToken');
-      if (!token) {
-        throw new Error('인증 토큰이 없습니다.');
-      }
+      if (!token) throw new Error('인증 토큰이 없습니다.');
 
-      const response = await axios.patch(
-        `/api/inquiries/${inquiryId}`,
-        {
-          status: "처리중"
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        }
+  
+      const formData = new FormData();
+      formData.append(
+        "data",
+        new Blob([JSON.stringify({ status: "처리중" })], {
+          type: "application/json", // 👈 이게 핵심!
+        })
       );
-
+  
+      console.log("보내는 데이터:", formData.get("data"));
+  
+      const response = await axios({
+        method: 'patch',
+        url: `/api/inquiries/${inquiryId}`,
+        data: formData,
+        headers: {
+          'Authorization': `Bearer ${token}`
+        
+        }
+      });
+  
       if (response.data.success) {
-        // 상태 업데이트 후 데이터를 다시 불러옵니다.
         await fetchInquiryData();
       }
     } catch (err) {
@@ -143,6 +146,7 @@ function InquiryDetail() {
       setError('문의 상태 변경 중 오류가 발생했습니다.');
     }
   };
+
 
   const fetchInquiryData = useCallback(async () => {
     try {
@@ -153,7 +157,8 @@ function InquiryDetail() {
 
       const response = await axios.get(`/api/inquiries/${inquiryId}`, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         }
       });
       
