@@ -8,7 +8,7 @@ function RoomCreate() {
   const navigate = useNavigate();
   const location = useLocation();
   const propertyId = location.state?.propertyId;
-  const [rooms, setRooms] = useState([{ detailAddress: "", area: 30, isOccupied: false }]);
+  const [rooms, setRooms] = useState([{ detailAddress: "", area: 30 }]);
   const [buildingName, setBuildingName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -58,14 +58,8 @@ function RoomCreate() {
     setRooms(updatedRooms);
   };
 
-  const handleOccupiedChange = (index) => {
-    const updatedRooms = [...rooms];
-    updatedRooms[index] = { ...updatedRooms[index], isOccupied: !updatedRooms[index].isOccupied };
-    setRooms(updatedRooms);
-  };
-
   const addRoom = () => {
-    setRooms([...rooms, { detailAddress: "", area: 30, isOccupied: false }]);
+    setRooms([...rooms, { detailAddress: "", area: 30 }]);
   };
 
   const deleteRoom = (index) => {
@@ -82,8 +76,7 @@ function RoomCreate() {
         propertyId: propertyId,
         rooms: rooms.map(room => ({
           detailAddress: room.detailAddress,
-          area: room.area,
-          isOccupied: room.isOccupied
+          area: room.area
         }))
       };
 
@@ -165,16 +158,6 @@ function RoomCreate() {
                   </div>
                   <span className={styles.div15}>㎡</span>
                 </div>
-              </div>
-              <div className={styles.occupiedContainer}>
-                <label className={styles.occupiedLabel}>입주 여부</label>
-                <button
-                  type="button"
-                  className={`${styles.occupiedButton} ${room.isOccupied ? styles.occupied : styles.vacant}`}
-                  onClick={() => handleOccupiedChange(index)}
-                >
-                  {room.isOccupied ? '입주' : '공실'}
-                </button>
               </div>
             </section>
           ))}

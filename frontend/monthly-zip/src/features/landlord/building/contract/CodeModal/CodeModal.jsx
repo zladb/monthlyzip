@@ -1,92 +1,74 @@
-import React, { useState, useEffect } from "react";
-import styles from "./CodeModal.module.css";
+import React, { useState, useEffect } from 'react';
+import styles from './CodeModal.module.css';
 
-function ContractInfoRow({ label, value, onClick, copied }) {
-  return (
-    <div className={styles.infoRow}>
-      <p className={styles.infoLabel}>{label}</p>
-      {onClick ? (
-        <div className={styles.codeWrapper}>
-          <p className={`${styles.infoValue} ${styles.clickable}`} onClick={onClick}>
-            {value}
-          </p>
-          {copied && <span className={styles.copiedText}>복사됨</span>}
-        </div>
-      ) : (
-        <p className={styles.infoValue}>{value}</p>
-      )}
-    </div>
-  );
-}
-
-function formatRemainingTime(expireTime) {
-  const now = new Date();
-  const expire = new Date(expireTime);
-  const diff = expire - now;
-  
-  if (diff <= 0) return "만료됨";
-  
-  const minutes = Math.floor(diff / 60000);
-  const seconds = Math.floor((diff % 60000) / 1000);
-  
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-}
-
-function ContractCard({ contractCode, expireTime, onClose }) {
-  const [remainingTime, setRemainingTime] = useState(formatRemainingTime(expireTime));
+function CodeModal({ contractCode, expireTime, onClose }) {
   const [copied, setCopied] = useState(false);
+  const [remainingTime, setRemainingTime] = useState('10:00');
 
   useEffect(() => {
+    // 초기 시간 설정
+    let minutes = 10;
+    let seconds = 0;
+    
+    // 타이머 시작
     const timer = setInterval(() => {
-      const timeLeft = formatRemainingTime(expireTime);
-      setRemainingTime(timeLeft);
-      
-      if (timeLeft === "만료됨") {
-        clearInterval(timer);
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(timer);
+          setRemainingTime('00:00');
+          return;
+        }
+        minutes--;
+        seconds = 59;
+      } else {
+        seconds--;
       }
+      
+      // 시간 형식으로 표시 (MM:SS)
+      const formattedMinutes = minutes.toString().padStart(2, '0');
+      const formattedSeconds = seconds.toString().padStart(2, '0');
+      setRemainingTime(`${formattedMinutes}:${formattedSeconds}`);
     }, 1000);
-
+    
+    // 컴포넌트 언마운트 시 타이머 정리
     return () => clearInterval(timer);
-  }, [expireTime]);
+  }, []);
 
-  const handleCodeClick = async () => {
-    try {
-      await navigator.clipboard.writeText(contractCode);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // 2초 후 복사 표시 제거
-    } catch (err) {
-      console.error('클립보드 복사 실패:', err);
-    }
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(contractCode)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(err => {
+        console.error('클립보드 복사 실패:', err);
+      });
   };
 
   return (
-    <section className={styles.cardContainer}>
-      <div className={styles.cardContent}>
-        <ContractInfoRow 
-          label="계약 코드" 
-          value={contractCode} 
-          onClick={handleCodeClick}
-          copied={copied}
-        />
-        <ContractInfoRow label="유효시간" value={remainingTime} />
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.cardContainer} onClick={e => e.stopPropagation()}>
+        <div className={styles.cardContent}>
+          <div className={styles.infoRow}>
+            <p className={styles.infoLabel}>계약 코드</p>
+            <div className={styles.codeWrapper}>
+              <p className={`${styles.infoValue} ${styles.clickable}`} onClick={handleCopyClick}>
+                {contractCode}
+              </p>
+              {copied && <span className={styles.copiedText}>복사됨</span>}
+            </div>
+          </div>
+          <div className={styles.infoRow}>
+            <p className={styles.infoLabel}>만료 시간</p>
+            <p className={styles.infoValue}>{remainingTime}</p>
+          </div>
+        </div>
+        <div className={styles.buttonWrapper}>
+          <button className={styles.confirmButton} onClick={onClose}>
+            확인
+          </button>
+        </div>
       </div>
-      <div className={styles.buttonWrapper}>
-        <button className={styles.confirmButton} onClick={onClose}>
-          확인
-        </button>
-      </div>
-    </section>
-  );
-}
-
-function CodeModal({ contractCode, expireTime, onClose }) {
-  return (
-    <div className={styles.pageContainer}>
-      <ContractCard
-        contractCode={contractCode}
-        expireTime={expireTime}
-        onClose={onClose}
-      />
     </div>
   );
 }
