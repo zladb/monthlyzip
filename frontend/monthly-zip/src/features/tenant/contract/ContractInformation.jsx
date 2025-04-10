@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import SignaturePad from "./SignaturePad";
 import styles from "./ContractInformation.module.css";
 import Navbar from "../navbar/Navbar"
-
 
 const AddressCard = ({ contract }) => {
   return (
@@ -86,6 +86,60 @@ const PaymentDate = ({ contract }) => {
     </section>
   );
 };
+
+const ContractCode = ({ contract, inviteCode, setInviteCode, inviteStatus, onInviteSubmit }) => {
+  
+  const [showSignature, setShowSignature] = useState(false);
+  const [signatureData, setSignatureData] = useState(null);
+
+  const handleInviteSubmitWithSignature = async () => {
+    await onInviteSubmit(); // 기존 등록 로직
+    setShowSignature(true); // 등록 성공하면 서명 영역 표시
+  };
+  
+  const handleSignatureEnd = (dataUrl) => {
+    setSignatureData(dataUrl);
+    console.log("서명 이미지 URL:", dataUrl);
+    // TODO: 서버 전송 로직 필요 시 여기에 추가
+  };
+
+  return (
+    <section className={styles.contractCodeCard}>
+      {contract ? (
+        <>
+          <h3 className={styles.codeLabel}>계약 코드</h3>
+          <p className={styles.codeValue}>{contract?.contractCode || "코드 없음"}</p>
+        </>
+      ) : (
+        <>
+          <h3 className={styles.codeLabel}>현재 활성화된 계약이 없습니다</h3>
+          <p className={styles.codeDescription}>초대 코드를 입력하여 계약을 등록해주세요.</p>
+          <div className={styles.inviteInputGroup}>
+            <input
+              type="text"
+              value={inviteCode}
+              onChange={(e) => setInviteCode(e.target.value)}
+              className={styles.inviteInput}
+              placeholder="초대 코드 입력"
+            />
+            <button onClick={handleInviteSubmitWithSignature} className={styles.inviteButton}>
+              등록
+            </button>
+          </div>
+          {inviteStatus && <p className={styles.inviteStatus}>{inviteStatus}</p>}
+       
+          {showSignature && (
+            <div className={styles.signatureWrapper}>
+              <SignaturePad onSignatureEnd={handleSignatureEnd} />
+            </div>
+          )}
+       
+        </>
+      )}
+    </section>
+  );
+};
+
 
 const TerminationButton = ({ contract }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);  // 계약 해지 모달 열기
@@ -177,14 +231,14 @@ const TerminationButton = ({ contract }) => {
     </>
   );
 };
-
 function ContractInformation() {
   const [contract, setContract] = useState(null);
+  const [inviteCode, setInviteCode] = useState("");
+  const [inviteStatus, setInviteStatus] = useState(null); // 성공/실패 메시지 저장
 
   useEffect(() => {
     const fetchContract = async () => {
       const token = localStorage.getItem("accessToken");
-  
       if (!token) {
         console.log("인증 정보가 없습니다. 다시 로그인해주세요.");
         return;
@@ -198,8 +252,12 @@ function ContractInformation() {
           },
         });
 
-        console.log("계약 정보 조회 성공:", response.data);
-        setContract(response.data.result[0]);
+        console.log("계약 정보 조회 데이터: ", response.data);
+
+        if (response.data.result && response.data.result.length > 0) {
+          console.log("계약 정보 조회 성공:", response.data);
+          setContract(response.data.result[0]);
+        }
       } catch (error) {
         console.log("계약 정보를 불러오는 데 실패했습니다:", error);
       }
@@ -208,10 +266,41 @@ function ContractInformation() {
     fetchContract();
   }, []);
 
+  const handleInviteSubmit = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setInviteStatus("인증 정보가 없습니다. 다시 로그인해주세요.");
+      return;
+    }
 
+    try {
+      const response = await axios.post(
+        "/api/contracts/invite/verify",
+        { inviteCode },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-  if (!contract) return;
+      console.log("계약 초대 코드 데이터: ", response.data);
 
+      if (response.data.success) {
+        setInviteStatus("초대 코드가 성공적으로 등록되었습니다. 계약 정보를 불러오는 중입니다...");
+        window.location.reload(); // 페이지 새로고침으로 계약 다시 조회
+      } else {
+        setInviteStatus(response.data.message || "초대 코드 등록 실패");
+      }
+    } catch (error) {
+      if (error.response?.data?.message) {
+        setInviteStatus(error.response.data.message);
+      } else {
+        setInviteStatus("초대 코드 등록 중 오류가 발생했습니다.");
+      }
+    }
+  };
 
   return (
     <main className={styles.container}>
@@ -220,13 +309,25 @@ function ContractInformation() {
           <h1 className={styles.contractTitle}>계약 정보</h1>
         </header>
 
-        <AddressCard contract={contract} />
-        <ContractParties contract={contract} />
-        <ContractPeriod contract={contract} />
-        <PaymentAccount contract={contract} />
-        <PaymentDetails contract={contract} />
-        <PaymentDate contract={contract} />
-        <TerminationButton contract={contract} />
+        {contract ? (
+          <>
+            <AddressCard contract={contract} />
+            <ContractParties contract={contract} />
+            <ContractPeriod contract={contract} />
+            <PaymentAccount contract={contract} />
+            <PaymentDetails contract={contract} />
+            <PaymentDate contract={contract} />
+            <TerminationButton contract={contract} />
+          </>
+        ) : (
+          <ContractCode
+            contract={null}
+            inviteCode={inviteCode}
+            setInviteCode={setInviteCode}
+            inviteStatus={inviteStatus}
+            onInviteSubmit={handleInviteSubmit}
+          />
+        )}
       </div>
       <Navbar />
     </main>

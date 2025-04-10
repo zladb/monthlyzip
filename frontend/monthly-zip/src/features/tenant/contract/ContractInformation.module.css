@@ -313,3 +313,68 @@
     text-align: center;
   }
   
+
+  /* 계약 초대 코드 관련 디자인인 */
+  .contractCodeCard {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+  }
+  
+  .codeLabel {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 40x;
+    color: #333;
+  }
+  
+  .codeValue {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .codeDescription {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+  }
+  
+  .inviteInputGroup {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .inviteInput {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  .inviteButton {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .inviteButton:hover {
+    background-color: #303f9f;
+  }
+  
+  .inviteStatus {
+    font-size: 13px;
+    color: #d32f2f;
+    margin-top: 6px;
+  }
+  
