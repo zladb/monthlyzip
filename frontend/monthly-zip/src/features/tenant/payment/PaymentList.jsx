@@ -1,61 +1,53 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 import styles from "./PaymentList.module.css";
 import PaymentCard from "./PaymentCard";
 
+
 const PaymentList = () => {
   const [activeTab, setActiveTab] = useState("payment"); // 'payment' 또는 'unpaid'
+  const [payments, setPayments] = useState([]); // 전체 납부 리스트
 
-  // 납부 목록 샘플 데이터
-  const paymentData = [
-    {
-      month: "3",
-      year: "2025",
-      status: "완납",
-      date: "2025.03.05",
-      amount: "500,000원",
-    },
-    {
-      month: "2",
-      year: "2025",
-      status: "완납",
-      date: "2025.02.03",
-      amount: "500,000원",
-    },
-    {
-      month: "1",
-      year: "2025",
-      status: "완납",
-      date: "2025.01.05",
-      amount: "500,000원",
-    },
-    {
-      month: "11",
-      year: "2024",
-      status: "완납",
-      date: "2024.11.05",
-      amount: "500,000원",
-    },
-    {
-      month: "10",
-      year: "2024",
-      status: "완납",
-      date: "2024.10.04",
-      amount: "500,000원",
-    },
-    {
-      month: "12",
-      year: "2024",
-      status: "미납", // 미납 내역 추가
-      date: "2024.12.01",
-      amount: "500,000원",
-    },
-  ];
-
-  // 미납 내역만 필터링
-  const unpaidData = paymentData.filter(payment => payment.status === "미납");
-  
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // URL 파라미터(tab)에 따라 초기 탭 설정
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tabParam = params.get("tab");
+
+    if (tabParam === "unpaid") {
+      setActiveTab("unpaid");
+    } else {
+      setActiveTab("payment");
+    }
+  }, [location.search]);
+
+  useEffect(() => {
+    const fetchPayments = () => {
+      axios.get("/api/payments", { 
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+  
+          if (response.data.success) {
+            setPayments(response.data.result);
+          } else {
+            console.error("납부 목록을 가져오지 못했습니다:", response.data.message);
+          }
+        })
+        .catch((error) => console.error("납부 목록을 가져오는 중 오류 발생:", error));
+    };
+    
+    fetchPayments();
+  }, []);
+
+  
+  const unpaidData = payments.filter(payment => payment.paymentStatus === "미납");
 
   return (
     <section className={styles.container}>
@@ -74,7 +66,7 @@ const PaymentList = () => {
           className={`${styles.tabButton} ${activeTab === "payment" ? styles.activeTab : ""}`}
           onClick={() => setActiveTab("payment")}
         >
-          납부 내역
+          전체 내역
         </button>
         <button
           className={`${styles.tabButton} ${activeTab === "unpaid" ? styles.activeTab : ""}`}
@@ -87,17 +79,24 @@ const PaymentList = () => {
       <hr className={styles.divider} />
 
       <div className={styles.cardContainer}>
-        {/* activeTab이 'payment'일 때는 납부 내역, 'unpaid'일 때는 미납 내역만 출력 */}
-        {(activeTab === "payment" ? paymentData : unpaidData).map((payment, index) => (
-          <PaymentCard
-            key={index}
-            month={payment.month}
-            year={payment.year}
-            status={payment.status}
-            date={payment.date}
-            amount={payment.amount}
-          />
-        ))}
+        {(activeTab === "payment" ? payments : unpaidData).map((payment, index) => {
+          const dueDate = new Date(payment.dueDate);
+          const prevMonthDate = new Date(dueDate.setMonth(dueDate.getMonth() - 1));
+          const displayYear = prevMonthDate.getFullYear();
+          const displayMonth = prevMonthDate.getMonth() + 1; // 0-based index라 +1 필요
+
+          return (
+            <PaymentCard
+              key={index}
+              paymentId={payment.paymentId}
+              month={displayMonth}
+              year={displayYear}
+              status={payment.paymentStatus}
+              date={payment.paymentStatus === "미납" ? "-" : payment.paymentDate}
+              amount={payment.amount}
+            />
+          );
+        })}
       </div>
     </section>
   );

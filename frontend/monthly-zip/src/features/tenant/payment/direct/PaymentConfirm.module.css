@@ -1,0 +1,193 @@
+.container {
+  background-color: #fff;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 80px;
+  display: flex;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.contentWrapper {
+  align-self: center;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 19px;
+  width: 100%;
+  max-width: 287px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+}
+.transactionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  margin-top: 25px;
+}
+.transactionRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.transactionLabels {
+  color: #979797;
+  flex-direction: column;
+  align-self: end;
+  align-items: start;
+  font-family:
+    Poppins,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  line-height: 1;
+}
+
+.transactionValues {
+  color: #343434;
+  text-align: center;
+  flex-direction: column;
+  align-items: stretch;
+  font-family:
+    Roboto,
+    -apple-system,
+    Helvetica,
+    sans-serif;
+}
+
+.label {
+  align-self: stretch;
+}
+
+.label:nth-child(2) {
+  margin-top: 17px;
+}
+
+.label:nth-child(3) {
+  align-self: stretch;
+  margin-top: 20px;
+}
+
+.label:nth-child(4) {
+  margin-top: 15px;
+}
+
+.label:nth-child(5) {
+  margin-top: 20px;
+}
+
+
+.logoContainer {
+  color: #9fa2ab;
+  letter-spacing: 0.39px;
+  flex-direction: column;
+  align-items: start;
+  padding-left: 25px;
+  padding-right: 25px;
+  font-size: 13px;
+  display: flex;
+}
+
+.logo {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 90px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.paymentLabel {
+  margin-top: 18px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.paymentAmount {
+  color: #1d1b23;
+  align-self: center;
+  margin-top: 11px;
+  font-size: 30px;
+  font-weight: 700;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.receiverDetails {
+  text-align: right;
+  flex-direction: column;
+  margin-top: 73px;
+  padding-left: 41px;
+  font-family:
+    Poppins,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  line-height: 1;
+  display: flex;
+}
+
+.accountNumber {
+  align-self: start;
+}
+
+.personName {
+  align-self: end;
+  margin-top: 17px;
+}
+
+.senderDetails {
+  text-align: right;
+  flex-direction: column;
+  align-items: end;
+  margin-top: 19px;
+  padding-left: 7px;
+  font-family:
+    Poppins,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  line-height: 1;
+  display: flex;
+}
+
+.senderDetails .accountNumber {
+  align-self: stretch;
+}
+
+.senderDetails .personName {
+  margin-top: 16px;
+}
+
+.transactionDate {
+  margin-top: 19px;
+}
+
+.confirmButton {
+  color: #000;
+  white-space: nowrap;
+  text-align: center;
+  background-color: #fcbe32;
+  width: 100%;
+  margin-top: 120px;
+  padding: 23px 70px;
+  font-family:
+    Montserrat,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}

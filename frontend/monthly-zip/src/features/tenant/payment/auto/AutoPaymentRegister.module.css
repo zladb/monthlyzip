@@ -1,0 +1,382 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #fff;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 68px;
+    font-family:
+    Poppins,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+    overflow: hidden;
+  }
+  
+  .formContainer {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+  }
+  
+  .formContent {
+    flex-direction: column;
+    gap: 30px;
+    display: flex;
+    width: 90%;
+    margin-left: 26px;
+    margin-right: 26px;
+  }
+  .headerContainer {
+    align-items: center;
+    gap: 12px;
+    display: flex;
+    padding-bottom: 35px;
+    padding-left: 25px;
+  }
+  .titleIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    flex-shrink: 0;
+    width: 28px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  .title {
+    color: #000;
+    font-family: Inter;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .sectionContainer {
+    flex-direction: column;
+    gap: 12px;
+    display: flex;
+    margin-top: 15x;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  .accountSelector {
+    flex-direction: column;
+    display: flex;
+  }
+  
+  .selectorHeader {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  }
+
+  .divider {
+    background-color: #fcbe32cc;
+    height: 1px;
+    margin-top: 8px;
+  }
+  
+  .accountNumberContainer {
+    flex-direction: column;
+    margin-top: 20px;
+    display: flex;
+  }
+  
+  .accountNumberLabel {
+    color: black;
+    font-family: Poppins;
+    margin: 0;
+    border: none;
+    outline: none;
+    width: 80%; 
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .sectionContainer {
+    flex-direction: column;
+    gap: 5px;
+    display: flex;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  .amountInputContainer {
+    flex-direction: column;
+    display: flex;
+  }
+  .amountInput {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Poppins;
+    border: none;
+    outline: none;
+    width: 80%; 
+  }
+  .amountInputHeader {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  }
+  
+  .currencyLabel {
+    color: #343434;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    margin-right: 30px;
+  }
+
+  .sectionContainer {
+    flex-direction: column;
+    gap: 12px;
+    display: flex;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  .frequencySelector {
+    flex-direction: column;
+    display: flex;
+  }
+  
+  .frequencyHeader {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+  }
+  
+  .frequencyType {
+    color: #343434;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .daySelector {
+    align-items: center;
+    gap: 12px;
+    display: flex;
+    margin-right: 30px;
+  }
+  
+  .dayValue {
+    color: #343434;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .dropdownButton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .dropdownIcon {
+    width: 20px;
+    height: 28px;
+    transform: rotate(-90deg);
+  }
+  .sectionContainer {
+    flex-direction: column;
+    gap: 12px;
+    display: flex;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  .periodContainer {
+    justify-content: space-between;
+    display: flex;
+    margin-bottom: 0;
+  }
+  
+  .periodStartContainer {
+    flex-direction: row;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .periodEndContainer {
+    flex-direction: row;
+    flex: 1;
+    margin-left: 19px;
+    align-items: center;
+    display: flex;
+    gap: 12px;
+  }
+  
+  .periodValue {
+    color: #343434;
+    font-family: Poppins;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .nextButton {
+    color: #000;
+    text-align: center;
+    background-color: #fcbe32;
+    width: 100%;
+    height: 80px;
+    font-size: 28px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-top: 90px;
+    padding: 23px 70px;
+    font-family:
+      Montserrat,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+  }
+  
+  /* 이체 주기 모달 */
+  .modalOverlay {
+    position: fixed;
+    max-width: 480px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .modalContent {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 100%;
+    max-width: none;
+    height: 600px;
+    margin: auto;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    margin-bottom: 50px;
+  }
+  
+  .modalTitle {
+    color: #343434;
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+  }
+  .modalText {
+    margin-top: 8px;
+    margin-bottom: 50px;
+    font-size: 12px;
+    text-align: center;
+  }
+  .modalCloseButton {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .modalCloseIcon {
+    color: #242533;
+    font-size: 36px;
+  }
+  
+  .modalSubtitle {
+    color: #000;
+    text-align: center;
+    margin-top: 20px;
+    font-family: Poppins, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+  
+  .modalDateGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 40px;
+    padding: 0 20px;
+  }
+  
+  .modalDateButton {
+    width: 60px;
+    height: 40px;
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 6px;
+    font-family: Poppins, sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .modalConfirmButton {
+    color: #000;
+    background-color: #fcbe32;
+    width: 100%;
+    height: 80px;
+    font-family: Montserrat, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    position: absolute;
+    bottom: 0;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  

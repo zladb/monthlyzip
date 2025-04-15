@@ -1,0 +1,187 @@
+.container {
+  background-color: #fff;
+  width: 100%;
+  max-width: 375px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 12px 16px;
+  font-family: Inter, sans-serif;
+  position: relative;
+}
+
+@media (width<=640px) {
+  .container {
+    padding: 12px;
+  }
+}
+
+.backButton {
+  cursor: pointer;
+  width: 27px;
+  height: 24px;
+  margin-bottom: 24px;
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.pageTitle {
+  color: #000;
+  margin-bottom: 36px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.profileSection {
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 23vh;
+  display: flex;
+}
+
+
+
+@media (width<=991px) {
+  .profileIconWrapper {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (width<=640px) {
+  .profileIconWrapper {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+
+
+.userType {
+  color: #767676;
+  font-size: 16px;
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 (필요 시) */
+  width: 100%; /* 부모 요소 기준으로 가운데 정렬 */
+  text-align: center; /* 텍스트 자체 중앙 정렬 */
+}
+
+.profileImageContainer {
+  position: relative;
+}
+
+.profileCircle {
+  width: 133px;
+  height: 132px;
+}
+
+.profileIconContainer {
+  position: relative;
+}
+
+.profileWrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+}
+
+.profileIconWrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.plusIcon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #FE6A00;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #FE6A00;
+}
+
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  margin-bottom: 32px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.formLabel {
+  color: #000;
+  font-size: 16px;
+}
+
+.inputWrapper {
+  width: 100%;
+  position: relative;
+}
+
+.formInput {
+  color: #4d4a4a;
+  background-color: #fff;
+  border: 1px solid #dadada;
+  border-radius: 5px;
+  width: 100%;
+  height: 50px;
+  padding: 0 0px;
+  font-size: 14px;
+}
+
+.eyeIconButton {
+  cursor: pointer;
+  width: 31px;
+  height: 31px;
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submitButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #fe6a00;
+  border: 1px solid #dadada;
+  border-radius: 5px;
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  font-weight: 600;
+}

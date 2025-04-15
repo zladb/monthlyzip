@@ -1,8 +1,6 @@
 .container {
     background-color: #fff9ed;
     max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
     padding-top: 69px;
     font-family:
       Inter,
@@ -11,17 +9,22 @@
       Helvetica,
       sans-serif;
     overflow: hidden;
-    min-height: 1200px;
+    min-height: 100vh;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
   .contentWrapper {
     flex-direction: column;
     align-items: stretch;
     justify-self: center;
     width: 90%;
-    padding-left: 34px;
-    padding-right: 34px;
+    padding-left: 18px;
+    padding-right: 18px;
     font-size: 14px;
     display: flex;
+    margin-left: auto;
+    margin-right: auto;
   }
   .contractTitle {
     color: #000;
@@ -36,8 +39,8 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 47px;
-    padding: 9px 62px 16px 17px;
+    margin-top: 30px;
+    padding: 9px 17px 16px 17px;
     font-weight: 400;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
@@ -47,6 +50,7 @@
     text-align: center;
     font-weight: 600;
     font-size: 20px;
+    margin-top:10px;
   }
   .addressDetails {
     display: flex;
@@ -73,7 +77,7 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 11px;
+    margin-top:10px;
     padding: 16px 62px 16px 17px;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
@@ -87,11 +91,13 @@
     color: #000;
     font-weight: 600;
     font-size: 20px;
+    margin-bottom: 0;
   }
   .partyName {
     color: #878787;
     font-weight: 400;
     font-size: 18px;
+    margin-bottom: 0;
   }
   .tenantRow {
     align-items: center;
@@ -105,8 +111,8 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 11px;
-    padding: 11px 62px 11px 12px;
+    margin-top: 10px;
+    padding: 11px 12px 11px 12px;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
   }
@@ -115,11 +121,12 @@
     font-weight: 600;
     font-size: 20px;
     line-height: 1;
+    margin-top:10px;
   }
   .periodInfo {
     color: #878787;
     letter-spacing: 0.28px;
-    text-align: center;
+    text-align: start;
     margin-top: 13px;
     font-weight: 400;
     font-size: 18px;
@@ -130,7 +137,7 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 19px;
+    margin-top: 10px;
     padding: 10px 62px 10px 12px;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
@@ -139,7 +146,8 @@
     color: #878787;
     letter-spacing: 0.28px;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 12px;
+    margin-bottom: 0;
     font-weight: 400;
     font-size: 18px;
   }
@@ -151,7 +159,7 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 19px;
+    margin-top: 10px;
     padding: 12px 62px 12px 12px;
     font-weight: 600;
     display: flex;
@@ -160,6 +168,7 @@
   .depositLabel {
     line-height: 1;
     font-size: 20px;
+    font-weight: 600;
   }
   .depositAmount {
     color: #878787;
@@ -174,6 +183,7 @@
     text-align: center;
     margin-top: 11px;
     font-size: 20px;
+    font-weight: 600;
   }
   .rentAmount {
     color: #878787;
@@ -182,6 +192,7 @@
     margin-top: 10px;
     font-weight: 400;
     font-size: 18px;
+    margin-bottom: 0;
   }
   .dateCard {
     background-color: #fff;
@@ -189,7 +200,7 @@
     border-radius: 10px;
     flex-direction: column;
     align-items: start;
-    margin-top: 11px;
+    margin-top: 10px;
     padding: 6px 62px 17px 12px;
     display: flex;
     box-shadow: 0 1px 10px #ababab80;
@@ -199,6 +210,7 @@
     letter-spacing: 0.28px;
     text-align: center;
     margin-top: 11px;
+    margin-bottom: 0;
     font-weight: 400;
     font-size: 18px;
   }
@@ -207,7 +219,7 @@
     letter-spacing: 0.32px;
     background-color: #ff3b30;
     border-radius: 10px;
-    margin-top: 47px;
+    margin-top: 40px;
     padding: 12px 70px;
     font-size: 16px;
     font-weight: 600;
@@ -215,7 +227,7 @@
     cursor: pointer;
     width: 100%;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 120px;
   }
 
   .terminatedButton {
@@ -223,7 +235,7 @@
     letter-spacing: 0.32px;
     background-color: #fff;
     border-radius: 10px;
-    margin-top: 47px;
+    margin-top: 40px;
     padding: 12px 70px;
     font-size: 16px;
     font-weight: 600;
@@ -231,7 +243,7 @@
     cursor: pointer;
     width: 100%;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 120px;
     border: 1px solid #ff3b30;
   }
 
@@ -255,7 +267,15 @@
     width: 300px;
     text-align: center;
   }
+  .modalContent h2{
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
   
+  .modalContent p {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
   .modalButtonContainer {
     align-items: center;
     gap: 8px;
@@ -291,5 +311,73 @@
     width: 100%;
     border: none;
     text-align: center;
+  }
+  
+
+
+  /* 계약 초대 코드 관련 디자인 */
+  .contractCodeCard {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+  }
+  
+  .codeLabel {
+    margin-top: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .codeValue {
+    font-size: 13px;
+    color: #555;
+  }
+  
+  .codeDescription {
+    font-size: 13px;
+    color: #777;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  .inviteInputGroup {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .inviteInput {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    flex: 1;
+    max-width: 180px;
+  }
+  
+  .inviteButton {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .inviteButton:hover {
+    background-color: #303f9f;
+  }
+  
+  .inviteStatus {
+    font-size: 13px;
+    color: #d32f2f;
+    margin-top: 6px;
   }
   

@@ -1,0 +1,67 @@
+.button {
+  width: 100%;
+  padding: 20px;
+  border: none;
+  background-color: #FF994A;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background-color: #c77638;
+}
+
+.button:disabled {
+  background-color: #E2E2E2;
+  color: #808080;
+  cursor: not-allowed;
+}
+
+.completedButton {
+  width: 100%;
+  padding: 20px;
+  border: none;
+  background-color: #E2E2E2;
+  color: #808080;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: not-allowed;
+}
+
+.cancelButtonDark {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  background-color: #808080;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButtonDark:hover {
+  background-color: #707070;
+}
+
+.cancelButtonLight {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  background-color: #E2E2E2;
+  color: #808080;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: not-allowed;
+  transition: all 0.2s ease;
+}
+
+/* 공통 버튼 스타일 */
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+  

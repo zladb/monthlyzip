@@ -1,41 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import styles from "./NoticeList.module.css";
+import Navbar from "../navbar/Navbar"
 
-const noticeData = [
-  { title: "정기 청소 및 쓰레기 배출 일정", date: "2025-03-24" },
-  { title: "시설 및 설비 점검 안내", date: "2025-03-24" },
-  { title: "공동 생활 수칙 및 변경 사항", date: "2025-03-24" },
-  { title: "안전 및 보안 관련 공지", date: "2025-03-24" },
-  { title: "관리비 및 기타 비용 안내", date: "2025-03-24" },
-  { title: "주차장 이용 및 차량 등록 안내", date: "2025-03-24" },
-  { title: "택배 및 우편물 수령 규칙", date: "2025-03-24" }
-];
+
+function NoticeItem({ noticeId, title, date }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/tenant/notice-detail/${noticeId}`);
+  }
+
+  return (
+    <div className={styles.noticeItem} onClick={handleClick}>
+      <h2 className={styles.noticeTitle}>{title}</h2>
+      <time className={styles.noticeDate}>{new Date(date).toLocaleDateString()}</time>
+    </div>
+  );
+}
 
 function NoticeList() {
+  const [notices, setNotices] = useState([]);  // 전체 문의 리스트
+
+  useEffect(() => {
+    const fetchNotices = () => {
+      axios.get("/api/notices", { 
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+  
+          if (response.data.success) {
+            setNotices(response.data.result);
+          } else {
+            console.error("공지사항 목록을 가져오지 못했습니다:", response.data.message);
+          }
+        })
+        .catch((error) => console.error("공지사항 목록을 가져오는 중 오류 발생:", error));
+    };
+    
+    fetchNotices();
+  }, []);
+  
   return (
     <main className={styles.container}>
       <section className={styles.contentWrapper}>
         <h1 className={styles.pageTitle}>공지사항</h1>
         <article className={styles.noticeBoard}>
-          {noticeData.map((notice, index) => (
-            <React.Fragment key={index}>
-              <NoticeItem title={notice.title} date={notice.date} />
-              {index < noticeData.length - 1 && <hr className={styles.divider} />}
-            </React.Fragment>
-          ))}
+          {notices.length > 0 ? (
+              notices.map((notice) => (
+                <React.Fragment key={notice.noticeId}>
+                  <NoticeItem 
+                    noticeId={notice.noticeId}
+                    title={notice.title} 
+                    date={notice.createdAt} 
+
+                  
+                  />
+                  <hr className={styles.divider} />
+                </React.Fragment>
+              ))
+            ) : (
+              <p>등록된 공지사항이 없습니다.</p>
+            )}
         </article>
       </section>
-      {/* <NavigationBar /> */}
+      <Navbar />
     </main>
-  );
-}
-
-function NoticeItem({ title, date }) {
-  return (
-    <div className={styles.noticeItem}>
-      <h2 className={styles.noticeTitle}>{title}</h2>
-      <time className={styles.noticeDate}>{date}</time>
-    </div>
   );
 }
 
