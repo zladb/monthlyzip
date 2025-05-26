@@ -13,6 +13,7 @@ public enum ApiResponseStatus {
     FORBIDDEN(false, HttpStatus.FORBIDDEN, 403, "권한이 없습니다."),
     NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "대상을 찾을 수 없습니다."),
     INVALID_JSON(false, HttpStatus.BAD_REQUEST, 400, "요청 본문(JSON)이 올바른 형식이 아닙니다."),
+    MISSING_REQUEST_PARAMETER(false, HttpStatus.BAD_REQUEST, 4001, "요청 파라미터가 누락되었습니다."),
 
 
     // ✅ 비즈니스 예외
@@ -24,6 +25,7 @@ public enum ApiResponseStatus {
     LOGIN_ERROR(false, HttpStatus.BAD_REQUEST, 500, "로그인 과정 중 서버 오류가 생겼습니다."),
     MEMBER_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 사용자가 존재하지 않습니다."),
     TOKEN_EXPIRED(false, HttpStatus.UNAUTHORIZED, 401, "로그인 세션이 만료되었습니다. 다시 로그인해주세요."),
+    INVALID_ROLE(false, HttpStatus.FORBIDDEN, 403, "허용되지 않은 기능입니다."),
 
     // building
     BUILDING_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 건물이 존재하지 않습니다."),
@@ -42,11 +44,14 @@ public enum ApiResponseStatus {
 
     // payment
     PAYMENT_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 납부 내역을 찾을 수 없습니다."),
+    NO_UNPAID_RENT(false, HttpStatus.BAD_REQUEST, 400, "미납된 월세가 존재하지 않습니다."),
+    DEPOSIT_TOO_LOW(false, HttpStatus.BAD_REQUEST, 400, "보증금 잔액보다 큰 금액은 차감할 수 없습니다."),
 
     // notice
     NOTICE_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 공지사항이 존재하지 않습니다."),
     NOTICE_ACCESS_DENIED(false, HttpStatus.FORBIDDEN, 403, "공지사항에 접근할 권한이 없습니다."),
     NOTICE_INVALID_REQUEST(false, HttpStatus.BAD_REQUEST, 400, "공지사항 요청 값이 유효하지 않습니다."),
+    NOTICE_NO_AUTHORITY(false,HttpStatus.UNAUTHORIZED, 403, "해당 건물에 대한 권한이 없습니다."),
 
     // notification
     NOTIFICATION_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 알림을 찾을 수 없습니다."),
@@ -54,7 +59,23 @@ public enum ApiResponseStatus {
 
     // inquiry
     INQUIRY_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "해당 문의가 존재하지 않습니다."),
-    INQUIRY_INVALID_REQUEST(false, HttpStatus.BAD_REQUEST, 400, "유효하지 않는 문의 유형 입니다.")
+    INQUIRY_INVALID_REQUEST(false, HttpStatus.BAD_REQUEST, 400, "유효하지 않는 문의 유형 입니다."),
+
+    // file
+    FILE_SAVE_FAILED(false, HttpStatus.INTERNAL_SERVER_ERROR, 5001,"파일 저장에 실패했습니다."),
+    FILE_DELETE_FAILED(false, HttpStatus.INTERNAL_SERVER_ERROR, 5002,"파일 삭제에 실패했습니다."),
+
+    // API
+    EXTERNAL_USERKEY_API_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR, 6001, "USER KEY API 호출에 실패했습니다."),
+    EXTERNAL_ACCOUNT_API_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR, 6002, "ACCOUNT API 호출에 실패했습니다."),
+    EXTERNAL_DEPOSIT_API_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR, 6003, "DEPOSIT API 호출에 실패했습니다."),
+    EXTERNAL_WITHDRAW_API_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR, 6004, "WITHDRAWAL API 호출에 실패했습니다."),
+    EXTERNAL_TRANSFER_API_ERROR(false, HttpStatus.INTERNAL_SERVER_ERROR, 6005, "TRANSFER API 호출에 실패했습니다."),
+
+    // AutoTransfer
+    INVALID_DATE_RANGE(false, HttpStatus.BAD_REQUEST, 400, "기간 설정이 유효하지 않습니다."),
+    AUTO_TRANSFER_NOT_FOUND(false, HttpStatus.NOT_FOUND, 404, "등록된 자동이체가 없습니다.")
+
     ;
 
     private final boolean isSuccess;

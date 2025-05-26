@@ -1,10 +1,10 @@
 package com.monthlyzip.domain.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.monthlyzip.domain.auth.entity.MemberEntity;
-import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
-import com.monthlyzip.domain.auth.model.enums.MemberType;
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
 import com.monthlyzip.domain.auth.service.TokenService;
+import com.monthlyzip.domain.member.entity.Member;
+import com.monthlyzip.domain.member.enums.MemberType;
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
 import com.monthlyzip.global.common.utils.JWTUtil;
@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+@Slf4j
 @RequiredArgsConstructor
 public class JWTFilter extends OncePerRequestFilter {
 
@@ -28,7 +30,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-        FilterChain filterChain) throws ServletException, IOException {
+                                    FilterChain filterChain) throws ServletException, IOException {
 
         //request에서 Authorization 헤더를 찾음
         String authorization= request.getHeader("Authorization");
@@ -38,15 +40,15 @@ public class JWTFilter extends OncePerRequestFilter {
         //Authorization 헤더 검증
         if (authorization == null || !authorization.startsWith("Bearer ")) {
             // 토큰 없다고만 하고 다음으로 넘어감
-            System.out.println("accessToken null");
-            filterChain.doFilter(request, response);
-            return;
-//          여기서 null 이면 허용된 url 제외하면 정상 요청이 아니기때문에 다 반환하려면 써야함
-//            writeErrorResponse(response, ApiResponseStatus.UNAUTHORIZED);
+            log.info("accessToken 없음");
+//            filterChain.doFilter(request, response);
 //            return;
+//          여기서 null 이면 허용된 url 제외하면 정상 요청이 아니기때문에 다 반환하려면 써야함
+            writeErrorResponse(response, ApiResponseStatus.UNAUTHORIZED);
+            return;
         }
 
-        System.out.println("authorization now");
+        log.info("accessToken 인증 시작");
         //Bearer 부분 제거 후 순수 토큰만 획득
         String accessToken = authorization.split(" ")[1];
 
@@ -64,11 +66,11 @@ public class JWTFilter extends OncePerRequestFilter {
 
         //토큰에서 username 획득, admin 추가시 여기서 role도 획득
         Long memberId = jwtUtil.getMemberId(accessToken);
-        String userType = jwtUtil.getUserType(accessToken);
+        String userType = jwtUtil.getMemberType(accessToken);
 
         //userEntity를 생성하여 값 set
-        MemberEntity member = new MemberEntity();
-        member.setMemberId(memberId);
+        Member member = new Member();
+        member.setId(memberId);
         member.setMemberType(MemberType.valueOf(userType));
         member.setPassword("temppassword");
 
@@ -79,7 +81,7 @@ public class JWTFilter extends OncePerRequestFilter {
         Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
-        System.out.println("로그인 성공 !!!");
+        log.info("로그인 성공");
         filterChain.doFilter(request, response);
     }
 

@@ -1,21 +1,52 @@
 package com.monthlyzip.domain.auth.service;
 
-import com.monthlyzip.domain.auth.entity.MemberEntity;
-import com.monthlyzip.domain.auth.model.dto.JoinDto;
-import com.monthlyzip.domain.auth.model.enums.MemberType;
-import com.monthlyzip.domain.auth.repository.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.monthlyzip.domain.auth.dto.request.CreateAccountRequest;
+import com.monthlyzip.domain.auth.dto.request.JoinDto;
+import com.monthlyzip.domain.auth.dto.request.UserKeyRequest;
+import com.monthlyzip.domain.auth.dto.response.CreateAccountResponse;
+import com.monthlyzip.domain.auth.dto.response.UserKeyResponse;
+import com.monthlyzip.domain.member.entity.Member;
+import com.monthlyzip.domain.member.enums.MemberType;
+import com.monthlyzip.domain.member.repository.MemberRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor  // 생성자 주입 받기
 public class JoinService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final RestTemplate restTemplate;
+
+    @Value("${fintech.url.user-key}")
+    private String USER_KEY_API_URL;
+    @Value("${fintech.url.account-create}")
+    private String ACCOUNT_API_URL;
+    @Value("${fintech.url.deposit-url}")
+    private String ACCOUNT_DEPOSIT_URL;
+    @Value("${fintech.values.manager-key}")
+    private String MANAGER_API_KEY;
+    @Value("${fintech.values.account-type-no}")
+    private String ACCOUNT_NO_FIXED;
+    private static final String INSTITUTION_CODE = "00100";
+    private static final String FINTECH_APP_NO = "001";
 
     public void joinProcess(JoinDto joinDto) {
 
@@ -28,7 +59,7 @@ public class JoinService {
 
         // ******* ******* ******* 유효성 검사
         // 이메일 중복 검사
-        if (userRepository.existsByEmail(email)) {
+        if (memberRepository.existsByEmail(email)) {
             throw new BusinessException(ApiResponseStatus.EMAIL_DUPLICATE);
         }
 
@@ -42,17 +73,130 @@ public class JoinService {
             throw new BusinessException(ApiResponseStatus.PASSWORD_INVALID);
         }
         // ******* ******* *******
+        // ******* 금융 api 호출 *******
+        // ******* ******* *******
+
+        // ******* USER KEY 발급 부분 *******
+        ObjectMapper objectMapper = new ObjectMapper();
+        String userKey;
+        try {
+            UserKeyRequest keyRequest = new UserKeyRequest();
+            keyRequest.setApiKey(MANAGER_API_KEY);
+            keyRequest.setUserId(email);
+
+            ResponseEntity<UserKeyResponse> keyResponse = restTemplate.postForEntity(
+                    USER_KEY_API_URL,
+                    keyRequest,
+                    UserKeyResponse.class
+            );
+
+            if (!keyResponse.getStatusCode().is2xxSuccessful() || keyResponse.getBody() == null) {
+                String responseBody = objectMapper.writeValueAsString(keyResponse.getBody());
+                log.error("USER KEY API 응답 오류: status={}, body={}", keyResponse.getStatusCode(), responseBody);
+                log.error("회원가입 실패 - USER API 응답 오류: {}", keyResponse.getStatusCode());
+                throw new BusinessException(ApiResponseStatus.EXTERNAL_USERKEY_API_ERROR); // 적절한 에러 코드 사용
+            }
+
+            userKey = keyResponse.getBody().getUserKey();
+        } catch (Exception e) {
+            log.error("회원가입 실패 - USER KEY API 호출 중 예외 발생", e);
+            throw new BusinessException(ApiResponseStatus.EXTERNAL_USERKEY_API_ERROR);
+        }
+
+        // ******* ACCOUNT NO 발급 부분 *******
+        String accountNo;
+        try {
+            LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+            String transmissionDate = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+            String transmissionTime = now.format(DateTimeFormatter.ofPattern("HHmmss"));
+            String transactionUniqueNo = transmissionDate + transmissionTime + String.format("%06d", new Random().nextInt(999999));
+
+            CreateAccountRequest.Header header = new CreateAccountRequest.Header();
+            header.setApiName("createDemandDepositAccount");
+            header.setTransmissionDate(transmissionDate);
+            header.setTransmissionTime(transmissionTime);
+            header.setInstitutionCode(INSTITUTION_CODE);
+            header.setFintechAppNo(FINTECH_APP_NO);
+            header.setApiServiceCode("createDemandDepositAccount");
+            header.setInstitutionTransactionUniqueNo(transactionUniqueNo);
+            header.setApiKey(MANAGER_API_KEY);
+            header.setUserKey(userKey);
+
+            CreateAccountRequest accountRequest = new CreateAccountRequest();
+            accountRequest.setHeader(header);
+            accountRequest.setAccountTypeUniqueNo(ACCOUNT_NO_FIXED);
+
+//            ObjectMapper objectMap = new ObjectMapper();
+//            String jsonBody = objectMap.writeValueAsString(accountRequest);
+//            log.info("보낼 JSON Body:\n{}", jsonBody);
+
+            ResponseEntity<CreateAccountResponse> accountResponse = restTemplate.postForEntity(
+                    ACCOUNT_API_URL,
+                    accountRequest,
+                    CreateAccountResponse.class
+            );
+
+            if (!accountResponse.getStatusCode().is2xxSuccessful() || accountResponse.getBody() == null) {
+                log.error("회원가입 실패 - 계좌 생성 API 응답 오류: {}", accountResponse.getStatusCode());
+                throw new BusinessException(ApiResponseStatus.EXTERNAL_ACCOUNT_API_ERROR);
+            }
+            accountNo = accountResponse.getBody().getRec().getAccountNo();
+        } catch (Exception e) {
+            log.error("회원가입 실패 - 계좌 생성 API 호출 중 예외 발생", e);
+            throw new BusinessException(ApiResponseStatus.EXTERNAL_ACCOUNT_API_ERROR);
+        }
+
+        // ********** 계좌에 초기 금액 입금 **********
+        try {
+            LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+            String transmissionDate = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+            String transmissionTime = now.format(DateTimeFormatter.ofPattern("HHmmss"));
+            String transactionUniqueNo = transmissionDate + transmissionTime + String.format("%06d", new Random().nextInt(999999));
+
+            Map<String, Object> depositRequest = new HashMap<>();
+            Map<String, String> header = new HashMap<>();
+            header.put("apiName", "updateDemandDepositAccountDeposit");
+            header.put("transmissionDate", transmissionDate);
+            header.put("transmissionTime", transmissionTime);
+            header.put("institutionCode", INSTITUTION_CODE);
+            header.put("fintechAppNo", FINTECH_APP_NO);
+            header.put("apiServiceCode", "updateDemandDepositAccountDeposit");
+            header.put("institutionTransactionUniqueNo", transactionUniqueNo);
+            header.put("apiKey", MANAGER_API_KEY);
+            header.put("userKey", userKey);
+
+            depositRequest.put("Header", header);
+            depositRequest.put("accountNo", accountNo);
+            depositRequest.put("transactionBalance", "10000000");
+            depositRequest.put("transactionSummary", "카뱅 자동 입금");
+
+            ResponseEntity<String> depositResponse = restTemplate.postForEntity(
+                    ACCOUNT_DEPOSIT_URL,
+                    depositRequest,
+                    String.class
+            );
+
+            if (!depositResponse.getStatusCode().is2xxSuccessful()) {
+                log.error("계좌 입금 실패 - 응답 코드: {}", depositResponse.getStatusCode());
+                throw new BusinessException(ApiResponseStatus.EXTERNAL_DEPOSIT_API_ERROR);
+            }
+        } catch (Exception e) {
+            log.error("계좌 입금 중 예외 발생", e);
+            throw new BusinessException(ApiResponseStatus.EXTERNAL_DEPOSIT_API_ERROR);
+        }
 
         // 데이터 저장 부분
-        MemberEntity data = new MemberEntity();
+        Member data = new Member();
         data.setEmail(email);
         data.setPassword(bCryptPasswordEncoder.encode(password));
         data.setName(name);
         data.setPhoneNumber(phoneNumber);
         data.setMemberType(memberType); // Enum 저장
+        data.setUserApiKey(userKey);
+        data.setAccountNo(accountNo);
 
         System.out.println("JoinService : " + "회원가입 성공 : email = " + email + ", name = " + name);
 
-        userRepository.save(data);
+        memberRepository.save(data);
     }
 }

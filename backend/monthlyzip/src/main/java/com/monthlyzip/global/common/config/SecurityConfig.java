@@ -70,12 +70,12 @@ public class SecurityConfig {
                 .anyRequest().authenticated());                             // 그 외 모든 요청은 인증 필요
 
         // JWT 임시 주석 처리
-        // http
-        //     .addFilterBefore(new JWTFilter(jwtUtil, tokenService), LoginFilter.class);
+        http
+           .addFilterBefore(new JWTFilter(jwtUtil, tokenService), LoginFilter.class);
 
         //AuthenticationManager()와 JWTUtil 인수 전달
-        // http
-        //    .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, accessTokenValidity, refreshTokenValidity, tokenService), UsernamePasswordAuthenticationFilter.class);
+        http
+          .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, accessTokenValidity, refreshTokenValidity, tokenService), UsernamePasswordAuthenticationFilter.class);
 
         // JWT 사용을 위한 세션 관리 설정
         http
@@ -91,10 +91,11 @@ public class SecurityConfig {
 
         config.addAllowedOriginPattern("http://localhost:*");
         config.addAllowedOriginPattern("http://127.0.0.1:*");
+        config.addAllowedOriginPattern("http://localhost:3000");
+        config.addAllowedOriginPattern("https://j12d109.p.ssafy.io");
 //        config.addAllowedOriginPattern("*"); // 웹소켓 테스트할때 사용
-        // config.addAllowedOriginPattern("https://frontend-domain.com");
 
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setAllowCredentials(true);
 

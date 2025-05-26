@@ -3,24 +3,12 @@ package com.monthlyzip.domain.inquiry.model.entity;
 import com.monthlyzip.domain.contract.model.entity.Contract;
 import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
 import com.monthlyzip.domain.inquiry.model.type.InquiryType;
-import com.monthlyzip.member.model.entity.Member;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.monthlyzip.domain.member.entity.Member;
+import jakarta.persistence.*;
+import lombok.*;
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "inquiry")
@@ -56,7 +44,11 @@ public class Inquiry {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private InquiryStatus status;  // 문의 상태: 접수, 처리중, 처리완료
+    private InquiryStatus status;  // 문의 상태: 접수대기, 처리중, 처리완료
+
+    // 단일 String으로 변경 현재는 이미지 하나만
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @Column
     private LocalDateTime createdAt;

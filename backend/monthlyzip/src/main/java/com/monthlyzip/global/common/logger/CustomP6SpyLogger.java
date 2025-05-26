@@ -42,7 +42,7 @@ public class CustomP6SpyLogger implements MessageFormattingStrategy {
         sql = sql.replaceAll("\\s+", " ");
 
         // ✅ SET 절 포맷팅
-        Pattern setPattern = Pattern.compile("(?i)(set )(.*?)( where|$)");
+        Pattern setPattern = Pattern.compile("(?i)(set )(.*?)( where\\$)");
         Matcher setMatcher = setPattern.matcher(sql);
         StringBuffer setBuffer = new StringBuffer();
         while (setMatcher.find()) {

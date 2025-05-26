@@ -3,11 +3,13 @@ package com.monthlyzip.domain.notice.model.dto.response;
 import com.monthlyzip.domain.notice.model.entity.Notice;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Builder
+@ToString
 public class NoticeResponseDto {
 
     private Long noticeId;
