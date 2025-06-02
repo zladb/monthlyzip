@@ -1,6 +1,10 @@
 package com.monthlyzip.domain.auth.controller;
 
+<<<<<<< HEAD
 import com.monthlyzip.domain.auth.model.dto.JoinDto;
+=======
+import com.monthlyzip.domain.auth.dto.request.JoinDto;
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import com.monthlyzip.domain.auth.service.JoinService;
 
 import com.monthlyzip.global.common.model.dto.ApiResponse;

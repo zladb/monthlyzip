@@ -1,0 +1,88 @@
+pipeline {
+    agent any
+
+    environment {
+        KAKAO_MAP_API_KEY = credentials('KAKAO_MAP_API_KEY')
+    }
+
+    stages {
+        stage('FE-Check Branch') {
+            steps {
+                script {
+                    // def targetBranch = 'dev-fe'
+                    def targetBranch = env.gitlabTargetBranch ?: env.BRANCH_NAME
+                    if (targetBranch != null && targetBranch != 'dev-fe') {
+                        currentBuild.result = 'ABORTED'
+                        error("This pipeline only runs for merge requests to dev-fe branch")
+                    }
+                }
+            }
+        }
+
+        stage('FE-CheckOut') {
+            steps {
+                echo 'Start CheckOut monthlyzip project...'
+                git branch: 'dev-fe',
+                    credentialsId: 'account',
+                    url: 'https://lab.ssafy.com/s12-fintech-finance-sub1/S12P21D109.git'
+                echo 'CheckOut finished!'
+            }   
+        }   
+
+        stage('FE-Build') {
+            steps {
+                echo 'Start building monthlyzip project...'
+                nodejs(nodeJSInstallationName: 'NodeJS 22.13.0') {
+                    dir('frontend/monthly-zip') {
+                        sh '''
+                            echo "REACT_APP_KAKAO_MAP_API_KEY=${KAKAO_MAP_API_KEY}" > .env
+                            npm install
+                            CI=false npm run build
+                        '''
+                        
+                    }
+                }
+                echo 'Build finished!'
+            }
+        }
+
+        stage('FE-Deploy') {
+            steps {
+                script {
+                    dir('infra/docker/frontend') {
+                        sh '''
+                            docker compose down || true
+                            docker compose build --no-cache
+                            docker compose up -d    
+                        '''
+
+                        sh """
+                            echo "Reloading Nginx configuration..."
+                            docker exec nginx nginx -s reload
+                            echo "Nginx reloaded successfully"
+                        """
+
+                        // 컨테이너 상태 확인
+                        sh '''
+                            echo "Waiting for containers to start..."
+                            sleep 30
+                            docker ps
+                        '''
+                    }
+                }   
+            }
+        }
+    }
+    
+    post {
+        success {
+            echo 'Frontend pipeline successful !!'
+        }
+        failure {
+            echo 'Frontend pipeline failed !!'
+            dir('infra/docker/frontend') {
+                sh 'docker compose logs'
+            }
+        }
+    }
+}

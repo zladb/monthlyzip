@@ -1,16 +1,28 @@
 package com.monthlyzip.domain.inquiry.model.dto.response;
 
+<<<<<<< HEAD
 import com.monthlyzip.domain.contract.model.entity.Contract;
 import com.monthlyzip.domain.inquiry.model.entity.Inquiry;
 import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
 import com.monthlyzip.domain.inquiry.model.type.InquiryType;
 import com.monthlyzip.member.model.entity.Member;
 import java.time.LocalDateTime;
+=======
+import com.monthlyzip.domain.inquiry.model.entity.Inquiry;
+import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
+import com.monthlyzip.domain.inquiry.model.type.InquiryType;
+import java.util.List;
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+<<<<<<< HEAD
+=======
+import java.time.LocalDateTime;
+
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 @Getter
 @Builder
 @NoArgsConstructor
@@ -25,6 +37,10 @@ public class InquiryResponseDto {
     private InquiryType inquiryType;
     private String title;
     private InquiryStatus status;
+<<<<<<< HEAD
+=======
+    private String imageUrl;
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
     private LocalDateTime createdAt;
 
     public static InquiryResponseDto from(Inquiry inquiry) {
@@ -37,6 +53,10 @@ public class InquiryResponseDto {
             .inquiryType(inquiry.getInquiryType())
             .title(inquiry.getTitle())
             .status(inquiry.getStatus())
+<<<<<<< HEAD
+=======
+            .imageUrl(inquiry.getImageUrl())  // 추가
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
             .createdAt(inquiry.getCreatedAt())
             .build();
     }

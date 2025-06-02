@@ -14,8 +14,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InquiryCreateRequestDto {
+<<<<<<< HEAD
     @NotNull(message = "계약 ID는 필수입니다")
     private Long contractId;
+=======
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
     @NotNull(message = "문의 유형은 필수입니다")
     private InquiryType inquiryType;

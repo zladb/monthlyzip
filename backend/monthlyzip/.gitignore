@@ -40,4 +40,10 @@ out/
 ### Application ###
 src/main/resources/application-secret.yml
 
+<<<<<<< HEAD
 spy.log
+=======
+spy.log
+
+images
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c

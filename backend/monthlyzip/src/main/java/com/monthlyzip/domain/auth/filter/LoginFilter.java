@@ -1,10 +1,17 @@
 package com.monthlyzip.domain.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+<<<<<<< HEAD
 import com.monthlyzip.domain.auth.entity.MemberEntity;
 import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
 import com.monthlyzip.domain.auth.model.dto.LoginDto;
 import com.monthlyzip.domain.auth.service.TokenService;
+=======
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.dto.request.LoginDto;
+import com.monthlyzip.domain.auth.service.TokenService;
+import com.monthlyzip.domain.member.entity.Member;
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
@@ -71,9 +78,15 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+<<<<<<< HEAD
         MemberEntity member = customUserDetails.getMember();
 
         Long memberId = member.getMemberId();
+=======
+        Member member = customUserDetails.getMember();
+
+        Long memberId = member.getId();
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         String userType = member.getMemberType().name();
         String role = "ROLE_USER";
 

@@ -11,6 +11,7 @@ import com.monthlyzip.domain.inquiry.model.entity.Inquiry;
 import com.monthlyzip.domain.inquiry.model.type.InquiryStatus;
 import com.monthlyzip.domain.inquiry.model.type.InquiryType;
 import com.monthlyzip.domain.inquiry.repository.InquiryRepository;
+<<<<<<< HEAD
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
 import com.monthlyzip.member.model.entity.Member;
@@ -23,6 +24,24 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+=======
+import com.monthlyzip.domain.member.entity.Member;
+import com.monthlyzip.domain.member.enums.MemberType;
+import com.monthlyzip.domain.member.repository.MemberRepository;
+import com.monthlyzip.global.common.exception.exception.BusinessException;
+import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
+import java.util.Objects;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import com.monthlyzip.global.common.utils.FileUtil;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.web.multipart.MultipartFile;
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
 @Slf4j
 @Service
@@ -32,13 +51,21 @@ public class InquiryService {
     private final InquiryRepository inquiryRepository;
     private final ContractRepository contractRepository;
     private final MemberRepository memberRepository;
+<<<<<<< HEAD
 
     @Transactional
     public InquiryCreateResponseDto createInquiry(Long memberId, InquiryCreateRequestDto dto) {
+=======
+    private final FileUtil fileUtil;
+
+    @Transactional
+    public InquiryCreateResponseDto createInquiry(Long memberId, InquiryCreateRequestDto dto, MultipartFile image) {
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         // 1. 회원 존재 여부 확인
         Member member = memberRepository.findById(memberId)
             .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
 
+<<<<<<< HEAD
         // 2. 계약 존재 여부 확인
         Contract contract = contractRepository.findById(dto.getContractId())
             .orElseThrow(() -> new BusinessException(ApiResponseStatus.CONTRACT_NOT_FOUND));
@@ -46,6 +73,21 @@ public class InquiryService {
         // 3. 계약이 해당 사용자의 것인지 확인 (임차인만 문의 생성 가능)
         if (member.getUserType() != UserType.임차인 || !contract.getTenantId().equals(memberId)) {
             throw new BusinessException(ApiResponseStatus.FORBIDDEN);
+=======
+        // 2. 사용자 유형 확인 (임차인만 문의 생성 가능)
+        if (member.getMemberType() != MemberType.임차인) {
+            throw new BusinessException(ApiResponseStatus.FORBIDDEN);
+        }
+
+        // 3. 사용자의 가장 최근 계약 자동 조회
+        Contract contract = contractRepository.findByTenantIdAndIsActiveTenantTrue(memberId)
+            .orElseThrow(() -> new BusinessException(ApiResponseStatus.CONTRACT_NOT_FOUND));
+
+        // 4. 이미지 업로드 처리
+        String imageUrl = null;
+        if (image != null && !image.isEmpty()) {
+            imageUrl = fileUtil.saveFile(image, "inquiry");
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         }
 
         // 4. 문의 생성
@@ -55,7 +97,12 @@ public class InquiryService {
             .inquiryType(dto.getInquiryType())
             .title(dto.getTitle())
             .content(dto.getContent())
+<<<<<<< HEAD
             .status(InquiryStatus.접수) // 초기 상태는 '접수'
+=======
+            .status(InquiryStatus.접수대기) // 초기 상태는 '접수'
+            .imageUrl(imageUrl)  // List 대신 단일 문자열
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
             .createdAt(LocalDateTime.now())
             .updatedAt(LocalDateTime.now())
             .build();
@@ -77,7 +124,11 @@ public class InquiryService {
         List<Inquiry> inquiries;
 
         // 2. 사용자 유형에 따라 다른 목록 반환
+<<<<<<< HEAD
         if (member.getUserType() == UserType.임대인) {
+=======
+        if (member.getMemberType() == MemberType.임대인) {
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
             // 임대인은 자신의 건물에 대한 모든 문의를 볼 수 있음
             if (status != null && !status.isEmpty() && inquiryType != null) {
                 // 상태와 유형 모두로 필터링
@@ -134,6 +185,7 @@ public class InquiryService {
             .orElseThrow(() -> new BusinessException(ApiResponseStatus.INQUIRY_NOT_FOUND));
 
         // 테스트 위해 권한 검사 임시 비활성화
+<<<<<<< HEAD
         /*
             // 2. 회원 존재 여부 확인
             Member member = memberRepository.findById(memberId)
@@ -153,13 +205,36 @@ public class InquiryService {
                 throw new BusinessException(ApiResponseStatus.FORBIDDEN);
             }
         */
+=======
+        // 2. 회원 존재 여부 확인
+        Member member = memberRepository.findById(memberId)
+            .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
+
+        // 3. 권한 확인
+        boolean hasAccess = false;
+        if (member.getMemberType() == MemberType.임대인) {
+            // 임대인은 자신의 건물에 대한 문의만 조회 가능
+            hasAccess = inquiry.getContract().getLandlordId().equals(memberId);
+        } else {
+            // 임차인은 자신이 작성한 문의만 조회 가능
+            hasAccess = inquiry.getMember().getId().equals(memberId);
+        }
+
+        if (!hasAccess) {
+            throw new BusinessException(ApiResponseStatus.FORBIDDEN);
+        }
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
         // 4. 상세 정보 반환
         return InquiryDetailResponseDto.from(inquiry);
     }
 
     @Transactional()
+<<<<<<< HEAD
     public InquiryResponseDto updateInquiry(Long memberId, Long inquiryId, InquiryUpdateRequestDto dto) {
+=======
+    public InquiryResponseDto updateInquiry(Long memberId, Long inquiryId, InquiryUpdateRequestDto dto, MultipartFile newImage) {
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         // 1. 문의 존재 여부 확인
         Inquiry inquiry = inquiryRepository.findById(inquiryId)
             .orElseThrow(() -> new BusinessException(ApiResponseStatus.INQUIRY_NOT_FOUND));
@@ -169,6 +244,7 @@ public class InquiryService {
             .orElseThrow(() -> new BusinessException(ApiResponseStatus.MEMBER_NOT_FOUND));
 
         // 테스트 위해 권한 검사 임시 비활성화
+<<<<<<< HEAD
         /*
                 // 3. 권한 확인 (각 사용자 유형별로 다른 권한)
                 if (member.getUserType() == UserType.임대인) {
@@ -213,12 +289,47 @@ public class InquiryService {
                         throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
                     }
 
+=======
+        // 3. 권한 확인 (각 사용자 유형별로 다른 권한)
+        if (member.getMemberType() == MemberType.임대인) {
+            // 임대인은 자신의 건물에 대한 문의의 상태만 수정 가능
+            if (!inquiry.getContract().getLandlordId().equals(memberId)) {
+                throw new BusinessException(ApiResponseStatus.FORBIDDEN);
+            }
+
+            // 이미 처리 완료된 문의는 수정 불가
+            if (inquiry.getStatus() == InquiryStatus.처리완료) {
+                throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
+            }
+
+            // 상태 변경 로직
+            if (dto.getStatus() != null) {
+                if (Objects.requireNonNull(inquiry.getStatus()) == InquiryStatus.접수대기 &&
+                    dto.getStatus() == InquiryStatus.처리중) {
+                    inquiry.setStatus(dto.getStatus());
+                } else {
+                    throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
+                }
+            } else {
+                throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
+            }
+        } else {
+            // 임차인은 자신이 작성한 문의의 내용, 제목만 수정 가능 (접수 상태일 때만)
+            if (!inquiry.getMember().getId().equals(memberId)) {
+                throw new BusinessException(ApiResponseStatus.FORBIDDEN);
+            }
+
+            switch (inquiry.getStatus()) {
+                case 접수대기:
+                    // 접수대기 상태에서는 내용, 제목, 이미지 수정 가능
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
                     if (dto.getTitle() != null) {
                         inquiry.setTitle(dto.getTitle());
                     }
                     if (dto.getContent() != null) {
                         inquiry.setContent(dto.getContent());
                     }
+<<<<<<< HEAD
                 }
         */
 
@@ -231,6 +342,51 @@ public class InquiryService {
         }
         if (dto.getContent() != null) {
             inquiry.setContent(dto.getContent());
+=======
+                    if (dto.getInquiryType() != null) {
+                        inquiry.setInquiryType(dto.getInquiryType());
+                    }
+
+                    // 이미지 업데이트
+                    if (newImage != null && !newImage.isEmpty()) {
+                        // 기존 이미지가 있으면 삭제
+                        String oldImageUrl = inquiry.getImageUrl();
+                        if (oldImageUrl != null && !oldImageUrl.isEmpty()) {
+                            fileUtil.deleteFile(oldImageUrl);
+                        }
+
+                        // 새 이미지 저장
+                        String newImageUrl = fileUtil.saveFile(newImage, "inquiry");
+                        inquiry.setImageUrl(newImageUrl);
+                    }
+                    break;
+
+                case 처리중:
+                    // 처리중 상태: 처리완료로만 변경 가능
+                    if (dto.getStatus() == InquiryStatus.처리완료) {
+                        inquiry.setStatus(dto.getStatus());
+                    } else {
+                        throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
+                    }
+                    break;
+                default:
+                    // 그 외 상태(처리완료 등): 수정 불가
+                    throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
+            }
+
+            // 이미지 업데이트 로직 추가
+            if (newImage != null && !newImage.isEmpty()) {
+                // 기존 이미지가 있으면 삭제
+                String oldImageUrl = inquiry.getImageUrl();
+                if (oldImageUrl != null && !oldImageUrl.isEmpty()) {
+                    fileUtil.deleteFile(oldImageUrl);
+                }
+
+                // 새 이미지 저장
+                String newImageUrl = fileUtil.saveFile(newImage, "inquiry");
+                inquiry.setImageUrl(newImageUrl);
+            }
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         }
 
         // 4. 수정 시간 업데이트
@@ -250,6 +406,7 @@ public class InquiryService {
         // 2. 권한 확인 (임차인만 자신이 작성한 문의 삭제 가능)
 
         // 테스트 위해 권한 검사 임시 비활성화
+<<<<<<< HEAD
         /*
              if (!inquiry.getMember().getMemberId().equals(memberId)) {
                  throw new BusinessException(ApiResponseStatus.FORBIDDEN);
@@ -263,6 +420,18 @@ public class InquiryService {
 
         log.debug("테스트 중: 문의 ID {} 삭제 허용 (사용자 ID: {})", inquiryId, memberId);
 
+=======
+         if (!inquiry.getMember().getId().equals(memberId)) {
+             throw new BusinessException(ApiResponseStatus.FORBIDDEN);
+         }
+
+        // 3. 상태 확인 (접수 상태일 때만 삭제 가능)
+        if (inquiry.getStatus() != InquiryStatus.접수대기) {
+            throw new BusinessException(ApiResponseStatus.INQUIRY_INVALID_REQUEST);
+        }
+
+        log.debug("테스트 중: 문의 ID {} 삭제 허용 (사용자 ID: {})", inquiryId, memberId);
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         // 4. 삭제
         inquiryRepository.delete(inquiry);
     }

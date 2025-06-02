@@ -1,6 +1,10 @@
 package com.monthlyzip.domain.inquiry.controller;
 
+<<<<<<< HEAD
 import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
+=======
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import com.monthlyzip.domain.inquiry.model.dto.request.InquiryCreateRequestDto;
 import com.monthlyzip.domain.inquiry.model.dto.request.InquiryUpdateRequestDto;
 import com.monthlyzip.domain.inquiry.model.dto.response.InquiryCreateResponseDto;
@@ -19,10 +23,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
 @RestController
 @Slf4j
@@ -37,6 +49,7 @@ public class InquiryController {
     @PostMapping
     public ApiResponse<InquiryCreateResponseDto> createInquiry(
         @AuthenticationPrincipal CustomUserDetails userDetails,
+<<<<<<< HEAD
         @RequestBody @Valid InquiryCreateRequestDto requestDto) {
 
         // 테스트용 memberId 임의 설정 (나중에 주석 해제)
@@ -45,6 +58,17 @@ public class InquiryController {
 
         log.debug("문의 등록 요청");
         return ApiResponse.success(inquiryService.createInquiry(memberId, requestDto));
+=======
+        @RequestPart("data") @Valid InquiryCreateRequestDto requestDto,
+        @RequestPart(value = "image", required = false) MultipartFile image) {
+
+        Long memberId = userDetails.getMember().getId();
+        // 테스트용 memberId 임의 설정 (나중에 주석 해제)
+        // Long memberId = 2L; // 임차인 ID로 가정
+
+        log.debug("문의 등록 요청");
+        return ApiResponse.success(inquiryService.createInquiry(memberId, requestDto, image));
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
     }
 
     // 문의 목록 조회
@@ -53,11 +77,20 @@ public class InquiryController {
         @AuthenticationPrincipal CustomUserDetails userDetails,
         @RequestParam(required = false) String status,
         @RequestParam(required = false) InquiryType inquiryType) {
+<<<<<<< HEAD
         // 테스트용 memberId 임의 설정
         // Long memberId = userDetails.getMember().getMemberId();
         log.info("문의 전체 목록 조회 !! ");
 
         Long memberId = 1L; // 임대인 ID로 가정 (필요에 따라 변경)
+=======
+
+        Long memberId = userDetails.getMember().getId();
+        log.info("문의 전체 목록 조회 !! ");
+
+        // 테스트용 memberId 임의 설정
+        // Long memberId = 1L; // 임대인 ID로 가정 (필요에 따라 변경)
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         // Long memberId = 2L; // 임차인 ID로 가정 (필요에 따라 변경)
 
         log.debug("문의 목록 조회 요청");
@@ -69,9 +102,17 @@ public class InquiryController {
     public ApiResponse<InquiryDetailResponseDto> getInquiryDetail(
         @AuthenticationPrincipal CustomUserDetails userDetails,
         @PathVariable Long inquiryId) {
+<<<<<<< HEAD
         // 테스트용 memberId 임의 설정
         // Long memberId = userDetails.getMember().getMemberId();
         Long memberId = 1L; // 임대인 ID로 가정
+=======
+
+        Long memberId = userDetails.getMember().getId();
+
+        // 테스트용 memberId 임의 설정
+        // Long memberId = 1L; // 임대인 ID로 가정
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
         log.debug("문의 상세 조회 요청");
         return ApiResponse.success(inquiryService.getInquiryDetail(memberId, inquiryId));
@@ -82,6 +123,7 @@ public class InquiryController {
     public ApiResponse<InquiryResponseDto> updateInquiry(
         @AuthenticationPrincipal CustomUserDetails userDetails,
         @PathVariable Long inquiryId,
+<<<<<<< HEAD
         @RequestBody @Valid InquiryUpdateRequestDto requestDto) {
         // 테스트용 memberId 임의 설정
         // Long memberId = userDetails.getMember().getMemberId();
@@ -90,6 +132,19 @@ public class InquiryController {
 
         log.debug("문의 상태 수정 요청");
         return ApiResponse.success(inquiryService.updateInquiry(memberId, inquiryId, requestDto));
+=======
+        @RequestPart(value = "data", required = false) @Valid InquiryUpdateRequestDto requestDto,
+        @RequestPart(value = "image", required = false) MultipartFile newImage) {
+
+        // 테스트용 memberId 임의 설정
+        Long memberId = userDetails.getMember().getId();
+
+        // Long memberId = 1L; // 임대인 ID로 가정
+        // Long memberId = 2L; // 임차인 ID로 가정
+
+        log.debug("문의 상태 수정 요청");
+        return ApiResponse.success(inquiryService.updateInquiry(memberId, inquiryId, requestDto, newImage));
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
     }
 
     // 문의 삭제
@@ -97,9 +152,17 @@ public class InquiryController {
     public ApiResponse<Void> deleteInquiry(
         @AuthenticationPrincipal CustomUserDetails userDetails,
         @PathVariable Long inquiryId) {
+<<<<<<< HEAD
         // 테스트용 memberId 임의 설정
         // Long memberId = userDetails.getMember().getMemberId();
         Long memberId = 2L; // 임차인 ID로 가정
+=======
+
+        Long memberId = userDetails.getMember().getId();
+
+        // 테스트용 memberId 임의 설정
+        // Long memberId = 2L; // 임차인 ID로 가정
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
         log.debug("문의 삭제 요청");
         inquiryService.deleteInquiry(memberId, inquiryId);

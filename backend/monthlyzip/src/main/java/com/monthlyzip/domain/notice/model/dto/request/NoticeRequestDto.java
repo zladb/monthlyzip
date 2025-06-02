@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+<<<<<<< HEAD
 
 @Getter
 @Setter
@@ -12,6 +13,15 @@ public class NoticeRequestDto {
     @NotNull(message = "landlordId는 필수입니다.")
     private Long landlordId;
 
+=======
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class NoticeRequestDto {
+
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
     @NotNull(message = "buildingId는 필수입니다.")
     private Long buildingId;
 

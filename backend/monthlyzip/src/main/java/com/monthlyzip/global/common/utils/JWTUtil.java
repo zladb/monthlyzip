@@ -27,7 +27,11 @@ public class JWTUtil {
     }
 
     // JWT 토큰에서 userType 추출
+<<<<<<< HEAD
     public String getUserType(String token) {
+=======
+    public String getMemberType(String token) {
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         return Jwts.parser().verifyWith(secretKey).build()
                 .parseSignedClaims(token).getPayload()
                 .get("userType", String.class);

@@ -1,10 +1,17 @@
 package com.monthlyzip.domain.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+<<<<<<< HEAD
 import com.monthlyzip.domain.auth.entity.MemberEntity;
 import com.monthlyzip.domain.auth.model.dto.CustomUserDetails;
 import com.monthlyzip.domain.auth.model.enums.MemberType;
 import com.monthlyzip.domain.auth.service.TokenService;
+=======
+import com.monthlyzip.domain.auth.dto.CustomUserDetails;
+import com.monthlyzip.domain.auth.service.TokenService;
+import com.monthlyzip.domain.member.entity.Member;
+import com.monthlyzip.domain.member.enums.MemberType;
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
 import com.monthlyzip.global.common.utils.JWTUtil;
@@ -13,6 +20,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+<<<<<<< HEAD
+=======
+import lombok.extern.slf4j.Slf4j;
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +31,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+<<<<<<< HEAD
+=======
+@Slf4j
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 @RequiredArgsConstructor
 public class JWTFilter extends OncePerRequestFilter {
 
@@ -28,7 +43,11 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+<<<<<<< HEAD
         FilterChain filterChain) throws ServletException, IOException {
+=======
+                                    FilterChain filterChain) throws ServletException, IOException {
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
         //request에서 Authorization 헤더를 찾음
         String authorization= request.getHeader("Authorization");
@@ -38,6 +57,7 @@ public class JWTFilter extends OncePerRequestFilter {
         //Authorization 헤더 검증
         if (authorization == null || !authorization.startsWith("Bearer ")) {
             // 토큰 없다고만 하고 다음으로 넘어감
+<<<<<<< HEAD
             System.out.println("accessToken null");
             filterChain.doFilter(request, response);
             return;
@@ -47,6 +67,17 @@ public class JWTFilter extends OncePerRequestFilter {
         }
 
         System.out.println("authorization now");
+=======
+            log.info("accessToken 없음");
+//            filterChain.doFilter(request, response);
+//            return;
+//          여기서 null 이면 허용된 url 제외하면 정상 요청이 아니기때문에 다 반환하려면 써야함
+            writeErrorResponse(response, ApiResponseStatus.UNAUTHORIZED);
+            return;
+        }
+
+        log.info("accessToken 인증 시작");
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         //Bearer 부분 제거 후 순수 토큰만 획득
         String accessToken = authorization.split(" ")[1];
 
@@ -64,11 +95,19 @@ public class JWTFilter extends OncePerRequestFilter {
 
         //토큰에서 username 획득, admin 추가시 여기서 role도 획득
         Long memberId = jwtUtil.getMemberId(accessToken);
+<<<<<<< HEAD
         String userType = jwtUtil.getUserType(accessToken);
 
         //userEntity를 생성하여 값 set
         MemberEntity member = new MemberEntity();
         member.setMemberId(memberId);
+=======
+        String userType = jwtUtil.getMemberType(accessToken);
+
+        //userEntity를 생성하여 값 set
+        Member member = new Member();
+        member.setId(memberId);
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         member.setMemberType(MemberType.valueOf(userType));
         member.setPassword("temppassword");
 
@@ -79,7 +118,11 @@ public class JWTFilter extends OncePerRequestFilter {
         Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
+<<<<<<< HEAD
         System.out.println("로그인 성공 !!!");
+=======
+        log.info("로그인 성공");
+>>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         filterChain.doFilter(request, response);
     }
 
