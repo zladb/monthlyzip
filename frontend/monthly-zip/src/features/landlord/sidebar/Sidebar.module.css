@@ -1,0 +1,191 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.sidebar {
+  background-color: #fff;
+  flex-direction: column;
+  width: 259px;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.logoSection {
+  background-color: #FFFBF7;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 260px;
+  display: flex;
+}
+
+.logo {
+  width: 180px;
+  height: auto;
+  margin-top: 0;
+}
+
+.navigation {
+  flex-direction: column;
+  gap: 32px;
+  padding-top: 20px;
+  padding-left: 32px;
+  padding-right: 32px;
+  display: flex;
+}
+
+.navItem {
+  align-items: center;
+  gap: 12px;
+  display: flex;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.navIcon {
+  width: 24px;
+  height: 24px;
+  color: #666;
+}
+
+.navText {
+  color: #666;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.logoutSection {
+  background-color: #FFFBF7;
+  align-items: flex-start;
+  margin-top: auto;
+  padding: 32px;
+  display: flex;
+}
+
+.logoutContainer {
+  align-items: center;
+  gap: 12px;
+  display: flex;
+  cursor: pointer;
+}
+
+.logoutText {
+  color: #666;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.withdrawSection {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  padding: 32px;
+  display: flex;
+  cursor: pointer;
+}
+
+.withdrawText {
+  color: #f44336;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+}
+
+.menuItem:hover {
+  background-color: #F5F5F5;
+}
+
+.menuIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.menuLabel {
+  font-size: 16px;
+  color: #333333;
+}
+
+.withdraw .menuLabel {
+  color: #FF0000;
+}
+
+.header {
+  padding: 20px;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #181725;
+}
+
+.content {
+  padding: 16px;
+}
+
+.menuList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menuItem.warning {
+  color: #FF6F00;
+}
+
+.menuItem.danger {
+  color: #FF0000;
+}
+
+.menuItem.warning:hover {
+  background-color: #FFF5E6;
+}
+
+.menuItem.danger:hover {
+  background-color: #FFF0F0;
+}
+
+.sidebarContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 32px; /* 아래 여유 */
+}

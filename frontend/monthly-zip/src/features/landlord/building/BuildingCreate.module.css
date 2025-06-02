@@ -1,0 +1,202 @@
+.mainContainer {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.contentWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 24px;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerIcon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  object-fit: contain;
+  object-position: center;
+}
+
+.headerTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+  font-family: Inter, sans-serif;
+}
+
+.addressCard {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 70px #5659921a;
+}
+
+.buildingImage {
+  width: 100%;
+  aspect-ratio: 1.2;
+}
+
+.formContainer {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.addressInputContainer {
+  background-color: #fff;
+  border: 1px solid #dadada;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  cursor: pointer;
+}
+
+.addressPlaceholder {
+  color: #999;
+  font-size: 16px;
+  margin: 0;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.searchIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.buildingNameLabel {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+}
+
+.buildingNameInput {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #dadada;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #000;
+}
+
+.buildingNameInput::placeholder {
+  color: #999;
+}
+
+.actionButtonsContainer {
+  display: flex;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 480px;
+}
+
+.cancelButton {
+  flex: 1;
+  height: 60px;
+  background-color: #D9D9D9;
+  color: #000;
+  border: none;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.completeButton {
+  flex: 1;
+  height: 60px;
+  background-color: #FF9B57;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.completeButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #FF9B57;
+}
+
+@media screen and (max-width: 480px) {
+  .contentWrapper {
+    padding: 50px 30px;
+    padding-bottom: calc(50px + 60px);
+  }
+
+  .headerContainer {
+    margin-bottom: 24px;
+  }
+
+  .headerIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .headerTitle {
+    font-size: 24px;
+  }
+
+  .formContainer {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .buildingNameLabel {
+    font-size: 18px;
+  }
+
+  .addressPlaceholder,
+  .buildingNameInput {
+    font-size: 15px;
+  }
+
+  .cancelButton,
+  .completeButton {
+    height: 60px;
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .mainContainer {
+    border-radius: 0;
+  }
+
+  .contentWrapper {
+    padding-bottom: calc(40px + 60px);
+  }
+
+  .addressCard {
+    border-radius: 8px;
+  }
+}
+  

@@ -15,7 +15,7 @@
       sans-serif;
     display: flex;
     overflow: hidden;
-    min-height: 700px;   /* 일단 700px로 잡았음 */
+    min-height: 100vh;
   }
   
   .header {
@@ -115,7 +115,7 @@
   
   .paymentPeriod {
     color: #343434;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     margin: 0;
   }
@@ -126,7 +126,7 @@
     align-items: stretch;
     gap: 24px;
     margin-top: 16px;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1;
     display: flex;
   }
@@ -136,11 +136,18 @@
     font-weight: 500;
   }
   
-  .statusPaid {
+  .statusUnPaid {
     color: #ff4267;
     font-weight: 600;
+    font-size: 16px;
   }
   
+  .statusPaid {
+    color: #53B175;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
   .paymentInfo {
     white-space: nowrap;
     flex-direction: column;
@@ -172,6 +179,7 @@
   .amountValue {
     color: #3629b7;
     font-weight: 600;
+    font-size: 16px;
   }
   
   .link {
@@ -183,3 +191,31 @@
     cursor: pointer;
   }
   
+  /* PaymentList.module.css */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pageButton,
+.pageNumber {
+  padding: 6px 12px;
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.activePage {
+  background-color: #4a90e2;
+  color: white;
+  font-weight: bold;
+}
+
+.pageButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

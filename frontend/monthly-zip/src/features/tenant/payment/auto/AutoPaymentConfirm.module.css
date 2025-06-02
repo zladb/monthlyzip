@@ -1,0 +1,212 @@
+.container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 480px;
+    padding-top: 68px;
+    overflow: hidden;
+    min-height: 100vh;
+    justify-self: center;
+    font-family:
+    Poppins,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  }
+  
+  .contentWrapper {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-left: 25px;
+    padding-right: 25px;
+    font-family:
+      Poppins,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    margin-top: 30px;
+  }
+  .headerContainer {
+    align-items: center;
+    gap: 12px;
+    display: flex;
+    padding-bottom: 20px;
+    padding-left: 30px;
+  }
+  .titleIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    flex-shrink: 0;
+    width: 28px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  .title {
+    color: #000;
+    font-family: Inter;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .accountNumber {
+    color: #5f6368;
+    margin-top: 15px;
+    line-height: 1;
+  }
+  
+  .recipientName {
+    color: #343434;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  
+  .transferAmount {
+    color: #343434;
+    text-align: center;
+    margin-top: 8px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 28px;
+  }
+  
+  .regularWeight {
+    font-weight: 500;
+  }
+  
+  .divider {
+    border: 1px solid #dadada;
+    flex-shrink: 0;
+    align-self: start;
+    width: 100%;
+    height: 1px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .accountInfoRow {
+    align-items: stretch;
+    gap: 29px;
+    width: 100%;
+    max-width: 287px;
+    margin-top: 15px;
+    line-height: 1;
+    display: flex;
+  }
+  
+  .accountInfoLabel {
+    color: #979797;
+  }
+  
+  .accountInfoValue {
+    color: #343434;
+    text-align: right;
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 188px;
+  }
+  
+  .scheduleContainer {
+    align-items: stretch;
+    gap: 40px 43px;
+    width: 100%;
+    max-width: 287px;
+    margin-top: 19px;
+    line-height: 1;
+    display: flex;
+  }
+  
+  .scheduleLabels {
+    color: #979797;
+    flex-direction: column;
+    flex: 1;
+    align-items: start;
+    display: flex;
+  }
+  
+  .periodLabel {
+    margin-top: 21px;
+  }
+  
+  .recipientDisplayLabel {
+    align-self: stretch;
+    margin-top: 22px;
+  }
+  
+  .myDisplayLabel {
+    margin-top: 23px;
+  }
+  
+  .scheduleValues {
+    color: #343434;
+    text-align: right;
+    flex-direction: column;
+    flex: 1;
+    align-items: stretch;
+    display: flex;
+  }
+  
+  .frequencyValue {
+    align-self: end;
+  }
+  
+  .periodValue {
+    margin-top: 17px;
+    white-space: nowrap;
+  }
+  
+  .displayNamesContainer {
+    white-space: nowrap;
+    flex-direction: column;
+    align-items: end;
+    margin-top: 24px;
+    padding-left: 26px;
+    display: flex;
+  }
+  
+  .myDisplayValue {
+    margin-top: 22px;
+  }
+  
+  .bottomDivider {
+    border: 1px solid #dadada;
+    flex-shrink: 0;
+    align-self: start;
+    width: 100%;
+    height: 1px;
+    margin-top: 23px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .nextButton {
+    color: #000;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #fcbe32;
+    width: 100%;
+    margin-top: 81px;
+    padding: 23px 70px;
+    font-family:
+      Montserrat,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
+  

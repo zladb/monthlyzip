@@ -1,0 +1,302 @@
+.container {
+    background-color: #fff;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 480px;
+    min-height: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 71px;
+    display: flex;
+    overflow: hidden;
+    min-height: 100vh;
+  }
+  
+  .mainContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    flex-grow: 1; /* 컨텐츠가 부족할 경우 footer를 아래로 밀어줌 */
+    font-family:
+      Inter,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-weight: 700;
+  }
+  .header {
+    position: relative;
+    width: 100%;
+    z-index: 10;
+  }
+  
+  .backButton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .backButtonIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    z-index: 10;
+    width: 28px;
+    margin-left: 22px;
+  }
+  .imageSection {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 346px;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .iconGroup {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 40px;
+  }
+  .iconButton {
+    border: none;
+    background: none;
+  }
+  .dot {
+    opacity: 0.1;
+    background-color: #1f2024;
+    border-radius: 24px;
+    flex-shrink: 0;
+    align-self: stretch;
+    width: 8px;
+    height: 8px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+  }
+  
+  .activeDot {
+    background-color: #006ffd;
+    border-radius: 24px;
+    flex-shrink: 0;
+    align-self: stretch;
+    width: 8px;
+    height: 8px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+  }
+  .contentContainer {
+    color: #000;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 13px;
+    display: flex;
+  }
+  
+  .divider {
+    border: 1px solid #e2e2e2;
+    flex-shrink: 0;
+    width: 100%;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .title {
+    align-self: start;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 26px;
+    font-weight: 700;
+  }
+  
+  .requestType {
+    color: #07f;
+    text-align: right;
+    align-self: start;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .description {
+    align-self: start;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  .dateText {
+    color: black;
+    font-weight: 100;
+  }
+  .divider:last-of-type {
+    margin-top: 14px;
+  }
+  .statusContainer {
+    color: #e2e2e2;
+    text-align: center;
+    justify-content: space-between;
+    align-items: stretch;
+    align-self: center;
+    display: inline-flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 84px;
+    margin-left: 11px;
+    margin-right: 12px;
+    font-family:
+      Open Sans,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    display: flex;
+    flex-direction: column; /* 수직 정렬 */
+  }
+  .progressRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto; /* 가운데 정렬 */
+    gap: 0; /* 선과 점 사이 간격 없이 */
+  }
+  
+  .labelRow {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto; /* 가운데 정렬 */
+    width: 100%;
+    margin-top: 8px;
+  }
+  
+  .statusItem {
+    flex-direction: column;
+    align-items: stretch;
+    display: flex;
+  }
+  
+  .activeStatusDot {
+    background-color: #ec221f;
+    border-radius: 50%;
+    flex-shrink: 0;
+    align-self: center;
+    width: 15px;
+    height: 15px;
+    display: flex;
+  }
+  
+  .inactiveStatusDot {
+    background-color: #e2e2e2;
+    border-radius: 50%;
+    flex-shrink: 0;
+    align-self: center;
+    width: 15px;
+    height: 15px;
+    display: flex;
+  }
+  
+  .activeStatusText {
+    color: #ec221f; /* 빨간색 */
+    margin-top: 8px;
+    font-weight: bold; /* 강조 */
+  }
+  
+  .statusText {
+    color: #e2e2e2; /* 기본 회색 */
+    margin-top: 8px;
+  }
+  .activeStatusLine,
+  .inactiveStatusLine {
+    height: 3px;
+    margin: 0;
+    flex: 1; /* 점과 점 사이 공간을 자동으로 채움 */
+  }
+  
+  .activeStatusLine {
+    background-color: #ec221f;
+  }
+  
+  .inactiveStatusLine {
+    background-color: #e2e2e2;
+  }
+
+  .footerStatusText {
+    align-self: center;
+  }
+  
+  .homeIndicator {
+    background-color: #000;
+    border-radius: 100px;
+    flex-shrink: 0;
+    height: 5px;
+    margin-top: 15px;
+    display: flex;
+  }
+  
+.activeButton {
+  color: black;
+  white-space: nowrap;
+  background-color: #fcbe32;
+  align-self: stretch;
+  width: 100%;
+  margin-top: 100px;
+  padding: 23px 70px;
+  font-family:
+    Montserrat,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.disabledButton {
+  color: #979797;
+  white-space: nowrap;
+  background-color: #d8d8d8;
+  align-self: stretch;
+  width: 100%;
+  margin-top: 100px;
+  padding: 23px 70px;
+  font-family:
+    Montserrat,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}

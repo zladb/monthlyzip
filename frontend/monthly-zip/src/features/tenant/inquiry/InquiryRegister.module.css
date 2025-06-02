@@ -1,0 +1,211 @@
+.container {
+    background-color: #fff;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 68px;
+    overflow: hidden;
+    justify-content: center;
+    font-family:
+    Poppins,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+    min-height: 100vh;
+  }
+  
+  .contentWrapper {
+    color: #000;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+    font-weight: 500;
+    display: flex;
+  }
+  
+  .header {
+    align-items: stretch;
+    gap: 10px;
+    font-size: 28px;
+    font-weight: 700;
+    display: flex;
+    padding-left: 24px;
+  }
+  
+  .icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    flex-shrink: 0;
+    width: 28px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .title {
+    flex-basis: auto;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .categorySection {
+    padding-left: 15px;
+    padding-right: 15px;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+ }
+  .categoryNav,
+  .secondaryCategoryNav {
+    color: #767676;
+    text-align: center;
+    align-items: stretch;
+    gap: 10px;
+    font-weight: 600;
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+  .categoryNav {
+    margin-top: 45px;
+  }
+  .secondaryCategoryNav {
+    margin-top: 20px;
+  }
+  .categoryButtonWrapper {
+    flex: 1;
+  }
+  .categoryButton {
+    background-color: #fff;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    padding: 12px 0;
+    font-size: 16px;
+    width: 90px; /* 기본값: 작은 화면 */
+    min-width: 80px;
+    text-align: center;
+  }
+  
+  /* 화면 너비가 375px 이상일 때 */
+  @media (min-width: 375px) {
+    .categoryButton {
+      width: 110px;
+    }
+  }
+  
+  /* 화면 너비가 480px 이상일 때 */
+  @media (min-width: 480px) {
+    .categoryButton {
+      width: 120px;
+    }
+  }
+  
+  /* 카테고리 선택된 색깔 */
+  .selected {
+    background-color: #FCBE32;
+    color: black;
+    font-weight: bold;
+  }
+
+  .inputLabel {
+    text-align: center;
+    margin-top: 39px;
+    font-size: 20px;
+    margin-left: 20px;
+  }
+  
+  .inputField {
+    background-color: #fff;
+    border: 1px solid #979797ba;
+    flex-shrink: 0;
+    width: 90%;
+    height: 42px;
+    margin-top: 14px;
+    margin-left: 15px;
+    display: flex;
+    font-size: 18px;
+  }
+  
+  .textareaField {
+    background-color: #fff;
+    border: 1px solid #979797ba;
+    font-size: 18px;
+    flex-shrink: 0;
+    width: 90%;
+    height: 178px;
+    margin-top: 10px;
+    margin-left: 15px;
+    display: flex;
+  }
+  
+  .uploadLabel {
+    text-align: center;
+    margin-top: 16px;
+    margin-left: 17px;
+    font-size: 20px;
+  }
+  
+  .uploadArea {
+    color: #000;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #dadadad4;
+    margin-top: 14px;
+    margin-left: 15px;
+    padding: 29px 39px 29px;
+    font-size: 36px;
+    font-weight: 70;
+    border: none;
+  }
+  
+  .footer {
+    white-space: nowrap;
+    align-items: stretch;
+    width: 100%;
+    font-family: Montserrat, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    display: flex;
+  }
+  
+  .cancelButton {
+    white-space: nowrap;
+    color: black;
+    background-color: #d8d8d8;
+    text-align: center;
+    width: 100%;
+    margin-top: 117px;
+    padding: 23px 70px;
+    font-family:
+      Montserrat,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .submitButton {
+    white-space: nowrap;
+    text-align: center;
+    color: black;
+    background-color: #fcbe32;
+    width: 100%;
+    margin-top: 117px;
+    padding: 23px 70px;
+    font-family:
+      Montserrat,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+  }
+  
