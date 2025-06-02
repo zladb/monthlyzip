@@ -3,14 +3,6 @@ package com.monthlyzip.domain.payment.service;
 import com.monthlyzip.domain.contract.model.entity.Contract;
 import com.monthlyzip.domain.contract.repository.ContractRepository;
 import com.monthlyzip.domain.payment.model.dto.request.PaymentCreateRequestDto;
-<<<<<<< HEAD
-import com.monthlyzip.domain.payment.model.dto.response.PaymentCreateResponseDto;
-import com.monthlyzip.domain.payment.model.dto.response.PaymentResponseDto;
-import com.monthlyzip.domain.payment.model.entity.PaymentEntity;
-import com.monthlyzip.domain.payment.repository.PaymentRepository;
-import com.monthlyzip.global.common.exception.exception.BusinessException;
-import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
-=======
 import com.monthlyzip.domain.payment.model.dto.response.DepositDeductionResponseDto;
 import com.monthlyzip.domain.payment.model.dto.response.PaymentCreateResponseDto;
 import com.monthlyzip.domain.payment.model.dto.response.PaymentResponseDto;
@@ -20,16 +12,12 @@ import com.monthlyzip.domain.payment.repository.PaymentRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
 import jakarta.transaction.Transactional;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-=======
 import java.time.LocalDate;
 import java.time.LocalDateTime;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import java.util.List;
 
 @Slf4j
@@ -46,20 +34,12 @@ public class PaymentService {
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.CONTRACT_NOT_FOUND));
 
         // 2. 계약이 이 사용자(memberId)의 것인지 확인
-<<<<<<< HEAD
-        if (!contract.getLandlordId().equals(memberId)) {
-=======
         if (!(contract.getLandlordId().equals(memberId) || contract.getTenantId().equals(memberId))) {
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
             throw new BusinessException(ApiResponseStatus.FORBIDDEN);  // 또는 적절한 에러코드
         }
 
         // 3. 납부 정보 생성
-<<<<<<< HEAD
-        PaymentEntity payment = PaymentEntity.builder()
-=======
         Payment payment = Payment.builder()
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
                 .contract(contract)
                 .paymentDate(dto.getPaymentDate())
                 .dueDate(dto.getDueDate())
@@ -69,21 +49,13 @@ public class PaymentService {
                 .build();
 
         // 4. 저장
-<<<<<<< HEAD
-        PaymentEntity saved = paymentRepository.save(payment);
-=======
         Payment saved = paymentRepository.save(payment);
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
         // 5. ID 반환
         return new PaymentCreateResponseDto(saved.getId());
     }
     public List<PaymentResponseDto> getPayments(Long memberId) {
-<<<<<<< HEAD
-        List<PaymentEntity> payments = paymentRepository.findAll();
-=======
         List<Payment> payments = paymentRepository.findAll();
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
         // 임차인 id 일때 납부내역 조회
         return payments.stream()
@@ -93,11 +65,7 @@ public class PaymentService {
     }
 
     public PaymentResponseDto getPaymentById(Long memberId, Long paymentId) {
-<<<<<<< HEAD
-        PaymentEntity payment = paymentRepository.findById(paymentId)
-=======
         Payment payment = paymentRepository.findById(paymentId)
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.PAYMENT_NOT_FOUND));
 
         // 계약 주인(memberId)이 맞는지 검증
@@ -107,8 +75,6 @@ public class PaymentService {
 
         return PaymentResponseDto.from(payment);
     }
-<<<<<<< HEAD
-=======
 
     public Long getCurrentMonthIncome(Long landlordId) {
         LocalDate now = LocalDate.now();
@@ -171,5 +137,4 @@ public class PaymentService {
     }
 
 
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 }

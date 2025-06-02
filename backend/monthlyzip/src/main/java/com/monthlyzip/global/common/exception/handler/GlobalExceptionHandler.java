@@ -1,10 +1,7 @@
 package com.monthlyzip.global.common.exception.handler;
 
 import com.monthlyzip.global.common.exception.exception.BusinessException;
-<<<<<<< HEAD
-=======
 import com.monthlyzip.global.common.exception.exception.FileStorageException;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import com.monthlyzip.global.common.model.dto.ApiResponse;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -51,8 +48,6 @@ public class GlobalExceptionHandler {
                 .status(ApiResponseStatus.INVALID_JSON.getHttpStatus())
                 .body(ApiResponse.fail(ApiResponseStatus.INVALID_JSON));
     }
-<<<<<<< HEAD
-=======
 
     // 파일 예외 처리
     @ExceptionHandler(FileStorageException.class)
@@ -62,5 +57,4 @@ public class GlobalExceptionHandler {
                 .status(e.getStatus().getHttpStatus())
                 .body(ApiResponse.fail(e.getStatus()));
     }
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 }

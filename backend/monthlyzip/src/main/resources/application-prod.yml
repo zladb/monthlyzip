@@ -10,19 +10,11 @@ spring:
 
   jpa:
     hibernate:
-<<<<<<< HEAD
-      ddl-auto: create
-=======
       ddl-auto: update
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
 server:
   port: 8081
 
 app:
-<<<<<<< HEAD
-  baseUrl: https://j12d109.p.ssafy.io/
-=======
   baseUrl: https://j12d109.p.ssafy.io/
   imageDir: /images/  # 스프링부트 컨테이너 내부 경로
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c

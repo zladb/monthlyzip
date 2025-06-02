@@ -1,20 +1,14 @@
 package com.monthlyzip.domain.room.model.entity;
 
 import com.monthlyzip.domain.building.model.entity.Building;
-<<<<<<< HEAD
-=======
 import com.monthlyzip.domain.contract.model.entity.Contract;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-<<<<<<< HEAD
-=======
 import java.util.List;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
 @Getter
 @Setter
@@ -46,12 +40,9 @@ public class Room {
     @Column(name = "is_occupied", nullable = false)
     private Boolean isOccupied = false;
 
-<<<<<<< HEAD
-=======
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
     private List<Contract> contracts;
 
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

@@ -1,17 +1,5 @@
 package com.monthlyzip.domain.auth.service;
 
-<<<<<<< HEAD
-import com.monthlyzip.domain.auth.entity.MemberEntity;
-import com.monthlyzip.domain.auth.model.dto.JoinDto;
-import com.monthlyzip.domain.auth.model.enums.MemberType;
-import com.monthlyzip.domain.auth.repository.UserRepository;
-import com.monthlyzip.global.common.exception.exception.BusinessException;
-import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
-=======
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.monthlyzip.domain.auth.dto.request.CreateAccountRequest;
 import com.monthlyzip.domain.auth.dto.request.JoinDto;
@@ -39,15 +27,10 @@ import java.util.Map;
 import java.util.Random;
 
 @Slf4j
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 @Service
 @RequiredArgsConstructor  // 생성자 주입 받기
 public class JoinService {
 
-<<<<<<< HEAD
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-=======
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final RestTemplate restTemplate;
@@ -64,7 +47,6 @@ public class JoinService {
     private String ACCOUNT_NO_FIXED;
     private static final String INSTITUTION_CODE = "00100";
     private static final String FINTECH_APP_NO = "001";
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
     public void joinProcess(JoinDto joinDto) {
 
@@ -77,11 +59,7 @@ public class JoinService {
 
         // ******* ******* ******* 유효성 검사
         // 이메일 중복 검사
-<<<<<<< HEAD
-        if (userRepository.existsByEmail(email)) {
-=======
         if (memberRepository.existsByEmail(email)) {
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
             throw new BusinessException(ApiResponseStatus.EMAIL_DUPLICATE);
         }
 
@@ -95,11 +73,6 @@ public class JoinService {
             throw new BusinessException(ApiResponseStatus.PASSWORD_INVALID);
         }
         // ******* ******* *******
-<<<<<<< HEAD
-
-        // 데이터 저장 부분
-        MemberEntity data = new MemberEntity();
-=======
         // ******* 금융 api 호출 *******
         // ******* ******* *******
 
@@ -214,24 +187,16 @@ public class JoinService {
 
         // 데이터 저장 부분
         Member data = new Member();
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         data.setEmail(email);
         data.setPassword(bCryptPasswordEncoder.encode(password));
         data.setName(name);
         data.setPhoneNumber(phoneNumber);
         data.setMemberType(memberType); // Enum 저장
-<<<<<<< HEAD
-
-        System.out.println("JoinService : " + "회원가입 성공 : email = " + email + ", name = " + name);
-
-        userRepository.save(data);
-=======
         data.setUserApiKey(userKey);
         data.setAccountNo(accountNo);
 
         System.out.println("JoinService : " + "회원가입 성공 : email = " + email + ", name = " + name);
 
         memberRepository.save(data);
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
     }
 }

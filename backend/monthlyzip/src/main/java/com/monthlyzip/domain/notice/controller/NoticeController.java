@@ -1,9 +1,6 @@
 package com.monthlyzip.domain.notice.controller;
 
-<<<<<<< HEAD
-=======
 import com.monthlyzip.domain.auth.dto.CustomUserDetails;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import com.monthlyzip.domain.notice.model.dto.request.NoticeRequestDto;
 import com.monthlyzip.domain.notice.model.dto.request.NoticeUpdateRequestDto;
 import com.monthlyzip.domain.notice.model.dto.response.NoticeResponseDto;
@@ -12,10 +9,7 @@ import com.monthlyzip.global.common.model.dto.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-<<<<<<< HEAD
-=======
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,23 +25,6 @@ public class NoticeController {
     // ✅ 공지사항 등록
     @PostMapping
     public ApiResponse<NoticeResponseDto> createNotice(
-<<<<<<< HEAD
-            @RequestBody @Valid NoticeRequestDto requestDto
-    ) {
-        log.debug("공지사항 등록 요청");
-        return ApiResponse.success(noticeService.createNotice(requestDto));
-    }
-
-    // ✅ 공지사항 목록 조회 (빌딩 ID 기준)
-    @GetMapping
-    public ApiResponse<List<NoticeResponseDto>> getNoticesByBuilding(
-            @RequestParam("buildingId") Long buildingId
-    ) {
-        log.debug("공지사항 목록 조회 요청");
-        return ApiResponse.success(noticeService.getNoticesByBuilding(buildingId));
-    }
-
-=======
             @RequestBody @Valid NoticeRequestDto requestDto,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
@@ -67,7 +44,6 @@ public class NoticeController {
     }
 
 
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
     // ✅ 공지사항 상세 조회
     @GetMapping("/{noticeId}")
     public ApiResponse<NoticeResponseDto> getNoticeById(

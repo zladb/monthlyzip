@@ -1,11 +1,7 @@
 package com.monthlyzip.domain.notification.model.entity;
 
 import com.monthlyzip.domain.notification.model.type.NotificationType;
-<<<<<<< HEAD
-import com.monthlyzip.member.model.entity.Member;
-=======
 import com.monthlyzip.domain.member.entity.Member;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

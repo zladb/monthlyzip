@@ -9,13 +9,8 @@ import com.monthlyzip.domain.notification.model.type.NotificationType;
 import com.monthlyzip.domain.notification.repository.NotificationRepository;
 import com.monthlyzip.global.common.exception.exception.BusinessException;
 import com.monthlyzip.global.common.model.dto.ApiResponseStatus;
-<<<<<<< HEAD
-import com.monthlyzip.member.model.entity.Member;
-import com.monthlyzip.member.repository.MemberRepository;
-=======
 import com.monthlyzip.domain.member.entity.Member;
 import com.monthlyzip.domain.member.repository.MemberRepository;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

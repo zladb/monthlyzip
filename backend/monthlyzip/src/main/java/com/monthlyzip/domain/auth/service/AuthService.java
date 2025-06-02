@@ -35,10 +35,7 @@ public class AuthService {
 
         // accessToken 블랙리스트 등록
         long remainingMillis = jwtUtil.getExpiration(accessToken).getTime() - System.currentTimeMillis();
-<<<<<<< HEAD
-=======
         if (remainingMillis < 1000) remainingMillis = 1000;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         tokenService.blacklistAccessToken(accessToken, remainingMillis);
     }
 
@@ -70,11 +67,7 @@ public class AuthService {
 
         // 새 accesstoken 발급
         String role = "ROLE_USER";
-<<<<<<< HEAD
-        String userType = jwtUtil.getUserType(refreshToken);
-=======
         String userType = jwtUtil.getMemberType(refreshToken);
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         String newAccessToken = jwtUtil.createAccessToken(memberId, role, userType, accessTokenValidity);
 
         Map<String, String> result = new HashMap<>();

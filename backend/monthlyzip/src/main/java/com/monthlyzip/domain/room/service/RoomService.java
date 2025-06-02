@@ -2,16 +2,10 @@ package com.monthlyzip.domain.room.service;
 
 import com.monthlyzip.domain.building.model.entity.Building;
 import com.monthlyzip.domain.building.repository.BuildingRepository;
-<<<<<<< HEAD
-import com.monthlyzip.domain.room.model.dto.request.RoomBatchRequestDto;
-import com.monthlyzip.domain.room.model.dto.request.RoomRequestDto;
-import com.monthlyzip.domain.room.model.dto.request.RoomUpdateRequestDto;
-=======
 import com.monthlyzip.domain.contract.model.entity.Contract;
 import com.monthlyzip.domain.room.model.dto.request.RoomBatchRequestDto;
 import com.monthlyzip.domain.room.model.dto.request.RoomUpdateRequestDto;
 import com.monthlyzip.domain.room.model.dto.response.RoomDetailResponseDto;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import com.monthlyzip.domain.room.model.dto.response.RoomResponseDto;
 import com.monthlyzip.domain.room.model.entity.Room;
 import com.monthlyzip.domain.room.repository.RoomRepository;
@@ -22,14 +16,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-import java.util.List;
-=======
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 import java.util.stream.Collectors;
 
 @Service
@@ -40,36 +30,23 @@ public class RoomService {
     private final BuildingRepository buildingRepository;
 
     @Transactional
-<<<<<<< HEAD
-    public List<RoomResponseDto> createRooms(RoomBatchRequestDto batchRequestDto) {
-        Long propertyId = batchRequestDto.getPropertyId();
-        List<RoomRequestDto> roomDtos = batchRequestDto.getRooms();
-=======
     public List<RoomResponseDto> createRooms(Long memberId, RoomBatchRequestDto batchRequestDto) {
         Long propertyId = batchRequestDto.getPropertyId();
         List<com.monthlyzip.domain.room.model.dto.request.RoomRequestDto> roomDtos = batchRequestDto.getRooms();
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 
         Building building = buildingRepository.findById(propertyId)
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.BUILDING_NOT_FOUND));
 
-<<<<<<< HEAD
-=======
         if (!building.getOwner().getId().equals(memberId)) {
             throw new BusinessException(ApiResponseStatus.UNAUTHORIZED);
         }
 
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         List<Room> rooms = roomDtos.stream()
                 .map(dto -> Room.builder()
                         .building(building)
                         .detailAddress(dto.getDetailAddress())
                         .area(dto.getArea())
-<<<<<<< HEAD
-                        .isOccupied(Boolean.TRUE.equals(dto.getIsOccupied())) // null → false
-=======
                         .isOccupied(Boolean.TRUE.equals(dto.getIsOccupied()))
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
                         .build())
                 .collect(Collectors.toList());
 
@@ -84,26 +61,6 @@ public class RoomService {
                 .collect(Collectors.toList());
     }
 
-<<<<<<< HEAD
-    public List<RoomResponseDto> getRooms(Long propertyId) {
-        List<Room> rooms = roomRepository.findByBuildingId(propertyId);
-        return rooms.stream()
-                .map(RoomResponseDto::of)
-                .collect(Collectors.toList());
-    }
-
-    public RoomResponseDto getRoomById(Long roomId) {
-        Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new BusinessException(ApiResponseStatus.ROOM_NOT_FOUND));
-        return RoomResponseDto.of(room);
-    }
-
-    @Transactional
-    public RoomResponseDto updateRoom(Long roomId, RoomUpdateRequestDto dto) {
-        Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new BusinessException(ApiResponseStatus.ROOM_NOT_FOUND));
-
-=======
     public List<RoomDetailResponseDto> getRooms(Long memberId, Long propertyId, Boolean isOccupied) {
         Building building = buildingRepository.findById(propertyId)
                 .orElseThrow(() -> new BusinessException(ApiResponseStatus.BUILDING_NOT_FOUND));
@@ -160,21 +117,10 @@ public class RoomService {
             throw new BusinessException(ApiResponseStatus.UNAUTHORIZED);
         }
 
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         if (dto.getDetailAddress() != null) room.setDetailAddress(dto.getDetailAddress());
         if (dto.getArea() != null) room.setArea(dto.getArea());
         if (dto.getIsOccupied() != null) room.setIsOccupied(dto.getIsOccupied());
 
-<<<<<<< HEAD
-        return RoomResponseDto.of(room);
-    }
-
-    @Transactional
-    public void deleteRoom(Long roomId) {
-        if (!roomRepository.existsById(roomId)) {
-            throw new BusinessException(ApiResponseStatus.ROOM_NOT_FOUND);
-        }
-=======
         return RoomDetailResponseDto.of(room);
     }
 
@@ -187,7 +133,6 @@ public class RoomService {
             throw new BusinessException(ApiResponseStatus.UNAUTHORIZED);
         }
 
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
         roomRepository.deleteById(roomId);
     }
 }

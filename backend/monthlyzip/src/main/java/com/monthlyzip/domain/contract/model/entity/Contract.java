@@ -63,11 +63,8 @@ public class Contract {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-<<<<<<< HEAD
-=======
 
     @Column(name = "remaining_deposit")
     private Long remainingDeposit;
 
->>>>>>> bfc973d2df63ff798c3ade1e6236d752808e745c
 }
